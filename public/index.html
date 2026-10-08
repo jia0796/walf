@@ -15,16 +15,16 @@
         <div class="overline">ECLIPSE · MODERATOR</div>
         <p id="stepLabel" class="step-label"></p>
         <div class="script-box"><p class="caption">主持字幕</p><h2 id="subtitle" aria-live="polite"></h2></div>
-        <div class="judge-box"><p class="caption">法官操作 · 不需念出</p><p id="hint"></p><p id="selection"></p><div id="actions" class="actions"></div></div>
+        <div class="judge-box"><p class="caption">法官操作 · 不需念出</p><p id="hint"></p><div id="gestureResult"></div><p id="selection"></p><div id="actions" class="actions"></div></div>
         <nav aria-label="主持流程"><button id="back">← 上一步</button><button id="next" class="primary">下一步 →</button></nav>
         <p id="saveStatus" class="small"></p>
       </section>
       <aside id="right" class="seats" aria-label="7至12號座位"></aside>
     </div>
     <footer><button id="timerOpen" class="quiet">◷ 發言計時器</button><span>黑狼王 ×1 · 狼人 ×3 · 神職 ×4 · 平民 ×4</span></footer>
-    <details><summary>本局紀錄</summary><pre id="records"></pre></details>
   </main>
   <dialog id="timerDialog"><div class="dialog-head"><h2>發言計時器</h2><button id="timerClose" aria-label="關閉計時器">×</button></div><p class="small">時間到由法官按下一步，流程不會自動前進。</p><label>發言秒數 <input id="duration" type="number" min="10" max="3600" step="10" value="60"></label><output id="countdown" aria-live="off">01:00</output><div class="actions"><button id="timerStart" class="primary">開始</button><button id="timerPause">暫停</button><button id="timerReset">重設</button></div><p id="timerNotice" role="status"></p></dialog>
   <dialog id="resetDialog"><h2>重新開局？</h2><p>目前身分、操作與紀錄會清除。</p><div class="actions"><button id="resetCancel">繼續本局</button><button id="resetConfirm" class="primary">確認重新開局</button></div></dialog>
+  <dialog id="drawDialog" class="draw-dialog" aria-labelledby="drawTitle"><h2 id="drawTitle">抽發言順序</h2><p id="drawPhase" role="status"></p><div id="drawSpinner" class="draw-spinner" aria-hidden="true">✦</div><p id="drawResult" class="draw-result"></p><p id="drawOrder" class="small"></p><button id="drawSkip">點一下立即顯示結果</button><button id="drawClose" class="primary">完成</button></dialog>
   <script type="module" src="app.js"></script>
 </body></html>
