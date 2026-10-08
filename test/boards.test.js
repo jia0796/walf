@@ -8,7 +8,7 @@ const seat=(s,r)=>s.players.find(p=>p.role===r).id;
 function drain(s,stop){for(let i=0;i<80&&!stop.includes(s.step);i++){if(s.step==='skill'||s.step==='badgeTransfer')choose(s,'skip');go(s);}assert.ok(stop.includes(s.step));}
 test('boards share role data and exactly count 10/12 players',()=>{for(const b of Object.values(BOARDS)){assert.equal(Object.values(b.roles).reduce((a,c)=>a+c,0),b.playerCount);for(const r of Object.keys(b.roles))assert.ok(ROLE_DATA[r]);}});
 test('10-player first night has no hunter, correct wolf count, inactive seats locked, election before dawn',()=>{
- const s=createGame('10');go(s);go(s);selectSeat(s,1);go(s);choose(s,'skip');go(s);go(s);[2,3,4].forEach(id=>selectSeat(s,id));go(s);choose(s,'skip');go(s);selectSeat(s,5);go(s);go(s);choose(s,'skip');go(s);go(s);selectSeat(s,6);go(s);selectSeat(s,7);go(s);go(s);
+ const s=createGame('10');go(s);go(s);selectSeat(s,1);go(s);choose(s,'skip');go(s);go(s);[2,3,4].forEach(id=>selectSeat(s,id));go(s);choose(s,'skip');go(s);selectSeat(s,5);go(s);go(s);choose(s,'skip');go(s);go(s);selectSeat(s,6);go(s);selectSeat(s,7);go(s);go(s);go(s);
  assert.equal(s.step,'candidates');assert.equal(s.players.filter(p=>p.role==='villager').length,4);assert.ok(!s.players.some(p=>p.role==='hunter'));for(const id of [11,12])assert.equal(selectable(s,id),false);
  choose(s,'none');go(s);assert.equal(s.step,'dawn');go(s);assert.equal(s.step,'sheriffResult');
 });
@@ -52,3 +52,4 @@ test('self-destruct cancels regular daytime flow and sheriff badge is handled be
 });
 test('10-player lottery wraps within 1..10 and skips inactive slots',()=>{const s=ready('10');s.step='dayDraw';s.deaths=[{id:10,cause:'attack'}];s.players[9].alive=false;const d=drawResult(s,()=>0);assert.equal(d.seat,1);assert.ok(d.order.every(id=>id<=10));});
 test('death events record day/context/source actor and completed win check',()=>{const s=ready();s.night=2;s.step='announcement';s.deaths=[{id:seat(s,'villager'),cause:'poison'}];go(s);const d=s.queue[0];assert.equal(d.day,2);assert.equal(d.context,'night');assert.equal(d.sourceActor,seat(s,'witch'));assert.equal(d.sourceRole,'witch');assert.equal(d.winChecked,true);assert.equal(d.winner,null);assert.equal(s.log[0].deaths[0].sourceActor,d.sourceActor);});
+test('inspection result is a separate page before seer closes eyes and supports back',()=>{const s=ready();s.step='inspect';selectSeat(s,seat(s,'wolf'));go(s);assert.equal(s.step,'inspectResult');assert.equal(subtitle(s),'');go(s);assert.equal(subtitle(s),'預言家請閉眼');previous(s);assert.equal(s.step,'inspectResult');assert.equal(s.nightAction.inspect,seat(s,'wolf'));});

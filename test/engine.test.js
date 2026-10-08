@@ -16,7 +16,7 @@ test('first-night identities are required, unique, and remaining four become vil
  assert.equal(selectSeat(s,1),false);[2,3,4,5].forEach(id=>selectSeat(s,id));
  selectSeat(s,2);assert.equal(s.players[2].role,'king');selectSeat(s,2);assert.equal(s.players[4].role,'wolf');advance(s);
  choose(s,'skip');advance(s);selectSeat(s,6);advance(s);choose(s,'skip');advance(s);choose(s,'skip');advance(s);advance(s);
- selectSeat(s,7);advance(s);selectSeat(s,9);advance(s);advance(s);selectSeat(s,8);advance(s);advance(s);advance(s);
+ selectSeat(s,7);advance(s);selectSeat(s,9);advance(s);advance(s);advance(s);selectSeat(s,8);advance(s);advance(s);advance(s);
  assert.equal(s.step,'candidates');assert.equal(s.players.filter(p=>p.role==='villager').length,4);assert.equal(s.rolesConfirmed,true);choose(s,'none');advance(s);assert.equal(s.step,'dawn');
 });
 test('skip alternatives gate magician, wolf, skill; duplicate exchange target does not count twice',()=>{

@@ -29,7 +29,7 @@ function hintText(){
  if(s==='exchange')return '點選兩名合法玩家，或選擇不交換';
  if(s==='attack')return '點選狼刀目標，或選擇空刀';
  if(s==='inspect')return '點選查驗目標';
- if(s==='seerClose')return inspection(game)?'查驗手勢':'預言家已出局';
+ if(s==='inspectResult')return inspection(game)?'查驗手勢':'預言家已出局';
  if(s==='antidote')return '原始狼刀：'+(n.attack?n.attack+'號':'空刀')+'。'+(potionBlocked(game,'antidote')||'選擇使用或不使用解藥。');
  if(s==='poison')return potionBlocked(game,'poison')||'選擇不用毒藥，或使用毒藥後點選目標';
  if(s==='gesture')return '獵人手勢：'+(n.poison&&mapTarget(game,n.poisonTarget)===game.players.find(p=>p.role==='hunter')?.id?'不可開槍（被毒）':'未被毒')+'。';
@@ -44,7 +44,7 @@ function hintText(){
  return PURE;
 }
 function renderGesture(){
- $('gestureResult').replaceChildren();const result=game.step==='seerClose'?inspection(game):'';if(!result)return;
+ $('gestureResult').replaceChildren();const result=game.step==='inspectResult'?inspection(game):'';if(!result)return;
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 32 32');svg.setAttribute('role','img');svg.setAttribute('aria-label',result==='up'?'好人手勢：讚':'狼人手勢：倒讚');svg.classList.add('thumb-icon',result);
  const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M5 14h5v14H5z M10 15l6-7V4c4 0 5 3 4 7l-1 3h6c2 0 3 2 2 4l-2 8c0 1-1 2-3 2H10z');svg.append(path);$('gestureResult').append(svg);
 }

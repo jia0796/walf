@@ -2,7 +2,7 @@
 
 - 正式網址：https://jia0796.github.io/walf/
 - Node.js 22+，執行 npm start，開啟 http://localhost:5173 。無套件依賴。
-- npm test：43 組規則、板子及 PWA 回歸測試；另有手機／平板實際瀏覽器檢查。
+- npm test：44 組規則、板子及 PWA 回歸測試；另有手機／平板實際瀏覽器檢查。
 - README.md 是最新主持與遊戲規格。未定稿字幕不擴充，操作提示不混入字幕。
 - public/data.js：角色名稱、分類、陣營、圖鑑、技能特性；10／12人板子的配置、夜間順序与可調規則。
 - public/engine.js：流程、死亡、完整回退、抽籤、規則及自爆；public/app.js：畫面、設定、手勢、動畫及計時器。

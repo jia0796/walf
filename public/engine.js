@@ -242,8 +242,8 @@ function prepareDawn(s){
   if(!s.rolesConfirmed){if(!Object.entries(boardOf(s).roles).filter(([r])=>r!=='villager').every(([r,c])=>s.players.filter(p=>p.role===r).length===c))return false;s.players.filter(p=>p.active&&!p.role).forEach(p=>p.role='villager');s.rolesConfirmed=true;}
   s.deaths=nightDeaths(s).sort((a,b)=>a.id-b.id);return true;
 }
-function nightSteps(s){const parts={magician:['magician','exchange','magicianClose'],wolves:['wolves','attack'],witch:['witch','antidote','poison','witchClose'],seer:['seer','inspect','seerClose'],hunter:['hunter','gesture','hunterClose']};return ['dark',...boardOf(s).nightOrder.flatMap(r=>parts[r]),'dawn'];}
-export function phaseOf(s){return ['confirm','dark','magician','exchange','magicianClose','wolves','attack','witch','antidote','poison','witchClose','seer','inspect','seerClose','hunter','gesture','hunterClose','candidates'].includes(s.step)?'夜晚':'白天';}
+function nightSteps(s){const parts={magician:['magician','exchange','magicianClose'],wolves:['wolves','attack'],witch:['witch','antidote','poison','witchClose'],seer:['seer','inspect','inspectResult','seerClose'],hunter:['hunter','gesture','hunterClose']};return ['dark',...boardOf(s).nightOrder.flatMap(r=>parts[r]),'dawn'];}
+export function phaseOf(s){return ['confirm','dark','magician','exchange','magicianClose','wolves','attack','witch','antidote','poison','witchClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose','candidates'].includes(s.step)?'夜晚':'白天';}
 const INTERRUPTIBLE=['draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote','discussion','voteIntro','exileVote','exilePK','exileRevote'];
 export function canSelfDestruct(s){return !s.winner && INTERRUPTIBLE.includes(s.step) && s.players.some(p=>p.alive&&wolves(p));}
 export function beginSelfDestruct(s){if(!canSelfDestruct(s))return false;s.history.push(snapshot(s));enter(s,'selfDestruct');return true;}
