@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#100c17"><title>月蝕·狼人殺 主持 App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header><div class="brand"><span class="moon" aria-hidden="true"></span><div><h1>月蝕<span>·</span>狼人殺</h1><p>主持 App / 十二人黑狼王・魔術師局</p></div></div><button id="reset" class="quiet">重新開局</button></header>
+  <main>
+    <div class="status"><span id="phase"></span><span>法官專用畫面</span><span id="potions"></span></div>
+    <div class="table">
+      <aside id="left" class="seats" aria-label="1至6號座位"></aside>
+      <section class="host">
+        <div class="overline">ECLIPSE · MODERATOR</div>
+        <p id="stepLabel" class="step-label"></p>
+        <div class="script-box"><p class="caption">主持字幕</p><h2 id="subtitle" aria-live="polite"></h2></div>
+        <div class="judge-box"><p class="caption">法官操作 · 不需念出</p><p id="hint"></p><p id="selection"></p><div id="actions" class="actions"></div></div>
+        <nav aria-label="主持流程"><button id="back">← 上一步</button><button id="next" class="primary">下一步 →</button></nav>
+        <p id="saveStatus" class="small"></p>
+      </section>
+      <aside id="right" class="seats" aria-label="7至12號座位"></aside>
+    </div>
+    <footer><button id="timerOpen" class="quiet">◷ 發言計時器</button><span>黑狼王 ×1 · 狼人 ×3 · 神職 ×4 · 平民 ×4</span></footer>
+    <details><summary>本局紀錄</summary><pre id="records"></pre></details>
+  </main>
+  <dialog id="timerDialog"><div class="dialog-head"><h2>發言計時器</h2><button id="timerClose" aria-label="關閉計時器">×</button></div><p class="small">時間到由法官按下一步，流程不會自動前進。</p><label>發言秒數 <input id="duration" type="number" min="10" max="3600" step="10" value="60"></label><output id="countdown" aria-live="off">01:00</output><div class="actions"><button id="timerStart" class="primary">開始</button><button id="timerPause">暫停</button><button id="timerReset">重設</button></div><p id="timerNotice" role="status"></p></dialog>
+  <dialog id="resetDialog"><h2>重新開局？</h2><p>目前身分、操作與紀錄會清除。</p><div class="actions"><button id="resetCancel">繼續本局</button><button id="resetConfirm" class="primary">確認重新開局</button></div></dialog>
+  <script type="module" src="app.js"></script>
+</body></html>
