@@ -20,7 +20,15 @@ npm test
 
 測試使用 Node 內建 test runner。也可將 `public/` 放到一般靜態網站服務；ES modules 需要透過 HTTP 開啟，請勿直接雙擊 HTML。
 
-本機伺服器只監聽 `127.0.0.1`，手機需在手機本身開啟已部署的靜態網站；本次提供程式與 PR，未部署正式網站。可用 `PORT` 環境變數更換本機連接埠。
+本機伺服器只監聽 `127.0.0.1`，手機需在手機本身開啟已部署的靜態網站。可用 `PORT` 環境變數更換本機連接埠。
+
+## 網站部署
+
+GitHub Pages 部署由 `.github/workflows/deploy.yml` 執行，發佈內容僅為 `public/`。每次更新 `main` 或初版開發分支 `feat/eclipse-host-app` 的 App／測試／部署設定時，先通過核心測試，再發佈相同版本。合併初版後可將部署來源縮限為 `main`。
+
+部署網址以 GitHub Actions「Deploy moderator app」的 `github-pages` 環境結果為準。此網站是公開靜態 App，每局身分與操作紀錄保存在各瀏覽器本機，不會送到 GitHub。不同網址／瀏覽器的本機紀錄不互通。
+
+若重建部署，至儲存庫 Settings → Pages 將 Source 設為 GitHub Actions；檢查 `github-pages` 環境是否允許目前部署分支，再執行部署工作流程。
 
 ## 目前功能
 
