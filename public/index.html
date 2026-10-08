@@ -1,30 +1,48 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#100c17"><title>月蝕·狼人殺 主持 App</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0D1424"><title>月蝕·狼人殺 主持 App</title>
+<link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
 </head>
 <body>
-  <header><div class="brand"><span class="moon" aria-hidden="true"></span><div><h1>月蝕<span>·</span>狼人殺</h1><p>主持 App / 十二人黑狼王・魔術師局</p></div></div><button id="reset" class="quiet">重新開局</button></header>
-  <main>
-    <div class="status"><span id="phase"></span><span>法官專用畫面</span><span id="potions"></span></div>
-    <div class="table">
-      <aside id="left" class="seats" aria-label="1至6號座位"></aside>
-      <section class="host">
-        <div class="overline">ECLIPSE · MODERATOR</div>
-        <p id="stepLabel" class="step-label"></p>
-        <div class="script-box"><p class="caption">主持字幕</p><h2 id="subtitle" aria-live="polite"></h2></div>
-        <div class="judge-box"><p class="caption">法官操作 · 不需念出</p><p id="hint"></p><div id="gestureResult"></div><p id="selection"></p><div id="actions" class="actions"></div></div>
-        <nav aria-label="主持流程"><button id="back">← 上一步</button><button id="next" class="primary">下一步 →</button></nav>
-        <p id="saveStatus" class="small"></p>
-      </section>
-      <aside id="right" class="seats" aria-label="7至12號座位"></aside>
-    </div>
-    <footer><button id="timerOpen" class="quiet">◷ 發言計時器</button><span>黑狼王 ×1 · 狼人 ×3 · 神職 ×4 · 平民 ×4</span></footer>
-  </main>
-  <dialog id="timerDialog"><div class="dialog-head"><h2>發言計時器</h2><button id="timerClose" aria-label="關閉計時器">×</button></div><p class="small">時間到由法官按下一步，流程不會自動前進。</p><label>發言秒數 <input id="duration" type="number" min="10" max="3600" step="10" value="60"></label><output id="countdown" aria-live="off">01:00</output><div class="actions"><button id="timerStart" class="primary">開始</button><button id="timerPause">暫停</button><button id="timerReset">重設</button></div><p id="timerNotice" role="status"></p></dialog>
-  <dialog id="resetDialog"><h2>重新開局？</h2><p>目前身分、操作與紀錄會清除。</p><div class="actions"><button id="resetCancel">繼續本局</button><button id="resetConfirm" class="primary">確認重新開局</button></div></dialog>
-  <dialog id="drawDialog" class="draw-dialog" aria-labelledby="drawTitle"><h2 id="drawTitle">抽發言順序</h2><p id="drawPhase" role="status"></p><div id="drawSpinner" class="draw-spinner" aria-hidden="true">✦</div><p id="drawResult" class="draw-result"></p><p id="drawOrder" class="small"></p><button id="drawSkip">點一下立即顯示結果</button><button id="drawClose" class="primary">完成</button></dialog>
-  <script type="module" src="app.js"></script>
+<main>
+<section id="home" class="screen welcome" hidden>
+<div class="moon" aria-hidden="true"></div><h1>月蝕・狼人殺</h1>
+<div class="menu"><button id="start" class="primary">開始主持</button><button id="encyclopediaOpen">角色圖鑑</button><button id="resume" class="quiet" hidden>繼續本局</button></div>
+</section>
+<section id="boards" class="screen" hidden><h1>選擇板子</h1><div class="menu"><button data-board="10">10人局</button><button data-board="12">12人局</button><button data-home class="quiet">返回首頁</button></div></section>
+<section id="setup" class="screen" hidden>
+<h1 id="setupTitle"></h1><div class="setup-grid"><section><h2>角色配置</h2><ul id="setupRoles"></ul><h2>夜間順序</h2><p id="setupOrder"></p></section>
+<section class="rules-form"><h2>本局規則</h2>
+<label>警長<select id="ruleSheriff"><option value="true">開</option><option value="false">關</option></select></label>
+<label>女巫自救<select id="ruleSelfRescue"><option value="false">不允許</option><option value="true">允許</option></select></label>
+<label>狼人勝利條件<select id="ruleVictory"><option value="edge">屠邊</option><option value="city">屠城</option></select></label>
+<label><span id="swallowLabel"></span><select id="ruleSwallow"><option value="false">不啟用</option><option value="true">啟用</option></select></label>
+</section></div><div class="actions"><button id="setupBack">上一步</button><button id="setupStart" class="primary">開始主持</button></div>
+</section>
+<section id="encyclopedia" class="screen" hidden><h1>角色圖鑑</h1><button data-home class="quiet">返回首頁</button><div id="roleLibrary" class="library"></div></section>
+<section id="host" hidden>
+<header class="host-top"><span id="phase"></span><span id="boardName"></span><button id="rulesOpen" class="quiet">規則</button></header>
+<div class="table">
+<aside id="left" class="seats" aria-label="1至6號座位"></aside>
+<section class="host-center">
+<p id="stepLabel" class="small"></p><div class="script-box"><p class="caption">主持字幕</p><h2 id="subtitle" aria-live="polite"></h2></div>
+<div class="judge-box"><p class="caption">法官操作</p><p id="hint"></p><div id="gestureResult"></div><p id="selection"></p><div id="actions" class="actions"></div></div>
+</section>
+<aside id="right" class="seats" aria-label="7至12號座位"></aside>
+</div>
+<footer><button id="timerOpen" class="quiet">發言計時器</button><button id="specialOpen" class="quiet" hidden>特殊事件</button><button id="reset" class="quiet">重新開局</button><button data-home class="quiet">首頁</button></footer>
+<p id="saveStatus" class="small" role="status"></p>
+<nav aria-label="主持流程"><button id="back">上一步</button><button id="next" class="primary">下一步</button></nav>
+</section>
+</main>
+<dialog id="timerDialog"><div class="dialog-head"><h2>發言計時器</h2><button id="timerClose" aria-label="關閉計時器">×</button></div>
+<label>發言秒數 <input id="duration" type="number" min="10" max="3600" step="10" value="60"></label><output id="countdown">01:00</output>
+<div class="actions"><button id="timerMinus">−10秒</button><button id="timerPlus">＋10秒</button><button id="timerStart" class="primary">開始</button><button id="timerPause">暫停</button><button id="timerReset">重設</button></div><p id="timerNotice" role="status"></p></dialog>
+<dialog id="resetDialog"><h2>準備新的一局？</h2><p>開始新局後，將取代目前的對局。</p><div class="actions"><button id="resetCancel">繼續本局</button><button id="resetConfirm" class="primary">選擇板子</button></div></dialog>
+<dialog id="drawDialog" class="draw-dialog" aria-labelledby="drawTitle"><h2 id="drawTitle">抽發言順序</h2><p id="drawPhase" role="status"></p><div id="drawSpinner" class="draw-spinner" aria-hidden="true">✦</div><p id="drawResult" class="draw-result"></p><p id="drawOrder" class="small"></p><button id="drawSkip">點一下立即顯示結果</button><button id="drawClose" class="primary">完成</button></dialog>
+<dialog id="rulesDialog"><div class="dialog-head"><h2>本局規則</h2><button id="rulesClose" aria-label="關閉規則">×</button></div><p id="gameRules"></p></dialog>
+<dialog id="eventDialog"><h2>特殊事件</h2><div class="actions"><button id="explodeOpen">狼人自爆</button><button id="eventClose">取消</button></div></dialog>
+<script type="module" src="app.js"></script>
 </body></html>
