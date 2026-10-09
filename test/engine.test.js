@@ -62,8 +62,8 @@ test('election withdrawal handles none/one and two ties abandon sheriff',()=>{
  choose(b,'tie');assert.equal(canNext(b),false);selectSeat(b,9);selectSeat(b,10);advance(b);assert.equal(b.step,'sheriffPK');advance(b);assert.equal(selectSeat(b,11),false);choose(b,'tie');advance(b);assert.equal(b.sheriff,null);
 });
 test('exile PK restricts second ballot and second tie goes to next night',()=>{
- const s=ready();s.step='voteIntro';advance(s);choose(s,'tie');selectSeat(s,9);selectSeat(s,10);advance(s);assert.equal(s.step,'exilePK');advance(s);
- assert.equal(selectSeat(s,11),false);choose(s,'tie');advance(s);assert.equal(s.step,'dark');assert.equal(s.night,2);assert.ok(s.players.every(p=>p.alive));
+ const s=ready();s.step='voteIntro';advance(s);choose(s,'tie');selectSeat(s,9);selectSeat(s,10);advance(s);assert.equal(s.step,'exilePK');advance(s);assert.equal(subtitle(s),'由9號開始發言');advance(s);
+ assert.equal(selectSeat(s,11),false);choose(s,'tie');advance(s);assert.equal(subtitle(s),'無人出局，進入下一晚');advance(s);assert.equal(s.step,'dark');assert.equal(s.night,2);assert.ok(s.players.every(p=>p.alive));
 });
 test('first-day last words include shots, poison blocks skill, second-day deaths show elimination first',()=>{
  const s=ready();s.step='announcement';s.deaths=[{id:8,cause:'attack'}];advance(s);assert.equal(s.step,'lastWords');advance(s);assert.equal(s.step,'skill');
@@ -153,6 +153,6 @@ test('simultaneous deaths each receive exactly one notice and poison suppresses 
 });
 test('saved v1 game migrates without changing identities/potions and published lotteries survive refresh',()=>{
  const old=ready();old.version=1;old.step='direction';old.potions.antidote=false;const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));
- assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,3);
+ assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,4);
  const s=ready();s.step='draw';s.candidates=[9,10];choose(s,'draw');choose(s,'revealDraw');const loaded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(loaded.draw,s.draw);choose(loaded,'draw');assert.deepEqual(loaded.draw,s.draw);
 });

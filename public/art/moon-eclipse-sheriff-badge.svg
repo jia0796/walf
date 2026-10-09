@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="badgeTitle badgeDesc">
+  <title id="badgeTitle">月蝕警徽</title>
+  <desc id="badgeDesc">六芒星古銅金屬警長徽章，六個圓形星尖與中央金色月蝕徽記。</desc>
+  <defs>
+    <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F9DB80"/>
+      <stop offset=".22" stop-color="#C2903F"/>
+      <stop offset=".52" stop-color="#8B642B"/>
+      <stop offset=".82" stop-color="#D49F46"/>
+      <stop offset="1" stop-color="#765020"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="0.84" y2="1">
+      <stop offset="0" stop-color="#F4CF77"/>
+      <stop offset=".22" stop-color="#967039"/>
+      <stop offset=".62" stop-color="#553D21"/>
+      <stop offset="1" stop-color="#B78337"/>
+    </linearGradient>
+    <linearGradient id="innerMetal" x1=".13" y1="0" x2=".88" y2="1">
+      <stop offset="0" stop-color="#AC843F"/>
+      <stop offset=".54" stop-color="#604526"/>
+      <stop offset="1" stop-color="#765422"/>
+    </linearGradient>
+    <linearGradient id="crescentGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF3B8"/>
+      <stop offset=".36" stop-color="#FFD866"/>
+      <stop offset=".76" stop-color="#C48B24"/>
+      <stop offset="1" stop-color="#FFE79C"/>
+    </linearGradient>
+    <radialGradient id="ball" cx=".25" cy=".18" r=".86">
+      <stop offset="0" stop-color="#FFF4BB"/>
+      <stop offset=".23" stop-color="#E8B852"/>
+      <stop offset=".62" stop-color="#B77825"/>
+      <stop offset="1" stop-color="#51300E"/>
+    </radialGradient>
+    <radialGradient id="darkMoon" cx=".32" cy=".26" r=".95">
+      <stop offset="0" stop-color="#35333A"/>
+      <stop offset=".70" stop-color="#202026"/>
+      <stop offset="1" stop-color="#0C0C12"/>
+    </radialGradient>
+    <radialGradient id="rim" cx=".28" cy=".2" r=".95">
+      <stop offset="0" stop-color="#FFF0B1"/>
+      <stop offset=".45" stop-color="#D79A33"/>
+      <stop offset=".88" stop-color="#80511A"/>
+      <stop offset="1" stop-color="#F1BC52"/>
+    </radialGradient>
+    <filter id="shadow" x="-.3" y="-.3" width="1.6" height="1.6">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#0B0710" flood-opacity=".72"/>
+    </filter>
+    <clipPath id="moonClip"><circle cx="64" cy="63.5" r="22.2"/></clipPath>
+    <path id="star" d="M64 9.6 84.1 36.8 111.8 36.8 95.8 64 111.8 91.2 84.1 91.2 64 118.4 43.9 91.2 16.2 91.2 32.2 64 16.2 36.8 43.9 36.8Z"/>
+    <path id="insetStar" d="M64 19.8 79.3 41.5 103.3 41.5 89.6 64 103.3 86.5 79.3 86.5 64 108.2 48.7 86.5 24.7 86.5 38.4 64 24.7 41.5 48.7 41.5Z"/>
+  </defs>
+  <g filter="url(#shadow)">
+    <use href="#star" fill="#1A130F" stroke="#251407" stroke-width="6" stroke-linejoin="round"/>
+    <use href="#star" fill="url(#metal)" stroke="url(#brass)" stroke-width="3.1" stroke-linejoin="round"/>
+    <use href="#insetStar" fill="url(#innerMetal)" stroke="#F5C769" stroke-opacity=".58" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Brass studs reinforce the sheriff-badge silhouette at icon scale. -->
+    <g fill="url(#ball)" stroke="#4A2A10" stroke-width="1.4">
+      <circle cx="64" cy="9.7" r="6.1"/>
+      <circle cx="111.8" cy="36.8" r="6.1"/>
+      <circle cx="111.8" cy="91.2" r="6.1"/>
+      <circle cx="64" cy="118.3" r="6.1"/>
+      <circle cx="16.2" cy="91.2" r="6.1"/>
+      <circle cx="16.2" cy="36.8" r="6.1"/>
+    </g>
+    <!-- A compact eight-ray compass motif inspired by the illustrated PNG. -->
+    <g fill="url(#crescentGold)" stroke="#6D461A" stroke-width=".7">
+      <path d="M64 27 67 41 61 41Z M64 100 61 86 67 86Z M27 64 41 61 41 67Z M101 64 87 67 87 61Z"/>
+      <path d="M38 38 49 45 45 49Z M90 38 83 49 79 45Z M90 90 79 83 83 79Z M38 90 45 79 49 83Z"/>
+    </g>
+    <circle cx="64" cy="63.5" r="28.2" fill="#21180F" stroke="#452807" stroke-width="2"/>
+    <circle cx="64" cy="63.5" r="26.2" fill="url(#rim)" stroke="#FCE49B" stroke-width=".8"/>
+    <circle cx="64" cy="63.5" r="23.2" fill="#160E10"/>
+    <g clip-path="url(#moonClip)">
+      <circle cx="64" cy="63.5" r="22.2" fill="url(#crescentGold)"/>
+      <!-- Shifted lunar disk leaves a bright crescent on the left. -->
+      <circle cx="72.2" cy="58.0" r="20.9" fill="url(#darkMoon)" stroke="#C99135" stroke-width=".7"/>
+      <path d="M43 64 A22 22 0 0 0 64 86" fill="none" stroke="#FFF4B7" stroke-width="1.15" opacity=".52"/>
+    </g>
+    <circle cx="64" cy="63.5" r="23.2" fill="none" stroke="#F5C36A" stroke-width="1.4"/>
+    <circle cx="64" cy="63.5" r="28.2" fill="none" stroke="#FFD77E" stroke-width=".95"/>
+  </g>
+</svg>

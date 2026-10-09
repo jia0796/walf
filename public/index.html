@@ -11,7 +11,7 @@
 <div class="moon" aria-hidden="true"></div><h1>月蝕・狼人殺</h1>
 <div class="menu"><button id="start" class="primary">開始主持</button><button id="encyclopediaOpen">角色圖鑑</button><button id="resume" class="quiet" hidden>繼續本局</button></div>
 </section>
-<section id="boards" class="screen" hidden><h1>選擇板子</h1><div class="menu"><button data-board="10">10人局</button><button data-board="12">12人局</button><button data-home class="quiet">返回首頁</button></div></section>
+<section id="boards" class="screen" hidden><h1>選擇板子</h1><div class="menu"><div id="boardChoices" class="menu"></div><button data-home class="quiet">返回首頁</button></div></section>
 <section id="setup" class="screen" hidden>
 <h1 id="setupTitle"></h1><div class="setup-grid"><section><h2>角色配置</h2><ul id="setupRoles"></ul><h2>夜間順序</h2><p id="setupOrder"></p></section>
 <section class="rules-form"><h2>本局規則</h2>
@@ -19,6 +19,7 @@
 <label>女巫自救<select id="ruleSelfRescue"><option value="false">不允許</option><option value="true">允許</option></select></label>
 <label>狼人勝利條件<select id="ruleVictory"><option value="edge">屠邊</option><option value="city">屠城</option></select></label>
 <label><span id="swallowLabel"></span><select id="ruleSwallow"><option value="false">不啟用</option><option value="true">啟用</option></select></label>
+<div id="mechanicalRules" hidden><label>學習狼人後<select id="ruleMechanicalKnife"><option value="next">下一晚可刀</option><option value="allDead">狼全死才有雙刀</option></select></label><label>機械守衛反彈毒藥<select id="ruleReflectPoison"><option value="false">關閉</option><option value="true">開啟</option></select></label></div>
 </section></div><div class="actions"><button id="setupBack">上一步</button><button id="setupStart" class="primary">開始主持</button></div>
 </section>
 <section id="encyclopedia" class="screen" hidden><h1>角色圖鑑</h1><button data-home class="quiet">返回首頁</button><div id="roleLibrary" class="library"></div></section>

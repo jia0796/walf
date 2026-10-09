@@ -17,7 +17,7 @@ test('service worker precaches every real asset and serves navigation/modules wh
  const self={registration:{scope},addEventListener:(name,cb)=>handlers[name]=cb,skipWaiting:async()=>{},clients:{claim:async()=>{}}};
  vm.runInNewContext(await readFile(new URL('sw.js',dir),'utf8'),{self,caches,fetch:network,Request,Response,URL});
  let work;handlers.install({waitUntil:p=>work=p});await work;handlers.activate({waitUntil:p=>work=p});await work;
- assert.deepEqual(deleted,['eclipse-walf-old']);offline=true;
+ assert.deepEqual(deleted,['eclipse-walf-old','eclipse-walf-v3']);offline=true;
  let response;handlers.fetch({request:{method:'GET',url:scope+'another-route',mode:'navigate'},respondWith:p=>response=p,waitUntil:()=>{}});assert.match(await (await response).text(),/<!doctype html>/);
  handlers.fetch({request:new Request(scope+'engine.js'),respondWith:p=>response=p,waitUntil:()=>{}});assert.match(await (await response).text(),/export function createGame/);
  let intercepted=false;handlers.fetch({request:new Request('https://different.test/'),respondWith:()=>intercepted=true});assert.equal(intercepted,false);
