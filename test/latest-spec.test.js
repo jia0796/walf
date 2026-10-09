@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,next,previous,choose,selectSeat,markersForSeat,subtitle,upgradeGame,mechanicalAbility,nightSteps} from '../public/engine.js';
+import {createGame,next,previous,choose,selectSeat,markersForSeat,subtitle,upgradeGame,mechanicalAbility,nightSteps,canSelfDestruct,beginSelfDestruct} from '../public/engine.js';
 import {BOARDS} from '../public/data.js';
 import {settleNight,basicActor} from '../public/night.js';
 const go=s=>assert.equal(next(s),true,'cannot advance '+s.step);
@@ -36,4 +36,7 @@ test('v4 saved knife history migrates to consumed and stays consumed through sub
 });
 test('v4 migration reconstructs raw marker order from nightly operation history',()=>{
  const s=ready();s.night=2;s.step='guardTarget';selectSeat(s,9);go(s);s.step='attack';selectSeat(s,9);go(s);const old=JSON.parse(JSON.stringify(s));old.version=4;delete old.marks;delete old.markSequence;for(const h of old.history){h.version=4;delete h.marks;delete h.markSequence;}const migrated=upgradeGame(old);assert.deepEqual(markersForSeat(migrated,9).map(m=>m.key),['guard','basic']);
+});
+test('day draw and sheriff direction allow eligible wolf interruption and preserve back',()=>{
+ for(const step of ['dayDraw','direction','sheriffResult']){const s=ready();s.step=step;s.deathsCommitted=true;assert.equal(canSelfDestruct(s),true);assert.equal(beginSelfDestruct(s),true);assert.equal(selectSeat(s,1),false);selectSeat(s,2);go(s);assert.equal(s.step,'lastWords');go(s);assert.equal(s.step,'nextNight');previous(s);previous(s);previous(s);assert.equal(s.step,step);assert.equal(s.players[1].alive,true);}
 });
