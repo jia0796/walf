@@ -1,0 +1,10 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="交易">
+<title>交易</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#D8B578" stroke-width="3.1"/>
+<!-- two sleeves approaching a deal -->
+<path d="M13 27 L20.8 23 L26.7 29.5 L18.4 38 L12.5 33.3 Z" fill="none" stroke="#D8B578" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M51 27 L43.2 23 L37.3 29.5 L45.6 38 L51.5 33.3 Z" fill="none" stroke="#D8B578" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- hands clasping, angled fingers -->
+<path d="M23 31.6 L27.2 28 L31.2 28.6 L34.6 31.9 L39.1 29.7 L43.1 34.3 L37.7 40.1 L34.6 42.8 L31.8 44 L28.7 42.3 L22 36.5" fill="none" stroke="#D8B578" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.5 36 L36.5 42 M33.5 33.5 L40.1 39 M25.5 38.5 L30.6 42.6" fill="none" stroke="#D8B578" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

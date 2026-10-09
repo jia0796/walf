@@ -15,3 +15,73 @@ dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);bor
 @media(prefers-reduced-motion:reduce){.draw-spinner{animation:none}.preview-inner{transition:none}}
 @media(min-width:641px) and (max-height:650px){.seat{padding-bottom:4px}#left .seat{padding-left:calc(var(--mark-space,0px) + 10px)}#right .seat{padding-right:calc(var(--mark-space,0px) + 10px)}.seat:has(.sheriff-badge){padding-top:12px}.skill-marks{top:50%;bottom:auto;transform:translateY(-50%)}}
 .judge-box{display:flex;flex-direction:column;overflow:hidden;flex:1}.judge-content{overflow:auto;min-height:0;flex:1}.judge-box .actions{flex-shrink:0}@media(min-width:641px) and (max-height:650px){#host{grid-template-rows:28px 130px minmax(0,1fr)}}
+/* Approved home reference: background extracted without its text or drawn controls. */
+body[data-screen=home] main{padding:0;max-width:none}
+.welcome{position:relative;isolation:isolate;max-width:600px;min-height:100svh;min-height:100dvh;padding:0 max(24px,7%) calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:flex-end;background:url('art/home-background.svg') center top/100% 100% no-repeat}
+.home-brand{text-align:center;position:relative;margin-top:45dvh;margin-bottom:2dvh}
+.home-brand h1{font-family:Georgia,"Noto Serif TC",serif;font-size:clamp(52px,11dvh,88px);letter-spacing:.14em;color:#f2d097;margin:0;text-shadow:0 2px 15px #050916}
+.home-brand p{letter-spacing:.4em;color:#ebe2d5;margin:8px 0 0;font-size:clamp(16px,3dvh,24px)}
+.welcome .menu{width:100%;margin:12px auto 3dvh;gap:14px}
+.welcome .menu button{position:relative;overflow:hidden;border-radius:22px;background:linear-gradient(140deg,#44485ee6,#1a1b30f0 65%);border:1px solid #747e96;box-shadow:inset 0 1px 0 #fff3,inset 0 0 0 4px #c6cad214,0 9px 20px #03051077;color:#fff9ed;font-weight:650;min-height:58px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.welcome .menu button::before{content:"";position:absolute;inset:4px 5px 55%;border-radius:18px;background:linear-gradient(110deg,#fff2,transparent)}
+.welcome .menu .primary{border:1px solid #d4b581;background:linear-gradient(140deg,#4b5265d9,#211d32e6);box-shadow:inset 0 1px 0 #fff5,inset 0 0 0 4px #c7ae7621,0 9px 20px #03051077}
+.welcome .menu button:active{transform:translateY(2px)}
+@supports not (backdrop-filter:blur(1px)){.welcome .menu button{background:#22263c}.welcome .menu .primary{background:#303246}}
+#setup .setup-grid h2{color:var(--ink)}
+/* Shared skill cards: approved role PNGs only; seats retain their original layout. */
+.event-card{position:relative;isolation:isolate;overflow:hidden;border-radius:12px;border:1px solid #927c4c65;background:linear-gradient(110deg,#242235e8,#352b22c9);margin:8px 0;padding:12px 14px;min-height:87px;color:#ebdfbd;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.event-card.wolf{border-color:#9b536265;background:linear-gradient(110deg,#2c1c31eb,#461e30c9);color:#efb6b4}
+.event-art{position:absolute;z-index:-2;right:0;top:0;width:48%;height:100%;object-fit:cover;object-position:50% 28%;opacity:.52;filter:brightness(.65) saturate(.65);mask-image:linear-gradient(90deg,transparent,#000 38%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 38%)}
+.event-card::after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#221e2be6 15%,#30292288 58%,#76522230)}
+.event-card.wolf::after{background:linear-gradient(90deg,#2b192be6 15%,#39162e88 58%,#841d3138)}
+.event-content{position:relative;width:80%;min-width:0;text-shadow:0 1px 3px #080913}
+.event-card h3{font-size:15px;margin:0 0 5px;color:inherit;line-height:1.3}
+.event-line{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:14px;line-height:1.5;color:#f8f1e3}
+.skill-icon{display:inline-block;vertical-align:middle;width:27px;height:27px;object-fit:contain;flex-shrink:0}
+.event-result{font-size:12px;line-height:1.5;margin:4px 0 0;color:#e6d8b8}
+.operation-card{padding:7px 10px;min-height:54px;max-width:420px}
+.operation-card h3{font-size:12px;margin:0 0 2px}.operation-card .event-line{font-size:12px}.operation-card .skill-icon{width:23px;height:23px}
+.finished-screen{height:calc(100dvh - 20px);max-width:850px;margin:auto;display:flex;flex-direction:column;padding-bottom:calc(80px + env(safe-area-inset-bottom));overflow:hidden}
+body[data-screen=finished] main{padding:10px 14px 0}
+.victory{flex-shrink:0;text-align:center;padding:24px 12px 18px;border-radius:18px;background:radial-gradient(ellipse at top,#263e5b66,transparent 75%),linear-gradient(140deg,#101d32,#24223a);border:1px solid #b5a07955}
+.victory>p:first-child{font-size:14px;letter-spacing:.22em;color:#c6b99c;margin:0}
+.victory h1{font-size:clamp(23px,5vw,34px);color:#e5ce9c;margin:14px 0 6px;line-height:1.3}
+.victory>p:last-child{font-size:13px;color:#ced4e2;margin:0}
+.wolves-win .victory{background:radial-gradient(ellipse at top,#78363b55,transparent 75%),linear-gradient(140deg,#251324,#20182e);border-color:#9e596e55}
+.wolves-win .victory h1{color:#e9aaaa}.wolves-win .victory>p:first-child{color:#c7919b}
+.recap-title{flex-shrink:0;font-size:16px;margin:17px 4px 8px}
+.night-recap{overflow-y:auto;overscroll-behavior:contain;min-height:0;flex:1;padding:0 3px 10px;scrollbar-gutter:stable}
+.recap-night{padding:0;background:transparent;border:0;margin:0 0 10px}
+.recap-night>summary{background:#242438bb;border:1px solid #51556870;border-radius:9px;padding:12px 14px;color:#e9decb;list-style:none;display:flex;justify-content:space-between}
+.recap-night>summary::-webkit-details-marker{display:none}
+.recap-night>summary::after{content:"⌄"}.recap-night[open]>summary::after{content:"⌃"}
+.night-result{padding:12px 14px;margin:8px 0 12px;background:#263044aa;border:1px solid #72809950;border-radius:12px;color:#d3dbea;backdrop-filter:blur(8px)}
+.night-result h3{font-size:14px;margin:0 0 4px}.night-result p{font-size:14px;margin:0}
+.finish-actions{position:fixed;bottom:0;left:0;right:0;z-index:3;max-width:850px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 17px calc(14px + env(safe-area-inset-bottom));background:#141a2aee;border-top:1px solid #46475d}
+.finish-actions button{min-width:0;min-height:48px}
+#finishDialog{background:linear-gradient(135deg,#302942ed,#161d2bf5);box-shadow:0 14px 50px #0006;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+/* Three-row timer with independently scrollable minute/second wheels. */
+#timerDialog{padding:18px;max-width:430px}
+#timerDialog .dialog-head{margin-bottom:12px}
+.timer-adjust{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px}
+.timer-adjust>button{font-size:13px;padding:8px;min-width:60px}
+.time-wheels{position:relative;display:flex;align-items:center;justify-content:center;gap:4px;border-radius:12px;background:#101627;overflow:hidden}
+.time-wheels::after{content:"";position:absolute;pointer-events:none;top:44px;height:40px;left:0;right:0;border-top:1px solid #cab78077;border-bottom:1px solid #cab78077;background:#bdaa6914}
+.time-wheel{width:60px;height:128px;overflow-y:auto;scroll-snap-type:y mandatory;padding:44px 0;scrollbar-width:none;touch-action:pan-y;overscroll-behavior:contain}
+.time-wheel::-webkit-scrollbar{display:none}
+.time-wheel button{display:block;width:100%;height:40px;min-height:40px;padding:0;font-size:25px;font-variant-numeric:tabular-nums;color:#8790a5;border:0;border-radius:0;background:transparent;scroll-snap-align:center;scroll-margin:0}
+.time-wheel button[aria-selected=true]{color:#f4dfb2;font-weight:700}
+.time-wheel.locked{pointer-events:none;overflow-y:hidden}.time-wheel button:disabled{opacity:1}
+.timer-controls{justify-content:center;margin-top:14px}
+#timerNotice{font-size:12px;text-align:center;margin:6px 0 0}
+@media(max-width:640px){.finished-screen{height:calc(100dvh - 12px)}body[data-screen=finished] main{padding:6px 8px 0}.victory{padding:20px 9px 15px}.event-card{padding:11px;min-height:83px}.operation-card{padding:6px 9px;min-height:50px}.event-content{width:85%}.event-line{font-size:13px}}
+@media(max-height:620px){.welcome{justify-content:flex-end}.home-brand{margin-top:40dvh;margin-bottom:0}.home-brand h1{font-size:42px}.home-brand p{font-size:16px;margin:4px 0}.welcome .menu{gap:9px;margin:10px auto 0}.welcome .menu button{min-height:46px}.victory{padding:12px}.victory h1{margin:6px 0}.recap-title{margin:10px 3px 6px}}
+@media(min-width:641px){.welcome{border:1px solid #74624a55;border-radius:20px;margin-top:12px;min-height:calc(100dvh - 24px)}}
+@media(prefers-reduced-motion:reduce){.welcome .menu button{transition:none}}
+/* Keep the existing host controls above the iPhone home indicator. */
+body[data-screen=host] main{padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+#host{height:calc(100dvh - 136px - env(safe-area-inset-bottom))}
+#host nav{padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+#host footer{bottom:calc(73px + env(safe-area-inset-bottom))}
+#saveStatus{bottom:calc(120px + env(safe-area-inset-bottom))}
+@media(max-width:640px){body[data-screen=host] main{padding-bottom:calc(85px + env(safe-area-inset-bottom))}#host{height:calc(100dvh - 130px - env(safe-area-inset-bottom))}#host nav{padding-bottom:calc(12px + env(safe-area-inset-bottom))}#host footer{bottom:calc(69px + env(safe-area-inset-bottom))}}
