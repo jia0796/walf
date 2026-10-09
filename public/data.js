@@ -1,4 +1,7 @@
 export const ROLE_DATA = {
+ elder:{name:'狼兄',kind:'wolf',camp:'狼隊陣營',canShoot:false,image:'art/wolf-brother-scar-approved.png',skill:'第一晚與狼弟相認。每晚與其他普通狼人一同參與夜間行動，但不可自爆，也不可自刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ younger:{name:'狼弟',kind:'wolf',camp:'狼隊陣營',canShoot:false,image:'art/wolf-younger-brother-approved.png',skill:'第一晚與狼兄相認。狼兄存活期間，狼弟不參與狼隊的夜間行動，且被查驗時顯示為好人。狼兄出局後的下一個夜晚，狼弟可單獨睜眼，復仇擊殺一名玩家。自再下一晚起，狼弟正式加入狼隊，與其他普通狼人一同參與夜間行動。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ merchant:{name:'黑市商人',kind:'god',camp:'好人陣營',canShoot:false,image:'art/black-market-merchant-approved.png',skill:'可選擇一名玩家進行交易。若交易成功，該玩家將成為「幸運兒」，並獲得預言家查驗、女巫毒藥或獵人槍其中一項能力。若交易對象為狼人，則交易失敗，黑市商人出局。',goal:'找出並解決所有狼人。'},
  king:{name:'黑狼王',kind:'wolf',category:'狼',camp:'狼隊陣營',image:null,canShoot:true,skill:'出局時可槍殺一名玩家，被毒則無法發動技能。可以自爆，自爆不能使用技能。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  wolf:{name:'狼人',kind:'wolf',category:'狼',camp:'狼隊陣營',image:null,canShoot:false,skill:'每天晚上狼人討論並擊殺一名玩家。白天時可選擇翻牌自爆，自身出局並進入黑夜。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  seer:{name:'預言家',kind:'god',category:'神',camp:'好人陣營',image:null,canShoot:false,skill:'每天晚上查驗一名玩家，法官告知其玩家身分為好人或狼人。',goal:'找出並解決所有狼人。'},
@@ -17,3 +20,4 @@ export const BOARDS={
  '10':{id:'10',name:'10人 黑狼王/魔術師',playerCount:10,roles:{king:1,wolf:2,seer:1,witch:1,magician:1,villager:4},nightOrder:['magician','wolves','witch','seer'],defaults:{...defaults},swallowThreshold:1,adjustable:['sheriff','selfRescue','victory','swallow']}
 };
 for(const count of [10,12])BOARDS['mechanical'+count]={id:'mechanical'+count,name:count+'人 機械狼/通靈師',playerCount:count,roles:{mechanical:1,wolf:count===12?3:2,medium:1,witch:1,...(count===12?{hunter:1}:{}),guard:1,villager:4},nightOrder:['guard','mechanical','wolves','witch','medium',...(count===12?['hunter']:[])],firstNightOrder:['mediumIdentify','guard','wolves','witch',...(count===12?['hunter']:[]),'mechanical','medium'],defaults:{...defaults,swallow:count===12,mechanicalKnife:'next',reflectPoison:false},swallowThreshold:count===12?2:1,adjustable:['sheriff','selfRescue','victory','swallow','mechanicalKnife','reflectPoison']};
+BOARDS.brothers12={id:'brothers12',name:'12人 狼兄狼弟/黑市商人',playerCount:12,roles:{elder:1,younger:1,wolf:2,seer:1,witch:1,hunter:1,merchant:1,villager:4},firstNightOrder:['brothers','wolves','witch','seer','hunter','merchant','lucky'],nightOrder:['younger','wolves','witch','seer','hunter','merchant','lucky'],defaults:{...defaults,swallow:true},swallowThreshold:2,adjustable:['sheriff','selfRescue','victory','swallow']};
