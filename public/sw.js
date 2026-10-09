@@ -1,8 +1,8 @@
-const CACHE='eclipse-walf-v5';
+const CACHE='eclipse-walf-v5-1';
 const ASSETS=['./','index.html','style.css','app.js','engine.js','data.js','skills/icon-swap.svg','skills/icon-inspect.svg','skills/icon-shield.svg','skills/icon-poison.svg','skills/icon-antidote.svg','skills/icon-wolf-attack.svg','night.js','art/moon-eclipse-sheriff-badge.svg','art/medium-minimal-approved.png','art/villager-minimal-approved.png','art/black-wolf-king-minimal-approved.png','art/werewolf-minimal-approved.png','art/magician-minimal-approved.png','art/hunter-minimal-approved.png','art/seer-minimal-approved.png','art/witch-minimal-approved.png','art/guard-minimal-approved.png','art/mechanical-wolf-minimal-approved.png','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS.map(p=>new Request(new URL(p,self.registration.scope),{cache:'reload'})))).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>(k.startsWith('eclipse-walf-')||k==='eclipse-boards-v3')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',event=>{
  if(event.request.method!=='GET'||!event.request.url.startsWith(self.registration.scope))return;
- event.respondWith(fetch(event.request).then(response=>{if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(event.request,copy)));}return response;}).catch(async()=>await caches.match(event.request)||(event.request.mode==='navigate'?await caches.match(new URL('index.html',self.registration.scope)):Response.error())));
+ event.respondWith(fetch(event.request,{cache:'no-cache'}).then(response=>{if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(event.request,copy)));}return response;}).catch(async()=>await caches.match(event.request)||(event.request.mode==='navigate'?await caches.match(new URL('index.html',self.registration.scope)):Response.error())));
 });

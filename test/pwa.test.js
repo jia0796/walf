@@ -11,7 +11,7 @@ test('PWA manifest uses scoped relative URLs and real correctly sized PNG icons'
 test('service worker precaches every real asset and serves navigation/modules when offline',async()=>{
  const handlers={},scope='https://example.test/walf/',store=new Map();let offline=false;
  const key=r=>typeof r==='string'?r:r.url||String(r);
- const network=async r=>{if(offline)throw new Error('Offline');const url=new URL(key(r)),name=url.pathname.slice('/walf/'.length)||'index.html';return new Response(await readFile(new URL(name,dir)));};
+ const fetchModes=[];const network=async(r,options)=>{if(options)fetchModes.push(options.cache);if(offline)throw new Error('Offline');const url=new URL(key(r)),name=url.pathname.slice('/walf/'.length)||'index.html';return new Response(await readFile(new URL(name,dir)));};
  const cache={addAll:async requests=>{for(const r of requests)store.set(key(r),await network(r));},put:async(r,response)=>store.set(key(r),response),match:async r=>store.get(key(r))?.clone()};
  const deleted=[];const caches={open:async()=>cache,match:cache.match,keys:async()=>['eclipse-walf-old','eclipse-walf-v3','unrelated-cache'],delete:async name=>{deleted.push(name);return true;}};
  const self={registration:{scope},addEventListener:(name,cb)=>handlers[name]=cb,skipWaiting:async()=>{},clients:{claim:async()=>{}}};
@@ -20,5 +20,6 @@ test('service worker precaches every real asset and serves navigation/modules wh
  assert.deepEqual(deleted,['eclipse-walf-old','eclipse-walf-v3']);offline=true;
  let response;handlers.fetch({request:{method:'GET',url:scope+'another-route',mode:'navigate'},respondWith:p=>response=p,waitUntil:()=>{}});assert.match(await (await response).text(),/<!doctype html>/);
  handlers.fetch({request:new Request(scope+'engine.js'),respondWith:p=>response=p,waitUntil:()=>{}});assert.match(await (await response).text(),/export function createGame/);
+ assert.ok(fetchModes.length>0&&fetchModes.every(mode=>mode==='no-cache'));
  let intercepted=false;handlers.fetch({request:new Request('https://different.test/'),respondWith:()=>intercepted=true});assert.equal(intercepted,false);
 });
