@@ -1,0 +1,2 @@
+# Approved Drive SVG files must retain their original bytes, including CRLF.
+public/skills/*.svg -text

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {createGame,next,previous,selectSeat,choose,restartGame,upgradeGame} from '../public/engine.js';
 import {BOARDS} from '../public/data.js';
 import {recapNights} from '../public/records.js';
@@ -42,4 +43,8 @@ test('wolf-phase victory excludes poison operations that never execute from reca
  assert.ok(recapNights(s)[0].events.some(e=>e.skill==='poison'));s.step='luckyClose';go(s);
  assert.equal(s.nightResolution.poisonSkipped,true);assert.equal(recapNights(s)[0].events.some(e=>e.skill==='poison'),false);
  assert.equal(s.players[2].alive,true);previous(s);assert.ok(recapNights(s)[0].events.some(e=>e.skill==='poison'));
+});
+test('approved original assets match the documented Drive SHA256 and size',async()=>{
+ const manifest=JSON.parse(await readFile(new URL('../docs/assets.json',import.meta.url),'utf8'));
+ for(const asset of manifest.originals){const bytes=await readFile(new URL('../'+asset.path,import.meta.url));assert.equal(bytes.length,asset.size,asset.path+' size');assert.equal(createHash('sha256').update(bytes).digest('hex'),asset.sha256,asset.path+' SHA256');}
 });
