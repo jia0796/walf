@@ -10,7 +10,7 @@ test('boards share role data and exactly count 10/12 players',()=>{for(const b o
 test('10-player first night has no hunter, correct wolf count, inactive seats locked, election before dawn',()=>{
  const s=createGame('10');go(s);go(s);selectSeat(s,1);go(s);choose(s,'skip');go(s);go(s);[2,3,4].forEach(id=>selectSeat(s,id));go(s);choose(s,'skip');go(s);selectSeat(s,5);go(s);go(s);choose(s,'skip');go(s);go(s);selectSeat(s,6);go(s);selectSeat(s,7);go(s);go(s);go(s);
  assert.equal(s.step,'candidates');assert.equal(s.players.filter(p=>p.role==='villager').length,4);assert.ok(!s.players.some(p=>p.role==='hunter'));for(const id of [11,12])assert.equal(selectable(s,id),false);
- choose(s,'none');go(s);assert.equal(s.step,'dawn');go(s);assert.equal(s.step,'sheriffResult');
+ choose(s,'none');go(s);assert.equal(s.step,'dawn');go(s);assert.equal(s.step,'noSheriffNotice');
 });
 test('sheriff off bypasses first-night election and second-night wolves omit identity phrase',()=>{
  const s=ready('10',{sheriff:false});s.step='seerClose';go(s);assert.equal(s.step,'dawn');go(s);assert.equal(s.step,'announcement');s.night=2;s.step='wolves';assert.equal(subtitle(s),'狼人請睜眼');
@@ -44,7 +44,7 @@ test('first election explosion processes pending night deaths before black night
 test('10 single/12 double pre-election explosions swallow badge at the board threshold',()=>{
  for(const board of ['10','12']){const s=ready(board,{swallow:true});s.deathsCommitted=true;s.step='speeches';s.candidates=[seat(s,'villager'),seat(s,'villager')+1];s.nominees=[...s.candidates];const ids=s.players.filter(p=>p.role==='wolf').map(p=>p.id);
   for(let i=0;i<BOARDS[board].swallowThreshold;i++){s.step=i?'sheriffVote':'speeches';beginSelfDestruct(s);selectSeat(s,ids[i]);go(s);assert.equal(s.badgeSwallowed,i+1===BOARDS[board].swallowThreshold);drain(s,['nextNight']);go(s);s.deathsCommitted=true;}
-  assert.equal(s.electionStatus,'none');assert.equal(s.resumeElection,false);s.step='dawn';go(s);assert.equal(s.step,'announcement');
+  assert.equal(s.electionStatus,'none');assert.equal(s.resumeElection,false);s.step='dawn';go(s);assert.equal(s.step,'swallowNotice');assert.match(subtitle(s),/吞警徽，沒有警長/);go(s);assert.equal(s.step,'announcement');
  }
 });
 test('self-destruct cancels regular daytime flow and sheriff badge is handled before next night',()=>{

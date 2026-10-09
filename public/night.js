@@ -5,13 +5,14 @@ export const basicActor=s=>ordinaryWolves(s)[0]||liveRole(s,'mechanical');
 export function mechanicalAbility(s){
  const m=s.mechanical,actor=liveRole(s,'mechanical');
  if(!actor||!m?.role)return null;
- if(m.role==='wolf')return (s.rules.mechanicalKnife==='allDead'?ordinaryWolves(s).length===0:s.night>m.night)?'extraAttack':null;
+ if(m.role==='wolf')return (!m.extraUsed||(m.extraUsedNight===s.night&&!!s.nightAction.extraAttack))&&(m.extraUnlocked||extraKnifeUnlocked(s))?'extraAttack':null;
  if(s.night<=m.night)return null;
  if(m.role==='medium')return 'mechanicalInspect';
  if(m.role==='witch'&&(m.poison||s.nightAction.mechanicalPoison))return 'mechanicalPoison';
  if(m.role==='guard'&&(m.shield||s.nightAction.shield))return 'shield';
  return null;
 }
+export function extraKnifeUnlocked(s){const m=s.mechanical;return m?.role==='wolf'&&(s.rules.mechanicalKnife==='allDead'?ordinaryWolves(s).length===0:s.night>m.night);}
 export function trueWinner(s){
  if(!s.rolesConfirmed)return null;
  const live=s.players.filter(p=>p.alive),wolf=p=>ROLE_DATA[p.role]?.kind==='wolf';
@@ -37,7 +38,7 @@ export function settleNight(s){
   events.push({...attack,blocked});
   if(!blocked&&s.players.find(p=>p.id===attack.id)?.alive&&!dead.has(attack.id))dead.set(attack.id,{...attack});
  }
- const projected=structuredClone(s);
+ const projected={...s,players:structuredClone(s.players)};
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
  const attackWinner=trueWinner(projected);
  if(attackWinner)return {deaths:[...dead.values()],events,winner:attackWinner,poisonSkipped:true};

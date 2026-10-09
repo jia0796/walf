@@ -56,7 +56,7 @@ test('second night retains role identities and dead actors cannot select targets
  s.players[0].alive=false;advance(s);assert.equal(s.step,'exchange');assert.equal(selectSeat(s,9),false);assert.equal(canNext(s),true);
 });
 test('election withdrawal handles none/one and two ties abandon sheriff',()=>{
- const s=ready();s.step='candidates';assert.equal(canNext(s),false);choose(s,'none');advance(s);advance(s);assert.equal(s.step,'sheriffResult');assert.equal(s.sheriff,null);
+ const s=ready();s.step='candidates';assert.equal(canNext(s),false);choose(s,'none');advance(s);advance(s);assert.equal(s.step,'noSheriffNotice');assert.equal(subtitle(s),'本局全員不上警，沒有警長');assert.equal(s.sheriff,null);
  const a=ready();a.step='candidates';selectSeat(a,9);advance(a);advance(a);assert.equal(a.sheriff,9);
  const b=ready();b.step='candidates';[9,10,11].forEach(id=>selectSeat(b,id));advance(b);advance(b);choose(b,'draw');choose(b,'revealDraw');advance(b);selectSeat(b,11);advance(b);advance(b);
  choose(b,'tie');assert.equal(canNext(b),false);selectSeat(b,9);selectSeat(b,10);advance(b);assert.equal(b.step,'sheriffPK');advance(b);assert.equal(selectSeat(b,11),false);choose(b,'tie');advance(b);assert.equal(b.sheriff,null);
@@ -153,6 +153,6 @@ test('simultaneous deaths each receive exactly one notice and poison suppresses 
 });
 test('saved v1 game migrates without changing identities/potions and published lotteries survive refresh',()=>{
  const old=ready();old.version=1;old.step='direction';old.potions.antidote=false;const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));
- assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,4);
+ assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,5);
  const s=ready();s.step='draw';s.candidates=[9,10];choose(s,'draw');choose(s,'revealDraw');const loaded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(loaded.draw,s.draw);choose(loaded,'draw');assert.deepEqual(loaded.draw,s.draw);
 });

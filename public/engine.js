@@ -1,6 +1,6 @@
 // 主持字幕只取自使用者原句；法官操作提示不屬於字幕。
 import {ROLE_DATA,BOARDS} from './data.js';
-import {settleNight,trueWinner,basicActor,mechanicalAbility,ordinaryWolves} from './night.js';
+import {settleNight,trueWinner,basicActor,mechanicalAbility,ordinaryWolves,extraKnifeUnlocked} from './night.js';
 export {mechanicalAbility} from './night.js';
 export const ROLES=Object.fromEntries(Object.entries(ROLE_DATA).map(([id,r])=>[id,r.name]));
 export const boardOf=s=>BOARDS[s.boardId || '12'];
@@ -24,8 +24,8 @@ export function createGame(boardId='12',rules={}) {
   const b=BOARDS[boardId];if(!b)throw new Error('Unknown board');const config={...b.defaults,...rules};
   if(!['edge','city'].includes(config.victory)||!['sheriff','selfRescue','swallow'].every(k=>typeof config[k]==='boolean'))throw new Error('Invalid rules');
   if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'))throw new Error('Invalid mechanical rules');
-  return { version: 4,boardId,rules:config, step: 'confirm', night: 1, players: Array.from({length:12}, (_,i) => ({ id:i+1, role:null,active:i<b.playerCount, alive:i<b.playerCount })),
-    mechanical:{role:null,target:null,night:null,poison:true,shield:true},lastGuard:null,operation:null,nightResolution:null,rolesConfirmed:false, action:[], choice:null, nightAction:blankNight(), potions:{antidote:true,poison:true},
+  return { version: 5,boardId,rules:config, step: 'confirm', night: 1, players: Array.from({length:12}, (_,i) => ({ id:i+1, role:null,active:i<b.playerCount, alive:i<b.playerCount })),
+    mechanical:{role:null,target:null,night:null,poison:true,shield:true,extraUnlocked:false,extraUsed:false,extraUsedNight:null,extraTarget:null},marks:[],markSequence:0,noSheriffReason:null,noSheriffNoticeShown:false,swallowNoticeNight:null,swallowNoticeShown:false,lastGuard:null,operation:null,nightResolution:null,rolesConfirmed:false, action:[], choice:null, nightAction:blankNight(), potions:{antidote:true,poison:true},
     candidates:[], nominees:[], sheriff:null, draw:null, drawCache:{}, pendingBadge:null, deathsCommitted:false,
     deaths:[], queue:[], continuation:null,
     votePool:[], winner:null, log:[], history:[],speaker:null,usedExchanges:[],electionStatus:config.sheriff?'pending':'none',preSheriffExplosions:0,badgeSwallowed:false,resumeElection:false,announcementContinuation:'direction',electionTie:false };
@@ -36,9 +36,9 @@ const wolves = p => ROLE_DATA[p.role]?.kind==='wolf';
 const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role));
 export function upgradeGame(saved) {
-  if (![1,2,3,4].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  const migrate = old => {
-    const s={...createGame(old.boardId || '12'),...old,version:4}; delete s.direction;
+  if (![1,2,3,4,5].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
+  const migrate = (old,past=[]) => {
+    const s={...createGame(old.boardId || '12'),...old,version:5}; delete s.direction;
     s.players=s.players.map(p=>({...p,active:p.active ?? true}));
     if(old.version<3){
       s.rules={...boardOf(s).defaults,selfRescue:true,...old.rules};
@@ -48,6 +48,13 @@ export function upgradeGame(saved) {
     }
     s.nightAction={...blankNight(),...old.nightAction};
     s.mechanical={...createGame(s.boardId).mechanical,...old.mechanical};
+    if(old.version<5){
+      const spent=[...past,...(old.history||[]),old].filter(h=>h.nightAction?.extraAttack&&h.step!=='mechanicalAction'&&h.step!=='mechanical'&&h.step!=='dark'&&h.night>=s.mechanical.night);
+      if(spent.length){const used=spent[0];Object.assign(s.mechanical,{extraUsed:true,extraUsedNight:used.night,extraTarget:used.nightAction.extraAttack});}
+      if(s.badgeSwallowed&&!s.swallowNoticeShown)s.swallowNoticeNight=s.night+(s.step==='nextNight'?1:0);
+    }
+    if(old.version<5){const rebuilt={nightAction:blankNight(),marks:[],markSequence:0};for(const h of [...past,...(old.history||[])].filter(h=>h.night===s.night)){rebuilt.nightAction={...blankNight(),...h.nightAction};syncMarks(rebuilt);}s.marks=rebuilt.marks;s.markSequence=rebuilt.markSequence;}
+    syncMarks(s);
     s.drawCache=old.drawCache || {};
     s.nominees=old.nominees || [...s.candidates];
     s.queue=(old.queue || []).map(d=>({...d,noticeDone:d.noticeDone ?? d.wordsDone ?? false}));
@@ -62,7 +69,7 @@ export function upgradeGame(saved) {
     if(s.step==='direction' && !s.sheriff) {s.step='dayDraw';s.draw=null;}
     return s;
   };
-  const s=migrate(saved);s.history=saved.history.map(migrate);return s;
+  const s=migrate(saved);s.history=saved.history.map((h,i)=>migrate(h,h.version<5?saved.history.slice(0,i):[]));return s;
 }
 // 座位環以號碼遞增為順時針，左側為逆時針、右側為順時針。
 export function orderedSeats(pool,seat,clockwise,count=12) {
@@ -158,7 +165,7 @@ export function selectSeat(s,id) {
     if(s.step==='mediumInspect')s.nightAction.mediumInspect=target;
     if(s.step==='mechanicalAction'){s.nightAction[s.operation]=target;s.nightAction[s.operation==='learnTarget'?'learnSkip':s.operation+'Skip']=false;}
   }
-  return true;
+  syncMarks(s);return true;
 }
 export function choose(s,value) {
   if (s.winner) return false;
@@ -167,9 +174,9 @@ export function choose(s,value) {
     const modes=mechanicalModes(s);
     if(value.startsWith('mode:')){const mode=value.slice(5);if(!modes.includes(mode))return false;s.operation=mode;s.action=n[mode]?[n[mode]]:[];s.choice=null;return true;}
     if(value!=='skip'||!s.operation||s.operation==='mechanicalInspect')return false;
-    const key=s.operation==='learnTarget'?'learnSkip':s.operation+'Skip';n[key]=!n[key];n[s.operation]=null;s.action=[];s.choice=n[key]?'skip':null;return true;
+    const key=s.operation==='learnTarget'?'learnSkip':s.operation+'Skip';n[key]=!n[key];n[s.operation]=null;s.action=[];s.choice=n[key]?'skip':null;syncMarks(s);return true;
   }
-  if(s.step==='guardTarget'&&value==='skip'){n.guard=null;n.guardSkip=!n.guardSkip;s.action=[];s.choice=n.guardSkip?'skip':null;return true;}
+  if(s.step==='guardTarget'&&value==='skip'){n.guard=null;n.guardSkip=!n.guardSkip;s.action=[];s.choice=n.guardSkip?'skip':null;syncMarks(s);return true;}
   if (s.step==='exchange' && value==='skip') {s.action=[]; n.exchange=[]; n.noExchange=!n.noExchange;value=n.noExchange?'skip':null;}
   else if (s.step==='attack' && value==='skip') {s.action=[]; n.attack=null; n.emptyAttack=!n.emptyAttack;value=n.emptyAttack?'skip':null;}
   else if (['antidote','poison'].includes(s.step) && ['use','skip'].includes(value)) {
@@ -192,7 +199,7 @@ export function choose(s,value) {
     s.draw.revealed=true;s.drawCache[drawKey(s)]=clone(s.draw);
   }
   else return false;
-  s.choice=value; return true;
+  s.choice=value;syncMarks(s); return true;
 }
 export function canNext(s) {
   if(s.winner) return false;
@@ -214,8 +221,23 @@ export function canNext(s) {
   }
   return true;
 }
+// Marks follow original judge inputs; source keys keep independent attacks.
+export function syncMarks(s){
+ const n=s.nightAction,desired=[];
+ const add=(key,type,id,partner=null)=>{if(id)desired.push({key,type,id,partner});};
+ if(n.exchange.length===2){add('swapA','swap',n.exchange[0],n.exchange[1]);add('swapB','swap',n.exchange[1],n.exchange[0]);}
+ add('basic','wolf-attack',n.attack);
+ if(n.antidote===true)add('antidote','antidote',n.attack);
+ if(n.poison===true)add('poison','poison',n.poisonTarget);
+ add('guard','shield',n.guard);add('shield','shield',n.shield);
+ add('extra','wolf-attack',n.extraAttack);add('mechanicalPoison','poison',n.mechanicalPoison);
+ add('inspect','inspect',n.inspect);
+ s.marks=(s.marks||[]).filter(m=>desired.some(d=>d.key===m.key&&d.id===m.id&&d.partner===m.partner));
+ for(const d of desired)if(!s.marks.some(m=>m.key===d.key)){s.markSequence=(s.markSequence||0)+1;s.marks.push({...d,sequence:s.markSequence});}
+}
+export function markersForSeat(s,id){return (s.marks||[]).filter(m=>m.id===id).sort((a,b)=>a.sequence-b.sequence);}
 function snapshot(s) { const {history,...rest}=s; return clone(rest); }
-function enter(s,step) {s.step=step;s.action=[];s.choice=null;s.operation=step==='mechanicalAction'?mechanicalModes(s)[0]||null:null;if(['draw','dayDraw'].includes(step))restoreDraw(s);if(step==='discussion')s.speaker=!s.sheriff&&s.draw?.revealed?s.draw.seat:null;}
+function enter(s,step) {if(step==='mechanicalAction')s.mechanical.extraUnlocked ||= extraKnifeUnlocked(s);s.step=step;s.action=[];s.choice=null;s.operation=step==='mechanicalAction'?mechanicalModes(s)[0]||null:null;if(['draw','dayDraw'].includes(step))restoreDraw(s);if(step==='discussion')s.speaker=!s.sheriff&&s.draw?.revealed?s.draw.seat:null;}
 export function previous(s) {
   const old=s.history.pop(); if(!old)return false;
   const history=s.history,drawCache=s.drawCache; Object.assign(s,old);s.history=history;s.drawCache=drawCache;
@@ -249,9 +271,10 @@ function deathSteps(s) {
   s.queue.shift();deathSteps(s);
 }
 function startNight(s) {
-  s.lastGuard=s.nightAction.guard;s.nightResolution=null;s.night++; s.nightAction=blankNight();s.draw=null;s.deaths=[];s.deathsCommitted=false;s.announcementContinuation='direction';enter(s,'dark');
+  s.marks=[];s.lastGuard=s.nightAction.guard;s.nightResolution=null;s.night++; s.nightAction=blankNight();s.draw=null;s.deaths=[];s.deathsCommitted=false;s.announcementContinuation='direction';enter(s,'dark');
 }
 function finishElection(s,tie=false) {s.electionStatus=s.sheriff?'elected':'none';s.resumeElection=false;s.electionTie=tie;enter(s,'sheriffResult');}
+function afterDawn(s){if(s.noSheriffReason&&!s.noSheriffNoticeShown)enter(s,'noSheriffNotice');else if(s.electionStatus==='pending'&&(s.night===1||s.resumeElection))electionAfterDawn(s);else enter(s,'announcement');}
 function electionAfterDawn(s){if(s.resumeElection)enter(s,'withdraw');else if(s.candidates.length<2){s.sheriff=s.candidates[0]||null;finishElection(s);}else enter(s,'draw');}
 function prepareDawn(s){
   if(!s.rolesConfirmed){if(!Object.entries(boardOf(s).roles).filter(([r])=>r!=='villager').every(([r,c])=>s.players.filter(p=>p.role===r).length===c))return false;s.players.filter(p=>p.active&&!p.role).forEach(p=>p.role='villager');s.rolesConfirmed=true;}
@@ -272,6 +295,7 @@ export function next(s) {
     if(step==='mechanicalAction'){
       const n=s.nightAction;
       if(!s.mechanical.role&&n.learnTarget){s.mechanical.role=player(s,n.learnTarget).role||'villager';s.mechanical.target=n.learnTarget;s.mechanical.night=s.night;}
+      if(n.extraAttack){s.mechanical.extraUsed=true;s.mechanical.extraUsedNight=s.night;s.mechanical.extraTarget=n.extraAttack;}
       if(n.shield)s.mechanical.shield=false;if(n.mechanicalPoison)s.mechanical.poison=false;
     }
     if(step==='exchange')s.usedExchanges=[...new Set([...s.usedExchanges,...s.nightAction.exchange])];
@@ -282,11 +306,14 @@ export function next(s) {
     }
     enter(s,upcoming);
   } else if(step==='dawn') {
-    if(s.electionStatus==='pending' && (s.night===1 || s.resumeElection))electionAfterDawn(s);else enter(s,'announcement');
+    if(s.badgeSwallowed&&!s.swallowNoticeShown&&s.night===s.swallowNoticeNight)enter(s,'swallowNotice');else afterDawn(s);
   } else if(step==='candidates') {
     s.nominees=[...s.candidates];
+    if(!s.candidates.length||s.candidates.length===s.players.filter(p=>p.active&&p.alive).length){s.noSheriffReason=s.candidates.length?'all':'none';s.electionStatus='none';s.resumeElection=false;s.sheriff=null;}
     enter(s,'dawn');
-  } else if(step==='draw') enter(s,'speeches');
+  } else if(step==='noSheriffNotice'){s.noSheriffNoticeShown=true;enter(s,'announcement');}
+  else if(step==='swallowNotice'){s.swallowNoticeShown=true;afterDawn(s);}
+  else if(step==='draw') enter(s,'speeches');
   else if(step==='speeches') enter(s,'withdraw');
   else if(step==='withdraw') {
     if(s.candidates.length<2){s.sheriff=s.candidates[0]||null;finishElection(s);}
@@ -308,7 +335,7 @@ export function next(s) {
     if(target) {const d={id:target,cause:'shot',day:s.night,context:'day',sourceActor:actor.id};kill(s,[d]);s.queue.unshift(d);}
     deathSteps(s);
   } else if(step==='selfDestruct') {
-    const id=s.action[0];if(s.electionStatus==='pending'){s.preSheriffExplosions++;s.resumeElection=true;if(s.rules.swallow && s.preSheriffExplosions>=boardOf(s).swallowThreshold){s.badgeSwallowed=true;s.electionStatus='none';s.resumeElection=false;}}
+    const id=s.action[0];if(s.electionStatus==='pending'){s.preSheriffExplosions++;s.resumeElection=true;if(s.rules.swallow && s.preSheriffExplosions>=boardOf(s).swallowThreshold){s.badgeSwallowed=true;s.swallowNoticeNight=s.night+1;s.swallowNoticeShown=false;s.electionStatus='none';s.resumeElection=false;}}
     const d={id,cause:'selfDestruct',day:s.night,context:'day',sourceActor:id};kill(s,[d]);s.queue=[d];s.continuation=!s.deathsCommitted?'pendingAnnouncement':'nextNight';deathSteps(s);
   } else if(step==='badgeTransfer') {
     s.sheriff=s.choice==='skip'?null:s.action[0];s.pendingBadge=null;continueAfterDeaths(s);
@@ -329,6 +356,8 @@ export function next(s) {
   return true;
 }
 export function subtitle(s) {
+  if(s.step==='noSheriffNotice')return s.noSheriffReason==='all'?'本局全員上警，沒有警長':'本局全員不上警，沒有警長';
+  if(s.step==='swallowNotice')return boardOf(s).playerCount===12?'本局雙爆吞警徽，沒有警長':'本局單爆吞警徽，沒有警長';
   if(s.step==='exilePK')return '請'+s.votePool.map(id=>id+'號').join('、')+'PK 發言';
   if(s.step==='exilePKStart')return '由'+s.votePool[0]+'號開始發言';
   if(s.step==='wolves' && s.night>1)return '狼人請睜眼';
