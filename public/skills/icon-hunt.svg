@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="獵魔人狩獵">
+<title>獵魔人狩獵</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F3C96C" stroke-width="3.1"/>
+<!-- drawn bow with taut string -->
+<path d="M26 15 C17 21 17 43 26 49" fill="none" stroke="#F3C96C" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M26 15 V49" fill="none" stroke="#F3C96C" stroke-width="2.2" stroke-linecap="round"/>
+<!-- arrow shaft and arrowhead -->
+<path d="M18 32 H49" fill="none" stroke="#F3C96C" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M43 25.5 L52 32 L43 38.5" fill="none" stroke="#F3C96C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- arrow fletching -->
+<path d="M14 26 L20 32 L14 38" fill="none" stroke="#F3C96C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

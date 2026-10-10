@@ -5,13 +5,15 @@ export const eligibleVoters=s=>s.players.filter(p=>p.active&&p.alive&&!(p.role==
 export const eligibleExileTarget=(s,p)=>!!p?.active&&p.alive&&!(p.role==='idiot'&&s.idiot?.exileBanned);
 export function mixedResult(s){const m=s.mixed;if(!m?.chosen||!s.winner)return null;return {seat:m.seat,target:m.target,targetRole:m.targetRole,camp:m.camp,won:m.camp===s.winner};}
 const liveRole=(s,role)=>s.players.find(p=>p.alive&&p.role===role);
-export const ordinaryWolves=s=>s.players.filter(p=>p.alive&&(['wolf','king','elder','nightmare'].includes(p.role)||(p.role==='younger'&&s.brothers?.joinNight!=null&&s.night>=s.brothers.joinNight)));
+export const ordinaryWolves=s=>s.players.filter(p=>p.alive&&(['wolf','king','elder','nightmare','blood'].includes(p.role)||(p.role==='younger'&&s.brothers?.joinNight!=null&&s.night>=s.brothers.joinNight)));
 export const revengeAvailable=s=>!!liveRole(s,'younger')&&s.brothers?.revengeNight===s.night&&!s.brothers.revengeUsed;
 export const revengeRecorded=s=>!!liveRole(s,'younger')&&s.brothers?.revengeNight===s.night&&(revengeAvailable(s)||s.brothers.revengeUsedNight===s.night);
 export const canTrade=s=>!!liveRole(s,'merchant')&&!s.merchant?.used;
 export function tradeOutcome(s,id){return ROLE_DATA[s.players.find(p=>p.id===id)?.role]?.kind!=='wolf';}
 export const feared=(s,id)=>!!id&&s.nightAction.fearApplied&&s.nightAction.fear===id;
 export const fearedRole=(s,role)=>s.players.some(p=>p.alive&&p.role===role&&feared(s,p.id));
+export const bloodSealed=s=>s.blood?.sealNight===s.night;
+export const skillBlocked=(s,role)=>fearedRole(s,role)||(bloodSealed(s)&&ROLE_DATA[role]?.kind==='god');
 export const forcedEmpty=s=>s.nightAction.fearApplied&&s.players.find(p=>p.id===s.nightAction.fear)?.role==='wolf';
 export function inspectedWolf(s,id){const p=s.players.find(p=>p.id===id);return p?.role==='younger'&&liveRole(s,'elder')&&!s.nightState?.deaths?.some(d=>s.players.find(p=>p.id===d.id)?.role==='elder')?false:ROLE_DATA[p?.role]?.kind==='wolf';}
 export function luckyAbility(s){const l=s.lucky;if(!l||!s.players.find(p=>p.id===l.seat)?.alive||s.night<l.unlockNight||!['inspect','poison'].includes(l.ability))return null;return l.remaining>0||l.usedNight===s.night?l.ability:null;}
@@ -32,7 +34,7 @@ export function trueWinner(s){
  if(!s.rolesConfirmed)return null;
  const live=s.players.filter(p=>aliveForVictory(s,p)),wolf=p=>ROLE_DATA[p.role]?.kind==='wolf';
  if(s.rules.victory==='city'?!live.some(p=>!wolf(p)):!live.some(p=>ROLE_DATA[p.role]?.kind==='god')||!live.some(p=>ROLE_DATA[p.role]?.kind==='villager'))return '狼人陣營';
- if(!live.some(wolf))return '好人陣營';
+ if(!live.some(wolf)&&!s.blood?.lastPending)return '好人陣營';
  return null;
 }
 // Preserve independent attacks; defenses are spent per hit, never per target.
@@ -66,7 +68,8 @@ export function settleNight(s,{phase='all'}={}){
  if(ability==='mechanicalPoison'&&n.mechanicalPoison)poisons.push({id:n.mechanicalPoison,cause:'poison',sourceActor:mechanical.id,sourceRole:'mechanical',source:'learnedPoison'});
  if(luckyAbility(s)==='poison'&&n.luckyPoison)poisons.push({id:map(n.luckyPoison),cause:'poison',sourceActor:s.lucky.seat,sourceRole:s.players.find(p=>p.id===s.lucky.seat).role,source:'luckyPoison'});
  for(const poison of poisons){
-  if(sleep===poison.id){events.push({...poison,blocked:'sleep'});}
+  if(s.players.find(p=>p.id===poison.id)?.role==='demon'){events.push({...poison,blocked:'demonImmunity'});}
+  else if(sleep===poison.id){events.push({...poison,blocked:'sleep'});}
   else if(shield===poison.id){
    events.push({...poison,blocked:'shield'});
    if(s.rules.reflectPoison){const reflected={...poison,id:poison.sourceActor,source:'reflection'};events.push(reflected);if(s.players.find(p=>p.id===reflected.id)?.alive)dead.set(reflected.id,reflected);}
@@ -76,6 +79,7 @@ export function settleNight(s,{phase='all'}={}){
  if(n.sleepApplied&&n.repeatPending){const repeat={id:n.sleep,cause:'dreamRepeat',sourceActor:s.players.find(p=>p.role==='dream')?.id,sourceRole:'dream',source:'dreamRepeat'};events.push({...repeat,blocked:null});dead.set(repeat.id,repeat);}
  const dream=s.players.find(p=>p.role==='dream');
  if(n.sleepApplied&&dream&&dead.has(dream.id)){const link={id:n.sleep,cause:'dreamLink',sourceActor:dream.id,sourceRole:'dream',source:'dreamLink'};events.push({...link,blocked:null});if(!dead.has(link.id))dead.set(link.id,link);}
+ if(phase==='dawn'&&n.huntApplied&&n.huntDeath){const hunt={id:n.huntDeath,cause:'hunt',sourceActor:s.players.find(p=>p.role==='demon')?.id,sourceRole:'demon',source:'hunt'};events.push({...hunt,blocked:null});if(!dead.has(hunt.id))dead.set(hunt.id,hunt);}
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
  return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf'};
 }

@@ -12,8 +12,8 @@ test('v6 refresh migrates current decisions and every back snapshot without inve
  delete s.lastFear;delete s.lastSleep;delete s.nightState;
  for(const k of ['fear','fearSkip','fearApplied','sleep','sleepApplied','repeatPending','repeatExecuted','forcedAttackReason'])delete s.nightAction[k];
  const h=structuredClone(s);delete h.history;h.step='attack';h.nightAction.antidote=null;h.potions.antidote=true;s.history.push(h);
- const restored=upgradeGame(JSON.parse(JSON.stringify(s)));assert.equal(restored.version,8);assert.equal(restored.nightAction.attack,9);assert.equal(restored.potions.antidote,false);assert.equal(restored.nightAction.fearApplied,false);assert.deepEqual(restored.nightState.deaths,[]);assert.equal(restored.legacyRecap,false);
- assert.equal(previous(restored),true);assert.equal(restored.step,'attack');assert.equal(restored.potions.antidote,true);assert.equal(restored.version,8);assert.deepEqual(restored.nightState.deaths,[]);
+ const restored=upgradeGame(JSON.parse(JSON.stringify(s)));assert.equal(restored.version,9);assert.equal(restored.nightAction.attack,9);assert.equal(restored.potions.antidote,false);assert.equal(restored.nightAction.fearApplied,false);assert.deepEqual(restored.nightState.deaths,[]);assert.equal(restored.legacyRecap,false);
+ assert.equal(previous(restored),true);assert.equal(restored.step,'attack');assert.equal(restored.potions.antidote,true);assert.equal(restored.version,9);assert.deepEqual(restored.nightState.deaths,[]);
 });
 function ready(board='nightmare12',rules={}){const s=createGame(board,rules);let i=0;for(const [role,n]of Object.entries(BOARDS[board].roles))for(let k=0;k<n;k++)s.players[i++].role=role;s.rolesConfirmed=true;s.night=2;return s;}
 const seat=(s,r)=>s.players.find(p=>p.role===r).id;
@@ -99,7 +99,7 @@ test('night markers, snapshots, limits, ledger and recap roll back fully and rel
  assert.ok(s.marks.some(m=>m.type==='fear'));assert.ok(s.marks.some(m=>m.type==='sleep'));const fresh=restartGame(s);assert.equal(fresh.boardId,s.boardId);assert.deepEqual(fresh.rules,s.rules);assert.equal(fresh.lastFear,null);assert.equal(fresh.lastSleep,null);assert.deepEqual(fresh.nightRecords,[]);assert.deepEqual(fresh.nightState.deaths,[]);
 });
 test('recap fear has no blockade explanation, sleep only marks actual repeat death and uses approved art',()=>{
- const s=ready();fear(s,2);sleep(s,9);const cards=recapNights(s)[0].events;assert.deepEqual(cards.map(e=>e.skill),['fear','sleep']);assert.equal(cards[0].result,null);assert.equal(cards[1].result,null);assert.equal(cardModel(cards[0]).image,'art/nightmare-minimal-approved.png');assert.equal(cardModel(cards[1]).image,'art/dream-catcher-minimal-approved.png');assert.equal(cardModel(cards[0]).tone,'wolf');assert.equal(cardModel(cards[1]).tone,'god');
+ const s=ready();fear(s,2);sleep(s,9);const cards=recapNights(s)[0].events;assert.deepEqual(cards.map(e=>e.skill),['fear','sleep']);assert.equal(cards[0].result,null);assert.equal(cards[1].result,null);assert.equal(cardModel(cards[0]).image,'art/catalog/nightmare.png');assert.equal(cardModel(cards[1]).image,'art/catalog/dream.png');assert.equal(cardModel(cards[0]).tone,'wolf');assert.equal(cardModel(cards[1]).tone,'god');
 });
 test('chapter 6 skill text and all four approved new assets are exact, host has no portrait card',async()=>{
  const spec=await readFile(new URL('../README.md',import.meta.url),'utf8');

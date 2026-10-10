@@ -1,0 +1,405 @@
+{
+  "spec": "main@ae04fc6",
+  "branch": "feat/eclipse-host-app",
+  "tests": {
+    "pass": 247,
+    "fail": 0,
+    "skipped": 0
+  },
+  "stages": [
+    193,
+    233,
+    245,
+    246,
+    246,
+    246,
+    247
+  ],
+  "stress": [
+    {
+      "board": "10",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1536,
+      "maxSaveBytes": 767459
+    },
+    {
+      "board": "12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1979,
+      "maxSaveBytes": 1255666
+    },
+    {
+      "board": "mechanical10",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1681,
+      "maxSaveBytes": 941037
+    },
+    {
+      "board": "mechanical12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 2403,
+      "maxSaveBytes": 1375585
+    },
+    {
+      "board": "brothers12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 2417,
+      "maxSaveBytes": 1178404
+    },
+    {
+      "board": "nightmare10",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1505,
+      "maxSaveBytes": 1023976
+    },
+    {
+      "board": "nightmare12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 2294,
+      "maxSaveBytes": 1495278
+    },
+    {
+      "board": "classic12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1927,
+      "maxSaveBytes": 1128600
+    },
+    {
+      "board": "classicMixed12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1985,
+      "maxSaveBytes": 1065112
+    },
+    {
+      "board": "blood10",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1311,
+      "maxSaveBytes": 615044
+    },
+    {
+      "board": "kingGuard10",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1542,
+      "maxSaveBytes": 1044746
+    },
+    {
+      "board": "kingDream10",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1444,
+      "maxSaveBytes": 999871
+    },
+    {
+      "board": "blood12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1868,
+      "maxSaveBytes": 953459
+    },
+    {
+      "board": "kingGuard12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 2025,
+      "maxSaveBytes": 1092200
+    },
+    {
+      "board": "kingDream12",
+      "seeds": 18,
+      "finished": 18,
+      "actions": 1969,
+      "maxSaveBytes": 1074963
+    }
+  ],
+  "ui": {
+    "results": [
+      {
+        "board": "blood10",
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "blood12",
+        "passed": true,
+        "actions": 89,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingGuard10",
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingGuard12",
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingDream10",
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingDream12",
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "classicMixed12",
+        "passed": true,
+        "actions": 114,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "mechanical12",
+        "passed": true,
+        "actions": 113,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "brothers12",
+        "passed": true,
+        "actions": 121,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "nightmare12",
+        "passed": true,
+        "actions": 111,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "responsive": {
+          "width": 320,
+          "height": 568
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            320,
+            568
+          ],
+          "pageWidth": 320,
+          "footer": 455,
+          "seats": [
+            204.65625,
+            253.328125,
+            302,
+            350.65625,
+            399.328125,
+            448,
+            204.65625,
+            253.328125,
+            302,
+            350.65625,
+            399.328125,
+            448
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 768,
+          "height": 1024
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            768,
+            1024
+          ],
+          "pageWidth": 768,
+          "footer": 906,
+          "seats": [
+            355.15625,
+            465.328125,
+            575.484375,
+            685.65625,
+            795.828125,
+            905.984375,
+            355.15625,
+            465.328125,
+            575.484375,
+            685.65625,
+            795.828125,
+            905.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1024,
+          "height": 768
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1024,
+            768
+          ],
+          "pageWidth": 1024,
+          "footer": 650,
+          "seats": [
+            312.5,
+            380,
+            447.5,
+            515,
+            582.5,
+            650,
+            312.5,
+            380,
+            447.5,
+            515,
+            582.5,
+            650
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1180,
+          "height": 600
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1180,
+            600
+          ],
+          "pageWidth": 1180,
+          "footer": 482,
+          "seats": [
+            235.328125,
+            284.65625,
+            333.984375,
+            383.328125,
+            432.65625,
+            481.984375,
+            235.328125,
+            284.65625,
+            333.984375,
+            383.328125,
+            432.65625,
+            481.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "assets": 18,
+        "loaded": true
+      },
+      {
+        "offline": true,
+        "assets": 31
+      }
+    ],
+    "errors": []
+  },
+  "assetOriginalsVerified": 40,
+  "syntax": "passed",
+  "build": "Static public/, no separate build or TypeScript configuration"
+}

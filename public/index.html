@@ -2,17 +2,17 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0D1424"><title>月蝕·狼人殺 主持 App</title>
+<meta name="theme-color" content="#0D1424"><title>月下議會｜狼人殺主持工具</title>
 <link rel="stylesheet" href="style.css"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml">
 </head>
 <body>
 <main>
 <section id="home" class="screen welcome" hidden>
-<div class="home-brand"><h1>月蝕</h1><p>狼人殺</p></div>
+<div class="home-brand"><h1>月下議會</h1><p>狼人殺主持工具</p></div>
 <div class="menu"><button id="start" class="primary">開始主持</button><button id="encyclopediaOpen">角色圖鑑</button></div>
 </section>
-<section id="counts" class="screen" hidden><h1>選擇人數</h1><div class="menu"><button data-count="10">10人局</button><button data-count="12">12人局</button><button data-home class="quiet">返回首頁</button></div></section>
-<section id="boards" class="screen" hidden><h1>選擇板子</h1><div class="menu"><div id="boardChoices" class="menu"></div><button id="boardBack" class="quiet">上一步</button></div></section>
+<section id="counts" class="screen" hidden><h1>選擇人數</h1><p class="page-subtitle">請選擇本場遊戲的人數</p><div id="countChoices" class="menu count-choices"></div><button data-home class="quiet page-back">返回首頁</button></section>
+<section id="boards" class="screen" hidden><h1>選擇板子</h1><p id="boardCount" class="page-subtitle"></p><div class="board-window"><div id="boardChoices" class="menu"></div></div><button id="boardBack" class="quiet page-back">上一步</button></section>
 <section id="setup" class="screen" hidden>
 <h1 id="setupTitle"></h1><div class="setup-grid"><section><h2>狼人陣營</h2><ul id="setupWolves"></ul></section><section><h2>好人陣營</h2><ul id="setupGood"></ul></section></div>
 <details class="rules-form"><summary>本局規則</summary>

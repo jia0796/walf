@@ -17,6 +17,7 @@ export function recordStage(s,stage,order){
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
   record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
+ if(stage==='hunt'&&s.night>1&&n.hunt)add('hunt','demon','hunt',[n.hunt],{unmapped:true,executed:false});
  if(stage==='roleModel'&&s.night===1&&!s.mixed.chosen&&n.roleModel)add('roleModel','mixed','role-model',[n.roleModel],{unmapped:true});
  if(stage==='fear'&&n.fear)add('fear','nightmare','fear',[n.fear],{unmapped:true});
  if(stage==='sleep'&&n.sleep)add('sleep','dream','sleep',[n.sleep],{unmapped:true});

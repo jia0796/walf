@@ -94,3 +94,23 @@ body[data-screen=host] main{padding-bottom:calc(90px + env(safe-area-inset-botto
 .event-card.villager{border-color:#6d9d7865;background:linear-gradient(110deg,#142e28eb,#264335c9);color:#badebd}
 .event-card.villager::after{background:linear-gradient(90deg,#152b25e6 15%,#18362c88 58%,#43855430)}
 .mixed-outcome{flex-shrink:0;margin:8px 2px 0;padding:9px 11px;border:1px solid #62816b66;border-radius:9px;background:#19352e88;color:#c6e0cb;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+/* Council theme: stronger decoration at entry; quiet frosted host controls. */
+:root{--bg:#142132;--panel:#1b2a3c;--purple:#2b3045;--line:#46546a;--ink:#ece8df;--muted:#b0bac8;--gold:#c0aa84;--wolf:#db9293;--god:#d2bd92;--green:#91baa0}
+body{background:radial-gradient(ellipse at 50% 0,#34435488,transparent 65%),var(--bg)}
+body[data-screen=host]{background:var(--bg)}
+.welcome{background:url('art/council-background.svg') center center/cover no-repeat;max-width:none;padding:0 24px calc(24px + env(safe-area-inset-bottom));justify-content:flex-end}
+.home-brand{margin:0 0 10dvh;padding-top:38dvh}.home-brand h1{font-size:clamp(38px,7dvh,70px);letter-spacing:.13em;color:#dac7a3;font-weight:600}.home-brand p{font-size:clamp(14px,2.2dvh,20px);letter-spacing:.18em;color:#cdd2d7}
+.welcome .menu{max-width:350px;margin:0 auto 5dvh;gap:13px}.welcome .menu button{border-radius:16px;min-height:58px;color:var(--ink);box-shadow:inset 0 1px 0 #dfe4e51a,0 8px 24px #08111e66;background:linear-gradient(135deg,#354256c9,#222a3add);border-color:#69758a}.welcome .menu .primary{background:linear-gradient(135deg,#455063cc,#272e3de6);border-color:#b4a082;box-shadow:inset 0 1px 0 #f4e9d330,0 8px 24px #08111e66}
+body[data-screen=counts],body[data-screen=boards],body[data-screen=setup]{background:linear-gradient(#142132d9,#142132f5),url('art/council-background.svg') center/cover fixed}
+#counts,#boards{text-align:center}.page-subtitle{font-size:14px;color:var(--muted);margin:0 0 22px}
+.count-choices{max-width:440px;gap:18px}.count-choices button{position:relative;text-align:left;padding:22px 24px;background:linear-gradient(125deg,#34465bc9,#263148df);border:1px solid #ab98746b;border-radius:15px;box-shadow:inset 0 1px 0 #ded6c81c;min-height:86px}.count-choices button::after{content:'›';position:absolute;right:24px;color:var(--gold)}
+#boards{height:calc(100dvh - 55px - env(safe-area-inset-bottom));max-width:660px;display:flex;flex-direction:column;min-height:0;padding-bottom:0}#boards h1{margin:10px 0 8px}.board-window{padding:12px;background:#243247c7;border:1px solid #7b839460;border-radius:18px;min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;box-shadow:inset 0 1px 0 #c4cbd71a}
+#boardChoices{max-width:none;gap:9px}#boardChoices button{position:relative;min-height:56px;padding:14px 36px 14px 17px;text-align:left;font-size:17px;background:#3440578c;border-color:#6a778a50;border-radius:10px}#boardChoices button::after{content:'›';position:absolute;right:15px;color:#b9b2a2}
+.page-back{display:block;margin:16px auto 0;min-width:140px;min-height:44px}#boards>.page-back{flex-shrink:0;margin-bottom:8px}
+.setup-grid section,.rules-form,.night-order{background:linear-gradient(135deg,#2b3a4dce,#1f2b3ee8);border-color:#77809150;box-shadow:inset 0 1px 0 #ced6e015}
+.host-center,.seat{background:linear-gradient(135deg,#2b3b4bcf,#202d40ef);border-color:#67748970;box-shadow:inset 0 1px 0 #dae0e015}
+.role-card img{height:auto;aspect-ratio:5/7;object-fit:contain}.role-card:has(img[style]){padding:0;border:0;background:transparent}
+.preview-card{height:min(65dvh,448px);width:min(78vw,320px,calc(65dvh * 5 / 7))}.preview-front:has(img){border:0;background:transparent;border-radius:0}
+@supports not (backdrop-filter:blur(1px)){.seat,.host-center,.board-window,.setup-grid section{background:#243347}}
+@media(max-height:620px){.home-brand{padding-top:20dvh;margin-bottom:3dvh}.home-brand h1{font-size:36px}.welcome .menu{margin-bottom:2dvh}.welcome .menu button{min-height:48px}.welcome{padding-bottom:10px}}
+@media(min-width:641px){.welcome{border:0;border-radius:0;margin:0;min-height:100dvh}.home-brand{padding-top:38dvh}}

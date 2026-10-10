@@ -18,10 +18,10 @@ test('mechanical first-night order, learned use image and independent basic/extr
  const s=ready('mechanical12');s.step='attack';selectSeat(s,9);go(s);s.step='antidote';choose(s,'skip');go(s);s.step='mechanical';go(s);selectSeat(s,2);go(s);s.step='mediumInspect';selectSeat(s,1);go(s);
  assert.deepEqual(recapNights(s)[0].events.map(e=>e.key),['basic','learn','medium']);
  s.step='nextNight';go(s);s.step='mechanical';go(s);selectSeat(s,9);go(s);s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);s.step='attack';selectSeat(s,10);go(s);s.step='antidote';choose(s,'skip');go(s);
- const events=recapNights(s)[1].events;assert.deepEqual(events.map(e=>e.key),['extraAttack','basic']);assert.ok(events.every(e=>cardModel(e).image==='art/mechanical-wolf-minimal-approved.png'));assert.equal(cardModel(events[1]).name,'狼人');
+ const events=recapNights(s)[1].events;assert.deepEqual(events.map(e=>e.key),['extraAttack','basic']);assert.ok(events.every(e=>cardModel(e).image==='art/catalog/mechanical.png'));assert.equal(cardModel(events[1]).name,'狼人');
 });
 test('trade/lucky cards preserve original profession; failed trade never shows proposed gift',()=>{
- const s=ready('brothers12');s.step='trade';selectSeat(s,9);choose(s,'gift:inspect');go(s);s.step='nextNight';go(s);s.step='luckyAction';selectSeat(s,2);go(s);const model=cardModel(recapNights(s)[1].events[0]);assert.equal(model.name,'幸運兒');assert.equal(model.tone,'villager');assert.equal(model.image,'art/villager-minimal-approved.png');
+ const s=ready('brothers12');s.step='trade';selectSeat(s,9);choose(s,'gift:inspect');go(s);s.step='nextNight';go(s);s.step='luckyAction';selectSeat(s,2);go(s);const model=cardModel(recapNights(s)[1].events[0]);assert.equal(model.name,'幸運兒');assert.equal(model.tone,'villager');assert.equal(model.image,'art/catalog/villager.png');
  const failed=ready('brothers12');failed.step='trade';selectSeat(failed,2);choose(failed,'gift:gun');go(failed);assert.equal(recapNights(failed)[0].events[0].tradeSuccess,false);
 });
 test('old saves do not fabricate historical recap, restart clears legacy marker',()=>{
