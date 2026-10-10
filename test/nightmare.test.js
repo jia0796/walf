@@ -23,6 +23,14 @@ function attack(s,id){s.step='attack';if(id)selectSeat(s,id);else choose(s,'skip
 function cure(s,value='skip'){s.step='antidote';choose(s,value);go(s);}
 function poison(s,id){s.step='poison';if(id){choose(s,'use');selectSeat(s,id);}else if(!potionBlocked(s,'poison'))choose(s,'skip');go(s);}
 function nextNight(s){s.step='nextNight';go(s);}
+test('confirmed same-night eligibility: knife-killed witch may poison before announcement',()=>{
+ const s=ready('nightmare12',{sheriff:false}),witch=seat(s,'witch');attack(s,witch);cure(s,'skip');assert.equal(s.winner,null);assert.ok(s.nightState.deaths.some(d=>d.id===witch));assert.equal(s.players.find(p=>p.id===witch).alive,true);assert.equal(potionBlocked(s,'poison'),'');poison(s,9);assert.equal(s.potions.poison,false);assert.ok(s.nightState.deaths.some(d=>d.id===9));
+ s.step='announcement';go(s);assert.equal(s.players.find(p=>p.id===witch).alive,false);assert.equal(s.players.find(p=>p.id===9).alive,false);s.step='poison';assert.equal(choose(s,'use'),false);
+});
+test('confirmed same-night eligibility: knife-killed seer may inspect until announcement',()=>{
+ const s=ready('nightmare12',{sheriff:false}),seer=seat(s,'seer');attack(s,seer);cure(s,'skip');poison(s,null);assert.ok(s.nightState.deaths.some(d=>d.id===seer));assert.equal(s.players.find(p=>p.id===seer).alive,true);s.step='inspect';assert.equal(selectSeat(s,1),true);go(s);assert.equal(inspection(s),'down');
+ s.step='announcement';go(s);assert.equal(s.players.find(p=>p.id===seer).alive,false);s.step='inspect';assert.equal(selectSeat(s,1),false);
+});
 for(const board of ['nightmare10','nightmare12']){
  test(board+' fixed counts, room defaults and exact first/later night registration',()=>{
   const b=BOARDS[board],s=createGame(board,{sheriff:false});assert.equal(Object.values(b.roles).reduce((a,n)=>a+n,0),b.playerCount);assert.equal(b.defaults.swallow,b.playerCount===12);

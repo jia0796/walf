@@ -1,6 +1,6 @@
 # 執行與接管
 
-規格：main README.md，14fdfa5。基礎：feat/eclipse-host-app，fddd0c4。工作分支：feat/nightmare-dream-catcher，未合併／未部署。狀態與待確認事項見 [夢魘／攝夢人驗收報告](docs/nightmare-report.md)。
+規格：main README.md，14fdfa5。基礎：feat/eclipse-host-app，fddd0c4。工作分支：feat/nightmare-dream-catcher，使用者已確認行動資格並授權合併部署。狀態與驗收事項見 [夢魘／攝夢人驗收報告](docs/nightmare-report.md)。
 
 Node.js 22+，不需安裝套件。執行 `npm start`，開啟 http://127.0.0.1:5173；`npm test` 執行測試。這是原有 JavaScript 靜態 PWA，無 TypeScript 或獨立建置命令。發布內容為 public/，不得擴大部署工作流程的分支範圍。
 
