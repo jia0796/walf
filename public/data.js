@@ -1,4 +1,6 @@
 export const ROLE_DATA = {
+ gargoyle:{name:'覺醒石像鬼',kind:'wolf',camp:'狼隊陣營',image:'art/catalog/gargoyle.png',recapCrop:[90,200,880,950],artSize:[1060,1484],canShoot:false,skill:'第一夜參與行動後，單獨睜眼，選擇狼人陣營相鄰的一名玩家成為轉化者，將轉化者變為狼人陣營。轉化者知道自己為轉化者，但不與狼隊見面。其餘狼人陣營玩家出局前，可以正常使用原有技能。當其餘狼人陣營玩家出局後，轉化者失去原有技能，回歸狼隊，接手基本狼刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ gravekeeper:{name:'守墓人',kind:'god',camp:'好人陣營',image:'art/catalog/gravekeeper.png',recapCrop:[85,190,830,900],artSize:[1000,1400],canShoot:false,skill:'第二晚起，每晚得知前一天被放逐投票出局的玩家為狼人或好人。若沒有玩家被放逐，則無法獲得查驗結果。',goal:'找出並解決所有狼人。'},
  blood:{name:'血月使者',kind:'wolf',camp:'狼隊陣營',image:'art/blood-moon-messenger-approved.png',canShoot:false,skill:'白天自爆後，當晚所有神職無法使用技能。若血月使者是場上最後一名狼人，且被白天投票放逐，則翻牌並立即獲得最後一刀的機會。若最後一刀成功達成本局設定的屠邊或屠城勝利條件，狼人陣營獲勝；否則好人陣營獲勝。',goal:'淘汰好人陣營，協助狼人陣營獲勝。'},
  demon:{name:'獵魔人',kind:'god',camp:'好人陣營',image:'art/demon-hunter-approved.png',canShoot:false,skill:'第一晚不可狩獵。第二晚起，每晚可選擇一名其他玩家進行狩獵，也可以不使用。若目標為狼人，則該狼人於隔天天亮時死亡；若目標為好人，則獵魔人自己於隔天天亮時死亡。獵魔人免疫女巫毒藥。',goal:'找出並解決所有狼人。'},
  idiot:{name:'白痴',kind:'god',camp:'好人陣營',image:'art/idiot-minimal-approved.png',canShoot:false,skill:'白天被投票放逐時，會翻牌公開身分且不會死亡。翻牌後仍可發言，但永久失去投票權，也不能再次被放逐。夜間遭到狼人襲擊或女巫毒殺則正常死亡。',goal:'找出並解決所有狼人。'},
@@ -40,4 +42,7 @@ export const BRANDING={name:'月下議會',subtitle:'狼人殺主持工具'};
 export const HOME_ACTIONS=[{id:'start',label:'開始主持',enabled:true},{id:'encyclopediaOpen',label:'角色圖鑑',enabled:true}];
 const BOARD_LABELS={'10':'黑狼王/魔術師','12':'黑狼王/魔術師',mechanical:'機械狼/通靈師',brothers:'狼兄狼弟/黑市商人',nightmare:'夢魘/攝夢人',classic:'預女獵白',classicMixed:'預女獵白混',blood:'血月/獵魔人',kingGuard:'黑狼王/守衛',kingDream:'黑狼王/攝夢人'};
 for(const b of Object.values(BOARDS)){b.canonicalName=b.name;b.shortLabel=BOARD_LABELS[b.id]||BOARD_LABELS[b.id.replace(/(10|12)$/,'')];}
-export const PLAYER_COUNTS=[...new Set(Object.values(BOARDS).map(b=>b.playerCount))].sort((a,b)=>a-b);
+for(const count of [10,12]){const id='gargoyle'+count;BOARDS[id]={id,name:count+'人 覺醒石像鬼/守墓人',canonicalName:count+'人 覺醒石像鬼/守墓人',shortLabel:'覺醒石像鬼/守墓人',category:'awakened',enabled:true,playerCount:count,roles:{gargoyle:1,wolf:count===12?2:1,guard:1,witch:1,seer:1,gravekeeper:1,...(count===12?{hunter:1}:{}),villager:4},firstNightOrder:['guard','wolves','gargoyle','witch','seer','gravekeeper',...(count===12?['hunter']:[]),'converted'],nightOrder:['guard','wolves','witch','seer','gravekeeper',...(count===12?['hunter']:[])],defaults:{...defaults,swallow:count===12},adjustable:['sheriff','selfRescue','victory','swallow'],swallowThreshold:count===12?2:1};}
+for(const b of Object.values(BOARDS)){b.category??='normal';b.enabled??=true;}
+export const PAGE_BACKGROUNDS=Object.fromEntries(['home','counts','boards','setup','host'].map(k=>[k,'art/backgrounds/'+k+'.webp']));
+export const PLAYER_COUNTS=[...new Set(Object.values(BOARDS).filter(b=>b.enabled).map(b=>b.playerCount))].sort((a,b)=>a-b);

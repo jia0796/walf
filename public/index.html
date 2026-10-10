@@ -12,7 +12,7 @@
 <div class="menu"><button id="start" class="primary">開始主持</button><button id="encyclopediaOpen">角色圖鑑</button></div>
 </section>
 <section id="counts" class="screen" hidden><h1>選擇人數</h1><p class="page-subtitle">請選擇本場遊戲的人數</p><div id="countChoices" class="menu count-choices"></div><button data-home class="quiet page-back">返回首頁</button></section>
-<section id="boards" class="screen" hidden><h1>選擇板子</h1><p id="boardCount" class="page-subtitle"></p><div class="board-window"><div id="boardChoices" class="menu"></div></div><button id="boardBack" class="quiet page-back">上一步</button></section>
+<section id="boards" class="screen" hidden><h1>選擇板子</h1><p id="boardCount" class="page-subtitle"></p><div id="boardTabs" class="board-tabs" hidden><button id="boardsNormal" aria-pressed="true">一般板子</button><button id="boardsAwakened" aria-pressed="false">覺醒板子</button></div><div class="board-window"><div id="boardChoices" class="menu"></div></div><button id="boardBack" class="quiet page-back">上一步</button></section>
 <section id="setup" class="screen" hidden>
 <h1 id="setupTitle"></h1><div class="setup-grid"><section><h2>狼人陣營</h2><ul id="setupWolves"></ul></section><section><h2>好人陣營</h2><ul id="setupGood"></ul></section></div>
 <details class="rules-form"><summary>本局規則</summary>
@@ -37,7 +37,7 @@
 <header class="victory"><p>遊戲結束</p><h1 id="winnerTitle"></h1><p id="winnerReason"></p></header>
 <p id="mixedOutcome" class="mixed-outcome" hidden></p>
 <h2 class="recap-title">夜間復盤</h2><div id="nightRecap" class="night-recap"></div>
-<div class="finish-actions"><button id="playAgain" class="primary">重新一局</button><button id="finishHome">回首頁</button></div>
+<details id="identityReview" class="identity-review" hidden><summary>最終身分回顧</summary><div id="identityCards" class="identity-cards"></div></details><div class="finish-actions"><button id="playAgain" class="primary">重新一局</button><button id="finishHome">回首頁</button></div>
 </section>
 </main>
 <dialog id="timerDialog"><div class="dialog-head"><h2>發言計時器</h2><button id="timerClose" aria-label="關閉計時器">×</button></div>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="覺醒石像鬼轉化">
+<title>覺醒石像鬼轉化</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+<!-- clockwise conversion arrows: two counterbalancing arcs -->
+<path d="M16.1 24.6 C20.4 16.5 32 12.8 42.6 17.5" fill="none" stroke="#F27680" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M37.9 13.7 L46.9 19.1 L37.2 22.8" fill="none" stroke="#F27680" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M47.9 39.4 C43.6 48.1 31.6 51.8 20.7 46.9" fill="none" stroke="#F27680" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M25.2 50.5 L16.6 45.2 L26.1 41.8" fill="none" stroke="#F27680" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/>
+<!-- angular stone gargoyle wings and forehead -->
+<path d="M15 33.3 L17.1 27.1 L22.3 23.8 L27.3 27 L32 24.4 L36.7 27 L41.7 23.8 L46.9 27.1 L49 33.3 L44.5 40.1 L37.8 39 L32 42.8 L26.2 39 L19.5 40.1 Z" fill="#303846" stroke="#AEB7C4" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M19.3 29.5 L25 33.2 L22.8 36.3 M44.7 29.5 L39 33.2 L41.2 36.3 M27 27.2 L32 29.2 L37 27.2" fill="none" stroke="#788394" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- crimson slit eye echoes the reference artwork -->
+<path d="M23.8 34.1 Q32 28.2 40.2 34.1 Q32 40 23.8 34.1 Z" fill="#451723" stroke="#F27680" stroke-width="2" stroke-linejoin="round"/>
+<path d="M32 29.9 L34.2 34.1 L32 38.3 L29.8 34.1 Z" fill="#F27680"/>
+</svg>

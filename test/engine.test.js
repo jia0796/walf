@@ -65,9 +65,9 @@ test('exile PK restricts second ballot and second tie goes to next night',()=>{
  const s=ready();s.step='voteIntro';advance(s);choose(s,'tie');selectSeat(s,9);selectSeat(s,10);advance(s);assert.equal(s.step,'exilePK');advance(s);assert.equal(subtitle(s),'由9號開始發言');advance(s);
  assert.equal(selectSeat(s,11),false);choose(s,'tie');advance(s);assert.equal(subtitle(s),'無人出局，進入下一晚');advance(s);assert.equal(s.step,'dark');assert.equal(s.night,2);assert.ok(s.players.every(p=>p.alive));
 });
-test('first-day last words include shots, poison blocks skill, second-day deaths show elimination first',()=>{
+test('night-killed hunter shots have no last words, poison blocks skill, second-day deaths show elimination first',()=>{
  const s=ready();s.step='announcement';s.deaths=[{id:8,cause:'attack'}];advance(s);assert.equal(s.step,'lastWords');advance(s);assert.equal(s.step,'skill');
- assert.equal(next(s),false);selectSeat(s,2);advance(s);assert.equal(s.step,'lastWords');advance(s);assert.equal(s.step,'skill');assert.match(subtitle(s),/^2號玩家，啟動角色技能$/);choose(s,'skip');advance(s);assert.equal(s.step,'dayDraw');
+ assert.equal(next(s),false);selectSeat(s,2);advance(s);assert.equal(s.step,'eliminated');advance(s);assert.equal(s.step,'skill');assert.match(subtitle(s),/^2號玩家，啟動角色技能$/);choose(s,'skip');advance(s);assert.equal(s.step,'dayDraw');
  const p=ready();p.step='announcement';p.deaths=[{id:8,cause:'poison'}];advance(p);advance(p);assert.equal(p.step,'dayDraw');
  const n=ready();n.night=2;n.step='announcement';n.deaths=[{id:8,cause:'attack'}];advance(n);assert.equal(subtitle(n),'8號玩家，啟動角色技能');assert.equal(n.step,'skill');
 });
@@ -153,6 +153,6 @@ test('simultaneous deaths each receive exactly one notice and poison suppresses 
 });
 test('saved v1 game migrates without changing identities/potions and published lotteries survive refresh',()=>{
  const old=ready();old.version=1;old.step='direction';old.potions.antidote=false;const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));
- assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,9);
+ assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,10);
  const s=ready();s.step='draw';s.candidates=[9,10];choose(s,'draw');choose(s,'revealDraw');const loaded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(loaded.draw,s.draw);choose(loaded,'draw');assert.deepEqual(loaded.draw,s.draw);
 });

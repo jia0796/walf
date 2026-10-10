@@ -1,16 +1,16 @@
 import {ROLE_DATA} from './data.js';
 import {recapNights} from './records.js';
-export const SKILL_LABELS={'wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊','role-model':'榜樣',hunt:'狩獵'};
+export const SKILL_LABELS={'wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊','role-model':'榜樣',hunt:'狩獵',transform:'轉化',gravekeeper:'守墓查驗'};
 const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!=null)node.textContent=text;return node;};
 export function skillIcon(skill){const icon=el('img','skill-icon');icon.src='skills/icon-'+skill+'.svg';icon.alt=SKILL_LABELS[skill];return icon;}
 export function cardModel(event){
  const lucky=event.displayRole==='lucky',r=ROLE_DATA[event.actorRole];
  const target=event.skill==='swap'?event.rawTargets.map(id=>id+'號').join(' ↔ '):event.rawTargets.map((id,i)=>id===event.effectiveTargets[i]?id+'號':id+'號 → '+event.effectiveTargets[i]+'號').join('、');
- return {name:lucky?'幸運兒':ROLE_DATA[event.displayRole]?.name||r?.name||'',tone:r?.kind==='wolf'?'wolf':r?.kind==='villager'?'villager':'god',image:r?.image,crop:r?.recapCrop||null,target,actors:event.actors.map(id=>id+'號').join('、')};
+ return {name:event.displayName|| (lucky?'幸運兒':ROLE_DATA[event.displayRole]?.name||r?.name||''),tone:event.tone|| (r?.kind==='wolf'?'wolf':r?.kind==='villager'?'villager':'god'),image:r?.image,crop:r?.recapCrop||null,artSize:r?.artSize||[1060,1484],target,actors:event.actors.map(id=>id+'號').join('、')};
 }
 export function eventCard(event,{operation=false}={}){
  const model=cardModel(event),card=el('article','event-card '+model.tone+(operation?' operation-card':''));
- if(model.image){if(model.crop){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('event-art');svg.setAttribute('viewBox',model.crop.join(' '));svg.setAttribute('preserveAspectRatio','xMidYMid slice');svg.setAttribute('aria-hidden','true');const image=document.createElementNS('http://www.w3.org/2000/svg','image');image.setAttribute('href',model.image);image.setAttribute('width','1060');image.setAttribute('height','1484');svg.append(image);card.append(svg);}else{const image=el('img','event-art');image.src=model.image;image.alt='';image.loading='lazy';card.append(image);}}
+ if(model.image){if(model.crop){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('event-art');svg.setAttribute('viewBox',model.crop.join(' '));svg.setAttribute('preserveAspectRatio','xMidYMid slice');svg.setAttribute('aria-hidden','true');const image=document.createElementNS('http://www.w3.org/2000/svg','image');image.setAttribute('href',model.image);image.setAttribute('width',String(model.artSize[0]));image.setAttribute('height',String(model.artSize[1]));svg.append(image);card.append(svg);}else{const image=el('img','event-art');image.src=model.image;image.alt='';image.loading='lazy';card.append(image);}}
  const content=el('div','event-content'),title=el('h3',null,model.name),line=el('div','event-line');
  line.append(el('span',null,model.actors));if(event.skill)line.append(skillIcon(event.skill),el('span',null,model.target||'選擇目標'));
  content.append(title,line);

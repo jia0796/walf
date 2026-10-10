@@ -1,3 +1,4 @@
+import {converted,convertedName,graveResult,nativeAllowed} from './identity.js';
 import {ROLE_DATA} from './data.js';
 import {ordinaryWolves,basicActor,inspectedWolf,tradeOutcome,mapTarget} from './night.js';
 export function nightRecord(s){
@@ -17,12 +18,14 @@ export function recordStage(s,stage,order){
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
   record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
+ if(stage==='transform'&&n.transform)add('transform','gargoyle','transform',[n.transform],{unmapped:true});
+ if(stage==='graveResult'&&graveResult(s)&&nativeAllowed(s,s.players.find(p=>p.role==='gravekeeper'))){const e=graveResult(s);add('gravekeeper','gravekeeper','gravekeeper',[e.id],{unmapped:true,result:e.wolf?'狼人':'好人'});}
  if(stage==='hunt'&&s.night>1&&n.hunt)add('hunt','demon','hunt',[n.hunt],{unmapped:true,executed:false});
  if(stage==='roleModel'&&s.night===1&&!s.mixed.chosen&&n.roleModel)add('roleModel','mixed','role-model',[n.roleModel],{unmapped:true});
  if(stage==='fear'&&n.fear)add('fear','nightmare','fear',[n.fear],{unmapped:true});
  if(stage==='sleep'&&n.sleep)add('sleep','dream','sleep',[n.sleep],{unmapped:true});
  if(stage==='exchange'&&n.exchange.length===2)add('swap','magician','swap',n.exchange,{unmapped:true});
- if(stage==='attack'&&n.attack){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors});}
+ if(stage==='attack'&&n.attack){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors,...(converted(s,basicActor(s))?{displayName:convertedName(s,basicActor(s)),tone:'wolf'}:{})});}
  if(stage==='revenge'&&n.revenge)add('revenge','younger','wolf-attack',[n.revenge],{unmapped:true});
  if(stage==='antidote'&&n.antidote===true)add('antidote','witch','antidote',[n.attack]);
  if(stage==='poison'&&n.poison===true&&n.poisonTarget)add('poison','witch','poison',[n.poisonTarget]);

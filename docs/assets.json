@@ -1,6 +1,6 @@
 {
   "source": "Wolf.app.art",
-  "checked": "2026-10-10",
+  "checked": "2026-10-11",
   "skillsFolder": "1OluabBS8kKEAt-uAknqGCCnTjaOe78ke",
   "rolesFolder": "1h-Rw1_nJFltofxmM2LG7-YOskBXil9C7",
   "originals": [
@@ -325,6 +325,60 @@
       "sha256": "29f37aad71a83abaf77fe94181e6624b6331ec77434d6fb14cb11f5d2c3d46cf",
       "modified": "2026-10-10T12:12:04.749Z",
       "edition": "approved"
+    },
+    {
+      "size": 2073903,
+      "sha256": "f01fb20ae9e4a55475586757a816f5d6ccfd7b051151231f5732c9f1db821c90",
+      "path": "public/art/catalog/gargoyle.png",
+      "driveId": "1wSu2lLYVIbNmzq1U5XEGc1qrbs9-Ovx-"
+    },
+    {
+      "size": 1712976,
+      "sha256": "aa53d52ea68a3456b1bdc51d5e1a73d421df1f35c9b7fce16f2181a60a5c6fe2",
+      "path": "public/art/catalog/gravekeeper.png",
+      "driveId": "1QvJR5GFFRbOn28352Cb0lPxGM7hc2QkV"
+    },
+    {
+      "size": 1599,
+      "sha256": "555098208df997fb16ff4885f3d834abc9391e225cbdc9412827ee83c8749887",
+      "path": "public/skills/icon-transform.svg",
+      "driveId": "1sjpitQkwnZcfEOQYIiHG5cVEfZ_t1Ccm"
+    },
+    {
+      "size": 1230,
+      "sha256": "27cb6baa1c862ebc7b6e79445fc341c2a06c25221b744a73c295612aff64ae60",
+      "path": "public/skills/icon-gravekeeper.svg",
+      "driveId": "17a6jipMOq8mADIZZjb6g5koBEQIy7mBW"
+    },
+    {
+      "size": 2005483,
+      "sha256": "51a8a6725855a226e2879735f13a8d4b33ceffdc583fe2bd0127f6af864f5e25",
+      "path": "public/art/backgrounds/home.png",
+      "driveId": "1atkZrSDlaCwy1Ic54YSlWnoM1XClIXA8"
+    },
+    {
+      "size": 1956108,
+      "sha256": "6c2b3c1ab9c1516e6e8cedb85ecd1896c4b9dbd80e862cb96e408d6384c345eb",
+      "path": "public/art/backgrounds/counts.png",
+      "driveId": "1Gaz1vnE-g_dOuf56QmSaB7zya0abkKUa"
+    },
+    {
+      "size": 1903691,
+      "sha256": "8c5f003f586d26945dbca032cbe62bf83facc266d39f95558ac1f9db1c1f0075",
+      "path": "public/art/backgrounds/boards.png",
+      "driveId": "103nQiQxeY6oNjaKVwBMC0XAW1O-zJ8bc"
+    },
+    {
+      "size": 2141090,
+      "sha256": "87a0054c7cbd73adb2583cf9d581b1ca7deb128967fb801125d394779178b30e",
+      "path": "public/art/backgrounds/setup.png",
+      "driveId": "1nWwJIyKHebxob91CQHF0BMiFk6KlU-v1"
+    },
+    {
+      "size": 1763407,
+      "sha256": "e745d6599c5ccd07893f22593f507d476288776ea6ea6bedf5760be6f32d8b3c",
+      "path": "public/art/backgrounds/host.png",
+      "driveId": "1W3KIEd0H_4EtGT7wFwxOZircGipMSZIl"
     }
   ],
   "home": {
@@ -342,5 +396,18 @@
       880,
       950
     ]
+  },
+  "backgroundDerivatives": {
+    "format": "WebP",
+    "quality": 85,
+    "method": 6,
+    "sourceFiles": [
+      "public/art/backgrounds/home.png",
+      "public/art/backgrounds/counts.png",
+      "public/art/backgrounds/boards.png",
+      "public/art/backgrounds/setup.png",
+      "public/art/backgrounds/host.png"
+    ],
+    "description": "原始PNG保留；依README45授權製作等尺寸壓縮顯示檔。"
   }
 }
