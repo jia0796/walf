@@ -12,8 +12,8 @@ test('v6 refresh migrates current decisions and every back snapshot without inve
  delete s.lastFear;delete s.lastSleep;delete s.nightState;
  for(const k of ['fear','fearSkip','fearApplied','sleep','sleepApplied','repeatPending','repeatExecuted','forcedAttackReason'])delete s.nightAction[k];
  const h=structuredClone(s);delete h.history;h.step='attack';h.nightAction.antidote=null;h.potions.antidote=true;s.history.push(h);
- const restored=upgradeGame(JSON.parse(JSON.stringify(s)));assert.equal(restored.version,7);assert.equal(restored.nightAction.attack,9);assert.equal(restored.potions.antidote,false);assert.equal(restored.nightAction.fearApplied,false);assert.deepEqual(restored.nightState.deaths,[]);assert.equal(restored.legacyRecap,false);
- assert.equal(previous(restored),true);assert.equal(restored.step,'attack');assert.equal(restored.potions.antidote,true);assert.equal(restored.version,7);assert.deepEqual(restored.nightState.deaths,[]);
+ const restored=upgradeGame(JSON.parse(JSON.stringify(s)));assert.equal(restored.version,8);assert.equal(restored.nightAction.attack,9);assert.equal(restored.potions.antidote,false);assert.equal(restored.nightAction.fearApplied,false);assert.deepEqual(restored.nightState.deaths,[]);assert.equal(restored.legacyRecap,false);
+ assert.equal(previous(restored),true);assert.equal(restored.step,'attack');assert.equal(restored.potions.antidote,true);assert.equal(restored.version,8);assert.deepEqual(restored.nightState.deaths,[]);
 });
 function ready(board='nightmare12',rules={}){const s=createGame(board,rules);let i=0;for(const [role,n]of Object.entries(BOARDS[board].roles))for(let k=0;k<n;k++)s.players[i++].role=role;s.rolesConfirmed=true;s.night=2;return s;}
 const seat=(s,r)=>s.players.find(p=>p.role===r).id;

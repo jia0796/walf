@@ -115,6 +115,27 @@
       "size": 730,
       "modified": "2026-10-10T08:04:03.534Z",
       "sha256": "8f8e79c723396401cd35867fb2e22abfb8f40cec06e24a733d3132a4a2ac60dd"
+    },
+    {
+      "path": "public/art/mixed-blood-dual-approved.jpeg",
+      "driveId": "1ap9orM9ZKZ1GMUQxKgl8N3-kCQC9lWoM",
+      "size": 560485,
+      "modified": "2026-10-10T09:56:39.079Z",
+      "sha256": "289f669684cc946b465902d637d71e04d5bd75ed3b4265607a6d5bdf129f95b9"
+    },
+    {
+      "path": "public/skills/icon-role-model.svg",
+      "driveId": "1KNevjNWpRK3hafwe2BRPF-G22uU3URNG",
+      "size": 1042,
+      "modified": "2026-10-10T10:48:54.057Z",
+      "sha256": "4a9a8851e05c4c9c7ddd5ddeb3d68d03a787599f14a2807fce2ef607adab1469"
+    },
+    {
+      "path": "public/art/idiot-minimal-approved.png",
+      "driveId": "1g7IOd5kB2dJYC0ZjIyDNlQI2wfUzGSE4",
+      "size": 1631140,
+      "modified": "2026-10-10T08:47:55.734Z",
+      "sha256": "add2c3eecd69b1dab7fb49b2ad91eadcdd806ffeed91200018704986d03baa9c"
     }
   ],
   "home": {

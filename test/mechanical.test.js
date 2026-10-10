@@ -24,7 +24,7 @@ for(const board of ['mechanical10','mechanical12']){
   s.night=2;const later=nightSteps(s);assert.ok(later.indexOf('mechanical')<later.indexOf('wolves'));assert.ok(!later.includes('mediumIdentify'));assert.equal(later.includes('hunter'),board==='mechanical12');
  });
  test(board+' shares ordered exile PK, cancel tie and second tie notice',()=>{
-  const s=ready(board);s.step='voteIntro';go(s);choose(s,'tie');[8,3,10].forEach(id=>selectSeat(s,id));go(s);assert.equal(subtitle(s),'請3號、8號、10號PK 發言');go(s);assert.equal(subtitle(s),'由3號開始發言');go(s);assert.equal(subtitle(s),'3 2 1請投票');assert.equal(selectable(s,9),false);
+  const s=ready(board);s.step='voteIntro';go(s);choose(s,'tie');[8,3,10].forEach(id=>selectSeat(s,id));go(s);assert.equal(subtitle(s),'請3號、8號、10號PK 發言');go(s);assert.equal(subtitle(s),'由3號開始發言');go(s);assert.equal(subtitle(s),'3、2、1  請投票');assert.equal(selectable(s,9),false);
   choose(s,'tie');choose(s,'tie');assert.equal(canNext(s),false);choose(s,'tie');go(s);assert.equal(s.step,'noExile');previous(s);assert.equal(s.step,'exileRevote');go(s);go(s);assert.equal(s.night,2);
  });
 }

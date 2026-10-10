@@ -20,6 +20,7 @@
 <label>女巫自救<select id="ruleSelfRescue"><option value="false">不允許</option><option value="true">允許</option></select></label>
 <label>狼人勝利條件<select id="ruleVictory"><option value="edge">屠邊</option><option value="city">屠城</option></select></label>
 <label><span id="swallowLabel"></span><select id="ruleSwallow"><option value="false">不啟用</option><option value="true">啟用</option></select></label>
+<label id="idiotRules" hidden>白痴追刀<select id="ruleIdiotChase"><option value="false">關閉（不用追刀）</option><option value="true">開啟（需要追刀）</option></select></label>
 <div id="mechanicalRules" hidden><label>學習狼人後<select id="ruleMechanicalKnife"><option value="next">下一晚可刀</option><option value="allDead">狼全死才有雙刀</option></select></label><label>機械守衛反彈毒藥<select id="ruleReflectPoison"><option value="false">關閉</option><option value="true">開啟</option></select></label></div>
 </details><details class="night-order"><summary>夜間順序</summary><p id="setupOrder"></p></details><div class="actions"><button id="setupBack">上一步</button><button id="setupStart" class="primary">開始主持</button></div>
 </section>
@@ -34,6 +35,7 @@
 </section>
 <section id="finished" class="finished-screen" hidden aria-label="遊戲結束">
 <header class="victory"><p>遊戲結束</p><h1 id="winnerTitle"></h1><p id="winnerReason"></p></header>
+<p id="mixedOutcome" class="mixed-outcome" hidden></p>
 <h2 class="recap-title">夜間復盤</h2><div id="nightRecap" class="night-recap"></div>
 <div class="finish-actions"><button id="playAgain" class="primary">重新一局</button><button id="finishHome">回首頁</button></div>
 </section>

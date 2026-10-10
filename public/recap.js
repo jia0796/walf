@@ -1,12 +1,12 @@
 import {ROLE_DATA} from './data.js';
 import {recapNights} from './records.js';
-export const SKILL_LABELS={'wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊'};
+export const SKILL_LABELS={'wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊','role-model':'榜樣'};
 const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!=null)node.textContent=text;return node;};
 export function skillIcon(skill){const icon=el('img','skill-icon');icon.src='skills/icon-'+skill+'.svg';icon.alt=SKILL_LABELS[skill];return icon;}
 export function cardModel(event){
  const lucky=event.displayRole==='lucky',r=ROLE_DATA[event.actorRole];
  const target=event.skill==='swap'?event.rawTargets.map(id=>id+'號').join(' ↔ '):event.rawTargets.map((id,i)=>id===event.effectiveTargets[i]?id+'號':id+'號 → '+event.effectiveTargets[i]+'號').join('、');
- return {name:lucky?'幸運兒':ROLE_DATA[event.displayRole]?.name||r?.name||'',tone:lucky?'god':r?.kind==='wolf'?'wolf':'god',image:r?.image,target,actors:event.actors.map(id=>id+'號').join('、')};
+ return {name:lucky?'幸運兒':ROLE_DATA[event.displayRole]?.name||r?.name||'',tone:r?.kind==='wolf'?'wolf':r?.kind==='villager'?'villager':'god',image:r?.image,target,actors:event.actors.map(id=>id+'號').join('、')};
 }
 export function eventCard(event,{operation=false}={}){
  const model=cardModel(event),card=el('article','event-card '+model.tone+(operation?' operation-card':''));

@@ -1,11 +1,12 @@
 // 主持字幕只取自使用者原句；法官操作提示不屬於字幕。
 import {ROLE_DATA,BOARDS} from './data.js';
-import {settleNight,trueWinner,basicActor,mechanicalAbility,ordinaryWolves,extraKnifeUnlocked,revengeAvailable,canTrade,tradeOutcome,luckyAbility,inspectedWolf,winnerReason,mapTarget,feared,fearedRole,forcedEmpty} from './night.js';
+import {settleNight,trueWinner,basicActor,mechanicalAbility,ordinaryWolves,extraKnifeUnlocked,revengeAvailable,canTrade,tradeOutcome,luckyAbility,inspectedWolf,winnerReason,mapTarget,feared,fearedRole,forcedEmpty,eligibleVoters,eligibleExileTarget} from './night.js';
 import {recordStage,recordDeaths,nightRecord} from './records.js';
-export {mechanicalAbility,mapTarget} from './night.js';
+export {mechanicalAbility,mapTarget,eligibleVoters,mixedResult} from './night.js';
 export const ROLES=Object.fromEntries(Object.entries(ROLE_DATA).map(([id,r])=>[id,r.name]));
 export const boardOf=s=>BOARDS[s.boardId || '12'];
 export const SCRIPT = {
+  idiot:'白痴請睜眼',idiotClose:'白痴請閉眼',mixed:'混血兒請睜眼',roleModel:'選擇你要跟隨的榜樣',mixedClose:'混血兒請閉眼',
   brothers:'狼兄狼弟請睜眼，請確認彼此身分',brothersClose:'狼兄狼弟請閉眼',younger:'狼弟請睜眼',revenge:'選擇你要復仇的對象',youngerClose:'狼弟請閉眼',merchant:'黑市商人請睜眼',trade:'選擇你要交易的對象',merchantClose:'黑市商人請閉眼',lucky:'幸運兒請睜眼',luckyAction:'你要使用技能嗎',luckyClose:'幸運兒請閉眼',
   nightmare:'夢魘請睜眼',fear:'選擇你今晚要恐懼的對象',nightmareClose:'夢魘請閉眼',dream:'攝夢人請睜眼',sleep:'選擇你今晚要夢遊的對象',dreamClose:'攝夢人請閉眼',
   confirm: '請確認角色身分', dark: '天黑請閉眼', magician: '魔術師請睜眼',
@@ -19,15 +20,17 @@ export const SCRIPT = {
   withdraw: '要退水的玩家請坐下', sheriffVote: '現在進行投票，3、2、1  請投票',
   sheriffPK: '請平手玩家依序再次發表政見', sheriffRevote: '再次進行投票，3、2、1  請投票',
   direction: '警長決定警左警右', badgeTransfer: '請警長移交警徽',
-  voteIntro: '現在進行投票', exileVote: '3、2、1  請投票', exileRevote:'3 2 1請投票', noExile:'無人出局，進入下一晚',
+  voteIntro: '現在進行投票', exileVote: '3、2、1  請投票', exileRevote:'3、2、1  請投票', noExile:'無人出局，進入下一晚',
   mediumIdentify:'通靈師請舉手', mediumIdentified:'通靈師手放下', guard:'守衛請睜眼', guardTarget:'今晚你要守護的對象是？', guardClose:'守衛請閉眼', mechanical:'機械狼請睜眼', mechanicalAction:'-', mechanicalClose:'機械狼請閉眼', medium:'通靈師請睜眼', mediumInspect:'選擇你今晚要查驗的對象', mediumClose:'通靈師請閉眼'
 };
-const blankNight = () => ({ exchange: [], noExchange: false, attack: null, emptyAttack: false, antidote: null, poison: null, poisonTarget: null, inspect: null, guard:null,guardSkip:false,learnTarget:null,learnSkip:false,extraAttack:null,extraAttackSkip:false,mechanicalInspect:null,mechanicalPoison:null,mechanicalPoisonSkip:false,shield:null,shieldSkip:false,mediumInspect:null,revenge:null,revengeSkip:false,tradeTarget:null,tradeAbility:null,tradeSkip:false,luckyInspect:null,luckyPoison:null,luckySkip:false,fear:null,fearSkip:false,fearApplied:false,sleep:null,sleepApplied:false,repeatPending:null,repeatExecuted:false,forcedAttackReason:null });
+const blankNight = () => ({ exchange: [], noExchange: false, attack: null, emptyAttack: false, antidote: null, poison: null, poisonTarget: null, inspect: null, guard:null,guardSkip:false,learnTarget:null,learnSkip:false,extraAttack:null,extraAttackSkip:false,mechanicalInspect:null,mechanicalPoison:null,mechanicalPoisonSkip:false,shield:null,shieldSkip:false,mediumInspect:null,revenge:null,revengeSkip:false,tradeTarget:null,tradeAbility:null,tradeSkip:false,luckyInspect:null,luckyPoison:null,luckySkip:false,fear:null,fearSkip:false,fearApplied:false,sleep:null,sleepApplied:false,repeatPending:null,repeatExecuted:false,forcedAttackReason:null,roleModel:null });
 export function createGame(boardId='12',rules={}) {
   const b=BOARDS[boardId];if(!b)throw new Error('Unknown board');const config={...b.defaults,...rules};
   if(!['edge','city'].includes(config.victory)||!['sheriff','selfRescue','swallow'].every(k=>typeof config[k]==='boolean'))throw new Error('Invalid rules');
+  if(b.roles.idiot&&typeof config.idiotChase!=='boolean')throw new Error('Invalid idiot rule');
   if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'))throw new Error('Invalid mechanical rules');
-  return { version: 7,boardId,rules:config, step: 'confirm', night: 1, players: Array.from({length:12}, (_,i) => ({ id:i+1, role:null,active:i<b.playerCount, alive:i<b.playerCount })),
+  return { version: 8,
+    idiot:{seat:null,revealed:false,revealedDay:null,revealedStage:null,voteLost:false,exileBanned:false,countsEliminatedForVictory:false},mixed:{seat:null,target:null,targetRole:null,camp:null,chosen:false,night:null},boardId,rules:config, step: 'confirm', night: 1, players: Array.from({length:12}, (_,i) => ({ id:i+1, role:null,active:i<b.playerCount, alive:i<b.playerCount })),
     lastFear:null,lastSleep:null,nightState:{wolfDone:false,postDone:false,deaths:[],batches:[],winningStage:null},
     brothers:{elderDeath:null,revengeNight:null,revengeUsed:false,revengeUsedNight:null,joinNight:null},merchant:{used:false,usedNight:null,target:null,ability:null,success:null},lucky:null,nightRecords:[],recapExpanded:[1],dayEvents:[],winnerReason:null,legacyRecap:false,
     mechanical:{role:null,target:null,night:null,poison:true,shield:true,extraUnlocked:false,extraUsed:false,extraUsedNight:null,extraTarget:null},marks:[],markSequence:0,noSheriffReason:null,noSheriffNoticeShown:false,swallowNoticeNight:null,swallowNoticeShown:false,lastGuard:null,operation:null,nightResolution:null,rolesConfirmed:false, action:[], choice:null, nightAction:blankNight(), potions:{antidote:true,poison:true},
@@ -41,10 +44,11 @@ const wolves = p => ROLE_DATA[p.role]?.kind==='wolf';
 const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role));
 export function upgradeGame(saved) {
-  if (![1,2,3,4,5,6,7].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  if(saved.version===7)return clone(saved);
+  if (![1,2,3,4,5,6,7,8].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
+  if(saved.version===8)return clone(saved);
   const migrate = (old,past=[]) => {
-    const s={...createGame(old.boardId || '12'),...old,version:7}; delete s.direction;
+    const s={...createGame(old.boardId || '12'),...old,version:8}; delete s.direction;
+    s.idiot={...createGame(s.boardId).idiot,...old.idiot};s.mixed={...createGame(s.boardId).mixed,...old.mixed};
     s.brothers={...createGame(s.boardId).brothers,...old.brothers};s.merchant={...createGame(s.boardId).merchant,...old.merchant};
     if(old.version<6){s.legacyRecap=true;s.nightRecords=old.nightRecords||[];} // Old saves have no complete operation snapshots; do not fabricate a recap.
     s.players=s.players.map(p=>({...p,active:p.active ?? true}));
@@ -123,11 +127,12 @@ function roleForStep(s) {
   if(s.step==='brothers')return s.action.length?'younger':'elder';
   if(s.step==='merchant')return 'merchant';
   if(s.step==='mediumIdentify')return 'medium';
-  return ['magician','witch','seer','hunter','guard','mechanical','nightmare','dream'].includes(s.step) ? s.step : null;
+  return ['magician','witch','seer','hunter','guard','mechanical','nightmare','dream','idiot','mixed'].includes(s.step) ? s.step : null;
 }
 export function selectable(s,id) {
   const p=player(s,id); if (!p?.active || !p.alive || s.winner) return false;
   if (!s.rolesConfirmed && roleForStep(s)) return s.action.includes(id) || !p.role;
+  if(s.step==='roleModel')return s.night===1&&!s.mixed.chosen&&livingRole(s,'mixed')&&p.role!=='mixed';
   if(s.step==='fear')return livingRole(s,'nightmare')&&p.role!=='nightmare'&&id!==s.lastFear;
   if(s.step==='sleep')return livingRole(s,'dream')&&!fearedRole(s,'dream')&&p.role!=='dream';
   if(s.step==='revenge')return revengeAvailable(s);
@@ -141,10 +146,10 @@ export function selectable(s,id) {
   if (s.step==='skill') return id !== s.queue[0]?.id && !!player(s,skillTarget(s,id))?.alive;
   if(s.step==='selfDestruct')return ['wolf','king','younger','nightmare'].includes(p.role);
   if(s.step==='discussion')return true;
-  if (s.step==='badgeTransfer') return true;
-  if (s.step==='candidates') return true;
+  if (s.step==='badgeTransfer') return id!==s.pendingBadge&&eligibleExileTarget(s,p);
+  if (s.step==='candidates') return eligibleVoters(s).some(v=>v.id===id);
   if (['speeches','withdraw'].includes(s.step)) return (s.nominees.length?s.nominees:s.candidates).includes(id);
-  if (['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s.step)) return s.votePool.includes(id);
+  if (['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s.step)) return s.votePool.includes(id)&&(!s.step.startsWith('exile')||eligibleExileTarget(s,p));
   return false;
 }
 export function selectSeat(s,id) {
@@ -171,6 +176,7 @@ export function selectSeat(s,id) {
   } else {
     s.action=s.action.includes(id)?[]:[id]; s.choice=s.action.length?'target':null;
     const target=s.action[0] || null;
+    if(s.step==='roleModel')s.nightAction.roleModel=target;
     if(s.step==='fear'){s.nightAction.fear=target;s.nightAction.fearSkip=false;}
     if(s.step==='sleep'){s.nightAction.sleep=target;s.nightAction.repeatPending=target&&target===s.lastSleep?target:null;}
     if(s.step==='revenge'){s.nightAction.revenge=target;s.nightAction.revengeSkip=false;}
@@ -235,6 +241,7 @@ function identityCount(s){return s.step==='wolves'?boardOf(s).roles.wolf+(boardO
 export function canNext(s) {
   if(s.winner) return s.step==='dawn';
   if (!s.rolesConfirmed && roleForStep(s)) return s.action.length===identityCount(s);
+  if(s.step==='roleModel')return s.night===1&&(s.mixed.chosen||!!s.nightAction.roleModel&&selectable(s,s.nightAction.roleModel));
   if(s.step==='fear')return !livingRole(s,'nightmare')||s.nightAction.fearSkip||!!s.nightAction.fear;
   if(s.step==='sleep')return !livingRole(s,'dream')||fearedRole(s,'dream')||!!s.nightAction.sleep;
   if(s.step==='revenge')return !revengeAvailable(s)||s.nightAction.revengeSkip||!!s.nightAction.revenge;
@@ -253,7 +260,7 @@ export function canNext(s) {
   if (s.step==='candidates') return s.choice!==null;
   if (['draw','dayDraw'].includes(s.step)) return !!s.draw?.revealed;
   if (['sheriffVote','exileVote','sheriffRevote','exileRevote'].includes(s.step)) {
-    return s.choice==='tie' ? (s.step.endsWith('Revote') || s.action.length>=2) : s.action.length===1;
+    return s.action.every(id=>selectable(s,id))&&(s.choice==='tie' ? (s.step.endsWith('Revote') || s.action.length>=2) : s.action.length===1);
   }
   return true;
 }
@@ -262,6 +269,7 @@ export function syncMarks(s){
  const n=s.nightAction,desired=[];
  const add=(key,type,id,partner=null)=>{if(id)desired.push({key,type,id,partner});};
  if(n.exchange.length===2){add('swapA','swap',n.exchange[0],n.exchange[1]);add('swapB','swap',n.exchange[1],n.exchange[0]);}
+ add('roleModel','role-model',n.roleModel);
  add('fear','fear',n.fear);add('sleep','sleep',n.sleep);
  add('basic','wolf-attack',n.attack);
  if(n.antidote===true)add('antidote','antidote',n.attack);
@@ -285,7 +293,12 @@ export function previous(s) {
 }
 export function nightDeaths(s) {return settleNight(s).deaths.map(({id,cause})=>({id,cause}));}
 export function mechanicalModes(s){if(!livingRole(s,'mechanical'))return [];return s.mechanical.role?[mechanicalAbility(s)].filter(Boolean):['learnTarget'];}
-export function roleName(s,p){const short={witch:'巫',medium:'通',hunter:'獵',guard:'守',wolf:'狼',villager:'民'};const role=s.mechanical.role||(s.nightAction.learnTarget?player(s,s.nightAction.learnTarget)?.role||'villager':null);return p.role==='mechanical'&&role?'機械狼（'+short[role]+'）':ROLES[p.role]||'未辨識';}
+export function roleName(s,p){const short={witch:'巫',medium:'通',hunter:'獵',guard:'守',wolf:'狼',villager:'民'};const role=s.mechanical.role||(s.nightAction.learnTarget?player(s,s.nightAction.learnTarget)?.role||'villager':null);
+ let name=p.role==='mechanical'&&role?'機械狼（'+short[role]+'）':ROLES[p.role]||'未辨識';
+ if(p.role==='idiot'&&s.idiot?.revealed)name='白痴・已翻牌';
+ if(p.role==='mixed'){const target=s.mixed?.target||(s.night===1?s.nightAction.roleModel:null);if(target)name='混血兒（'+((s.mixed?.camp|| (ROLE_DATA[player(s,target)?.role]?.kind==='wolf'?'狼人陣營':'好人陣營'))==='狼人陣營'?'狼':'好')+'）';}
+ if(s.lucky?.seat===p.id)name+='（幸）';return name;
+}
 export function roleResult(s,id,trueRole=false){const p=player(s,id);if(!p?.active)return null;return p.role==='mechanical'&&!trueRole?(s.mechanical.role||p.role):p.role||'villager';}
 export function restartGame(s){return createGame(s.boardId,{...s.rules});}
 export function gunSources(s,d){
@@ -367,7 +380,7 @@ function prepareDawn(s){
  if(!s.winner)commitNightPhase(s,'all','dawn');
  nightRecord(s).settled=true;return true;
 }
-export function nightSteps(s){const parts={nightmare:['nightmare','fear','nightmareClose'],dream:['dream','sleep','dreamClose'],brothers:['brothers','brothersClose'],younger:['younger','revenge','youngerClose'],merchant:['merchant','trade','merchantClose'],lucky:s.night===1?['lucky','luckyClose']:['lucky','luckyAction','luckyClose'],magician:['magician','exchange','magicianClose'],wolves:['wolves','attack'],witch:['witch','antidote','poison','witchClose'],seer:['seer','inspect','inspectResult','seerClose'],hunter:['hunter','gesture','hunterClose'],mediumIdentify:['mediumIdentify','mediumIdentified'],guard:['guard','guardTarget','guardClose'],mechanical:['mechanical','mechanicalAction','mechanicalClose'],medium:['medium','mediumInspect','mediumResult','mediumClose']};const b=boardOf(s);return ['dark',...(s.night===1&&b.firstNightOrder?b.firstNightOrder:b.nightOrder).flatMap(r=>parts[r]),'dawn'];}
+export function nightSteps(s){const parts={idiot:['idiot','idiotClose'],mixed:['mixed','roleModel','mixedClose'],nightmare:['nightmare','fear','nightmareClose'],dream:['dream','sleep','dreamClose'],brothers:['brothers','brothersClose'],younger:['younger','revenge','youngerClose'],merchant:['merchant','trade','merchantClose'],lucky:s.night===1?['lucky','luckyClose']:['lucky','luckyAction','luckyClose'],magician:['magician','exchange','magicianClose'],wolves:['wolves','attack'],witch:['witch','antidote','poison','witchClose'],seer:['seer','inspect','inspectResult','seerClose'],hunter:['hunter','gesture','hunterClose'],mediumIdentify:['mediumIdentify','mediumIdentified'],guard:['guard','guardTarget','guardClose'],mechanical:['mechanical','mechanicalAction','mechanicalClose'],medium:['medium','mediumInspect','mediumResult','mediumClose']};const b=boardOf(s);return ['dark',...(s.night===1&&b.firstNightOrder?b.firstNightOrder:b.nightOrder).flatMap(r=>parts[r]),'dawn'];}
 export function phaseOf(s){return s.step==='confirm'||s.step==='candidates'||nightSteps(s).includes(s.step)&&s.step!=='dawn'?'夜晚':'白天';}
 const INTERRUPTIBLE=['draw','dayDraw','direction','sheriffResult','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote','discussion','voteIntro','exileVote','exilePK','exilePKStart','exileRevote'];
 export function canSelfDestruct(s){return !s.winner && INTERRUPTIBLE.includes(s.step) && s.players.some(p=>p.alive&&['wolf','king','younger','nightmare'].includes(p.role));}
@@ -383,6 +396,9 @@ export function next(s) {
     if(step==='fear')s.nightAction.fearApplied=!!s.nightAction.fear;
     if(step==='sleep')s.nightAction.sleepApplied=!!s.nightAction.sleep&&!fearedRole(s,'dream');
     if(roleForStep(s))confirmRoles(s);
+    if(step==='idiot')s.idiot.seat=s.players.find(p=>p.role==='idiot')?.id||null;
+    if(step==='mixed')s.mixed.seat=s.players.find(p=>p.role==='mixed')?.id||null;
+    if(step==='roleModel'&&!s.mixed.chosen){const target=player(s,s.nightAction.roleModel);Object.assign(s.mixed,{seat:s.players.find(p=>p.role==='mixed').id,target:target.id,targetRole:target.role,camp:ROLE_DATA[target.role].kind==='wolf'?'狼人陣營':'好人陣營',chosen:true,night:s.night});}
     if(step==='revenge'&&revengeAvailable(s)){s.brothers.revengeUsed=true;s.brothers.revengeUsedNight=s.night;}
     if(step==='trade'&&canTrade(s)&&s.nightAction.tradeTarget){
       const n=s.nightAction,success=tradeOutcome(s,n.tradeTarget);Object.assign(s.merchant,{used:true,usedNight:s.night,target:n.tradeTarget,ability:n.tradeAbility,success});
@@ -440,14 +456,20 @@ export function next(s) {
     const d={id,cause:'selfDestruct',day:s.night,context:'day',sourceActor:id};kill(s,[d]);s.queue=[d];s.continuation=!s.deathsCommitted?'pendingAnnouncement':'nextNight';deathSteps(s);
   } else if(step==='badgeTransfer') {
     s.sheriff=s.choice==='skip'?null:s.action[0];s.pendingBadge=null;continueAfterDeaths(s);
-  } else if(step==='direction' || step==='dayDraw') enter(s,'discussion');
+  } else if(step==='idiotReveal') {if(s.sheriff===s.idiot.seat){s.pendingBadge=s.idiot.seat;s.continuation='nextNight';enter(s,'badgeTransfer');}else enter(s,'nextNight');}
+  else if(step==='direction' || step==='dayDraw') enter(s,'discussion');
   else if(step==='discussion') enter(s,'voteIntro');
-  else if(step==='voteIntro') {s.votePool=s.players.filter(p=>p.alive).map(p=>p.id);enter(s,'exileVote');}
+  else if(step==='voteIntro') {s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);enter(s,'exileVote');}
   else if(['exileVote','exileRevote'].includes(step)) {
     if(s.choice==='tie') {
       if(step==='exileVote'){s.votePool=[...s.action].sort((a,b)=>a-b);enter(s,'exilePK');}
       else enter(s,'noExile');
     } else {
+      const target=player(s,s.action[0]);
+      if(boardOf(s).roles.idiot&&target.role==='idiot'&&!s.idiot.revealed){
+        Object.assign(s.idiot,{seat:target.id,revealed:true,revealedDay:s.night,revealedStage:step,voteLost:true,exileBanned:true,countsEliminatedForVictory:!s.rules.idiotChase});s.queue=[];s.continuation='nextNight';
+        s.winner=winner(s);s.winnerReason=winnerReason(s);enter(s,s.winner?'finished':'idiotReveal');return true;
+      }
       const d={id:s.action[0],cause:'exile',day:s.night,context:'day'};kill(s,[d]);s.queue=[d];s.continuation='nextNight';deathSteps(s);
     }
   } else if(step==='exilePK') enter(s,'exilePKStart');
@@ -457,6 +479,7 @@ export function next(s) {
   return true;
 }
 export function subtitle(s) {
+  if(s.step==='idiotReveal')return s.idiot.seat+'號玩家翻牌，身分為白痴，本次放逐無效';
   if(s.step==='noSheriffNotice')return s.noSheriffReason==='all'?'本局全員上警，沒有警長':'本局全員不上警，沒有警長';
   if(s.step==='swallowNotice')return boardOf(s).playerCount===12?'本局雙爆吞警徽，沒有警長':'本局單爆吞警徽，沒有警長';
   if(s.step==='exilePK')return '請'+s.votePool.map(id=>id+'號').join('、')+'PK 發言';

@@ -1,7 +1,7 @@
 # Codex 接管指南
-先完整讀 main README.md；本次規格為 14fdfa5，第 35 章。沿用 feat/eclipse-host-app 的既有 PWA，開發分支 feat/nightmare-dream-catcher。未經確認不得合併、部署或覆蓋 main。
-- 七種配置共用 data.js／engine.js／night.js／records.js／白天流程，不重建 App。
-- 存檔 v7 相容 v1–v6，現行刷新不重算。完整快照包含 fear／sleep、上一晚實際目標、待死亡、分批結算、庫存與復盤。舊版缺少的歷史不得反推。
+先完整讀 main README.md；本次規格為 1efd09f，第 36／37 章。沿用 feat/eclipse-host-app 的既有 PWA，本次直接在 feat/eclipse-host-app 實作，使用者已授權發布。未經確認不得合併、部署或覆蓋 main。
+- 九種配置共用 data.js／engine.js／night.js／records.js／白天流程，不重建 App。
+- 存檔 v8 相容 v1–v7，現行刷新不重算。完整快照包含 fear／sleep、上一晚實際目標、待死亡、分批結算、庫存與復盤。舊版缺少的歷史不得反推。
 - night.js 共用傷害、交換映射、狼刀在先與真實陣營勝負。同一不可拆分批次雙陣營達標依 README 16／35 判狼人勝；27.3 的舊待確認文字已被最新定稿取代。
 - 夢魘加入基本狼刀及自爆；恐懼普通狼人強制全隊空刀。恐懼／夢遊都保留原始選擇標記，恐懼不因施法者死亡失效。
 - 攝夢免疫所有夜間傷害，連續攝夢先記待死亡；不能在選目標時判死。直接攝夢死亡／連帶不受解藥或夢遊免疫；獵人相應禁止開槍。
@@ -10,7 +10,12 @@
 - 狼兄出局／狼弟復仇時機、幸運兒原職業／独立能力額度、機械狼一次技能沿用既有實作。查驗狼弟偽裝須參考正式死亡紀錄。
 - 主持字幕只用 README 原文。死亡／恐懼／技能不可用不刪字幕；真正終局才中止。女巫固定「今晚他死了，你要使用解藥嗎？」。
 - 主持只有簡潔 SVG 操作，禁止人物技能背景卡；座位 2 欄×6 排維持左右鏡像。PNG 只用圖鑑及結束復盤。
-- public/skills 為正式十一款 SVG，槍統一 icon-gun.svg。PNG/SVG 原始位元組不可修改；來源、大小、SHA256 見 docs/assets.json。
+- public/skills 為正式十二款 SVG，槍統一 icon-gun.svg。PNG/SVG 原始位元組不可修改；來源、大小、SHA256 見 docs/assets.json。
 - records.js 確認操作保存快照，未正式執行的傷害 executed=false 不進復盤；連續攝夢只有確實執行死亡才註記。
 - 冷啟回首頁，主持／結束頁刷新恢復；完整對局 localStorage，分頁畫面 sessionStorage。重新一局保留板子與房規，清除全部遊戲資料。
 - npm test；本專案沒有獨立 build 或 TypeScript 檢查。實際 Safari／iOS PWA 仍待真機，不可用桌面測試宣稱已驗收。
+- 白痴是真實神職，只有正式放逐觸發翻牌；revealed、alive、countsEliminatedForVictory 分開。兩新板 idiotChase 預設 false，翻牌先判勝負，未終局才立即移交警徽並進夜。
+- 已翻牌白痴永久禁票／再放逐（含 PK）；可發言並可受合法夜間傷害。翻牌沒有死亡事件、遺言或夜間復盤技能卡。
+- 混血兒始終 kind=villager；榜樣真實職業／陣營保存整局，不改狼位、查驗、刀或自爆資格。首夜 roleModel 必選其他座位，確認後不能重選；原始 SVG 標記下一晚清除，底層榜樣保留。
+- mixedResult 只供結束頁顯示個人勝敗；榜樣資訊不加玩家通知字幕。混血兒復盤固定綠色；幸運兒座位名稱原職業（幸），復盤仍名幸運兒、民綠／神金。
+- main README 不修改；本次完整驗收及檔案清單見 docs/classic-report.md。
