@@ -4,7 +4,7 @@ import {createGame,selectable,selectSeat,choose,next,canNext,previous,upgradeGam
 import {BOARDS} from '../public/data.js';
 // Seeded API black-box games: only public commands mutate game state.
 function rng(seed){let x=seed;return ()=>{x=(Math.imul(x,1664525)+1013904223)>>>0;return x/4294967296;};}
-const identities={magician:'magician',wolves:'wolf',witch:'witch',seer:'seer',hunter:'hunter',guard:'guard',mechanical:'mechanical',mediumIdentify:'medium',merchant:'merchant',brothers:'elder'};
+const identities={magician:'magician',wolves:'wolf',witch:'witch',seer:'seer',hunter:'hunter',guard:'guard',mechanical:'mechanical',mediumIdentify:'medium',merchant:'merchant',brothers:'elder',nightmare:'nightmare',dream:'dream'};
 for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board,()=>{
  let actions=0,finished=0,maxBytes=0;
  for(let seed=1;seed<=18;seed++){
@@ -12,7 +12,7 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
   let s=createGame(board,{sheriff:seed%2===0,victory:seed%3===0?'city':'edge'}),assigned={};let seat=1;
   // Plan role seats once, then identify them through the same API as the UI.
   for(const [role,n]of Object.entries(BOARDS[board].roles)){assigned[role]=[];for(let j=0;j<n;j++)assigned[role].push(seat++);}
-  for(let i=0;i<1200&&!s.winner;i++){
+  for(let i=0;i<1200&&(!s.winner||s.step==='dawn');i++){
    const step=s.step,legal=()=>s.players.filter(p=>selectable(s,p.id)).map(p=>p.id);
    if(!s.rolesConfirmed&&identities[step]){
     const targets=step==='wolves'?[...(assigned.king||[]),...assigned.wolf]:step==='brothers'?[...assigned.elder,...assigned.younger]:assigned[identities[step]];
@@ -25,9 +25,9 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
    else if(['draw','dayDraw'].includes(step)){choose(s,'draw');choose(s,'revealDraw');}
    else if(['antidote','poison'].includes(step)){if(!canNext(s)){choose(s,random()<.35?'use':'skip');if(step==='poison'&&legal().length)selectSeat(s,pick(legal()));}}
    else if(step==='exchange'){if(random()<.3||legal().length<2)choose(s,'skip');else{const a=pick(legal());selectSeat(s,a);selectSeat(s,pick(legal().filter(id=>id!==a)));}}
-   else if(['attack','revenge','luckyAction','guardTarget','skill','badgeTransfer'].includes(step)){
+   else if(['fear','attack','revenge','luckyAction','guardTarget','skill','badgeTransfer'].includes(step)){
     if(!canNext(s)){if(random()<.2)choose(s,'skip');else if(legal().length)selectSeat(s,pick(legal()));}
-   }else if(['inspect','mediumInspect','sheriffVote','sheriffRevote','exileVote','exileRevote','selfDestruct'].includes(step)){if(!canNext(s)&&legal().length)selectSeat(s,pick(legal()));}
+   }else if(['sleep','inspect','mediumInspect','sheriffVote','sheriffRevote','exileVote','exileRevote','selfDestruct'].includes(step)){if(!canNext(s)&&legal().length)selectSeat(s,pick(legal()));}
    if(canSelfDestruct(s)&&random()<.04){assert.equal(beginSelfDestruct(s),true);continue;}
    assert.equal(canNext(s),true,board+' seed '+seed+' blocked '+s.step);
    assert.equal(next(s),true);actions++;

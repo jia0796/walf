@@ -79,7 +79,7 @@ for(const board of ['12','10','mechanical12','mechanical10']){
   s.players.filter(p=>ROLE_DATA[p.role]?.kind==='wolf').slice(1).forEach(p=>p.alive=false);
   s.nightAction.attack=target;s.nightAction.poison=true;s.nightAction.poisonTarget=s.players.find(p=>p.alive&&ROLE_DATA[p.role]?.kind==='wolf').id;
   const result=settleNight(s);assert.equal(result.winner,'狼人陣營');assert.equal(result.poisonSkipped,true);assert.equal(result.events.length,1);assert.equal(result.deaths.length,1);
-  s.step=nightSteps(s).at(-2);go(s);if(s.step==='candidates'){choose(s,'none');go(s);}go(s);if(['sheriffResult','noSheriffNotice'].includes(s.step))go(s);go(s);assert.equal(s.step,'finished');assert.equal(s.winner,'狼人陣營');assert.equal(s.players.find(p=>p.id===s.nightAction.poisonTarget).alive,true);previous(s);assert.equal(s.winner,null);assert.equal(s.players[target-1].alive,true);
+  s.step='attack';s.action=[target];go(s);assert.equal(s.step,'dawn');assert.equal(subtitle(s),'天亮請睜眼');go(s);assert.equal(s.step,'finished');assert.equal(s.winner,'狼人陣營');assert.equal(s.players.find(p=>p.id===s.nightAction.poisonTarget).alive,true);previous(s);previous(s);assert.equal(s.winner,null);assert.equal(s.players[target-1].alive,true);
  });
 }
 test('nonterminal wolf death then poison can end for good; no forced wolf priority over defense',()=>{
@@ -108,5 +108,5 @@ test('wolf terminal prevents reflected poison; city mode continues past last god
  }
 });
 test('all wolf attacks and defenses settle before deciding victory',()=>{
- const s=ready();learn(s,'wolf');s.night=2;const god=seat(s,'medium');s.players.filter(p=>ROLE_DATA[p.role]?.kind==='god'&&p.id!==god).forEach(p=>p.alive=false);s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);Object.assign(s.nightAction,{attack:god,extraAttack:1});const r=settleNight(s);assert.equal(r.events.length,2);assert.equal(r.winner,'好人陣營');assert.equal(r.poisonSkipped,true);
+ const s=ready();learn(s,'wolf');s.night=2;const god=seat(s,'medium');s.players.filter(p=>ROLE_DATA[p.role]?.kind==='god'&&p.id!==god).forEach(p=>p.alive=false);s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);Object.assign(s.nightAction,{attack:god,extraAttack:1});const r=settleNight(s);assert.equal(r.events.length,2);assert.equal(r.winner,'狼人陣營');assert.equal(r.poisonSkipped,true);
 });

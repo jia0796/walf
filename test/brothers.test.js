@@ -26,7 +26,7 @@ test('elder cannot explode or be basic knife; younger can explode before and aft
 });
 test('basic and revenge independent on same target; one antidote blocks one; witch sees only basic',()=>{
  const s=ready();elderDeath(s,'poison');s.night=2;s.nightAction.poison=null;s.nightAction.poisonTarget=null;s.step='revenge';selectSeat(s,9);go(s);s.step='attack';selectSeat(s,9);go(s);s.step='antidote';assert.equal(s.nightAction.attack,9);choose(s,'use');const result=settleNight(s);assert.deepEqual(result.events.filter(e=>e.cause==='attack').map(e=>[e.source,e.blocked]),[['basic','antidote'],['revenge',null]]);assert.equal(result.deaths[0].id,9);
- s.nightAction.attack=null;s.nightAction.antidote=null;s.potions.antidote=true;assert.match(potionBlocked(s,'antidote'),/空刀/);assert.equal(s.nightAction.revenge,9);
+ s.nightAction.attack=null;s.nightAction.antidote=null;s.potions.antidote=true;assert.match(potionBlocked(s,'antidote'),/沒有狼刀目標/);assert.equal(s.nightAction.revenge,9);
 });
 test('merchant requires both inputs, cannot self trade, can defer, true younger camp fails privately',()=>{
  const s=ready();s.step='trade';assert.equal(selectSeat(s,8),false);assert.equal(next(s),false);selectSeat(s,2);assert.equal(next(s),false);choose(s,'gift:poison');assert.equal(canNext(s),true);go(s);assert.equal(s.merchant.success,false);assert.equal(s.merchant.used,true);assert.equal(s.lucky,null);assert.equal(s.players[7].alive,true);const r=settleNight(s);assert.equal(r.deaths.find(d=>d.id===8).cause,'tradeFailure');s.deaths=r.deaths;s.step='announcement';assert.equal(subtitle(s),'昨晚8號被殺死');go(s);assert.equal(recapNights(s)[0].deaths[0].id,8);

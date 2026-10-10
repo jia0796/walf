@@ -69,7 +69,7 @@ test('first-day last words include shots, poison blocks skill, second-day deaths
  const s=ready();s.step='announcement';s.deaths=[{id:8,cause:'attack'}];advance(s);assert.equal(s.step,'lastWords');advance(s);assert.equal(s.step,'skill');
  assert.equal(next(s),false);selectSeat(s,2);advance(s);assert.equal(s.step,'lastWords');advance(s);assert.equal(s.step,'skill');assert.match(subtitle(s),/^2號玩家，啟動角色技能$/);choose(s,'skip');advance(s);assert.equal(s.step,'dayDraw');
  const p=ready();p.step='announcement';p.deaths=[{id:8,cause:'poison'}];advance(p);advance(p);assert.equal(p.step,'dayDraw');
- const n=ready();n.night=2;n.step='announcement';n.deaths=[{id:8,cause:'attack'}];advance(n);assert.equal(n.step,'eliminated');advance(n);assert.equal(n.step,'skill');
+ const n=ready();n.night=2;n.step='announcement';n.deaths=[{id:8,cause:'attack'}];advance(n);assert.equal(subtitle(n),'8號玩家，啟動角色技能');assert.equal(n.step,'skill');
 });
 test('last god hunter and last wolf king end game before skill',()=>{
  for(const id of [8,2]){const s=ready();s.step='announcement';if(id===8)[1,6,7].forEach(n=>s.players[n-1].alive=false);else [3,4,5].forEach(n=>s.players[n-1].alive=false);
@@ -123,7 +123,7 @@ test('sheriff direction is pure; full back restores the pre-death state and can 
 });
 test('second-night hunter shot creates its own no-last-words subtitle before continuing',()=>{
  const s=ready();s.night=2;s.sheriff=2;s.step='announcement';s.deaths=[{id:8,cause:'attack'}];advance(s);
- assert.equal(subtitle(s),'8號玩家淘汰，沒有遺言。');advance(s);assert.equal(s.step,'skill');selectSeat(s,9);advance(s);
+ assert.equal(s.step,'skill');selectSeat(s,9);advance(s);
  assert.equal(s.step,'eliminated');assert.equal(subtitle(s),'9號玩家淘汰，沒有遺言。');assert.equal(s.players[8].alive,false);
  advance(s);assert.equal(s.step,'direction');assert.equal(s.log.length,2);previous(s);assert.equal(s.step,'eliminated');advance(s);assert.equal(s.log.length,2);
 });
@@ -132,14 +132,14 @@ test('last-words priority covers first-day all causes, later exile, later shots 
  s.night=2;assert.equal(hasLastWords(s,{cause:'exile'}),true);for(const cause of ['attack','poison','shot','other'])assert.equal(hasLastWords(s,{cause}),false);
 });
 test('badge transfer waits for the entire hunter/king chain and only accepts final survivors',()=>{
- const s=ready();s.night=2;s.sheriff=8;s.step='announcement';s.deaths=[{id:8,cause:'attack'}];advance(s);advance(s);selectSeat(s,2);advance(s);
+ const s=ready();s.night=2;s.sheriff=8;s.step='announcement';s.deaths=[{id:8,cause:'attack'}];advance(s);selectSeat(s,2);advance(s);
  assert.equal(s.step,'eliminated');assert.equal(s.pendingBadge,8);advance(s);assert.equal(s.step,'skill');selectSeat(s,9);advance(s);assert.equal(s.step,'eliminated');advance(s);
  assert.equal(s.step,'badgeTransfer');assert.equal(subtitle(s),'請警長移交警徽');assert.equal(canNext(s),false);assert.equal(selectSeat(s,9),false);assert.equal(selectSeat(s,8),false);
  selectSeat(s,10);advance(s);assert.equal(s.sheriff,10);assert.equal(s.step,'direction');previous(s);assert.equal(s.step,'badgeTransfer');assert.equal(s.players[8].alive,false);
  choose(s,'skip');advance(s);assert.equal(s.sheriff,null);assert.equal(s.step,'dayDraw');
 });
 test('night sheriff with no skill transfers after notice; exile badge loss returns to next night',()=>{
- const s=ready();s.night=2;s.sheriff=9;s.step='announcement';s.deaths=[{id:9,cause:'attack'}];advance(s);assert.equal(s.step,'eliminated');advance(s);assert.equal(s.step,'badgeTransfer');
+ const s=ready();s.night=2;s.sheriff=9;s.step='announcement';s.deaths=[{id:9,cause:'attack'}];assert.equal(subtitle(s),'昨晚9號玩家被殺死，沒有遺言');advance(s);assert.equal(s.step,'badgeTransfer');
  choose(s,'skip');advance(s);assert.equal(s.step,'dayDraw');
  const e=ready();e.night=2;e.sheriff=9;e.step='voteIntro';advance(e);selectSeat(e,9);advance(e);assert.equal(e.step,'lastWords');advance(e);assert.equal(e.step,'badgeTransfer');selectSeat(e,10);advance(e);assert.equal(e.step,'nextNight');assert.equal(e.sheriff,10);
 });
@@ -149,10 +149,10 @@ test('winning deaths immediately finish before last words, skill and badge trans
 });
 test('simultaneous deaths each receive exactly one notice and poison suppresses the relevant skill',()=>{
  const s=ready();s.night=2;s.sheriff=2;s.step='announcement';s.deaths=[{id:9,cause:'attack'},{id:8,cause:'poison'}];advance(s);
- const notices=[];while(s.step==='eliminated'){notices.push(subtitle(s));advance(s);}assert.deepEqual(notices,['8號玩家淘汰，沒有遺言。','9號玩家淘汰，沒有遺言。']);assert.equal(s.step,'direction');assert.equal(s.log.length,1);
+ const notices=[];while(s.step==='eliminated'){notices.push(subtitle(s));advance(s);}assert.deepEqual(notices,[]);assert.equal(s.step,'direction');assert.equal(s.log.length,1);
 });
 test('saved v1 game migrates without changing identities/potions and published lotteries survive refresh',()=>{
  const old=ready();old.version=1;old.step='direction';old.potions.antidote=false;const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));
- assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,6);
+ assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,7);
  const s=ready();s.step='draw';s.candidates=[9,10];choose(s,'draw');choose(s,'revealDraw');const loaded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(loaded.draw,s.draw);choose(loaded,'draw');assert.deepEqual(loaded.draw,s.draw);
 });

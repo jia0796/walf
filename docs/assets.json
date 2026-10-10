@@ -87,6 +87,34 @@
       "size": 1804962,
       "modified": "2026-10-09T14:28:13.175Z",
       "sha256": "6561190b0599db7741351d9b49fad529b6758688eaf89596a807a00fffe88287"
+    },
+    {
+      "path": "public/art/nightmare-minimal-approved.png",
+      "driveId": "1NgB-KdokOEawPXThJ4zhAgkKm11aFF4b",
+      "size": 1893979,
+      "modified": "2026-10-09T14:10:23.993Z",
+      "sha256": "adccb48d21eae55aa644ed707138cc82805154eaab571f35b429dd2d03c2e7a0"
+    },
+    {
+      "path": "public/art/dream-catcher-minimal-approved.png",
+      "driveId": "1oWc_gWoH9NbiVoisI8uHM5Sw-GC8MZHf",
+      "size": 1778499,
+      "modified": "2026-10-09T14:10:27.910Z",
+      "sha256": "00d20cc9f0a93e0010fb5f072d2f05fa6d77d938a75f94ccfa3cda15d24fb61c"
+    },
+    {
+      "path": "public/skills/icon-fear.svg",
+      "driveId": "1cs-roYX2E6rNUUw7e3gXmni4K8pBXDZX",
+      "size": 1070,
+      "modified": "2026-10-10T08:03:41.071Z",
+      "sha256": "ebb15653f0eaa8c423ea8605021c9964abf6887c7b9ac2b167ee0a90cf477fbf"
+    },
+    {
+      "path": "public/skills/icon-sleep.svg",
+      "driveId": "1iszK_9bhxgHY9kpvy5hzkqEvbXYURY09",
+      "size": 730,
+      "modified": "2026-10-10T08:04:03.534Z",
+      "sha256": "8f8e79c723396401cd35867fb2e22abfb8f40cec06e24a733d3132a4a2ac60dd"
     }
   ],
   "home": {
