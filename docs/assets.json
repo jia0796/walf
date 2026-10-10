@@ -1,0 +1,126 @@
+{
+  "source": "Wolf.app.art",
+  "checked": "2026-10-10",
+  "skillsFolder": "1OluabBS8kKEAt-uAknqGCCnTjaOe78ke",
+  "rolesFolder": "1h-Rw1_nJFltofxmM2LG7-YOskBXil9C7",
+  "originals": [
+    {
+      "path": "public/skills/icon-gun.svg",
+      "driveId": "1rHYyM0rlZ5O4Ioy0FeYKeGnhKQZcL8Pr",
+      "size": 1347,
+      "modified": "2026-10-09T16:38:51.268Z",
+      "sha256": "eff907366ca0bab126727eb35533d4451e354aa9a630d01f543afcf2aeab91e5"
+    },
+    {
+      "path": "public/skills/icon-trade.svg",
+      "driveId": "1ShHPI7jzondJaVsUfeSLHEPw7OQpOyAi",
+      "size": 1036,
+      "modified": "2026-10-09T16:38:19.131Z",
+      "sha256": "f48b0d3d3c8907aa4009286d5c644da702cd902d38cb8b0a0017747fb12e4c1f"
+    },
+    {
+      "path": "public/skills/icon-learn.svg",
+      "driveId": "1xj0h54TDxdEBD1TV3HhEQv-Nsh4EAQkv",
+      "size": 847,
+      "modified": "2026-10-09T16:22:06.904Z",
+      "sha256": "3ef58790b371d24dc18234f29b5af75a515a8be31be34c3708f02bb6ec4eebf9"
+    },
+    {
+      "path": "public/skills/icon-swap.svg",
+      "driveId": "1J88U18VEPgLZz8hsY8HabFp4_iD-N_Zf",
+      "size": 545,
+      "modified": "2026-10-09T11:58:01.277Z",
+      "sha256": "cc8c12d39adb71d4c03fe1204008f0ed55008e8d59320c704e19647ff2a9b710"
+    },
+    {
+      "path": "public/skills/icon-inspect.svg",
+      "driveId": "1wNMcz_MqJFoLNh21W-bi5tY1TW1x_YVT",
+      "size": 509,
+      "modified": "2026-10-09T11:57:54.421Z",
+      "sha256": "c19df40007f6656a4072df354e5536c3824308b5962f32cd7e34866910f8dfb8"
+    },
+    {
+      "path": "public/skills/icon-shield.svg",
+      "driveId": "1PjHFpsIbHT-eGzM-ZIzkrZHdJH736Vhz",
+      "size": 534,
+      "modified": "2026-10-09T11:57:48.297Z",
+      "sha256": "fb78c16062432e25a3a013f3a51680f208bd007eacf77c96e9d69a4366f34902"
+    },
+    {
+      "path": "public/skills/icon-poison.svg",
+      "driveId": "14u5EZ0vsy_lWK5vsrUVjnRtSa2rAfC-7",
+      "size": 830,
+      "modified": "2026-10-09T11:57:42.35Z",
+      "sha256": "0671a137fdf9269b607331f6643a77f58051f57048d7bdc1e457e561642d79d2"
+    },
+    {
+      "path": "public/skills/icon-antidote.svg",
+      "driveId": "1eStzw-pvtZk_DkvJDv-SpKfva54Rxks1",
+      "size": 617,
+      "modified": "2026-10-09T11:57:36.46Z",
+      "sha256": "56881638a36c1ec98ed480f2da0a617f83dbe03e5228c9db081ad4a4e4630a07"
+    },
+    {
+      "path": "public/skills/icon-wolf-attack.svg",
+      "driveId": "1qr-S_rpcCcumVEJ61cPphuIHwrwr2eqM",
+      "size": 673,
+      "modified": "2026-10-09T11:57:17.82Z",
+      "sha256": "613d844185591de9499771448ecb999f164a35961a4df91e345a8749bb7ec4be"
+    },
+    {
+      "path": "public/art/black-market-merchant-approved.png",
+      "driveId": "1QCPpgU7qZO-CR7_n2V-Hq-a-KMbqIhN8",
+      "size": 1782534,
+      "modified": "2026-10-09T14:28:21.422Z",
+      "sha256": "981112b5fc6af776ca8966158307bf8af7c3abf111034548ecffdbd80b1451d0"
+    },
+    {
+      "path": "public/art/wolf-younger-brother-approved.png",
+      "driveId": "1I_V9RmgzgUebrNwzveXT6O-4ddvxTa2i",
+      "size": 1709337,
+      "modified": "2026-10-09T14:28:17.414Z",
+      "sha256": "75bd2e1ae2c29bffabc12485696c6fea5061f4ba34976da392e9e1a6116d5fbd"
+    },
+    {
+      "path": "public/art/wolf-brother-scar-approved.png",
+      "driveId": "1Sd-CWKDx2ck_IWRgr1yu0nyFi9jLgMX4",
+      "size": 1804962,
+      "modified": "2026-10-09T14:28:13.175Z",
+      "sha256": "6561190b0599db7741351d9b49fad529b6758688eaf89596a807a00fffe88287"
+    },
+    {
+      "path": "public/art/nightmare-minimal-approved.png",
+      "driveId": "1NgB-KdokOEawPXThJ4zhAgkKm11aFF4b",
+      "size": 1893979,
+      "modified": "2026-10-09T14:10:23.993Z",
+      "sha256": "adccb48d21eae55aa644ed707138cc82805154eaab571f35b429dd2d03c2e7a0"
+    },
+    {
+      "path": "public/art/dream-catcher-minimal-approved.png",
+      "driveId": "1oWc_gWoH9NbiVoisI8uHM5Sw-GC8MZHf",
+      "size": 1778499,
+      "modified": "2026-10-09T14:10:27.910Z",
+      "sha256": "00d20cc9f0a93e0010fb5f072d2f05fa6d77d938a75f94ccfa3cda15d24fb61c"
+    },
+    {
+      "path": "public/skills/icon-fear.svg",
+      "driveId": "1cs-roYX2E6rNUUw7e3gXmni4K8pBXDZX",
+      "size": 1070,
+      "modified": "2026-10-10T08:03:41.071Z",
+      "sha256": "ebb15653f0eaa8c423ea8605021c9964abf6887c7b9ac2b167ee0a90cf477fbf"
+    },
+    {
+      "path": "public/skills/icon-sleep.svg",
+      "driveId": "1iszK_9bhxgHY9kpvy5hzkqEvbXYURY09",
+      "size": 730,
+      "modified": "2026-10-10T08:04:03.534Z",
+      "sha256": "8f8e79c723396401cd35867fb2e22abfb8f40cec06e24a733d3132a4a2ac60dd"
+    }
+  ],
+  "home": {
+    "path": "public/art/home-background.svg",
+    "bundleDriveId": "1cb2Rs6eXu0QbD0UkQy6d9jUpl4CZkFGz",
+    "source": "moon_eclipse_home_preview.svg",
+    "adaptation": "Extract background before brand text; remove text; no drawn controls. Approved role PNGs remain byte-for-byte originals."
+  }
+}
