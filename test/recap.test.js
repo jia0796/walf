@@ -15,9 +15,9 @@ test('recap snapshots raw/effective targets, includes only executed skills, orde
  assert.deepEqual(upgradeGame(JSON.parse(JSON.stringify(s))).nightRecords,s.nightRecords);
 });
 test('mechanical first-night order, learned use image and independent basic/extra events',()=>{
- const s=ready('mechanical12');s.step='attack';selectSeat(s,9);go(s);s.step='mechanical';go(s);selectSeat(s,2);go(s);s.step='mediumInspect';selectSeat(s,1);go(s);
+ const s=ready('mechanical12');s.step='attack';selectSeat(s,9);go(s);s.step='antidote';choose(s,'skip');go(s);s.step='mechanical';go(s);selectSeat(s,2);go(s);s.step='mediumInspect';selectSeat(s,1);go(s);
  assert.deepEqual(recapNights(s)[0].events.map(e=>e.key),['basic','learn','medium']);
- s.step='nextNight';go(s);s.step='mechanical';go(s);selectSeat(s,9);go(s);s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);s.step='attack';selectSeat(s,10);go(s);
+ s.step='nextNight';go(s);s.step='mechanical';go(s);selectSeat(s,9);go(s);s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);s.step='attack';selectSeat(s,10);go(s);s.step='antidote';choose(s,'skip');go(s);
  const events=recapNights(s)[1].events;assert.deepEqual(events.map(e=>e.key),['extraAttack','basic']);assert.ok(events.every(e=>cardModel(e).image==='art/mechanical-wolf-minimal-approved.png'));assert.equal(cardModel(events[1]).name,'狼人');
 });
 test('trade/lucky cards preserve original profession; failed trade never shows proposed gift',()=>{
@@ -37,12 +37,11 @@ test('all nine formal SVGs, new approved PNG signatures and PWA assets exist; no
  for(const name of ['wolf-brother-scar-approved','wolf-younger-brother-approved','black-market-merchant-approved']){const b=await readFile(new URL('../public/art/'+name+'.png',import.meta.url));assert.equal(b.subarray(1,4).toString(),'PNG');}
  assert.equal(sw.includes('icon-hunter-gun'),false);const home=await readFile(new URL('../public/art/home-background.svg',import.meta.url),'utf8');assert.equal(home.includes('開始主持'),false);assert.equal(home.includes('角色圖鑑'),false);
 });
-test('wolf-phase victory excludes poison operations that never execute from recap',()=>{
+test('wolf-phase victory stops unconfirmed poison and subsequent recap events',()=>{
  const s=ready('brothers12');s.players.filter(p=>p.role==='villager'&&p.id!==9).forEach(p=>p.alive=false);
- s.step='attack';selectSeat(s,9);go(s);s.step='antidote';choose(s,'skip');go(s);choose(s,'use');selectSeat(s,3);go(s);
- assert.ok(recapNights(s)[0].events.some(e=>e.skill==='poison'));s.step='luckyClose';go(s);
- assert.equal(s.nightResolution.poisonSkipped,true);assert.equal(recapNights(s)[0].events.some(e=>e.skill==='poison'),false);
- assert.equal(s.players[2].alive,true);previous(s);assert.ok(recapNights(s)[0].events.some(e=>e.skill==='poison'));
+ s.step='attack';selectSeat(s,9);go(s);assert.equal(s.step,'witch');go(s);choose(s,'skip');go(s);
+ assert.equal(s.step,'dawn');assert.equal(s.nightResolution.poisonSkipped,true);assert.equal(recapNights(s)[0].events.some(e=>e.skill==='poison'),false);
+ assert.equal(s.players[2].alive,true);previous(s);assert.equal(s.winner,null);choose(s,'use');go(s);assert.equal(s.step,'poison');assert.deepEqual(s.nightResolution.deaths,[]);
 });
 test('approved original assets match the documented Drive SHA256 and size',async()=>{
  const manifest=JSON.parse(await readFile(new URL('../docs/assets.json',import.meta.url),'utf8'));

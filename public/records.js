@@ -15,8 +15,10 @@ export function recordStage(s,stage,order){
   if(!targets.length||!targets.every(Boolean))return;
   const actors=opts.actors||[actor(actorRole)];if(!actors[0])return;
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
-  record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,result:null,executed:true,...opts});
+  record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
+ if(stage==='fear'&&n.fear)add('fear','nightmare','fear',[n.fear],{unmapped:true});
+ if(stage==='sleep'&&n.sleep)add('sleep','dream','sleep',[n.sleep],{unmapped:true});
  if(stage==='exchange'&&n.exchange.length===2)add('swap','magician','swap',n.exchange,{unmapped:true});
  if(stage==='attack'&&n.attack){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors});}
  if(stage==='revenge'&&n.revenge)add('revenge','younger','wolf-attack',[n.revenge],{unmapped:true});

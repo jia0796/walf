@@ -1,6 +1,6 @@
 import {ROLE_DATA} from './data.js';
 import {recapNights} from './records.js';
-export const SKILL_LABELS={'wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易'};
+export const SKILL_LABELS={'wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊'};
 const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!=null)node.textContent=text;return node;};
 export function skillIcon(skill){const icon=el('img','skill-icon');icon.src='skills/icon-'+skill+'.svg';icon.alt=SKILL_LABELS[skill];return icon;}
 export function cardModel(event){
