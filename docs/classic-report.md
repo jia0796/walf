@@ -37,7 +37,7 @@ JavaScript 模組／server.mjs 語法與 git diff 格式檢查通過。專案沒
 - public/engine.js：首夜辨識、榜樣選擇／鎖定、翻牌／警徽、共用回退及v8遷移、幸運兒／混血兒座位名稱。
 - public/app.js、index.html：追刀控件、簡潔榜樣操作、翻牌座位狀態、結束個人結果；沿用既有頁面。
 - public/records.js、recap.js、style.css：首夜榜樣事件、民位／幸運兒綠色、翻牌整卡样式與緊湊個人結果。
-- public/sw.js：v8-1快取及三個核准新素材。
+- public/sw.js：v8-2快取及三個核准新素材。
 - public/art/idiot-minimal-approved.png、mixed-blood-dual-approved.jpeg、public/skills/icon-role-model.svg：Drive正式原檔，技能SVG總共12款。
 - test/classic.test.js：37項新驗收；test/stress.test.js：九種配置；test/engine.test.js、nightmare.test.js、recap.test.js、mechanical.test.js：v8、幸運兒顏色及定稿投票字幕回歸。
 - docs/assets.json、classic-report.md、usage.md、AGENTS.md、IMPLEMENTATION.md：素材溯源、執行／接管及驗收。README.md未修改。

@@ -310,6 +310,7 @@ export function gunSources(s,d){
 }
 function kill(s,deaths) {
   deaths.forEach(d=>{d.day??=s.night;d.context??=['attack','poison','tradeFailure','dreamRepeat','dreamLink'].includes(d.cause)?'night':'day';d.sourceActor??=d.cause==='poison'?s.players.find(p=>p.role==='witch')?.id:null;d.sourceRole??=d.cause==='attack'?'wolves':d.sourceActor?player(s,d.sourceActor)?.role:null;if(player(s,d.id).role==='elder'&&s.brothers.elderDeath===null)Object.assign(s.brothers,{elderDeath:{night:s.night,context:d.context,cause:d.cause},revengeNight:s.night+1,joinNight:s.night+2});
+    if(player(s,d.id).role==='idiot')Object.assign(s.idiot,{seat:d.id,countsEliminatedForVictory:true});
     player(s,d.id).alive=false;player(s,d.id).cause=d.cause;});
   if(s.sheriff && !player(s,s.sheriff).alive) {s.pendingBadge=s.sheriff;}
   s.candidates=s.candidates.filter(id=>player(s,id).alive);
