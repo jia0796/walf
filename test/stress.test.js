@@ -15,7 +15,7 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
   for(let i=0;i<1200&&(!s.winner||s.step==='dawn');i++){
    const step=s.step,legal=()=>s.players.filter(p=>selectable(s,p.id)).map(p=>p.id);
    if(!s.rolesConfirmed&&identities[step]){
-    const targets=step==='wolves'?[...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...assigned.wolf]:step==='brothers'?[...assigned.elder,...assigned.younger]:assigned[identities[step]];
+    const targets=step==='wolves'?[...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...assigned.wolf]:step==='brothers'?[...assigned.elder,...assigned.younger]:assigned[identities[step]];
     for(const id of targets)assert.equal(selectSeat(s,id),true);
    }else if(step==='mechanicalAction'){
     for(const mode of mechanicalModes(s)){choose(s,'mode:'+mode);const pool=legal();if(mode==='mechanicalInspect'||random()>.3){if(pool.length)selectSeat(s,pick(pool));}else choose(s,'skip');}

@@ -379,6 +379,24 @@
       "sha256": "e745d6599c5ccd07893f22593f507d476288776ea6ea6bedf5760be6f32d8b3c",
       "path": "public/art/backgrounds/host.png",
       "driveId": "1W3KIEd0H_4EtGT7wFwxOZircGipMSZIl"
+    },
+    {
+      "sha256": "77c1f2be5ffff350a9c2fb3a195932e7db33a8c67e3947946eea1a0aa89232be",
+      "path": "public/art/catalog/gargoyle-v04.png",
+      "size": 2279908,
+      "driveId": "1LVuKnUVBFS_VQRD9ckGH187bV1qLTjfw"
+    },
+    {
+      "sha256": "fa377d661797cb24b21551e39d6a2fc875645c878aff38cc65f60c271f468987",
+      "path": "public/art/catalog/evilKnight.png",
+      "size": 2110308,
+      "driveId": "1ZzvYW-Q_au72X4QF7YxVQlsTJ8BzSpNr"
+    },
+    {
+      "sha256": "9782a05d4e2bebd77e9df869abd227a7b3a8d2b48ae2eef02c106bc8bfec418c",
+      "path": "public/skills/icon-evil-knight-reflect.svg",
+      "size": 1410,
+      "driveId": "1hV7vz9KCXkYDWJNLj506dTkFtpNQCfMW"
     }
   ],
   "home": {
@@ -409,5 +427,11 @@
       "public/art/backgrounds/host.png"
     ],
     "description": "原始PNG保留；依README45授權製作等尺寸壓縮顯示檔。"
+  },
+  "gargoyleCurrent": {
+    "path": "public/art/catalog/gargoyle-v04.png",
+    "driveId": "1LVuKnUVBFS_VQRD9ckGH187bV1qLTjfw",
+    "version": "v04",
+    "supersedes": "public/art/catalog/gargoyle.png"
   }
 }
