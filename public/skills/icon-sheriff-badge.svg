@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="警徽">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF0AD"/><stop offset=".32" stop-color="#F9C862"/><stop offset=".68" stop-color="#C88B34"/><stop offset="1" stop-color="#FFF1B4"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#243956"/><stop offset=".55" stop-color="#07162D"/><stop offset="1" stop-color="#132440"/>
+    </linearGradient>
+  </defs>
+  <path d="M64 5 11 97h106Z" fill="url(#gold)" stroke="#231A14" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M64 123 11 31h106Z" fill="url(#gold)" stroke="#231A14" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M64 15 21 92h86Z" fill="none" stroke="#6A431F" stroke-width="2"/>
+  <path d="M64 113 21 36h86Z" fill="none" stroke="#6A431F" stroke-width="2"/>
+  <g fill="url(#gold)" stroke="#51371A" stroke-width="2">
+    <circle cx="64" cy="7" r="5"/><circle cx="64" cy="121" r="5"/>
+    <circle cx="12" cy="34" r="5"/><circle cx="116" cy="34" r="5"/>
+    <circle cx="12" cy="94" r="5"/><circle cx="116" cy="94" r="5"/>
+  </g>
+  <circle cx="64" cy="64" r="39" fill="url(#navy)" stroke="#302317" stroke-width="5"/>
+  <circle cx="64" cy="64" r="37" fill="none" stroke="url(#gold)" stroke-width="6"/>
+  <circle cx="64" cy="64" r="31" fill="none" stroke="#AE7D35" stroke-width="1.4"/>
+  <path d="M57 38C37 48 35 74 50 88c11 10 27 10 37-3-23 5-40-17-30-47Z" fill="url(#gold)"/>
+  <path d="m75 44 3.8 11.2L90 59l-11.2 3.8L75 74l-3.8-11.2L60 59l11.2-3.8Z" fill="#FFEAB0"/>
+  <g fill="#F7D18A">
+    <path d="m51 28 1.3 3.5 3.5 1.3-3.5 1.3-1.3 3.5-1.3-3.5-3.5-1.3 3.5-1.3Z"/>
+    <path d="m92 72 1.4 4 4 1.4-4 1.4-1.4 4-1.4-4-4-1.4 4-1.4Z"/>
+  </g>
+</svg>

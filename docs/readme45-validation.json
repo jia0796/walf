@@ -1,0 +1,969 @@
+{
+  "spec": "main@0db34c13519c50c28275a2288ef3b6b5cce5b93b",
+  "base": "3ecf7fdab5aeb22153f7690775ee51c0c36f3018",
+  "tests": {
+    "baseline": 247,
+    "final": 285,
+    "failed": 0,
+    "skipped": 0
+  },
+  "stress": {
+    "offsets": [
+      0,
+      100,
+      1000
+    ],
+    "default": [
+      {
+        "board": "10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1536,
+        "maxSaveBytes": 795684
+      },
+      {
+        "board": "12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1979,
+        "maxSaveBytes": 1311314
+      },
+      {
+        "board": "mechanical10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1681,
+        "maxSaveBytes": 965161
+      },
+      {
+        "board": "mechanical12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 2403,
+        "maxSaveBytes": 1422274
+      },
+      {
+        "board": "brothers12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 2417,
+        "maxSaveBytes": 1211287
+      },
+      {
+        "board": "nightmare10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1505,
+        "maxSaveBytes": 1056542
+      },
+      {
+        "board": "nightmare12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 2294,
+        "maxSaveBytes": 1556743
+      },
+      {
+        "board": "classic12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1927,
+        "maxSaveBytes": 1162705
+      },
+      {
+        "board": "classicMixed12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1985,
+        "maxSaveBytes": 1101124
+      },
+      {
+        "board": "blood10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1311,
+        "maxSaveBytes": 632753
+      },
+      {
+        "board": "kingGuard10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1542,
+        "maxSaveBytes": 1076245
+      },
+      {
+        "board": "kingDream10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1444,
+        "maxSaveBytes": 1025124
+      },
+      {
+        "board": "blood12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1869,
+        "maxSaveBytes": 980155
+      },
+      {
+        "board": "kingGuard12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 2025,
+        "maxSaveBytes": 1127185
+      },
+      {
+        "board": "kingDream12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 1969,
+        "maxSaveBytes": 1107438
+      },
+      {
+        "board": "gargoyle10",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 2010,
+        "maxSaveBytes": 1116291
+      },
+      {
+        "board": "gargoyle12",
+        "seeds": 18,
+        "finished": 18,
+        "actions": 2562,
+        "maxSaveBytes": 1457469
+      }
+    ],
+    "A": [
+      {
+        "board": "10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4291,
+        "maxSaveBytes": 799644
+      },
+      {
+        "board": "12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 6314,
+        "maxSaveBytes": 1377972
+      },
+      {
+        "board": "mechanical10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5372,
+        "maxSaveBytes": 1325420
+      },
+      {
+        "board": "mechanical12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7138,
+        "maxSaveBytes": 1394301
+      },
+      {
+        "board": "brothers12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 6985,
+        "maxSaveBytes": 1245826
+      },
+      {
+        "board": "nightmare10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4816,
+        "maxSaveBytes": 1148545
+      },
+      {
+        "board": "nightmare12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7350,
+        "maxSaveBytes": 1599811
+      },
+      {
+        "board": "classic12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5309,
+        "maxSaveBytes": 1024761
+      },
+      {
+        "board": "classicMixed12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5663,
+        "maxSaveBytes": 1106170
+      },
+      {
+        "board": "blood10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 3683,
+        "maxSaveBytes": 641281
+      },
+      {
+        "board": "kingGuard10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4336,
+        "maxSaveBytes": 846185
+      },
+      {
+        "board": "kingDream10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4185,
+        "maxSaveBytes": 778218
+      },
+      {
+        "board": "blood12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5172,
+        "maxSaveBytes": 1195862
+      },
+      {
+        "board": "kingGuard12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 6508,
+        "maxSaveBytes": 1409931
+      },
+      {
+        "board": "kingDream12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 6040,
+        "maxSaveBytes": 1170058
+      },
+      {
+        "board": "gargoyle10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5559,
+        "maxSaveBytes": 1509853
+      },
+      {
+        "board": "gargoyle12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7636,
+        "maxSaveBytes": 1591201
+      }
+    ],
+    "B": [
+      {
+        "board": "10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4685,
+        "maxSaveBytes": 814458
+      },
+      {
+        "board": "12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 6022,
+        "maxSaveBytes": 1194632
+      },
+      {
+        "board": "mechanical10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5305,
+        "maxSaveBytes": 1123631
+      },
+      {
+        "board": "mechanical12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7342,
+        "maxSaveBytes": 1750226
+      },
+      {
+        "board": "brothers12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7274,
+        "maxSaveBytes": 1633073
+      },
+      {
+        "board": "nightmare10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5157,
+        "maxSaveBytes": 994955
+      },
+      {
+        "board": "nightmare12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7128,
+        "maxSaveBytes": 1665538
+      },
+      {
+        "board": "classic12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5730,
+        "maxSaveBytes": 1101176
+      },
+      {
+        "board": "classicMixed12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5753,
+        "maxSaveBytes": 1194385
+      },
+      {
+        "board": "blood10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4098,
+        "maxSaveBytes": 842304
+      },
+      {
+        "board": "kingGuard10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4268,
+        "maxSaveBytes": 912857
+      },
+      {
+        "board": "kingDream10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 4058,
+        "maxSaveBytes": 739707
+      },
+      {
+        "board": "blood12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5529,
+        "maxSaveBytes": 1113202
+      },
+      {
+        "board": "kingGuard12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 6401,
+        "maxSaveBytes": 1209744
+      },
+      {
+        "board": "kingDream12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5796,
+        "maxSaveBytes": 1431129
+      },
+      {
+        "board": "gargoyle10",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 5758,
+        "maxSaveBytes": 1183238
+      },
+      {
+        "board": "gargoyle12",
+        "seeds": 54,
+        "finished": 54,
+        "actions": 7631,
+        "maxSaveBytes": 1552828
+      }
+    ]
+  },
+  "uiFull": {
+    "results": [
+      {
+        "library": 21,
+        "glass": true,
+        "descriptionGrid": true,
+        "touchOutline": true
+      },
+      {
+        "hostLibrary": true,
+        "preserved": true
+      },
+      {
+        "candidateBlue": true,
+        "cancel": true,
+        "refresh": true,
+        "rollback": true,
+        "electionClear": true
+      },
+      {
+        "board": "10",
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "12",
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "mechanical10",
+        "passed": true,
+        "actions": 76,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "mechanical12",
+        "passed": true,
+        "actions": 113,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "brothers12",
+        "passed": true,
+        "actions": 121,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "nightmare10",
+        "passed": true,
+        "actions": 74,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "nightmare12",
+        "passed": true,
+        "actions": 111,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "classic12",
+        "passed": true,
+        "actions": 89,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "classicMixed12",
+        "passed": true,
+        "actions": 114,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "blood10",
+        "passed": true,
+        "actions": 66,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingGuard10",
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingDream10",
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "blood12",
+        "passed": true,
+        "actions": 90,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingGuard12",
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "kingDream12",
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 758
+        }
+      },
+      {
+        "board": "gargoyle10",
+        "passed": true,
+        "actions": 81,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 668
+        }
+      },
+      {
+        "board": "gargoyle12",
+        "passed": true,
+        "actions": 119,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 668
+        }
+      },
+      {
+        "responsive": {
+          "width": 320,
+          "height": 568
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            320,
+            568
+          ],
+          "pageWidth": 320,
+          "footer": 455,
+          "seats": [
+            204.65625,
+            253.328125,
+            302,
+            350.65625,
+            399.328125,
+            448,
+            204.65625,
+            253.328125,
+            302,
+            350.65625,
+            399.328125,
+            448
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 768,
+          "height": 1024
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            768,
+            1024
+          ],
+          "pageWidth": 768,
+          "footer": 906,
+          "seats": [
+            355.15625,
+            465.328125,
+            575.484375,
+            685.65625,
+            795.828125,
+            905.984375,
+            355.15625,
+            465.328125,
+            575.484375,
+            685.65625,
+            795.828125,
+            905.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1024,
+          "height": 768
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1024,
+            768
+          ],
+          "pageWidth": 1024,
+          "footer": 650,
+          "seats": [
+            312.5,
+            380,
+            447.5,
+            515,
+            582.5,
+            650,
+            312.5,
+            380,
+            447.5,
+            515,
+            582.5,
+            650
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1180,
+          "height": 600
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1180,
+            600
+          ],
+          "pageWidth": 1180,
+          "footer": 482,
+          "seats": [
+            235.328125,
+            284.65625,
+            333.984375,
+            383.328125,
+            432.65625,
+            481.984375,
+            235.328125,
+            284.65625,
+            333.984375,
+            383.328125,
+            432.65625,
+            481.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "assets": 18,
+        "loaded": true
+      },
+      {
+        "offline": true,
+        "assets": 31
+      }
+    ],
+    "errors": []
+  },
+  "uiFocused": {
+    "results": [
+      {
+        "library": 21,
+        "glass": true,
+        "descriptionGrid": true,
+        "touchOutline": true
+      },
+      {
+        "hostLibrary": true,
+        "preserved": true
+      },
+      {
+        "candidateBlue": true,
+        "cancel": true,
+        "refresh": true,
+        "rollback": true,
+        "electionClear": true
+      },
+      {
+        "board": "gargoyle10",
+        "passed": true,
+        "actions": 81,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 668
+        }
+      },
+      {
+        "board": "gargoyle12",
+        "passed": true,
+        "actions": 119,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 668
+        }
+      },
+      {
+        "responsive": {
+          "width": 320,
+          "height": 568
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            320,
+            568
+          ],
+          "pageWidth": 320,
+          "footer": 455,
+          "seats": [
+            204.65625,
+            253.328125,
+            302,
+            350.65625,
+            399.328125,
+            448,
+            204.65625,
+            253.328125,
+            302,
+            350.65625,
+            399.328125,
+            448
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 768,
+          "height": 1024
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            768,
+            1024
+          ],
+          "pageWidth": 768,
+          "footer": 906,
+          "seats": [
+            355.15625,
+            465.328125,
+            575.484375,
+            685.65625,
+            795.828125,
+            905.984375,
+            355.15625,
+            465.328125,
+            575.484375,
+            685.65625,
+            795.828125,
+            905.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1024,
+          "height": 768
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1024,
+            768
+          ],
+          "pageWidth": 1024,
+          "footer": 650,
+          "seats": [
+            312.5,
+            380,
+            447.5,
+            515,
+            582.5,
+            650,
+            312.5,
+            380,
+            447.5,
+            515,
+            582.5,
+            650
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1180,
+          "height": 600
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1180,
+            600
+          ],
+          "pageWidth": 1180,
+          "footer": 482,
+          "seats": [
+            235.328125,
+            284.65625,
+            333.984375,
+            383.328125,
+            432.65625,
+            481.984375,
+            235.328125,
+            284.65625,
+            333.984375,
+            383.328125,
+            432.65625,
+            481.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "assets": 18,
+        "loaded": true
+      },
+      {
+        "offline": true,
+        "assets": 40
+      }
+    ],
+    "errors": []
+  },
+  "assets": {
+    "originals": 49,
+    "svg": 15,
+    "backgroundPng": 5,
+    "backgroundWebp": 5,
+    "sourceBytes": 9769779,
+    "webpBytes": 492566
+  },
+  "knownFunctionalFailures": 0,
+  "manualPending": [
+    "iPhone Safari",
+    "iOS installed PWA",
+    "Android physical device",
+    "Device-specific background cropping"
+  ]
+}

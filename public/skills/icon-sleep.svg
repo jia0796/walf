@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="攝夢人夢遊">
+<title>攝夢人夢遊</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#79B8FA" stroke-width="3.1"/>
+<!-- upward-floating, three drawn Z shapes, with no font dependence -->
+<path d="M15.4 38 H31 L15.4 50 H31" fill="none" stroke="#79B8FA" stroke-width="3.9" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M26.4 25 H40 L26.4 35 H40" fill="none" stroke="#79B8FA" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M40 15 H50 L40 22 H50" fill="none" stroke="#79B8FA" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="投票">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFEDAC"/><stop offset=".4" stop-color="#EAB253"/><stop offset="1" stop-color="#A96A2B"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#244263"/><stop offset="1" stop-color="#071428"/>
+    </linearGradient>
+  </defs>
+  <path d="m55 9 37 10-14 44-37-10Z" fill="#F9E4B4" stroke="#181B24" stroke-width="4" stroke-linejoin="round"/>
+  <path d="m58 17 26 7-9 30-26-7Z" fill="none" stroke="#C69246" stroke-width="1.5"/>
+  <path d="M66 26c-9 3-11 17-3 22 5 3 10 3 14-1-13 1-18-11-11-21Z" fill="#153052"/>
+  <path d="M18 53h88l11 14-11 12H18L9 67Z" fill="url(#gold)" stroke="#171820" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M22 60h81l5 7H18Z" fill="url(#navy)" stroke="#8B5C2C" stroke-width="2"/>
+  <path d="M42 65h49" stroke="#F4CC7B" stroke-width="3" stroke-linecap="round"/>
+  <path d="M19 78h88v35H19Z" fill="url(#navy)" stroke="#171820" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M107 78 115 70v35l-8 8Z" fill="#17273F" stroke="#171820" stroke-width="3"/>
+  <path d="M19 78h88" stroke="url(#gold)" stroke-width="6"/>
+  <path d="M22 113h87" stroke="url(#gold)" stroke-width="7" stroke-linecap="round"/>
+  <path d="M22 81v29M105 81v29" stroke="#DDA64C" stroke-width="4"/>
+  <path d="M59 85c-11 5-13 18-4 23 5 4 12 3 16-2-11 2-17-10-12-21Z" fill="url(#gold)"/>
+  <path d="m82 87 2.2 6.3L90 95l-5.8 2.2L82 104l-2.2-6.8L74 95l5.8-1.7Z" fill="#F6D287"/>
+  <path d="m34 89 1.6 4.4L40 95l-4.4 1.6L34 101l-1.6-4.4L28 95l4.4-1.6Z" fill="#EBC06B"/>
+</svg>

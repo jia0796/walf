@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="守墓人查驗">
+<title>守墓人查驗</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F3C96C" stroke-width="3.1"/>
+<!-- gravestone with clipped Gothic peak and aged masonry -->
+<path d="M20 49 V25.5 L23.1 20 L32 13 L40.9 20 L44 25.5 V49 Z" fill="#303846" stroke="#F3C96C" stroke-width="2.8" stroke-linejoin="round"/>
+<path d="M23.4 26 L32 18.5 L40.6 26 M25.8 29 L25.8 32.6 M38.2 29 L38.2 32.6" fill="none" stroke="#7D8798" stroke-width="1.65" stroke-linecap="round"/>
+<!-- gold funerary cross -->
+<path d="M32 22.2 L32 32.1 M27.9 26.7 H36.1" fill="none" stroke="#F3C96C" stroke-width="2.75" stroke-linecap="round"/>
+<!-- blue insight eye, symbolic judgment of the buried player's camp -->
+<path d="M21.3 40.3 Q32 30.2 42.7 40.3 Q32 50.4 21.3 40.3 Z" fill="#16283E" stroke="#79B8FA" stroke-width="2.6" stroke-linejoin="round"/>
+<circle cx="32" cy="40.3" r="4.4" fill="#79B8FA"/>
+<path d="M32 37.6 L34 40.3 L32 43 L30 40.3 Z" fill="#E3F5FF"/>
+<!-- foundation/earth -->
+<path d="M17.3 50.4 H46.7 M23.1 53 H40.9" fill="none" stroke="#F3C96C" stroke-width="2.6" stroke-linecap="round"/>
+</svg>

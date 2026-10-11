@@ -1,0 +1,481 @@
+{
+  "source": "Wolf.app.art",
+  "checked": "2026-10-11",
+  "skillsFolder": "1OluabBS8kKEAt-uAknqGCCnTjaOe78ke",
+  "rolesFolder": "1h-Rw1_nJFltofxmM2LG7-YOskBXil9C7",
+  "originals": [
+    {
+      "path": "public/skills/icon-gun.svg",
+      "driveId": "1rHYyM0rlZ5O4Ioy0FeYKeGnhKQZcL8Pr",
+      "size": 1347,
+      "modified": "2026-10-09T16:38:51.268Z",
+      "sha256": "eff907366ca0bab126727eb35533d4451e354aa9a630d01f543afcf2aeab91e5"
+    },
+    {
+      "path": "public/skills/icon-trade.svg",
+      "driveId": "1ShHPI7jzondJaVsUfeSLHEPw7OQpOyAi",
+      "size": 1036,
+      "modified": "2026-10-09T16:38:19.131Z",
+      "sha256": "f48b0d3d3c8907aa4009286d5c644da702cd902d38cb8b0a0017747fb12e4c1f"
+    },
+    {
+      "path": "public/skills/icon-learn.svg",
+      "driveId": "1xj0h54TDxdEBD1TV3HhEQv-Nsh4EAQkv",
+      "size": 847,
+      "modified": "2026-10-09T16:22:06.904Z",
+      "sha256": "3ef58790b371d24dc18234f29b5af75a515a8be31be34c3708f02bb6ec4eebf9"
+    },
+    {
+      "path": "public/skills/icon-swap.svg",
+      "driveId": "1J88U18VEPgLZz8hsY8HabFp4_iD-N_Zf",
+      "size": 545,
+      "modified": "2026-10-09T11:58:01.277Z",
+      "sha256": "cc8c12d39adb71d4c03fe1204008f0ed55008e8d59320c704e19647ff2a9b710"
+    },
+    {
+      "path": "public/skills/icon-inspect.svg",
+      "driveId": "1wNMcz_MqJFoLNh21W-bi5tY1TW1x_YVT",
+      "size": 509,
+      "modified": "2026-10-09T11:57:54.421Z",
+      "sha256": "c19df40007f6656a4072df354e5536c3824308b5962f32cd7e34866910f8dfb8"
+    },
+    {
+      "path": "public/skills/icon-shield.svg",
+      "driveId": "1PjHFpsIbHT-eGzM-ZIzkrZHdJH736Vhz",
+      "size": 534,
+      "modified": "2026-10-09T11:57:48.297Z",
+      "sha256": "fb78c16062432e25a3a013f3a51680f208bd007eacf77c96e9d69a4366f34902"
+    },
+    {
+      "path": "public/skills/icon-poison.svg",
+      "driveId": "14u5EZ0vsy_lWK5vsrUVjnRtSa2rAfC-7",
+      "size": 830,
+      "modified": "2026-10-09T11:57:42.35Z",
+      "sha256": "0671a137fdf9269b607331f6643a77f58051f57048d7bdc1e457e561642d79d2"
+    },
+    {
+      "path": "public/skills/icon-antidote.svg",
+      "driveId": "1eStzw-pvtZk_DkvJDv-SpKfva54Rxks1",
+      "size": 617,
+      "modified": "2026-10-09T11:57:36.46Z",
+      "sha256": "56881638a36c1ec98ed480f2da0a617f83dbe03e5228c9db081ad4a4e4630a07"
+    },
+    {
+      "path": "public/skills/icon-wolf-attack.svg",
+      "driveId": "1qr-S_rpcCcumVEJ61cPphuIHwrwr2eqM",
+      "size": 673,
+      "modified": "2026-10-09T11:57:17.82Z",
+      "sha256": "613d844185591de9499771448ecb999f164a35961a4df91e345a8749bb7ec4be"
+    },
+    {
+      "path": "public/art/black-market-merchant-approved.png",
+      "driveId": "1QCPpgU7qZO-CR7_n2V-Hq-a-KMbqIhN8",
+      "size": 1782534,
+      "modified": "2026-10-09T14:28:21.422Z",
+      "sha256": "981112b5fc6af776ca8966158307bf8af7c3abf111034548ecffdbd80b1451d0"
+    },
+    {
+      "path": "public/art/wolf-younger-brother-approved.png",
+      "driveId": "1I_V9RmgzgUebrNwzveXT6O-4ddvxTa2i",
+      "size": 1709337,
+      "modified": "2026-10-09T14:28:17.414Z",
+      "sha256": "75bd2e1ae2c29bffabc12485696c6fea5061f4ba34976da392e9e1a6116d5fbd"
+    },
+    {
+      "path": "public/art/wolf-brother-scar-approved.png",
+      "driveId": "1Sd-CWKDx2ck_IWRgr1yu0nyFi9jLgMX4",
+      "size": 1804962,
+      "modified": "2026-10-09T14:28:13.175Z",
+      "sha256": "6561190b0599db7741351d9b49fad529b6758688eaf89596a807a00fffe88287"
+    },
+    {
+      "path": "public/art/nightmare-minimal-approved.png",
+      "driveId": "1NgB-KdokOEawPXThJ4zhAgkKm11aFF4b",
+      "size": 1893979,
+      "modified": "2026-10-09T14:10:23.993Z",
+      "sha256": "adccb48d21eae55aa644ed707138cc82805154eaab571f35b429dd2d03c2e7a0"
+    },
+    {
+      "path": "public/art/dream-catcher-minimal-approved.png",
+      "driveId": "1oWc_gWoH9NbiVoisI8uHM5Sw-GC8MZHf",
+      "size": 1778499,
+      "modified": "2026-10-09T14:10:27.910Z",
+      "sha256": "00d20cc9f0a93e0010fb5f072d2f05fa6d77d938a75f94ccfa3cda15d24fb61c"
+    },
+    {
+      "path": "public/skills/icon-fear.svg",
+      "driveId": "1cs-roYX2E6rNUUw7e3gXmni4K8pBXDZX",
+      "size": 1070,
+      "modified": "2026-10-10T08:03:41.071Z",
+      "sha256": "ebb15653f0eaa8c423ea8605021c9964abf6887c7b9ac2b167ee0a90cf477fbf"
+    },
+    {
+      "path": "public/skills/icon-sleep.svg",
+      "driveId": "1iszK_9bhxgHY9kpvy5hzkqEvbXYURY09",
+      "size": 730,
+      "modified": "2026-10-10T08:04:03.534Z",
+      "sha256": "8f8e79c723396401cd35867fb2e22abfb8f40cec06e24a733d3132a4a2ac60dd"
+    },
+    {
+      "path": "public/art/mixed-blood-dual-approved.jpeg",
+      "driveId": "1ap9orM9ZKZ1GMUQxKgl8N3-kCQC9lWoM",
+      "size": 560485,
+      "modified": "2026-10-10T09:56:39.079Z",
+      "sha256": "289f669684cc946b465902d637d71e04d5bd75ed3b4265607a6d5bdf129f95b9"
+    },
+    {
+      "path": "public/skills/icon-role-model.svg",
+      "driveId": "1KNevjNWpRK3hafwe2BRPF-G22uU3URNG",
+      "size": 1042,
+      "modified": "2026-10-10T10:48:54.057Z",
+      "sha256": "4a9a8851e05c4c9c7ddd5ddeb3d68d03a787599f14a2807fce2ef607adab1469"
+    },
+    {
+      "path": "public/art/idiot-minimal-approved.png",
+      "driveId": "1g7IOd5kB2dJYC0ZjIyDNlQI2wfUzGSE4",
+      "size": 1631140,
+      "modified": "2026-10-10T08:47:55.734Z",
+      "sha256": "add2c3eecd69b1dab7fb49b2ad91eadcdd806ffeed91200018704986d03baa9c"
+    },
+    {
+      "role": "idiot",
+      "driveId": "1QHp9umg2XWbsrvjxybCihO-1UWcYtV0J",
+      "path": "public/art/catalog/idiot.png",
+      "size": 1803766,
+      "sha256": "c5e057141ffaef5081519802bdc2aa4eb7678022a3b922b8e91f502e27095082",
+      "modified": "2026-10-10T14:38:27.239Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "merchant",
+      "driveId": "1TpWUxMpF2bXniy0npFVXYYmtIuwFcHf_",
+      "path": "public/art/catalog/merchant.png",
+      "size": 1925914,
+      "sha256": "a2e3c4a8fa62b0ccaab2a857169fe559a62d011504ec5cf93e4fdfc5f8015e63",
+      "modified": "2026-10-10T14:38:33.936Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "seer",
+      "driveId": "1bz8aMow9abSP0lQ0GBVaq-wKqqM-j4Sz",
+      "path": "public/art/catalog/seer.png",
+      "size": 1828441,
+      "sha256": "75658b0d38140bdc21ea6a6dd80a68a6e701b4e37c16b82c591f6eea7b6f4e3b",
+      "modified": "2026-10-10T14:38:41.391Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "witch",
+      "driveId": "1DZLjvTzw9E3gOkCCUUqqoq7j5le_WdVI",
+      "path": "public/art/catalog/witch.png",
+      "size": 1775428,
+      "sha256": "071a3354e04dc7eec4af81fa2d7878f971a78f773c60194b61db75609b90c326",
+      "modified": "2026-10-10T14:38:46.526Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "magician",
+      "driveId": "1EJplaXjyMcNOFR1BIce-Dn2gswlSkWDD",
+      "path": "public/art/catalog/magician.png",
+      "size": 1885526,
+      "sha256": "09476f9f4162332849aac1bc9964a7754eae9b2240e43d1c5be4079eac821b91",
+      "modified": "2026-10-10T14:38:52.039Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "medium",
+      "driveId": "1NQdCk6_pUkmTSOIYQO16utn0Tb4jgCIM",
+      "path": "public/art/catalog/medium.png",
+      "size": 1916965,
+      "sha256": "a948bd3dd482a60173716e84d2727c9a9dbd853c23148ecd5f7c5e63091d4420",
+      "modified": "2026-10-10T14:39:01.052Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "guard",
+      "driveId": "1ydM2PxTgMhW1MmFDu8ICdRxaZ-IW_SPz",
+      "path": "public/art/catalog/guard.png",
+      "size": 1786137,
+      "sha256": "beddccba82356521986d4fc9c64b4afec8b1cb2ec2a87d127b37cd784e5c9c3d",
+      "modified": "2026-10-10T14:39:52.313Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "villager",
+      "driveId": "1PQgxkKy0iayB6Ov4k6BUB8sYT3liaqMf",
+      "path": "public/art/catalog/villager.png",
+      "size": 1755841,
+      "sha256": "f549d8d8432e8c9a034ad3b65bfe5b93b9dbce476623654db0fa5e7d40750d01",
+      "modified": "2026-10-10T14:39:58.173Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "elder",
+      "driveId": "1D26z61FwM7M2e68kOopEkIsXFOPlf55r",
+      "path": "public/art/catalog/elder.png",
+      "size": 1920777,
+      "sha256": "08bf943e5a641441efed93f3cee5493abe8e643b19050739fd477afa9a8bd8e9",
+      "modified": "2026-10-10T14:40:02.038Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "younger",
+      "driveId": "1Ef76pbyISbSe8HjhVWn96KZ1-Tr__Lpk",
+      "path": "public/art/catalog/younger.png",
+      "size": 1892678,
+      "sha256": "7a087916cbfdc2341615813cb9553057a55bc7d9b558539873b03c6a7ed2923c",
+      "modified": "2026-10-10T14:40:06.229Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "king",
+      "driveId": "1Mv5aYXCLilgQi3Tf1UmKB3_pkKH7QShj",
+      "path": "public/art/catalog/king.png",
+      "size": 1830292,
+      "sha256": "1a146cfc290437b6562384b7f6a302c5d92a3d8dc17402b6dfb4b3d1671d2d7d",
+      "modified": "2026-10-10T14:40:10.199Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "wolf",
+      "driveId": "1qVL7Rf9RGBKndrPQuNf1o2tDWHm55zow",
+      "path": "public/art/catalog/wolf.png",
+      "size": 1971990,
+      "sha256": "1233c4f4d5f42afe72a5824a55b4538af976d4ba4aca51b21c25b9b410c36f7a",
+      "modified": "2026-10-10T14:40:21.141Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "mechanical",
+      "driveId": "1s_xkZ5PbijNxAe8wIzN3QxUUkQieUU48",
+      "path": "public/art/catalog/mechanical.png",
+      "size": 1961706,
+      "sha256": "a4649059659bd1d0487a8c69ceae6707c03a61fdd3267de71e6c61560c86c904",
+      "modified": "2026-10-10T14:40:47.181Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "seedWolf",
+      "driveId": "1FGTkHvu8mariKDEMTOTfIw3cxEEa8okO",
+      "path": "public/art/catalog/seedWolf.png",
+      "size": 1937070,
+      "sha256": "9fbf4844d82d4aea0678a561194e5177bbee63f1e94c40574d3ff8dc433e6712",
+      "modified": "2026-10-10T14:40:51.281Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "hiddenWolf",
+      "driveId": "16nx7VFVjCfOe6WplCldth_BJMlwz1PHp",
+      "path": "public/art/catalog/hiddenWolf.png",
+      "size": 1870545,
+      "sha256": "a7d9eba161798bb76887163b9ab5d0f099d627246cdaadb1e6375d29f93fbe9b",
+      "modified": "2026-10-10T14:40:55.324Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "dream",
+      "driveId": "141Bg5giKvtyasz6XXlrz0XiuSSd-CpKR",
+      "path": "public/art/catalog/dream.png",
+      "size": 1923984,
+      "sha256": "22889833ef1474b279c10424b916560dfc78ce4c5e8958dd8ef08182f308be45",
+      "modified": "2026-10-10T14:40:59.264Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "nightmare",
+      "driveId": "15tNNZRnI7vlpYvPsQoZ8B21G_4rd4Ysr",
+      "path": "public/art/catalog/nightmare.png",
+      "size": 1948636,
+      "sha256": "6b70c48600bf891db6922d4dd6ad7cc82921d1f693cc549eca5ddb3e5716bc12",
+      "modified": "2026-10-10T14:41:03.971Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "hunter",
+      "driveId": "1aG26ZKeftwztyB5gyM4CM7TATif4ovhw",
+      "path": "public/art/catalog/hunter.png",
+      "size": 1951400,
+      "sha256": "380c5d50da1caeaf2cd8e06c652703eeb0d9d80600d438a942d7251f263d4531",
+      "modified": "2026-10-10T14:41:08.570Z",
+      "edition": "catalog-2026-10-10"
+    },
+    {
+      "role": "blood",
+      "driveId": "1nQ2aWdvAu4GbHXlyY_SrpO36XLT_lrCZ",
+      "path": "public/art/blood-moon-messenger-approved.png",
+      "size": 2273362,
+      "sha256": "4fd1920ade7640ec363326fac49e547a5f31c13ac69a0aca547a498dcda59613",
+      "modified": "2026-10-10T10:29:01.499Z",
+      "edition": "approved"
+    },
+    {
+      "role": "demon",
+      "driveId": "16TL3xjjLD00A3lSIhWELo9JI_vk9O95O",
+      "path": "public/art/demon-hunter-approved.png",
+      "size": 2465418,
+      "sha256": "3a43ac0a933717f76600f10da290f2ee313f489856a4b2c538b941d13050462d",
+      "modified": "2026-10-10T10:29:50.719Z",
+      "edition": "approved"
+    },
+    {
+      "role": "hunt",
+      "driveId": "1VvCIqLDSL7QMOQbWKQ_Srz_SmS2VqV6B",
+      "path": "public/skills/icon-hunt.svg",
+      "size": 917,
+      "sha256": "29f37aad71a83abaf77fe94181e6624b6331ec77434d6fb14cb11f5d2c3d46cf",
+      "modified": "2026-10-10T12:12:04.749Z",
+      "edition": "approved"
+    },
+    {
+      "size": 2073903,
+      "sha256": "f01fb20ae9e4a55475586757a816f5d6ccfd7b051151231f5732c9f1db821c90",
+      "path": "public/art/catalog/gargoyle.png",
+      "driveId": "1wSu2lLYVIbNmzq1U5XEGc1qrbs9-Ovx-"
+    },
+    {
+      "size": 1712976,
+      "sha256": "aa53d52ea68a3456b1bdc51d5e1a73d421df1f35c9b7fce16f2181a60a5c6fe2",
+      "path": "public/art/catalog/gravekeeper.png",
+      "driveId": "1QvJR5GFFRbOn28352Cb0lPxGM7hc2QkV"
+    },
+    {
+      "size": 1599,
+      "sha256": "555098208df997fb16ff4885f3d834abc9391e225cbdc9412827ee83c8749887",
+      "path": "public/skills/icon-transform.svg",
+      "driveId": "1sjpitQkwnZcfEOQYIiHG5cVEfZ_t1Ccm"
+    },
+    {
+      "size": 1230,
+      "sha256": "27cb6baa1c862ebc7b6e79445fc341c2a06c25221b744a73c295612aff64ae60",
+      "path": "public/skills/icon-gravekeeper.svg",
+      "driveId": "17a6jipMOq8mADIZZjb6g5koBEQIy7mBW"
+    },
+    {
+      "sha256": "77c1f2be5ffff350a9c2fb3a195932e7db33a8c67e3947946eea1a0aa89232be",
+      "path": "public/art/catalog/gargoyle-v04.png",
+      "size": 2279908,
+      "driveId": "1LVuKnUVBFS_VQRD9ckGH187bV1qLTjfw"
+    },
+    {
+      "sha256": "fa377d661797cb24b21551e39d6a2fc875645c878aff38cc65f60c271f468987",
+      "path": "public/art/catalog/evilKnight.png",
+      "size": 2110308,
+      "driveId": "1ZzvYW-Q_au72X4QF7YxVQlsTJ8BzSpNr"
+    },
+    {
+      "sha256": "9782a05d4e2bebd77e9df869abd227a7b3a8d2b48ae2eef02c106bc8bfec418c",
+      "path": "public/skills/icon-evil-knight-reflect.svg",
+      "size": 1410,
+      "driveId": "1hV7vz9KCXkYDWJNLj506dTkFtpNQCfMW"
+    },
+    {
+      "path": "public/skills/icon-infect.svg",
+      "driveId": "1bcZA4v9MG9LYfggf5JfmiPK50-O3NeMM",
+      "size": 1556,
+      "modified": "2026-10-11T07:27:08.900Z",
+      "sha256": "60d7fc7418ecfe1dd698d2f6634ff8cbddd101bb36df7e5c2e3ad211f07ce2ee"
+    },
+    {
+      "id": "1GbytRSNhVTNV4wdCvPYlRU7OlfV7gUan",
+      "path": "public/art/backgrounds/shared.png",
+      "size": 2211659,
+      "sha256": "c38604bb53ee8b26dd604c9458884a0fe99daf5e83111b948a970569f146cc38"
+    },
+    {
+      "id": "1x7wBxdhrVLtkF4lWbOysrUbnJlsYoNvi",
+      "path": "public/art/recap-vote.png",
+      "size": 731455,
+      "sha256": "87e2987704055423868814b70d7d52f0d789c23f631c0869b09398642e3cda2c"
+    },
+    {
+      "id": "1rVWGN8hC8jsZsc9uNIPx6JBMhDTsGWpC",
+      "path": "public/skills/icon-vote.svg",
+      "size": 1734,
+      "sha256": "13cb4fba33d60ad8c6c747b3bcc84b19177ad9398066f0f8755cd8b3b6995fc7"
+    },
+    {
+      "id": "1GO25hreOhY0hw-BW_jSKeMkA3KXI2UeD",
+      "path": "public/skills/icon-sheriff-badge.svg",
+      "size": 1826,
+      "sha256": "f1629595c84c4e459ad5e96dc4c6b4070796a2798410148e381f3bce05d23068"
+    },
+    {
+      "id": "1qj_5TTJ1PnPJgDpMSOlnEkgEiqND6vW-",
+      "path": "public/art/recap-sheriff.png",
+      "size": 2217388,
+      "sha256": "d7a71fa7bc635ab3f61b774b9973ef74c59dc1999009355df1e752ed677ddb48"
+    }
+  ],
+  "home": {
+    "path": "public/art/home-background.svg",
+    "bundleDriveId": "1cb2Rs6eXu0QbD0UkQy6d9jUpl4CZkFGz",
+    "source": "moon_eclipse_home_preview.svg",
+    "adaptation": "Extract background before brand text; remove text; no drawn controls. Approved role PNGs remain byte-for-byte originals."
+  },
+  "catalogSourceFolder": "1koUDwtBWX8J-pa1mTcYRNTeWsztu_bdA",
+  "recapCrop": {
+    "method": "SVG viewBox source crop; same original file; no pixel modification",
+    "default": [
+      90,
+      200,
+      880,
+      950
+    ]
+  },
+  "backgroundDerivatives": {
+    "format": "WebP",
+    "quality": 85,
+    "method": 6,
+    "sourceFiles": [
+      "public/art/backgrounds/home.png",
+      "public/art/backgrounds/counts.png",
+      "public/art/backgrounds/boards.png",
+      "public/art/backgrounds/setup.png",
+      "public/art/backgrounds/host.png"
+    ],
+    "description": "原始PNG保留；依README45授權製作等尺寸壓縮顯示檔。"
+  },
+  "gargoyleCurrent": {
+    "path": "public/art/catalog/gargoyle-v04.png",
+    "driveId": "1LVuKnUVBFS_VQRD9ckGH187bV1qLTjfw",
+    "version": "v04",
+    "supersedes": "public/art/catalog/gargoyle.png"
+  },
+  "retiredBackgrounds": [
+    {
+      "path": "public/art/backgrounds/home.png",
+      "driveId": "1atkZrSDlaCwy1Ic54YSlWnoM1XClIXA8",
+      "size": 899599,
+      "modified": "2026-10-11T08:57:02.825Z",
+      "sha256": "c4f797b57cd15fb984a337a9cf4274bb2a786fbc71294e921c7dac0b7e9c36f9"
+    },
+    {
+      "path": "public/art/backgrounds/counts.png",
+      "driveId": "1Gaz1vnE-g_dOuf56QmSaB7zya0abkKUa",
+      "size": 880086,
+      "modified": "2026-10-11T08:57:08.284Z",
+      "sha256": "884c68f327da223c1abf1a8ae8d0d1e4e26833d5c2e98ebee6020b54b1331724"
+    },
+    {
+      "path": "public/art/backgrounds/boards.png",
+      "driveId": "103nQiQxeY6oNjaKVwBMC0XAW1O-zJ8bc",
+      "size": 830844,
+      "modified": "2026-10-11T08:57:13.845Z",
+      "sha256": "2c28ec2f3cd0fbdc036e0950c741cd376ed6b58c2da129efa1794cbacb93da73"
+    },
+    {
+      "path": "public/art/backgrounds/setup.png",
+      "driveId": "1nWwJIyKHebxob91CQHF0BMiFk6KlU-v1",
+      "size": 700626,
+      "modified": "2026-10-11T08:57:18.622Z",
+      "sha256": "613cc348736fe90c48b451a0c46b56acf1afef02153591f4a177d0d7867ec3be"
+    },
+    {
+      "path": "public/art/backgrounds/host.png",
+      "driveId": "1W3KIEd0H_4EtGT7wFwxOZircGipMSZIl",
+      "size": 643433,
+      "modified": "2026-10-11T08:56:45.037Z",
+      "sha256": "637ac9b6e23120ff9b633c6d4b9f9ad339b071c0166f86171276b103ccf32a72"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="毒藥">
+<title>毒藥</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#BB91F8" stroke-width="3.1"/>
+<path d="M27 17 H37 V23 H27 Z" stroke="#BB91F8" stroke-width="3.1" fill="none" stroke-linejoin="round"/>
+<path d="M27 23 H37 L44 32 V46 Q44 49 41 49 H23 Q20 49 20 46 V32 Z" stroke="#BB91F8" stroke-width="3.3" fill="none" stroke-linejoin="round"/>
+<path d="M26 36 Q26 29 32 29 Q38 29 38 36 L36.4 40.6 H27.6 Z" fill="none" stroke="#BB91F8" stroke-width="2.7" stroke-linejoin="round"/>
+<circle cx="29.4" cy="36.1" r="1.7" fill="#BB91F8"/><circle cx="34.6" cy="36.1" r="1.7" fill="#BB91F8"/>
+<path d="M30 40.5 V43 M34 40.5 V43" stroke="#BB91F8" stroke-width="2.3" stroke-linecap="round"/>
+</svg>

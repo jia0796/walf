@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="夢魘恐懼">
+<title>夢魘恐懼</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+<!-- shocked, screaming expression; outlined rather than a platform-dependent emoji -->
+<path d="M20.1 20.8 C23.4 16.7 27.4 15.3 32 15.3 C40.9 15.3 48.1 22.6 48.1 32 C48.1 41.4 40.9 48.7 32 48.7 C23.1 48.7 15.9 41.4 15.9 32 C15.9 27.8 17.3 23.9 20.1 20.8 Z" fill="none" stroke="#F27680" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M22.9 25.9 L27.2 24.5 M36.8 24.5 L41.1 25.9" fill="none" stroke="#F27680" stroke-width="2.9" stroke-linecap="round"/>
+<path d="M26.4 29.4 V33.6 M37.6 29.4 V33.6" fill="none" stroke="#F27680" stroke-width="4.1" stroke-linecap="round"/>
+<ellipse cx="32" cy="41" rx="4.6" ry="6.4" fill="none" stroke="#F27680" stroke-width="3.1"/>
+<path d="M12.6 22 L10.2 18.8 M51.4 22 L53.8 18.8" fill="none" stroke="#F27680" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

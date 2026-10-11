@@ -1,0 +1,41 @@
+import assert from 'node:assert/strict';
+import {writeFile,readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const {chromium}=await import(process.env.COUNCIL_PLAYWRIGHT_MODULE||'playwright');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const results=[],errors=[];
+try{
+ const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
+ page.on('pageerror',e=>errors.push(String(e)));
+ await page.goto('https://jia0796.github.io/wolf_Emcee/');
+ assert.equal(await page.title(),'月下議會｜狼人殺主持工具');
+ assert.ok((await page.evaluate(()=>getComputedStyle(document.body,'::before').backgroundImage)).includes('art/backgrounds/shared.png'));
+ assert.equal(await page.locator('.recap-title').textContent(),'完整復盤');
+ const originalPaths=['art/backgrounds/shared.png','art/recap-vote.png','art/recap-sheriff.png','skills/icon-vote.svg','skills/icon-sheriff-badge.svg'];
+ const hashes=await page.evaluate(async paths=>Promise.all(paths.map(async path=>{const response=await fetch(path);if(!response.ok)throw Error('Missing '+path);const bytes=await response.arrayBuffer();return {path,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('')};})),originalPaths);
+ for(const item of hashes)assert.equal(item.sha256,createHash('sha256').update(await readFile(new URL('../public/'+item.path,import.meta.url))).digest('hex'),item.path);
+ results.push({sharedBackground:true,completeRecapTitle:true,originalAssetHashes:hashes});
+ await page.getByRole('button',{name:'開始主持',exact:true}).click();
+ await page.locator('[data-count="12"]').click();
+ assert.deepEqual(await page.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12','seedHidden12','brothers12']);
+ await page.locator('[data-board="seedHidden12"]').click();
+ assert.ok((await page.locator('#setupWolves').textContent()).includes('隱狼'));
+ assert.ok((await page.locator('#setupOrder').textContent()).includes('感染者身分確認'));
+ await page.locator('#setupStart').click();assert.ok((await page.locator('#hint').textContent()).includes('隱狼'));
+ assert.equal(await page.locator('#next').isEnabled(),true);
+ await page.locator('#next').click();
+ assert.equal(await page.locator('#subtitle').textContent(),'天黑請閉眼');
+ await page.reload();assert.equal(await page.locator('#subtitle').textContent(),'天黑請閉眼');
+ const seat=id=>page.locator('.seat[aria-label^="'+id+'號 "]');
+ for(let i=0;i<12;i++){const sub=await page.locator('#subtitle').textContent();if(sub==='隱狼請睜眼')break;if(sub==='守衛請睜眼')await seat(5).click();if(sub==='今晚你要守護的對象是？')await page.getByRole('button',{name:'空守',exact:true}).click();if(sub==='狼人請睜眼，確認彼此身分')for(const id of [1,3,4])await seat(id).click();if(sub==='選擇你們今晚要襲擊的對象')await seat(2).click();await page.locator('#next').click();}
+ assert.equal(await page.locator('#subtitle').textContent(),'隱狼請睜眼');assert.equal(await page.locator('#next').isEnabled(),false);await seat(2).click();await page.reload();assert.equal(await seat(2).locator('.role-name').textContent(),'隱狼');assert.equal(await page.locator('#next').isEnabled(),true);await page.locator('#next').click();assert.equal(await page.locator('#subtitle').textContent(),'隱狼請閉眼');
+ results.push({liveBoard:true,order:true,mandatoryHiddenRegistration:true,pendingWolfTarget:true,hiddenRefresh:true,reload:true});
+ const beforeTimer=await page.evaluate(()=>localStorage.getItem('eclipse-host-v1'));await page.locator('#timerOpen').click();for(let i=0;i<3;i++)await page.locator('#timerPlus').click();await page.locator('#timerStart').click();assert.equal(await page.locator('#timerSetup').isVisible(),false);assert.equal(await page.locator('#timerCountdown').textContent(),'01:30');await page.locator('#timerPause').click();assert.equal(await page.locator('#timerPause').textContent(),'繼續');await page.locator('#timerRestore').click();assert.equal(await page.locator('#secondWheel [aria-selected=true]').textContent(),'30');await page.locator('#timerReset').click();assert.equal(await page.locator('#secondWheel [aria-selected=true]').textContent(),'00');assert.equal(await page.evaluate(()=>localStorage.getItem('eclipse-host-v1')),beforeTimer);await page.locator('#timerClose').click();results.push({timerModes:true,resetOriginal:true,defaults:true,gameSaveUnchanged:true});
+ await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
+ assert.deepEqual(errors,[]);
+ const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
+ assert.ok(cache.includes('council-v13-4'));
+ await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
+ console.log(JSON.stringify({results,cache,errors}));
+ await context.close();
+}finally{await browser.close();}

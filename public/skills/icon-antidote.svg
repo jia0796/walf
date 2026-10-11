@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="解藥">
+<title>解藥</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#71D7A3" stroke-width="3.1"/>
+<path d="M27 17 H37 V23 H27 Z" stroke="#71D7A3" stroke-width="3" fill="none" stroke-linejoin="round"/>
+<path d="M27 23 H37 L39.7 28.5 Q44 33 44 39 V44 Q44 49 39 49 H25 Q20 49 20 44 V39 Q20 33 24.3 28.5 Z" stroke="#71D7A3" stroke-width="3.3" fill="none" stroke-linejoin="round"/>
+<path d="M32 33 V43 M27 38 H37" stroke="#71D7A3" stroke-width="3.8" stroke-linecap="round"/>
+</svg>

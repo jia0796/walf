@@ -1,0 +1,8 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="機械狼學習">
+<title>機械狼學習</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#9DAFF7" stroke-width="3.1"/>
+<path d="M32 27 C27.6 24 22.5 23.4 17 24.5 V46 C22.4 44.9 27.6 45.5 32 49 C36.4 45.5 41.6 44.9 47 46 V24.5 C41.5 23.4 36.4 24 32 27 Z" fill="none" stroke="#9DAFF7" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M32 27 V49" fill="none" stroke="#9DAFF7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M21.8 31.5 Q25.5 31 28.3 33 M35.7 33 Q38.5 31 42.2 31.5" fill="none" stroke="#9DAFF7" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M32 12.8 L33.8 17.2 L38.2 19 L33.8 20.8 L32 25.2 L30.2 20.8 L25.8 19 L30.2 17.2 Z" fill="#9DAFF7"/>
+</svg>

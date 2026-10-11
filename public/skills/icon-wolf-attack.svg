@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="狼刀">
+<title>狼刀</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+<path d="M32 13 L39 24 L35.6 36.4 L28.4 36.4 L25 24 Z" fill="none" stroke="#F27680" stroke-width="3" stroke-linejoin="round"/>
+<path d="M32 17 V33" stroke="#F27680" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M22 39 H42" stroke="#F27680" stroke-width="4" stroke-linecap="round"/>
+<path d="M29.5 39 V47 Q32 51 34.5 47 V39" stroke="#F27680" stroke-width="3.3" stroke-linejoin="round" stroke-linecap="round" fill="none"/>
+</svg>

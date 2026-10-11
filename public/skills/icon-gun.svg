@@ -1,0 +1,15 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="槍">
+<title>槍</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F3C96C" stroke-width="3.1"/>
+<!-- long scoped rifle, clear silhouette at small size -->
+<path d="M23 32 H50 M50 30 V37 M50 33 H53" fill="none" stroke="#F3C96C" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- scope and optic mounts -->
+<rect x="27" y="22" width="15" height="5.8" rx="2.7" fill="none" stroke="#F3C96C" stroke-width="2.8"/>
+<path d="M25 24.9 H27 M42 24.9 H44 M32 28 V31 M38 28 V31" fill="none" stroke="#F3C96C" stroke-width="2.6" stroke-linecap="round"/>
+<!-- action / stock -->
+<path d="M25 33 V38 H34.5 L38 34" fill="none" stroke="#F3C96C" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M25 34 L18 29.5 L14 32 V38 L18 41.5 L24.5 38" fill="none" stroke="#F3C96C" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- pistol grip, trigger and bipod -->
+<path d="M27.5 39 L24.5 46.5 H30 L33.5 39 M36 38.5 Q34.5 43 31.8 41" fill="none" stroke="#F3C96C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M45 36 L42.5 46 M45 36 L48.5 46" fill="none" stroke="#F3C96C" stroke-width="2.8" stroke-linecap="round"/>
+</svg>
