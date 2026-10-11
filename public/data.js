@@ -1,24 +1,24 @@
 export const ROLE_DATA = {
  evilKnight:{name:'惡靈騎士',kind:'wolf',camp:'狼隊陣營',image:'art/catalog/evilKnight.png',recapCrop:[90,160,880,950],recapAlign:'xMidYMin slice',facePriority:true,artSize:[1060,1484],canShoot:false,skill:'夜晚與其他狼人共同睜眼並參與狼刀，不能自刀或自爆。永久免疫夜間傷害。每局擁有一次反傷能力，當受到女巫毒殺或預言家查驗時，依夜間行動順序對其發動反傷，使其死亡。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
- gargoyle:{name:'覺醒石像鬼',kind:'wolf',camp:'狼隊陣營',image:'art/catalog/gargoyle-v04.png',recapCrop:[90,160,880,950],recapAlign:'xMidYMin slice',facePriority:true,artSize:[1060,1484],canShoot:false,skill:'第一夜參與行動後，單獨睜眼，選擇狼人陣營相鄰的一名玩家成為轉化者，將轉化者變為狼人陣營。轉化者知道自己為轉化者，但不與狼隊見面。其餘狼人陣營玩家出局前，可以正常使用原有技能。當其餘狼人陣營玩家出局後，轉化者失去原有技能，回歸狼隊，接手基本狼刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ gargoyle:{name:'覺醒石像鬼',kind:'wolf',camp:'狼隊陣營',image:'art/catalog/gargoyle-v04.png',recapCrop:[90,160,880,950],recapAlign:'xMidYMin slice',facePriority:true,artSize:[1060,1484],canShoot:false,skill:'夜晚與其他狼人共同睜眼並參與狼刀，可以自爆。第一夜參與行動後，單獨睜眼，選擇狼人陣營相鄰的一名玩家成為轉化者，將轉化者變為狼人陣營。轉化者知道自己為轉化者，但不與狼隊見面。其餘狼人陣營玩家出局前，可以正常使用原有技能。當其餘狼人陣營玩家出局後，轉化者失去原有技能，回歸狼隊，接手基本狼刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  gravekeeper:{name:'守墓人',kind:'god',camp:'好人陣營',image:'art/catalog/gravekeeper.png',recapCrop:[85,190,830,900],artSize:[1000,1400],canShoot:false,skill:'第二晚起，每晚得知前一天被放逐投票出局的玩家為狼人或好人。若沒有玩家被放逐，則無法獲得查驗結果。',goal:'找出並解決所有狼人。'},
- blood:{name:'血月使者',kind:'wolf',camp:'狼隊陣營',image:'art/blood-moon-messenger-approved.png',canShoot:false,skill:'白天自爆後，當晚所有神職無法使用技能。若血月使者是場上最後一名狼人，且被白天投票放逐，則翻牌並立即獲得最後一刀的機會。若最後一刀成功達成本局設定的屠邊或屠城勝利條件，狼人陣營獲勝；否則好人陣營獲勝。',goal:'淘汰好人陣營，協助狼人陣營獲勝。'},
+ blood:{name:'血月使者',kind:'wolf',camp:'狼隊陣營',image:'art/blood-moon-messenger-approved.png',canShoot:false,skill:'夜晚與其他狼人共同睜眼並參與狼刀。血月使者在白天自爆後，當晚所有神職將無法使用技能。若血月使者是場上最後一名狼人，且被白天投票放逐，則翻牌並立即獲得最後一刀的機會。若最後一刀成功達成狼人勝利條件，狼人陣營獲勝；否則好人陣營獲勝。',goal:'淘汰好人陣營，協助狼人陣營獲勝。'},
  demon:{name:'獵魔人',kind:'god',camp:'好人陣營',image:'art/demon-hunter-approved.png',canShoot:false,skill:'第一晚不可狩獵。第二晚起，每晚可選擇一名其他玩家進行狩獵，也可以不使用。若目標為狼人，則該狼人於隔天天亮時死亡；若目標為好人，則獵魔人自己於隔天天亮時死亡。獵魔人免疫女巫毒藥。',goal:'找出並解決所有狼人。'},
  idiot:{name:'白痴',kind:'god',camp:'好人陣營',image:'art/idiot-minimal-approved.png',canShoot:false,skill:'白天被投票放逐時，會翻牌公開身分且不會死亡。翻牌後仍可發言，但永久失去投票權，也不能再次被放逐。夜間遭到狼人襲擊或女巫毒殺則正常死亡。',goal:'找出並解決所有狼人。'},
  mixed:{name:'混血兒',kind:'villager',camp:'民位',image:'art/mixed-blood-dual-approved.jpeg',canShoot:false,skill:'第一晚選擇一名其他玩家作為榜樣，整局不得更換，且不會得知榜樣的身分與陣營。混血兒的勝利條件與榜樣所屬陣營相同，但始終視為民位。即使選擇狼人作為榜樣，狼人陣營仍須將混血兒一併淘汰，才算達成屠民條件。',goal:'與榜樣所屬陣營一同獲勝。'},
- nightmare:{name:'夢魘',kind:'wolf',camp:'狼隊陣營',image:'art/nightmare-minimal-approved.png',canShoot:false,skill:'每晚可選擇一名其他存活玩家進行恐懼，使其當晚無法使用技能，但不能連續兩晚恐懼同一名玩家。若恐懼到普通狼人，當晚狼隊無法襲擊。夢魘可與普通狼人共同參與夜間討論及襲擊，也可以自爆。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ nightmare:{name:'夢魘',kind:'wolf',camp:'狼隊陣營',image:'art/nightmare-minimal-approved.png',canShoot:false,skill:'夜晚與其他狼人共同睜眼並參與狼刀，可以自爆。每晚可選擇一名其他存活玩家進行恐懼，使其當晚無法使用技能，但不能連續兩晚恐懼同一名玩家。若恐懼到普通狼人，當晚狼隊無法襲擊。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  dream:{name:'攝夢人',kind:'god',camp:'好人陣營',image:'art/dream-catcher-minimal-approved.png',canShoot:false,skill:'每晚必須選擇一名其他存活玩家成為夢遊者，使其當晚免疫所有夜間傷害。若連續兩晚攝夢同一名玩家，該玩家將死亡；若攝夢人當晚死亡，夢遊者也會一同死亡。夢遊者不會得知自己被攝夢。',goal:'找出並解決所有狼人。'},
- elder:{name:'狼兄',kind:'wolf',camp:'狼隊陣營',canShoot:false,image:'art/wolf-brother-scar-approved.png',skill:'第一晚與狼弟相認。每晚與其他普通狼人一同參與夜間行動，但不可自爆，也不可自刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ elder:{name:'狼兄',kind:'wolf',camp:'狼隊陣營',canShoot:false,image:'art/wolf-brother-scar-approved.png',skill:'第一晚與狼弟相認。夜晚與其他狼人共同睜眼並參與狼刀，但不可自爆，也不可自刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  younger:{name:'狼弟',kind:'wolf',camp:'狼隊陣營',canShoot:false,image:'art/wolf-younger-brother-approved.png',skill:'第一晚與狼兄相認。狼兄存活期間，狼弟不參與狼隊的夜間行動，且被查驗時顯示為好人。狼兄出局後的下一個夜晚，狼弟可單獨睜眼，復仇擊殺一名玩家。自再下一晚起，狼弟正式加入狼隊，與其他普通狼人一同參與夜間行動。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  merchant:{name:'黑市商人',kind:'god',camp:'好人陣營',canShoot:false,image:'art/black-market-merchant-approved.png',skill:'可選擇一名玩家進行交易。若交易成功，該玩家將成為「幸運兒」，並獲得預言家查驗、女巫毒藥或獵人槍其中一項能力。若交易對象為狼人，則交易失敗，黑市商人出局。',goal:'找出並解決所有狼人。'},
- king:{name:'黑狼王',kind:'wolf',category:'狼',camp:'狼隊陣營',image:null,canShoot:true,skill:'出局時可槍殺一名玩家，被毒則無法發動技能。可以自爆，自爆不能使用技能。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
- wolf:{name:'狼人',kind:'wolf',category:'狼',camp:'狼隊陣營',image:null,canShoot:false,skill:'每天晚上狼人討論並擊殺一名玩家。白天時可選擇翻牌自爆，自身出局並進入黑夜。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ king:{name:'黑狼王',kind:'wolf',category:'狼',camp:'狼隊陣營',image:null,canShoot:true,skill:'夜晚與其他狼人共同睜眼並參與狼刀。出局時可槍殺一名玩家，被毒則無法發動技能。可以自爆，自爆不能使用技能。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ wolf:{name:'狼人',kind:'wolf',category:'狼',camp:'狼隊陣營',image:null,canShoot:false,skill:'每天晚上與其他狼人討論並襲擊一名玩家。白天時可選擇翻牌自爆，自身出局並進入黑夜。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  seer:{name:'預言家',kind:'god',category:'神',camp:'好人陣營',image:null,canShoot:false,skill:'每天晚上查驗一名玩家，法官告知其玩家身分為好人或狼人。',goal:'找出並解決所有狼人。'},
  witch:{name:'女巫',kind:'god',category:'神',camp:'好人陣營',image:null,canShoot:false,skill:'有一瓶解藥與一瓶毒藥可在夜晚使用。解藥可以拯救當天晚上被殺的一名玩家；毒藥可以毒死任意一名玩家。一晚只能使用一瓶藥。',goal:'找出並解決所有狼人。'},
  hunter:{name:'獵人',kind:'god',category:'神',camp:'好人陣營',image:null,canShoot:true,skill:'可在出局時槍殺一名玩家，被毒則不能發動技能。',goal:'找出並解決所有狼人。'},
  magician:{name:'魔術師',kind:'god',category:'神',camp:'好人陣營',image:null,canShoot:false,skill:'每晚可以選擇兩名玩家交換，也可以不交換。整局遊戲中，被交換過的玩家不能再次交換，且不能交換已出局的玩家。當晚兩個玩家受到的所有操作都會交換。',goal:'找出並解決所有狼人。'},
  villager:{name:'平民',kind:'villager',category:'民',camp:'好人陣營',image:null,canShoot:false,skill:'無',goal:'找出並解決所有狼人。'},
- mechanical:{name:'機械狼',kind:'wolf',camp:'狼隊陣營',image:null,canShoot:false,skill:'整局遊戲可選擇一名存活玩家，學習其職業並獲得對應技能，被查驗時會顯示所學職業。機械狼不與普通狼人見面，也不能自爆；當普通狼人全部出局後，便會回歸狼隊，接手基本狼刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
+ mechanical:{name:'機械狼',kind:'wolf',camp:'狼隊陣營',image:null,canShoot:false,skill:'整局遊戲可選擇一名存活玩家，學習其職業並獲得對應技能，被查驗時會顯示所學職業。機械狼全程不與其他狼人見面，也不能自爆；當普通狼人全部出局後，便會回歸狼隊，接手基本狼刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'},
  medium:{name:'通靈師',kind:'god',camp:'好人陣營',image:null,canShoot:false,skill:'每晚可以查驗一名存活玩家，得知該玩家的具體身分。',goal:'找出並解決所有狼人。'},
  guard:{name:'守衛',kind:'god',camp:'好人陣營',image:null,canShoot:false,skill:'每晚可以選擇守護一名玩家，也可以不守。可以守護自己，但不能連續兩晚守護同一名玩家。被守護的玩家可抵擋一次狼人襲擊。若同晚被女巫使用解藥救治，該玩家仍會死亡。',goal:'找出並解決所有狼人。'}
 };
@@ -49,7 +49,7 @@ for(const count of [10,12]){const id='evilKnight'+count;BOARDS[id]={id,name:coun
 ROLE_DATA.elder.recapCrop=[90,185,880,950];ROLE_DATA.younger.recapCrop=[90,205,880,950];for(const r of ['elder','younger']){ROLE_DATA[r].recapAlign='xMidYMin slice';ROLE_DATA[r].facePriority=true;}
 export const PAGE_BACKGROUNDS=Object.fromEntries(['home','counts','boards','setup','host'].map(k=>[k,'art/backgrounds/'+k+'.webp']));
 export const PLAYER_COUNTS=[...new Set(Object.values(BOARDS).filter(b=>b.enabled).map(b=>b.playerCount))].sort((a,b)=>a-b);
-ROLE_DATA.seedWolf={name:'種狼',kind:'wolf',camp:'狼隊陣營',image:CATALOG_ART.seedWolf.image,recapCrop:CATALOG_ART.seedWolf.crop,canShoot:false,skill:'與狼人共同睜眼並參與狼刀。第二夜起，每局可發動一次感染，將當晚狼刀改為感染目標。感染成功者立即加入狼人陣營並失去原有技能，下一夜起一同參與狼刀。感染可以被守衛或女巫解藥阻止。',goal:'與狼人陣營共同取得勝利。'};
+ROLE_DATA.seedWolf={name:'種狼',kind:'wolf',camp:'狼隊陣營',image:CATALOG_ART.seedWolf.image,recapCrop:CATALOG_ART.seedWolf.crop,canShoot:false,skill:'夜晚與其他狼人共同睜眼並參與狼刀。第二夜起，整局遊戲可發動一次感染，將當晚狼刀目標改為感染目標。感染成功者立即加入狼人陣營並失去原有技能，下一夜起一同參與狼刀。感染可以被守衛或女巫的解藥阻止。',goal:'與狼人陣營共同取得勝利。'};
 ROLE_DATA.hiddenWolf={name:'隱狼',kind:'wolf',camp:'狼隊陣營',image:CATALOG_ART.hiddenWolf.image,recapCrop:CATALOG_ART.hiddenWolf.crop,canShoot:false,skill:'不與狼人相認，不參與狼刀，也不能自爆。預言家查驗時顯示好人。當場上狼人只剩隱狼時，好人直接獲勝。',goal:'隱藏身分，協助狼人陣營取得勝利。'};
 for(const count of [10,12]){const id='seedHidden'+count;BOARDS[id]={id,name:count+'人 種狼／隱狼',canonicalName:count+'人 種狼／隱狼',shortLabel:'種狼／隱狼',category:'normal',enabled:true,playerCount:count,roles:{seedWolf:1,hiddenWolf:1,wolf:count===12?2:1,guard:1,witch:1,seer:1,...(count===12?{hunter:1}:{}),villager:4},firstNightOrder:['guard','wolves','witch','seer',...(count===12?['hunter']:[])],nightOrder:['guard','wolves','witch','seer',...(count===12?['hunter']:[]),'infectionNotice'],defaults:{...defaults,swallow:count===12},adjustable:['sheriff','selfRescue','victory','swallow'],swallowThreshold:count===12?2:1};}
 export const BOARD_ORDER=['classic12','classicMixed12','12','10','kingGuard12','kingGuard10','kingDream12','kingDream10','evilKnight12','evilKnight10','blood12','blood10','nightmare12','nightmare10','mechanical12','mechanical10','seedHidden12','seedHidden10','brothers12'];
