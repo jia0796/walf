@@ -1,6 +1,6 @@
 # 計時器與復盤 UI 修正報告
 
-依據：main@3956df4 README 計時器定稿；使用者提供「優化界面討論復盤」預覽中的恐懼提示、結算置頂、好人排序与人物融合要求。以 feat/eclipse-host-app 現有程式修改，發布待本次提交後核對。
+依據：main@3956df4 README 計時器定稿；使用者提供「優化界面討論復盤」預覽中的恐懼提示、結算置頂、好人排序与人物融合要求。已部署程式 [e3b0c84](https://github.com/jia0796/wolf_Emcee/commit/e3b0c843edf85fde34b13a77a9911d02c8da338b)；[CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38150331289)／[部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38150331285) 成功。正式站核對計時器双模式、重置90秒／重設60秒、遊戲存檔未變、素材 SHA256、刷新及 council-v13-4 均通過，無 pageerror。
 
 ## 修正與完成
 
