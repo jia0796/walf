@@ -6,7 +6,7 @@ const results=[],errors=[];
 try{
  const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
  page.on('pageerror',e=>errors.push(String(e)));
- await page.goto('https://jia0796.github.io/walf/');
+ await page.goto('https://jia0796.github.io/wolf_Emcee/');
  assert.equal(await page.title(),'月下議會｜狼人殺主持工具');
  await page.getByRole('button',{name:'開始主持',exact:true}).click();
  await page.locator('[data-count="12"]').click();

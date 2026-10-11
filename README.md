@@ -2,17 +2,17 @@
 
 給真人法官使用的狼人殺主持 PWA，支援角色登記、夜間技能、白天主持、死亡與勝負結算、回退及終局復盤。
 
-**[開啟 App](https://jia0796.github.io/walf/)** · **[歷史完整規格（第 1～47 章）](docs/specification.md)** · **[種狼／隱狼新板定稿](#48-10人12人-種狼隱狼新板子2026-10-11-已實作)** · **[最新修正與驗收報告](docs/next-update-report.md)** · **[本輪更新與待驗收](#本輪更新與真機驗收2026-10-11)**
+**[開啟 App](https://jia0796.github.io/wolf_Emcee/)** · **[歷史完整規格（第 1～47 章）](docs/specification.md)** · **[種狼／隱狼新板定稿](#48-10人12人-種狼隱狼新板子2026-10-11-已實作)** · **[最新修正與驗收報告](docs/next-update-report.md)** · **[本輪更新與待驗收](#本輪更新與真機驗收2026-10-11)**
 
 ## 最新更新與驗收（2026-10-11）
 
-**已部署供真機驗收：[0421052](https://github.com/jia0796/walf/commit/04210524ab245cc6c73ae2949a3f9f8dfefeabd6)。** 使用者已確認先部署，實體 iPhone PWA／Safari／Android 尚未驗收。App 程式維持 feat/eclipse-host-app，不合併 main。
+**已部署供真機驗收：[0421052](https://github.com/jia0796/wolf_Emcee/commit/04210524ab245cc6c73ae2949a3f9f8dfefeabd6)。** 使用者已確認先部署，實體 iPhone PWA／Safari／Android 尚未驗收。App 程式維持 feat/eclipse-host-app，不合併 main。
 
 - 完成首夜隱狼確認、全板狼人閉眼、下一步單一感染詢問、機械通靈與混血兒獨立結果頁、混血兒三行卡、問題回報入口及靜默分批快取。
 - 修正可視高度被 body 最小高度蓋過、長名稱樣式造成三行截字、感染回退後無法改選不感染；安全區候選修正及模擬通過，真機待驗收。
 - **442 項測試通過、0 失敗／跳過；三組壓力 2,646 局、289,861 次 API 操作；全板與專項 30 完整黑箱局、相關板 9 局重跑通過。** 24 角色逐字技能、四種版型、模擬安全區、分批快取／續載／重用及 43 素材完整後離線通過。
 - 存檔 v13 相容 v1～v12，快取 council-v13-1。最大存檔 2,163,370 bytes，長局效能仍需真機量測。
-- [完整報告](docs/next-update-report.md)、[實測統計](docs/next-update-validation.json)、[CI 成功](https://github.com/jia0796/walf/actions/runs/38136930061)、[部署成功](https://github.com/jia0796/walf/actions/runs/38136930031)。正式站七個新版檔案、配置、登記、刷新與快取已核對。
+- [完整報告](docs/next-update-report.md)、[實測統計](docs/next-update-validation.json)、[CI 成功](https://github.com/jia0796/wolf_Emcee/actions/runs/38136930061)、[部署成功](https://github.com/jia0796/wolf_Emcee/actions/runs/38136930031)。正式站七個新版檔案、配置、登記、刷新與快取已核對。
 
 以下舊版統計保留為歷史紀錄；新操作以下方本輪章節為準。
 
@@ -21,7 +21,7 @@
 - 本頁是精簡使用／開發指南，以及實際完成項目與驗收摘要。
 - 原 README 第 1～47 章完整保留於 [specification.md](docs/specification.md)，與 main@`ea3bf6d` 原文一致。定稿字幕、角色文案、規則及 Drive 素材連結未改動。**本 README 第 48 章收錄「種狼／隱狼」已定稿、已實作規格；「選擇板子」頁面的指定排序與顯示規則列於下方 UI 優化需求。**
 - 已明確取代舊文的新章節優先，特別是第 46、47 章；本頁第 48 章僅在**種狼／隱狼新板**內優先於共用規則，其他板子保持舊章節定稿。完整規格中的歷史「待實作／未驗證」敘述不代表現況，實作狀態以本頁及報告為準。
-- 程式在 [feat/eclipse-host-app](https://github.com/jia0796/walf/tree/feat/eclipse-host-app)，最新已部署供真機驗收版本為 [`0421052`](https://github.com/jia0796/walf/commit/04210524ab245cc6c73ae2949a3f9f8dfefeabd6)。
+- 程式在 [feat/eclipse-host-app](https://github.com/jia0796/wolf_Emcee/tree/feat/eclipse-host-app)，最新已部署供真機驗收版本為 [`0421052`](https://github.com/jia0796/wolf_Emcee/commit/04210524ab245cc6c73ae2949a3f9f8dfefeabd6)。
 - main 保存規格與驗收文件；App 程式未合併 main，本機執行請使用程式分支。
 - 上版報告：[README 48 驗收](docs/readme48-bug-report.md)；384 項測試、2,646 局壓力、21 配置全局黑箱與正式站核對通過。
 
@@ -133,7 +133,7 @@
 
 **上版 App@9b339b0：384／0／0，56 個新板定向案例；三組壓力 2,646 局、277,460 次 API 操作、最大存檔 1,838,127 bytes；21 配置全局黑箱、4 個舊板專項與多輪新板／相關板重跑通過。** 24 角色圖鑑、17 SVG、53 原檔、固定背景與板子字級 1.5 倍內部捲動、四種手機／平板尺寸與 Edge 離線 43 素材通過。
 
-[完整報告](docs/readme48-bug-report.md) · [本輪統計](docs/readme48-validation.json) · [測試成功](https://github.com/jia0796/walf/actions/runs/38128191673) · [部署成功](https://github.com/jia0796/walf/actions/runs/38128191602)。正式站程式／背景／感染圖示與操作、刷新、快取已核對。Safari／iOS PWA／Android 真機仍未驗收。
+[完整報告](docs/readme48-bug-report.md) · [本輪統計](docs/readme48-validation.json) · [測試成功](https://github.com/jia0796/wolf_Emcee/actions/runs/38128191673) · [部署成功](https://github.com/jia0796/wolf_Emcee/actions/runs/38128191602)。正式站程式／背景／感染圖示與操作、刷新、快取已核對。Safari／iOS PWA／Android 真機仍未驗收。
 
 ### 上版歷史測試紀錄
 
@@ -149,7 +149,7 @@
 | 離線／素材 | 桌面 Edge 離線刷新及 42 個現用素材通過；52 個正式原檔大小／SHA256 通過 |
 | 線上發布 | Actions 成功，正式站版本、板子、素材及快取已核對 |
 
-依據：[驗收統計](docs/readme47-validation.json)、[測試 Actions](https://github.com/jia0796/walf/actions/runs/38115002900)、[部署 Actions](https://github.com/jia0796/walf/actions/runs/38115002914)。測試不代表已窮舉所有極端組合。
+依據：[驗收統計](docs/readme47-validation.json)、[測試 Actions](https://github.com/jia0796/wolf_Emcee/actions/runs/38115002900)、[部署 Actions](https://github.com/jia0796/wolf_Emcee/actions/runs/38115002914)。測試不代表已窮舉所有極端組合。
 
 ### 尚待驗證與優化
 
@@ -166,7 +166,7 @@
 需要 Node.js 22 以上。程式沒有額外執行依賴，使用 App 分支：
 
 ```sh
-git clone --branch feat/eclipse-host-app https://github.com/jia0796/walf.git
+git clone --branch feat/eclipse-host-app https://github.com/jia0796/wolf_Emcee.git
 cd walf
 npm start
 ```
@@ -207,7 +207,7 @@ npm test
 - [最新報告](docs/next-update-report.md)、[最新統計](docs/next-update-validation.json)。
 - [README 48 歷史報告](docs/readme48-bug-report.md)、[歷史統計](docs/readme48-validation.json)。
 - [上版驗收統計 JSON](docs/readme47-validation.json)。
-- [App 分支文件](https://github.com/jia0796/walf/tree/feat/eclipse-host-app/docs)：歷次報告、操作指南與素材清單。
+- [App 分支文件](https://github.com/jia0796/wolf_Emcee/tree/feat/eclipse-host-app/docs)：歷次報告、操作指南與素材清單。
 - [板子選擇排序規格](#選擇板子一般分類固定排序ui-定稿已實作)：一般分類固定次序、10／12 人過濾、覺醒分類與驗收。
 - [本輪更新與待驗收](#本輪更新與真機驗收2026-10-11)：隱狼首夜、種狼感染、機械狼查驗、狼人閉眼、混血兒顯示與 8 角圖鑑文案。
 
@@ -494,7 +494,7 @@ npm test
 
 ### 圖鑑文字｜8 位角色的［技能］敘述逐字定稿
 
-本節是**圖鑑背面技能文字**，不重寫其他欄位、角色圖片及技能判定。已核對開發分支的角色資料：**覺醒石像鬼、血月使者、夢魘、狼兄、黑狼王、狼人、機械狼**原本已與下列逐字一致；**種狼**已在開發分支 [5ea9fef](https://github.com/jia0796/walf/commit/5ea9fefb7ee8afec5a54f9060e38dde97636b517) 更新。第 48.7 節種狼文案亦已同步為新版；**下次程式發布仍要在實際圖鑑／公開站核對，不得假設本次文件編輯等於部署。**
+本節是**圖鑑背面技能文字**，不重寫其他欄位、角色圖片及技能判定。已核對開發分支的角色資料：**覺醒石像鬼、血月使者、夢魘、狼兄、黑狼王、狼人、機械狼**原本已與下列逐字一致；**種狼**已在開發分支 [5ea9fef](https://github.com/jia0796/wolf_Emcee/commit/5ea9fefb7ee8afec5a54f9060e38dde97636b517) 更新。第 48.7 節種狼文案亦已同步為新版；**下次程式發布仍要在實際圖鑑／公開站核對，不得假設本次文件編輯等於部署。**
 
 **覺醒石像鬼**
 
