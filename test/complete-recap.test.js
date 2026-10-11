@@ -36,7 +36,7 @@ test('night terminal final identities use formal deaths even before public seat 
 test('single takeover wolf keeps night-specific identity, original portrait and no seat number in recap',()=>{
  const cases=[
   {title:'infected villager',board:'seedHidden12',expected:'感染者',owner:'villager',setup:s=>{Object.assign(s.infection,{success:true,target:id(s,'villager'),usedNight:2,joinNight:3});s.players.filter(p=>['wolf','seedWolf'].includes(p.role)).forEach(p=>p.alive=false);}},
-  {title:'converted seer',board:'gargoyle12',expected:'轉化者(預)',owner:'seer',setup:s=>{Object.assign(s.gargoyle,{target:id(s,'seer'),transformedNight:1,joinNight:3});s.players.filter(p=>['wolf','gargoyle'].includes(p.role)).forEach(p=>p.alive=false);}},
+  {title:'converted seer',board:'gargoyle12',expected:'轉化者（預）',owner:'seer',setup:s=>{Object.assign(s.gargoyle,{target:id(s,'seer'),transformedNight:1,joinNight:3});s.players.filter(p=>['wolf','gargoyle'].includes(p.role)).forEach(p=>p.alive=false);}},
   {title:'mechanical learning medium',board:'mechanical12',expected:'機械狼(通)',owner:'mechanical',setup:s=>{Object.assign(s.mechanical,{role:'medium',night:1});s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);}},
   {title:'younger wolf joins',board:'brothers12',expected:'狼弟',owner:'younger',setup:s=>{s.brothers.joinNight=3;s.players.filter(p=>['wolf','elder'].includes(p.role)).forEach(p=>p.alive=false);}}
  ];

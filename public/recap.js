@@ -12,12 +12,13 @@ export function cardModel(event){
 
 // The joint wolf attack keeps its generic label. A lone takeover wolf uses
 // the identity stored with that specific night, never a later final identity.
+const conversionLabel=name=>name.replace(/^轉化者\(([^)]+)\)$/,'轉化者（$1）');
 function basicKnifeName(e){
  if(e.actors?.length!==1)return '狼人';
  const snapshot=e.actorSnapshots?.[0],name=snapshot?.name||'';
  if(name==='感染者'||e.displayName?.includes('（已感染）'))return '感染者';
- if(name.startsWith('轉化者'))return name;
- if(e.displayName?.startsWith('轉化者'))return e.displayName;
+ if(name.startsWith('轉化者'))return conversionLabel(name);
+ if(e.displayName?.startsWith('轉化者'))return conversionLabel(e.displayName);
  if(e.actorRole==='mechanical')return name.startsWith('機械狼')?name:'機械狼';
  if(e.actorRole==='younger')return '狼弟';
  return '狼人';
