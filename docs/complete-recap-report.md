@@ -1,6 +1,6 @@
 # 共用背景／完整復盤修正與驗收報告
 
-規格依據：main@c6e8a84 README 及 Drive「App介面 v1.2 單一全域背景正式規格」。沿用 feat/eclipse-host-app。發布狀態：本次提交後待 Actions／正式站核對。
+規格依據：main@c6e8a84 README 及 Drive「App介面 v1.2 單一全域背景正式規格」。沿用 feat/eclipse-host-app。已部署 [85bf37c](https://github.com/jia0796/wolf_Emcee/commit/85bf37c328d80ddd7d931ea1ea0baa1cd9f2a951)，[CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38147131537)／[部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38147131540) 成功。正式站已核對共用背景、完整復盤標題、五個新原檔 SHA256、隱狼登記／刷新及 council-v13-3，沒有 pageerror。
 
 ## 完成內容
 
