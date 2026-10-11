@@ -1618,5 +1618,108 @@
       ],
       "errors": []
     }
+  },
+  "deployment": {
+    "appCommit": "9b339b056b59ea8d408b323e22175ee691110978",
+    "workflow": "https://github.com/jia0796/walf/actions/runs/38128191602",
+    "testsWorkflow": "https://github.com/jia0796/walf/actions/runs/38128191673",
+    "live": "https://jia0796.github.io/walf/",
+    "status": "success",
+    "browser": {
+      "results": [
+        {
+          "liveBoard": true,
+          "order": true,
+          "mandatoryHiddenRegistration": true,
+          "reload": true
+        }
+      ],
+      "cache": [
+        "council-v12-1"
+      ],
+      "errors": []
+    },
+    "assets": [
+      {
+        "path": "data.js",
+        "size": 18898,
+        "sha256": "b2a91093411f10739ebe0418dcc846180a89272bc6344281c7682e328703ad92"
+      },
+      {
+        "path": "engine.js",
+        "size": 54810,
+        "sha256": "86dc9bfa86c9beed664f136c1f08c4804cffd2aabe231b89818a7ff8eda0eeeb"
+      },
+      {
+        "path": "app.js",
+        "size": 36103,
+        "sha256": "7120041663fb9abd7df5246214d2df052b7773d4999b5d6b96912a01744949e6"
+      },
+      {
+        "path": "style.css",
+        "size": 28309,
+        "sha256": "f794079e599e57fdfb3bbc2999f8ac09adfb4ebd1a06615bc250a6b825cd308f"
+      },
+      {
+        "path": "sw.js",
+        "size": 2495,
+        "sha256": "c09d949504d3d0bd38c505497c7cf387a959a1838637a6ebecdc7b0d1d631cff"
+      },
+      {
+        "path": "skills/icon-infect.svg",
+        "size": 1556,
+        "sha256": "60d7fc7418ecfe1dd698d2f6634ff8cbddd101bb36df7e5c2e3ad211f07ce2ee"
+      },
+      {
+        "path": "art/backgrounds/home.png",
+        "size": 899599,
+        "sha256": "c4f797b57cd15fb984a337a9cf4274bb2a786fbc71294e921c7dac0b7e9c36f9"
+      },
+      {
+        "path": "art/backgrounds/home.webp",
+        "size": 50408,
+        "sha256": "d7307aad81022d303fefe7d3ca04c910f18f4ae7e28e83e172cbb88a9e3ea117"
+      },
+      {
+        "path": "art/backgrounds/counts.png",
+        "size": 880086,
+        "sha256": "884c68f327da223c1abf1a8ae8d0d1e4e26833d5c2e98ebee6020b54b1331724"
+      },
+      {
+        "path": "art/backgrounds/counts.webp",
+        "size": 47194,
+        "sha256": "bb0490ae4327c7803e1956d6e56c5a8784155363edf8bf16fd71a46761d6c31a"
+      },
+      {
+        "path": "art/backgrounds/boards.png",
+        "size": 830844,
+        "sha256": "2c28ec2f3cd0fbdc036e0950c741cd376ed6b58c2da129efa1794cbacb93da73"
+      },
+      {
+        "path": "art/backgrounds/boards.webp",
+        "size": 42528,
+        "sha256": "772dc1812b7f24929863aaa3e997dc9eacb5adb59d171412ae3ba72f221f1553"
+      },
+      {
+        "path": "art/backgrounds/setup.png",
+        "size": 700626,
+        "sha256": "613cc348736fe90c48b451a0c46b56acf1afef02153591f4a177d0d7867ec3be"
+      },
+      {
+        "path": "art/backgrounds/setup.webp",
+        "size": 37374,
+        "sha256": "13497a7d5bb094121e2faa66a390b1e5bd09cb4c6911b25950b3d9d6e8d8e0dc"
+      },
+      {
+        "path": "art/backgrounds/host.png",
+        "size": 643433,
+        "sha256": "637ac9b6e23120ff9b633c6d4b9f9ad339b071c0166f86171276b103ccf32a72"
+      },
+      {
+        "path": "art/backgrounds/host.webp",
+        "size": 30160,
+        "sha256": "e368f21dc0547ae130a792837185bc3cd490c4e37dc53bc25bc8dd159da1c867"
+      }
+    ]
   }
 }

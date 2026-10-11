@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {writeFile} from 'node:fs/promises';
+const {chromium}=await import(process.env.COUNCIL_PLAYWRIGHT_MODULE||'playwright');
+const browser=await chromium.launch({channel:'msedge',headless:true});
+const results=[],errors=[];
+try{
+ const context=await browser.newContext({viewport:{width:390,height:844}}),page=await context.newPage();
+ page.on('pageerror',e=>errors.push(String(e)));
+ await page.goto('https://jia0796.github.io/walf/');
+ assert.equal(await page.title(),'月下議會｜狼人殺主持工具');
+ await page.getByRole('button',{name:'開始主持',exact:true}).click();
+ await page.locator('[data-count="12"]').click();
+ assert.deepEqual(await page.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12','seedHidden12','brothers12']);
+ await page.locator('[data-board="seedHidden12"]').click();
+ assert.ok((await page.locator('#setupWolves').textContent()).includes('隱狼'));
+ assert.ok((await page.locator('#setupOrder').textContent()).includes('感染者身分確認'));
+ await page.locator('#setupStart').click();
+ assert.equal(await page.locator('#next').isEnabled(),false);
+ await page.locator('.seat[aria-label^="2號 "]').click();await page.locator('#next').click();
+ assert.equal(await page.locator('#subtitle').textContent(),'天黑請閉眼');
+ await page.reload();assert.equal(await page.locator('#subtitle').textContent(),'天黑請閉眼');
+ results.push({liveBoard:true,order:true,mandatoryHiddenRegistration:true,reload:true});
+ await page.screenshot({path:new URL('../../qa-artifacts/readme48-live.png',import.meta.url).pathname.slice(1)});
+ assert.deepEqual(errors,[]);
+ const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
+ assert.ok(cache.includes('council-v12-1'));
+ await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
+ console.log(JSON.stringify({results,cache,errors}));
+ await context.close();
+}finally{await browser.close();}

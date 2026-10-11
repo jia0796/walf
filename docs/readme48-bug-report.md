@@ -43,7 +43,7 @@
 | UI／離線 | 24 角色圖鑑；320×568、768×1024、1024×768、1180×600；無水平溢出、固定按鈕不遮復盤；桌面 Edge 離線刷新及 43 個現用素材 |
 | 素材／語法 | 53 正式原檔大小及 SHA256、17 SVG；JavaScript 語法與 diff 檢查通過 |
 
-三組合計 **2,646 完整終局、277,460 次公開 API 操作**；每配置 **126 局**。實際最大存檔及逐板統計見 [readme48-validation.json](readme48-validation.json)。壓力測試透過公開命令選座／選項／前進／回退，含 JSON 刷新與重開；定向測試另以狀態案例驗證邊界，瀏覽器黑箱使用真實 DOM 操作。
+三組合計 **2,646 完整終局、277,460 次公開 API 操作**；每配置 **126 局**。最大完整存檔 **1,838,127 bytes**；逐板統計見 [readme48-validation.json](readme48-validation.json)。壓力測試透過公開命令選座／選項／前進／回退，含 JSON 刷新與重開；定向測試另以狀態案例驗證邊界，瀏覽器黑箱使用真實 DOM 操作。
 
 五張 PNG 共 **3,954,588 bytes**；WebP 共 **207,664 bytes**，約減少 **94.7%**，不修改原檔。現行快取 council-v12-1。Drive 原圖 metadata 與既有本地來源大小核對；所有素材來源與 SHA256 見 docs/assets.json。
 
@@ -52,7 +52,7 @@
 - public/data.js、identity.js、night.js、engine.js、records.js、recap.js：角色、板子、感染狀態與結算、勝負、固定字幕、快照、標記、事件及復盤。
 - public/app.js、index.html、style.css、sw.js：法官登記、確認視窗、技能鎖定、板子排序、終局身分、固定背景及快取。
 - public/skills/icon-infect.svg；public/art/backgrounds 五張 PNG 與五張 WebP。
-- test/readme48.test.js；test/stress.test.js、engine.test.js、classic.test.js、nightmare.test.js、council.test.js；scripts/ui-regression.mjs。
+- test/readme48.test.js；test/stress.test.js、engine.test.js、classic.test.js、nightmare.test.js、council.test.js；scripts/ui-regression.mjs、scripts/verify-deployment.mjs。
 - docs/assets.json、usage.md、readme48-validation.json、readme48-bug-report.md；AGENTS.md。交付後另同步 README 與完整規格導覽。
 
 專案沒有獨立 build 或 TypeScript。CI 先執行 npm test，再發布 public/；不以本地測試通過代替部署成功。
@@ -69,4 +69,9 @@
 
 ## 發布紀錄
 
-程式以 feat/eclipse-host-app 提交；不合併 App 程式到 main。實際 Commit、Actions 與正式站驗證會在發布完成後記入本節與 main README。
+程式以 feat/eclipse-host-app 提交；不合併 App 程式到 main。已部署程式：[9b339b0](https://github.com/jia0796/walf/commit/9b339b056b59ea8d408b323e22175ee691110978)（功能提交 b85253a，後續只整理行尾格式）。
+
+- [CI 384 項測試成功](https://github.com/jia0796/walf/actions/runs/38128191673)。
+- [GitHub Pages 發布成功](https://github.com/jia0796/walf/actions/runs/38128191602)。
+- 正式站：https://jia0796.github.io/walf/ 。線上 16 個程式／素材內容與已驗收版本一致；獨立 Edge 核對 12 人排序、新板配置、隱狼必要登記、刷新及 council-v12-1，無 pageerror。
+- README、報告及驗收統計同步到 main 文件；原 1～47 章原文保持不變，沒有合併 App 程式到 main。
