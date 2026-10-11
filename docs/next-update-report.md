@@ -60,4 +60,9 @@
 
 ## 部署
 
-通過可用測試後依使用者授權部署供真機驗收；Commit、Actions 與正式站核對結果發布成功後補入。
+已部署程式 [0421052](https://github.com/jia0796/walf/commit/04210524ab245cc6c73ae2949a3f9f8dfefeabd6)，位於 feat/eclipse-host-app。
+
+- [CI 成功](https://github.com/jia0796/walf/actions/runs/38136930061)，[Pages 發布成功](https://github.com/jia0796/walf/actions/runs/38136930031)。
+- 正式站 https://jia0796.github.io/walf/ ：七個新版程式及快取檔與驗收版一致，獨立 Edge 核對配置、必要登記、刷新與 council-v13-1，無 pageerror。
+- 真機尚未驗收；依使用者指示先部署供驗收，不合併 App 程式至 main。
+- 新增 scripts/update-cache-manifest.mjs；--check 已驗證 48 筆素材摘要。素材更新時須重新產生摘要並更新快取版本。

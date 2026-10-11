@@ -2306,5 +2306,62 @@
       ]
     }
   },
-  "physicalDevices": "Not tested; user authorized deployment for physical verification"
+  "physicalDevices": "Not tested; user authorized deployment for physical verification",
+  "deployment": {
+    "commit": "04210524ab245cc6c73ae2949a3f9f8dfefeabd6",
+    "status": "success",
+    "workflow": "https://github.com/jia0796/walf/actions/runs/38136930031",
+    "tests": "https://github.com/jia0796/walf/actions/runs/38136930061",
+    "browser": {
+      "results": [
+        {
+          "liveBoard": true,
+          "order": true,
+          "mandatoryHiddenRegistration": true,
+          "reload": true
+        }
+      ],
+      "cache": [
+        "council-v13-1"
+      ],
+      "errors": []
+    },
+    "files": [
+      {
+        "path": "app.js",
+        "size": 37502,
+        "sha256": "1320572c7fc64962ae1d2aec5117c4c1d41e929eb437e1303d269e9b3683e71f"
+      },
+      {
+        "path": "engine.js",
+        "size": 55760,
+        "sha256": "4196fe89232400e8a1e19afa31e01a3ef9755cf19a366bee3415145af14ecb03"
+      },
+      {
+        "path": "data.js",
+        "size": 19270,
+        "sha256": "eb3b31efafef794bf1c9f04fb7cd69ff0fd28af3481e5f7508f5822c02617bd4"
+      },
+      {
+        "path": "index.html",
+        "size": 8285,
+        "sha256": "5244ab395bd581d72005218e95e0176e86552c79df02dbfc094a8f55fef87a6a"
+      },
+      {
+        "path": "style.css",
+        "size": 30887,
+        "sha256": "2547faa5dda5271280fcc96d65e37adc73c7e9d464ae45994826d7536b610a66"
+      },
+      {
+        "path": "sw.js",
+        "size": 4588,
+        "sha256": "6679e78dd1da491b67cacb79ca1894e7901b8b9aa02c6551cef7052c3feee356"
+      },
+      {
+        "path": "cache-manifest.js",
+        "size": 4555,
+        "sha256": "9d201eee97e9412b1655846125edcb865df6a04552f9c5a12de11485bfdecfa3"
+      }
+    ]
+  }
 }
