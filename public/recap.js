@@ -13,6 +13,7 @@ export function cardModel(event){
 const reasonNames={guard:'守護抵擋',antidote:'解藥救回',guardAndAntidote:'同守同救',wolfTarget:'狼人目標',knightImmunity:'免疫',demonImmunity:'免疫',immuneNightGun:'免疫',sleep:'夢遊免疫',shield:'守護抵擋'};
 export function outcomeLabel(e){
  if(e.skill==='transform')return '';
+ if(e.skill==='hunt')return e.result?.startsWith('狩獵成功')?'狩獵成功':e.result?.startsWith('狩獵失敗')?'狩獵失敗':'';
  if(e.skill==='infect')return (e.infection?.success?'成功':'失敗')+(reasonNames[e.infection?.reason]?' · '+reasonNames[e.infection.reason]:'');
  if(e.skill==='trade')return e.tradeSuccess?'贈送'+(SKILL_LABELS[e.tradeAbility]||'能力'):'失敗';
  if(e.key==='evilKnightReflect')return e.outcome||'反傷';
