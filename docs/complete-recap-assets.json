@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1GbytRSNhVTNV4wdCvPYlRU7OlfV7gUan",
+    "path": "public/art/backgrounds/shared.png",
+    "size": 2211659,
+    "sha256": "c38604bb53ee8b26dd604c9458884a0fe99daf5e83111b948a970569f146cc38"
+  },
+  {
+    "id": "1x7wBxdhrVLtkF4lWbOysrUbnJlsYoNvi",
+    "path": "public/art/recap-vote.png",
+    "size": 731455,
+    "sha256": "87e2987704055423868814b70d7d52f0d789c23f631c0869b09398642e3cda2c"
+  },
+  {
+    "id": "1rVWGN8hC8jsZsc9uNIPx6JBMhDTsGWpC",
+    "path": "public/skills/icon-vote.svg",
+    "size": 1734,
+    "sha256": "13cb4fba33d60ad8c6c747b3bcc84b19177ad9398066f0f8755cd8b3b6995fc7"
+  },
+  {
+    "id": "1GO25hreOhY0hw-BW_jSKeMkA3KXI2UeD",
+    "path": "public/skills/icon-sheriff-badge.svg",
+    "size": 1826,
+    "sha256": "f1629595c84c4e459ad5e96dc4c6b4070796a2798410148e381f3bce05d23068"
+  },
+  {
+    "id": "1qj_5TTJ1PnPJgDpMSOlnEkgEiqND6vW-",
+    "path": "public/art/recap-sheriff.png",
+    "size": 2217388,
+    "sha256": "d7a71fa7bc635ab3f61b774b9973ef74c59dc1999009355df1e752ed677ddb48"
+  }
+]
