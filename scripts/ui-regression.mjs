@@ -35,7 +35,7 @@ async function runBoard(board,{flip=false,reflect=null,nightGun=false,immuneNigh
    if(board==='12'&&day===2&&sub==='選擇你今晚要交換的對象')await promoShot(page,'05-host');
    if(!await next.isEnabled()){
     if(sub==='隱狼請睜眼'&&assigned.hiddenWolf){await seat(page,assigned.hiddenWolf[0]).click();}
-    else if(sub==='狼人請睜眼，確認彼此身分'){for(const id of [...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...(assigned.seedWolf||[]),...(assigned.beauty||[]),...(assigned.nightmare||[]),...assigned.wolf]){if(await seat(page,id).isEnabled())await seat(page,id).click();}}
+    else if(sub==='狼人請睜眼，確認彼此身分'){if(assigned.beauty)assert.ok((await page.locator('#hint').textContent()).startsWith('依序點狼美人，再點'));for(const id of [...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...(assigned.seedWolf||[]),...(assigned.beauty||[]),...(assigned.nightmare||[]),...assigned.wolf]){if(await seat(page,id).isEnabled())await seat(page,id).click();}}
     else if(sub==='狼兄狼弟請睜眼，請確認彼此身分'){for(const id of [...assigned.elder,...assigned.younger])await seat(page,id).click();}
     else if(identity[sub]){await seat(page,assigned[identity[sub]][0]).click();}
     else if(sub==='請選擇你要轉化的玩家'){await seat(page,assigned.villager.at(-1)).click();}

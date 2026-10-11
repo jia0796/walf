@@ -86,7 +86,7 @@ function hintText(){
  if(s==='merchantClose'&&game.merchant.usedNight===game.night)return game.merchant.success?'交易成功':'交易失敗；死訊不公布原因';
  if(s==='lucky')return game.lucky?.grantedNight===game.night?'通知 '+game.lucky.seat+'號獲得額外'+SKILL_LABELS[game.lucky.ability]+'；查驗／毒藥下一晚起，槍下一個白天起生效':PURE;
  if(s==='luckyAction')return luckyAbility(game)&&game.lucky.remaining>0?'額外'+SKILL_LABELS[game.lucky.ability]+'（獨立一次），選擇目標或保留':'本晚沒有可使用的夜間額外技能';
- if(['magician','witch','seer','hunter','wolves','guard','mechanical','mediumIdentify','nightmare','dream'].includes(s)){if(game.rolesConfirmed)return PURE;if(s==='wolves')return (boardOf(game).roles.king?'依序點黑狼王，再點':boardOf(game).roles.blood?'依序點血月使者，再點':boardOf(game).roles.gargoyle?'依序點覺醒石像鬼，再點':boardOf(game).roles.evilKnight?'依序點惡靈騎士，再點':boardOf(game).roles.seedWolf?'依序點種狼，再點':'點選')+boardOf(game).roles.wolf+'名狼人';return '點選角色本人；再次點選可取消';}
+ if(['magician','witch','seer','hunter','wolves','guard','mechanical','mediumIdentify','nightmare','dream'].includes(s)){if(game.rolesConfirmed)return PURE;if(s==='wolves')return (boardOf(game).roles.king?'依序點黑狼王，再點':boardOf(game).roles.blood?'依序點血月使者，再點':boardOf(game).roles.gargoyle?'依序點覺醒石像鬼，再點':boardOf(game).roles.evilKnight?'依序點惡靈騎士，再點':boardOf(game).roles.seedWolf?'依序點種狼，再點':boardOf(game).roles.beauty?'依序點狼美人，再點':'點選')+boardOf(game).roles.wolf+'名狼人';return '點選角色本人；再次點選可取消';}
  if(s==='guardTarget')return game.players.some(p=>p.alive&&p.role==='guard')?'點選守護對象，或空守；不能連續兩晚守同一人':'守衛已出局';
  if(s==='mediumInspect')return '點選存活玩家查驗具體職業';
  if(s==='mediumResult')return '查驗結果';
