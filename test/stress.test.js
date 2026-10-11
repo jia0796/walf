@@ -14,7 +14,7 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
   for(const [role,n]of Object.entries(BOARDS[board].roles)){assigned[role]=[];for(let j=0;j<n;j++)assigned[role].push(seat++);}
   for(let i=0;i<1200&&(!s.winner||s.step==='dawn');i++){
    const step=s.step,legal=()=>s.players.filter(p=>selectable(s,p.id)).map(p=>p.id);
-   if(step==='confirm'&&BOARDS[board].roles.hiddenWolf){assert.equal(selectSeat(s,assigned.hiddenWolf[0]),true);}
+   if(step==='hiddenWolf'&&!s.rolesConfirmed){assert.equal(selectSeat(s,assigned.hiddenWolf[0]),true);}
    else if(!s.rolesConfirmed&&identities[step]){
     const targets=step==='wolves'?[...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...(assigned.seedWolf||[]),...assigned.wolf]:step==='brothers'?[...assigned.elder,...assigned.younger]:assigned[identities[step]];
     for(const id of targets)assert.equal(selectSeat(s,id),true);

@@ -139,7 +139,7 @@ export function potionBlocked(s,type) {
 export const needsInfectionDecision=s=>s.step==='attack'&&canInfect(s)&&!!s.nightAction.attack&&!s.nightAction.infectionDecision;
 export const canInfect=s=>!!boardOf(s).roles.seedWolf&&s.night>1&&s.infection.remaining>0&&s.players.some(p=>p.role==='seedWolf'&&p.alive)&&!s.winner;
 function roleForStep(s) {
-  if(s.step==='confirm'&&boardOf(s).roles.hiddenWolf)return 'hiddenWolf';
+  if(s.step==='hiddenWolf'&&s.night===1)return 'hiddenWolf';
   if(s.step==='wolves'&&boardOf(s).roles.seedWolf)return s.action.length?'wolf':'seedWolf';
   if (s.step==='wolves'&&boardOf(s).roles.evilKnight)return s.action.length?'wolf':'evilKnight';
   if (s.step==='wolves'&&boardOf(s).roles.gargoyle)return s.action.length?'wolf':'gargoyle';
@@ -317,7 +317,7 @@ export function syncMarks(s){
 }
 export function markersForSeat(s,id){return (s.marks||[]).filter(m=>m.id===id).sort((a,b)=>a.sequence-b.sequence);}
 function snapshot(s) { const {history,...rest}=s; return clone(rest); }
-function enter(s,step) {if(step==='attack'&&forcedEmpty(s)){s.nightAction.attack=null;s.nightAction.emptyAttack=true;s.nightAction.forcedAttackReason='fear';syncMarks(s);}if(step==='mechanicalAction')s.mechanical.extraUnlocked ||= extraKnifeUnlocked(s);s.step=step;s.action=[];s.choice=null;s.operation=step==='mechanicalAction'?mechanicalModes(s)[0]||null:step==='skill'?gunSources(s,s.queue[0])[0]||null:null;if(['draw','dayDraw'].includes(step))restoreDraw(s);if(step==='discussion')s.speaker=!s.sheriff&&s.draw?.revealed?s.draw.seat:null;}
+function enter(s,step) {if(step==='attack'&&forcedEmpty(s)){s.nightAction.attack=null;s.nightAction.emptyAttack=true;s.nightAction.forcedAttackReason='fear';syncMarks(s);}if(step==='mechanicalAction')s.mechanical.extraUnlocked ||= extraKnifeUnlocked(s);s.step=step;s.action=step==='hiddenWolf'&&!s.rolesConfirmed?s.players.filter(p=>p.active&&p.role==='hiddenWolf').map(p=>p.id):[];s.choice=null;s.operation=step==='mechanicalAction'?mechanicalModes(s)[0]||null:step==='skill'?gunSources(s,s.queue[0])[0]||null:null;if(['draw','dayDraw'].includes(step))restoreDraw(s);if(step==='discussion')s.speaker=!s.sheriff&&s.draw?.revealed?s.draw.seat:null;}
 export function previous(s) {
   const old=s.history.pop(); if(!old)return false;
   const history=s.history,drawCache=s.drawCache; Object.assign(s,old);s.history=history;s.drawCache=drawCache;

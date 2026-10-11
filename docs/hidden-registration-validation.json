@@ -1,0 +1,1002 @@
+{
+  "tests": {
+    "passed": 454,
+    "failed": 0,
+    "skipped": 0
+  },
+  "stress": {
+    "games": 1512,
+    "actions": 164688,
+    "maxSaveBytes": 1725030
+  },
+  "stressRuns": [
+    {
+      "board": "10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1964,
+      "maxSaveBytes": 882899
+    },
+    {
+      "board": "12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2847,
+      "maxSaveBytes": 1312453
+    },
+    {
+      "board": "mechanical10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2522,
+      "maxSaveBytes": 1452763
+    },
+    {
+      "board": "mechanical12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3194,
+      "maxSaveBytes": 1327306
+    },
+    {
+      "board": "brothers12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3105,
+      "maxSaveBytes": 1286948
+    },
+    {
+      "board": "nightmare10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2298,
+      "maxSaveBytes": 973339
+    },
+    {
+      "board": "nightmare12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3193,
+      "maxSaveBytes": 1500871
+    },
+    {
+      "board": "classic12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2683,
+      "maxSaveBytes": 1128697
+    },
+    {
+      "board": "classicMixed12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2657,
+      "maxSaveBytes": 1045547
+    },
+    {
+      "board": "blood10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1724,
+      "maxSaveBytes": 662110
+    },
+    {
+      "board": "kingGuard10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2123,
+      "maxSaveBytes": 930309
+    },
+    {
+      "board": "kingDream10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2048,
+      "maxSaveBytes": 858171
+    },
+    {
+      "board": "blood12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2500,
+      "maxSaveBytes": 1121714
+    },
+    {
+      "board": "kingGuard12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3011,
+      "maxSaveBytes": 1540587
+    },
+    {
+      "board": "kingDream12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2914,
+      "maxSaveBytes": 1277743
+    },
+    {
+      "board": "gargoyle10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2453,
+      "maxSaveBytes": 1290407
+    },
+    {
+      "board": "gargoyle12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3317,
+      "maxSaveBytes": 1475449
+    },
+    {
+      "board": "evilKnight10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2336,
+      "maxSaveBytes": 1064142
+    },
+    {
+      "board": "evilKnight12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3079,
+      "maxSaveBytes": 1467320
+    },
+    {
+      "board": "seedHidden10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1980,
+      "maxSaveBytes": 1113975
+    },
+    {
+      "board": "seedHidden12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3422,
+      "maxSaveBytes": 1427582
+    },
+    {
+      "board": "10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1991,
+      "maxSaveBytes": 899029
+    },
+    {
+      "board": "12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2758,
+      "maxSaveBytes": 1250695
+    },
+    {
+      "board": "mechanical10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2485,
+      "maxSaveBytes": 1107091
+    },
+    {
+      "board": "mechanical12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3148,
+      "maxSaveBytes": 1655089
+    },
+    {
+      "board": "brothers12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3453,
+      "maxSaveBytes": 1479292
+    },
+    {
+      "board": "nightmare10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2197,
+      "maxSaveBytes": 1016590
+    },
+    {
+      "board": "nightmare12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3237,
+      "maxSaveBytes": 1502265
+    },
+    {
+      "board": "classic12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2543,
+      "maxSaveBytes": 1187917
+    },
+    {
+      "board": "classicMixed12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2658,
+      "maxSaveBytes": 1184751
+    },
+    {
+      "board": "blood10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1713,
+      "maxSaveBytes": 671934
+    },
+    {
+      "board": "kingGuard10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2049,
+      "maxSaveBytes": 1062150
+    },
+    {
+      "board": "kingDream10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2055,
+      "maxSaveBytes": 940417
+    },
+    {
+      "board": "blood12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2494,
+      "maxSaveBytes": 1171499
+    },
+    {
+      "board": "kingGuard12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2788,
+      "maxSaveBytes": 1471935
+    },
+    {
+      "board": "kingDream12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2852,
+      "maxSaveBytes": 1380793
+    },
+    {
+      "board": "gargoyle10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2572,
+      "maxSaveBytes": 1304399
+    },
+    {
+      "board": "gargoyle12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3116,
+      "maxSaveBytes": 1665653
+    },
+    {
+      "board": "evilKnight10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2249,
+      "maxSaveBytes": 912448
+    },
+    {
+      "board": "evilKnight12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2897,
+      "maxSaveBytes": 1368886
+    },
+    {
+      "board": "seedHidden10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2198,
+      "maxSaveBytes": 1224776
+    },
+    {
+      "board": "seedHidden12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3023,
+      "maxSaveBytes": 1725030
+    },
+    {
+      "board": "10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1911,
+      "maxSaveBytes": 829116
+    },
+    {
+      "board": "12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2591,
+      "maxSaveBytes": 1117612
+    },
+    {
+      "board": "mechanical10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2468,
+      "maxSaveBytes": 1054007
+    },
+    {
+      "board": "mechanical12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3401,
+      "maxSaveBytes": 1691302
+    },
+    {
+      "board": "brothers12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3246,
+      "maxSaveBytes": 1472796
+    },
+    {
+      "board": "nightmare10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2353,
+      "maxSaveBytes": 1055958
+    },
+    {
+      "board": "nightmare12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3106,
+      "maxSaveBytes": 1568456
+    },
+    {
+      "board": "classic12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2853,
+      "maxSaveBytes": 1243298
+    },
+    {
+      "board": "classicMixed12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2902,
+      "maxSaveBytes": 1217979
+    },
+    {
+      "board": "blood10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1713,
+      "maxSaveBytes": 829927
+    },
+    {
+      "board": "kingGuard10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1987,
+      "maxSaveBytes": 875298
+    },
+    {
+      "board": "kingDream10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 1988,
+      "maxSaveBytes": 908629
+    },
+    {
+      "board": "blood12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2563,
+      "maxSaveBytes": 1376077
+    },
+    {
+      "board": "kingGuard12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3076,
+      "maxSaveBytes": 1351085
+    },
+    {
+      "board": "kingDream12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2677,
+      "maxSaveBytes": 1204210
+    },
+    {
+      "board": "gargoyle10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2160,
+      "maxSaveBytes": 1043280
+    },
+    {
+      "board": "gargoyle12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3250,
+      "maxSaveBytes": 1570920
+    },
+    {
+      "board": "evilKnight10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2183,
+      "maxSaveBytes": 865984
+    },
+    {
+      "board": "evilKnight12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3073,
+      "maxSaveBytes": 1514700
+    },
+    {
+      "board": "seedHidden10",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 2026,
+      "maxSaveBytes": 1336837
+    },
+    {
+      "board": "seedHidden12",
+      "seeds": 24,
+      "finished": 24,
+      "actions": 3315,
+      "maxSaveBytes": 1564203
+    }
+  ],
+  "browser": {
+    "results": [
+      {
+        "library": 24,
+        "glass": true,
+        "descriptionGrid": true,
+        "touchOutline": true
+      },
+      {
+        "hostLibrary": true,
+        "preserved": true
+      },
+      {
+        "candidateBlue": true,
+        "cancel": true,
+        "refresh": true,
+        "rollback": true,
+        "electionClear": true
+      },
+      {
+        "classificationScrollReset": true,
+        "fastSwitches": 12,
+        "exactOrder": true,
+        "fixedBackground": {
+          "position": "fixed",
+          "pointer": "none",
+          "overflow": "hidden",
+          "outer": 0,
+          "background": "cover, cover"
+        },
+        "boardFontScale": 1.5
+      },
+      {
+        "board": "10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 68,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 103,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "mechanical10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 79,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "mechanical12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 117,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "brothers12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 125,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "nightmare10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 77,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "nightmare12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 115,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "classic12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 93,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "classicMixed12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 120,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "blood10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 69,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "kingGuard10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 68,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "kingDream10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 68,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "blood12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 94,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "kingGuard12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 103,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "kingDream12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 103,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "gargoyle10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 81,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "gargoyle12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 119,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "evilKnight10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 68,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "evilKnight12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 103,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "seedHidden10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 50,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "board": "seedHidden12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 85,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 714
+        }
+      },
+      {
+        "responsive": {
+          "width": 320,
+          "height": 568
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            320,
+            568
+          ],
+          "pageWidth": 320,
+          "footer": 455,
+          "seats": [
+            203,
+            250,
+            297,
+            344,
+            391,
+            438,
+            203,
+            250,
+            297,
+            344,
+            391,
+            438
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 768,
+          "height": 1024
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            768,
+            1024
+          ],
+          "pageWidth": 768,
+          "footer": 906,
+          "seats": [
+            346.5,
+            456,
+            565.5,
+            675,
+            784.5,
+            894,
+            346.5,
+            456,
+            565.5,
+            675,
+            784.5,
+            894
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1024,
+          "height": 768
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1024,
+            768
+          ],
+          "pageWidth": 1024,
+          "footer": 650,
+          "seats": [
+            303.828125,
+            370.65625,
+            437.484375,
+            504.328125,
+            571.15625,
+            637.984375,
+            303.828125,
+            370.65625,
+            437.484375,
+            504.328125,
+            571.15625,
+            637.984375
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1180,
+          "height": 600
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1180,
+            600
+          ],
+          "pageWidth": 1180,
+          "footer": 482,
+          "seats": [
+            226.65625,
+            275.328125,
+            324,
+            372.65625,
+            421.328125,
+            470,
+            226.65625,
+            275.328125,
+            324,
+            372.65625,
+            421.328125,
+            470
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "assets": 18,
+        "loaded": true
+      },
+      {
+        "offline": true,
+        "assets": 43
+      }
+    ],
+    "errors": []
+  },
+  "targeted": {
+    "results": [
+      {
+        "board": "seedHidden10",
+        "noSetupRegistration": true,
+        "pendingWolfTarget": true,
+        "mandatoryChoice": true,
+        "refresh": true,
+        "reselect": true,
+        "rollback": true
+      },
+      {
+        "board": "seedHidden12",
+        "noSetupRegistration": true,
+        "pendingWolfTarget": true,
+        "mandatoryChoice": true,
+        "refresh": true,
+        "reselect": true,
+        "rollback": true
+      }
+    ],
+    "errors": []
+  }
+}

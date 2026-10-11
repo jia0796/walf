@@ -52,10 +52,11 @@ function action(label,value,disabled=false){const b=document.createElement('butt
  if(value!=='draw')b.setAttribute('aria-pressed',String(!!pressed));b.onclick=()=>{if(value==='draw')startDraw();else{choose(game,value);render();}};$('actions').append(b);}
 function hintText(){
  const s=game.step,n=game.nightAction;
- if(s==='hiddenWolf'||s==='hiddenWolfClose')return '確認身分';
+ if(s==='hiddenWolf')return game.rolesConfirmed?'確認身分':'點選隱狼本人；再次點選可取消';
+ if(s==='hiddenWolfClose')return '確認身分';
  if(s==='mixedResult')return '跟隨結果';
  if(s==='mechanicalResult')return '查驗結果';
- if(s==='confirm'&&boardOf(game).roles.hiddenWolf)return '法官先登記隱狼座位；隱狼不睜眼、不與狼隊相認';
+ if(s==='confirm'&&boardOf(game).roles.hiddenWolf)return '隱狼於第一晚單獨睜眼時登記；不與狼隊相認';
  if(['witch','antidote','poison','witchClose','guard','guardTarget','guardClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose'].includes(s)&&game.players.some(p=>infected(game,p)&&p.role===({guardTarget:'guard',guardClose:'guard',inspect:'seer',inspectResult:'seer',seerClose:'seer',gesture:'hunter',hunterClose:'hunter',antidote:'witch',poison:'witch',witchClose:'witch'}[s]||s)))return '已被感染，無法使用技能';
  if(s==='infectionNotice'||s==='infectionOpen'||s==='infectionClose')return game.infection.success&&game.infection.usedNight===game.night?'僅輕觸 '+game.infection.target+'號肩膀通知；原狼隊當晚不通知':PURE;
  if(s==='finished')return game.winner+'獲勝';

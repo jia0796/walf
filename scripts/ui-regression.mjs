@@ -9,11 +9,15 @@ const server=spawn(process.execPath,['server.mjs'],{cwd:new URL('..',import.meta
 await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.once('exit',code=>reject(Error('Server exit '+code)));});
 const browser=await chromium.launch({channel:'msedge',headless:true});
 const results=[],errors=[];
-async function waitCached(page,paths){const until=Date.now()+60000;while(Date.now()<until){if(await page.evaluate(async paths=>{const cache=await caches.open('council-v13-1');return (await Promise.all(paths.map(p=>cache.match(new URL(p,location.href).href)))).every(Boolean);},paths))return;await page.waitForTimeout(100);}throw Error('Cache did not finish');}
+const promo=new URL('../output/promo/screens/',import.meta.url);
+async function promoShot(page,name){if(process.env.UI_PROMO){await mkdir(promo,{recursive:true});await page.screenshot({path:new URL(name+'.png',promo).pathname.slice(1)});}}
+async function waitCached(page,paths){const until=Date.now()+60000;while(Date.now()<until){if(await page.evaluate(async paths=>{const cache=await caches.open('council-v13-2');return (await Promise.all(paths.map(p=>cache.match(new URL(p,location.href).href)))).every(Boolean);},paths))return;await page.waitForTimeout(100);}throw Error('Cache did not finish');}
 
 async function begin(board,viewport={width:390,height:844},sheriff=false,immuneNightGun=false){
  const context=await browser.newContext({viewport}),page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));
- await page.goto(base);await page.getByRole('button',{name:'開始主持',exact:true}).click();await page.locator('[data-count="'+BOARDS[board].playerCount+'"]').click();if(BOARDS[board].category==='awakened')await page.locator('#boardsAwakened').click();await page.locator('[data-board="'+board+'"]').click();
+ await page.goto(base);
+ if(board==='12'&&process.env.UI_PROMO){await promoShot(page,'01-home');await page.locator('#encyclopediaOpen').click();await page.locator('.role-card img').first().waitFor();await page.waitForTimeout(500);await promoShot(page,'02-catalog');await page.locator('#libraryReturn').click();}
+ await page.getByRole('button',{name:'開始主持',exact:true}).click();await page.locator('[data-count="'+BOARDS[board].playerCount+'"]').click();if(BOARDS[board].category==='awakened')await page.locator('#boardsAwakened').click();if(board==='12')await promoShot(page,'03-boards');await page.locator('[data-board="'+board+'"]').click();if(board==='12')await promoShot(page,'04-king-magician');
  await page.locator('#setupBack').click();assert.equal(await page.locator(BOARDS[board].category==='awakened'?'#boardsAwakened':'#boardsNormal').getAttribute('aria-pressed'),'true');await page.locator('[data-board="'+board+'"]').click();
  await page.locator('#setup .rules-form summary').click();await page.locator('#ruleSheriff').selectOption(String(sheriff));if(board==='evilKnight12')await page.locator('#ruleImmuneNightGun').selectOption(String(immuneNightGun));await page.locator('#setupStart').click();
  const assigned={};let id=1;for(const [r,n]of Object.entries(BOARDS[board].roles)){assigned[r]=Array.from({length:n},()=>id++);}
@@ -28,8 +32,9 @@ async function runBoard(board,{flip=false,reflect=null,nightGun=false,immuneNigh
    if(await page.locator('#finished').isVisible())break;
    if(process.env.UI_DEBUG)console.log(JSON.stringify({board,actions,screen:await page.locator('body').getAttribute('data-screen'),subtitle:await page.locator('#subtitle').textContent(),dialogs:await page.locator('dialog[open]').evaluateAll(es=>es.map(e=>e.id))}));
    let fired=false;const sub=await page.locator('#subtitle').textContent(),next=page.locator('#next'),dayText=await page.locator('#phase').textContent(),day=Number(dayText.match(/第(\d+)/)?.[1]||1);
+   if(board==='12'&&day===2&&sub==='選擇你今晚要交換的對象')await promoShot(page,'05-host');
    if(!await next.isEnabled()){
-    if(sub==='請確認角色身分'&&assigned.hiddenWolf){await seat(page,assigned.hiddenWolf[0]).click();}
+    if(sub==='隱狼請睜眼'&&assigned.hiddenWolf){await seat(page,assigned.hiddenWolf[0]).click();}
     else if(sub==='狼人請睜眼，確認彼此身分'){for(const id of [...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...(assigned.seedWolf||[]),...(assigned.nightmare||[]),...assigned.wolf]){if(await seat(page,id).isEnabled())await seat(page,id).click();}}
     else if(sub==='狼兄狼弟請睜眼，請確認彼此身分'){for(const id of [...assigned.elder,...assigned.younger])await seat(page,id).click();}
     else if(identity[sub]){await seat(page,assigned[identity[sub]][0]).click();}
@@ -67,6 +72,7 @@ async function runBoard(board,{flip=false,reflect=null,nightGun=false,immuneNigh
   if(mechanicalMedium){assert.ok((await page.locator('#nightRecap').textContent()).includes('機械狼'));}
   if(board.startsWith('blood'))assert.equal(await page.locator('#nightRecap > .event-card').count(),1);
   await page.screenshot({path:new URL('council-'+board+'-finished.png',output).pathname.slice(1)});
+  if(board==='12')await promoShot(page,'06-recap');
   const measures=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,buttons:document.querySelector('.finish-actions').getBoundingClientRect().top,recap:document.querySelector('#nightRecap').getBoundingClientRect().bottom}));
   assert.ok(measures.scrollWidth<=measures.width+1);assert.ok(measures.recap<=measures.buttons);
   await page.getByRole('button',{name:'重新一局',exact:true}).click();await page.locator('#finishConfirm').click();assert.equal(await page.locator('#subtitle').textContent(),'請確認角色身分');assert.equal(await page.locator('.role-name').allTextContents().then(a=>a.every(t=>t==='未辨識'||t==='未使用')),true);

@@ -15,15 +15,18 @@ try{
  assert.ok((await page.locator('#setupWolves').textContent()).includes('隱狼'));
  assert.ok((await page.locator('#setupOrder').textContent()).includes('感染者身分確認'));
  await page.locator('#setupStart').click();assert.ok((await page.locator('#hint').textContent()).includes('隱狼'));
- assert.equal(await page.locator('#next').isEnabled(),false);
- await page.locator('.seat[aria-label^="2號 "]').click();await page.locator('#next').click();
+ assert.equal(await page.locator('#next').isEnabled(),true);
+ await page.locator('#next').click();
  assert.equal(await page.locator('#subtitle').textContent(),'天黑請閉眼');
  await page.reload();assert.equal(await page.locator('#subtitle').textContent(),'天黑請閉眼');
- results.push({liveBoard:true,order:true,mandatoryHiddenRegistration:true,reload:true});
+ const seat=id=>page.locator('.seat[aria-label^="'+id+'號 "]');
+ for(let i=0;i<12;i++){const sub=await page.locator('#subtitle').textContent();if(sub==='隱狼請睜眼')break;if(sub==='守衛請睜眼')await seat(5).click();if(sub==='今晚你要守護的對象是？')await page.getByRole('button',{name:'空守',exact:true}).click();if(sub==='狼人請睜眼，確認彼此身分')for(const id of [1,3,4])await seat(id).click();if(sub==='選擇你們今晚要襲擊的對象')await seat(2).click();await page.locator('#next').click();}
+ assert.equal(await page.locator('#subtitle').textContent(),'隱狼請睜眼');assert.equal(await page.locator('#next').isEnabled(),false);await seat(2).click();await page.reload();assert.equal(await seat(2).locator('.role-name').textContent(),'隱狼');assert.equal(await page.locator('#next').isEnabled(),true);await page.locator('#next').click();assert.equal(await page.locator('#subtitle').textContent(),'隱狼請閉眼');
+ results.push({liveBoard:true,order:true,mandatoryHiddenRegistration:true,pendingWolfTarget:true,hiddenRefresh:true,reload:true});
  await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
  assert.deepEqual(errors,[]);
  const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
- assert.ok(cache.includes('council-v13-1'));
+ assert.ok(cache.includes('council-v13-2'));
  await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
  console.log(JSON.stringify({results,cache,errors}));
  await context.close();
