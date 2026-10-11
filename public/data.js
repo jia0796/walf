@@ -55,3 +55,10 @@ for(const count of [10,12]){const id='seedHidden'+count;BOARDS[id]={id,name:coun
 export const BOARD_ORDER=['classic12','classicMixed12','12','10','kingGuard12','kingGuard10','kingDream12','kingDream10','evilKnight12','evilKnight10','blood12','blood10','nightmare12','nightmare10','mechanical12','mechanical10','seedHidden12','seedHidden10','brothers12'];
 export const availableBoards=(count,category)=>Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===count&&b.category===category).sort((a,b)=>BOARD_ORDER.indexOf(a.id)-BOARD_ORDER.indexOf(b.id));
 export const REPORT_URL='https://docs.google.com/forms/d/e/1FAIpQLSe2idVT9QZON5Dlgu4YlB1xiNnzmo5mk1-MFi9UUuUovTjz3w/viewform?usp=publish-editor';
+
+ROLE_DATA.beauty={name:'狼美人',kind:'wolf',camp:'狼隊陣營',image:'art/catalog/beauty.png',recapCrop:[90,170,880,960],artSize:[1060,1484],canShoot:false,skill:'夜晚與其他狼人共同睜眼並參與狼刀，不能自刀或自爆。每晚可魅惑一名其他存活玩家，但不能連續兩晚魅惑同一名玩家。當狼美人死亡時，當晚被魅惑的玩家將隨之殉情。',goal:'欺騙好人，帶領狼人陣營取得勝利。'};
+ROLE_DATA.duelist={name:'騎士',kind:'god',camp:'好人陣營',image:'art/catalog/duelist.png',recapCrop:[90,170,874,968],artSize:[1054,1492],canShoot:false,skill:'每局可在白天正式放逐投票前，指定一名其他存活玩家發動決鬥。若決鬥對象為狼人，則該狼人出局；若決鬥對象為好人，則騎士以死謝罪。',goal:'找出並解決所有狼人。'};
+for(const count of [10,12]){const id='beauty'+count;BOARDS[id]={id,name:count+'人 狼美人／騎士',canonicalName:count+'人 狼美人／騎士',shortLabel:'狼美人／騎士',category:'normal',enabled:true,playerCount:count,roles:{beauty:1,wolf:count===12?3:2,seer:1,witch:1,...(count===12?{hunter:1}:{}),duelist:1,villager:4},firstNightOrder:['wolves','beauty','witch','seer',...(count===12?['hunter']:[]),'duelist'],nightOrder:['wolves','beauty','witch','seer',...(count===12?['hunter']:[])],defaults:{...defaults,swallow:count===12,poisonRomance:true,lastWolfRomance:true},adjustable:['sheriff','selfRescue','victory','swallow','poisonRomance','lastWolfRomance'],swallowThreshold:count===12?2:1};}
+BOARD_ORDER.push('beauty10','beauty12');
+CATALOG_ART.beauty={image:ROLE_DATA.beauty.image,driveId:'1asM5CGIXMgjP7RG3-xim6khQXyroojPx',crop:ROLE_DATA.beauty.recapCrop};
+CATALOG_ART.duelist={image:ROLE_DATA.duelist.image,driveId:'1kbKKHTtPfqL7rQcm5fG2admb2FjXVGES',crop:ROLE_DATA.duelist.recapCrop};

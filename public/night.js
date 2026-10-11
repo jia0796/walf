@@ -1,12 +1,13 @@
 import {realWolf,nativeAllowed,converted,infected} from './identity.js';
 import {ROLE_DATA} from './data.js';
+import {heartbreakBatch} from './beauty.js';
 export function mapTarget(s,id){const [a,b]=s.nightAction.exchange;return id===a?b:id===b?a:id;}
 export const aliveForVictory=(s,p)=>p.alive&&!(p.role==='idiot'&&s.idiot?.revealed&&s.idiot.countsEliminatedForVictory);
 export const eligibleVoters=s=>s.players.filter(p=>p.active&&p.alive&&!(p.role==='idiot'&&s.idiot?.voteLost));
 export const eligibleExileTarget=(s,p)=>!!p?.active&&p.alive&&!(p.role==='idiot'&&s.idiot?.exileBanned);
 export function mixedResult(s){const m=s.mixed;if(!m?.chosen||!s.winner)return null;return {seat:m.seat,target:m.target,targetRole:m.targetRole,camp:m.camp,won:m.camp===s.winner};}
 const liveRole=(s,role)=>s.players.find(p=>p.alive&&p.role===role&&nativeAllowed(s,p));
-export const ordinaryWolves=s=>s.players.filter(p=>p.alive&&(['wolf','king','elder','nightmare','blood','gargoyle','evilKnight','seedWolf'].includes(p.role)||(infected(s,p)&&s.night>s.infection.usedNight||converted(s,p)&&!nativeAllowed(s,p)||(p.role==='younger'&&s.brothers?.joinNight!=null&&s.night>=s.brothers.joinNight))));
+export const ordinaryWolves=s=>s.players.filter(p=>p.alive&&(['wolf','king','elder','nightmare','blood','gargoyle','evilKnight','seedWolf','beauty'].includes(p.role)||(infected(s,p)&&s.night>s.infection.usedNight||converted(s,p)&&!nativeAllowed(s,p)||(p.role==='younger'&&s.brothers?.joinNight!=null&&s.night>=s.brothers.joinNight))));
 export const revengeAvailable=s=>!!liveRole(s,'younger')&&s.brothers?.revengeNight===s.night&&!s.brothers.revengeUsed;
 export const revengeRecorded=s=>!!liveRole(s,'younger')&&s.brothers?.revengeNight===s.night&&(revengeAvailable(s)||s.brothers.revengeUsedNight===s.night);
 export const canTrade=s=>!!liveRole(s,'merchant')&&!s.merchant?.used;
@@ -93,6 +94,7 @@ export function settleNight(s,{phase='all'}={}){
  const dream=s.players.find(p=>p.role==='dream');
  if(n.sleepApplied&&dream&&dead.has(dream.id)){const link={id:n.sleep,cause:'dreamLink',sourceActor:dream.id,sourceRole:'dream',source:'dreamLink'};events.push({...link,blocked:null});if(!dead.has(link.id))dead.set(link.id,link);}
  if(phase==='dawn'&&n.huntApplied&&n.huntDeath){const hunt={id:n.huntDeath,cause:'hunt',sourceActor:s.players.find(p=>p.role==='demon')?.id,sourceRole:'demon',source:'hunt'};events.push({...hunt,blocked:null});if(!dead.has(hunt.id))dead.set(hunt.id,hunt);}
+ const romance=heartbreakBatch(s,[...dead.values()]);for(const d of romance.linked){dead.set(d.id,d);events.push(d);}
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
- return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf',infection};
+ return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf',infection,romanceBlocked:romance.blocked};
 }

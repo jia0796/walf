@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="騎士決鬥">
+<title>騎士決鬥</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F3C96C" stroke-width="3.1"/>
+<!-- Opposing tapered steel blades; compact at 24px. -->
+<path d="M14.7 14.8 L23.5 19.8 L40 38.2 L36.1 42 L19.4 23.6 Z" fill="#AEB7C4" stroke="#F3C96C" stroke-width="2" stroke-linejoin="round"/>
+<path d="M49.3 14.8 L40.5 19.8 L24 38.2 L27.9 42 L44.6 23.6 Z" fill="#AEB7C4" stroke="#F3C96C" stroke-width="2" stroke-linejoin="round"/>
+<!-- Crossguards, wrapped grips, and pommels. -->
+<g fill="none" stroke="#F3C96C" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round">
+<path d="M32.4 45.7 L41.8 36.3 M22.2 36.3 L31.6 45.7"/>
+<path d="M39.7 41.2 L47.6 49.1 M24.3 41.2 L16.4 49.1"/>
+</g>
+<circle cx="49.4" cy="50.7" r="2.3" fill="#F3C96C"/>
+<circle cx="14.6" cy="50.7" r="2.3" fill="#F3C96C"/>
+</svg>

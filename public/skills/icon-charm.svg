@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="狼美人魅惑">
+<title>狼美人魅惑</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+<!-- The whole heart signifies an active, unbroken enchantment. -->
+<path d="M32 48 C27.7 44.5 17.6 36.8 17.6 28.9 C17.6 23.4 21.2 19.7 26 19.7 C29 19.7 31.2 21.2 32 23.4 C32.8 21.2 35 19.7 38 19.7 C42.8 19.7 46.4 23.4 46.4 28.9 C46.4 36.8 36.3 44.5 32 48 Z" fill="#451723" stroke="#F27680" stroke-width="2.8" stroke-linejoin="round"/>
+<!-- A curling glint suggests persuasion rather than an ordinary heart. -->
+<path d="M23.1 30.2 C22.5 26.5 24.8 24.1 27.7 24.1" fill="none" stroke="#F6A6AF" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M47.4 13.8 L49.1 18.4 L53.7 20.1 L49.1 21.8 L47.4 26.4 L45.7 21.8 L41.1 20.1 L45.7 18.4 Z" fill="#F27680"/>
+<circle cx="13.8" cy="37.4" r="1.8" fill="#F27680"/>
+</svg>

@@ -35,6 +35,7 @@ export function recordStage(s,stage,order){
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
   record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,...eventPeople(s,actors,effectiveTargets),rawTargetSnapshots:targets.map(id=>personSnapshot(s,id)),result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
+ if(stage==='charm'&&n.charm)add('charm','beauty','charm',[n.charm],{unmapped:true});
  if(stage==='transform'&&n.transform)add('transform','gargoyle','transform',[n.transform],{unmapped:true});
  if(stage==='graveResult'&&graveResult(s)&&nativeAllowed(s,s.players.find(p=>p.role==='gravekeeper'))){const e=graveResult(s);add('gravekeeper','gravekeeper','gravekeeper',[e.id],{unmapped:true,result:e.wolf?'狼人':'好人'});}
  if(stage==='hunt'&&s.night>1&&n.hunt)add('hunt','demon','hunt',[n.hunt],{unmapped:true,executed:false});

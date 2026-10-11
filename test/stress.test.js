@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,selectable,selectSeat,choose,next,canNext,previous,upgradeGame,mechanicalModes,beginSelfDestruct,canSelfDestruct,restartGame,canInfect,needsInfectionDecision} from '../public/engine.js';
+import {createGame,selectable,selectSeat,choose,next,canNext,previous,upgradeGame,mechanicalModes,beginSelfDestruct,canSelfDestruct,restartGame,canInfect,needsInfectionDecision,canDuel,beginDuel,confirmDuel} from '../public/engine.js';
 import {BOARDS} from '../public/data.js';
 // Seeded API black-box games: only public commands mutate game state.
 function rng(seed){let x=seed;return ()=>{x=(Math.imul(x,1664525)+1013904223)>>>0;return x/4294967296;};}
-const identities={magician:'magician',wolves:'wolf',witch:'witch',seer:'seer',hunter:'hunter',guard:'guard',mechanical:'mechanical',mediumIdentify:'medium',merchant:'merchant',brothers:'elder',nightmare:'nightmare',dream:'dream',idiot:'idiot',mixed:'mixed',demon:'demon',gravekeeper:'gravekeeper'};
+const identities={magician:'magician',wolves:'wolf',witch:'witch',seer:'seer',hunter:'hunter',guard:'guard',mechanical:'mechanical',mediumIdentify:'medium',merchant:'merchant',brothers:'elder',nightmare:'nightmare',dream:'dream',idiot:'idiot',mixed:'mixed',demon:'demon',gravekeeper:'gravekeeper',duelist:'duelist'};
 for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board,()=>{
  let actions=0,finished=0,maxBytes=0;
  for(let seed=1;seed<=Number(process.env.STRESS_SEEDS||18);seed++){
@@ -12,12 +12,14 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
   let s=createGame(board,{sheriff:seed%2===0,victory:seed%3===0?'city':'edge',...(BOARDS[board].roles.idiot?{idiotChase:seed%2===1}:{})}),assigned={};let seat=1;
   // Plan role seats once, then identify them through the same API as the UI.
   for(const [role,n]of Object.entries(BOARDS[board].roles)){assigned[role]=[];for(let j=0;j<n;j++)assigned[role].push(seat++);}
-  for(let i=0;i<1200&&(!s.winner||s.step==='dawn');i++){
+  for(let i=0;i<1200&&s.step!=='finished';i++){
+   if(canDuel(s)&&random()<.12){assert.equal(beginDuel(s),true);const pool=s.players.filter(p=>selectable(s,p.id)).map(p=>p.id);assert.equal(selectSeat(s,pick(pool)),true);assert.equal(confirmDuel(s),true);actions+=3;continue;}
    const step=s.step,legal=()=>s.players.filter(p=>selectable(s,p.id)).map(p=>p.id);
    if(step==='hiddenWolf'&&!s.rolesConfirmed){assert.equal(selectSeat(s,assigned.hiddenWolf[0]),true);}
    else if(!s.rolesConfirmed&&identities[step]){
-    const targets=step==='wolves'?[...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...(assigned.seedWolf||[]),...assigned.wolf]:step==='brothers'?[...assigned.elder,...assigned.younger]:assigned[identities[step]];
+    const targets=step==='wolves'?[...(assigned.king||[]),...(assigned.blood||[]),...(assigned.gargoyle||[]),...(assigned.evilKnight||[]),...(assigned.seedWolf||[]),...(assigned.beauty||[]),...assigned.wolf]:step==='brothers'?[...assigned.elder,...assigned.younger]:assigned[identities[step]];
     for(const id of targets)assert.equal(selectSeat(s,id),true);
+   }else if(step==='charm'){if(random()<.4)choose(s,'skip');else{const pool=legal();if(pool.length)selectSeat(s,pick(pool));else choose(s,'skip');}
    }else if(step==='mechanicalAction'){
     for(const mode of mechanicalModes(s)){choose(s,'mode:'+mode);const pool=legal();if(mode==='mechanicalInspect'||random()>.3){if(pool.length)selectSeat(s,pick(pool));}else choose(s,'skip');}
    }else if(step==='trade'){
