@@ -7,7 +7,20 @@ export function skillIcon(skill){const icon=el('img','skill-icon');icon.src='ski
 export function cardModel(event){
  const lucky=event.displayRole==='lucky',r=ROLE_DATA[event.portraitRole||event.actorRole];
  const target=event.skill==='swap'?event.rawTargets.map(id=>id+'號').join(' ↔ '):event.rawTargets.map((id,i)=>id===event.effectiveTargets[i]?id+'號':id+'號 → '+event.effectiveTargets[i]+'號').join('、');
- return {name:event.displayName|| (lucky?'幸運兒':ROLE_DATA[event.displayRole]?.name||r?.name||''),tone:event.tone|| (r?.kind==='wolf'?'wolf':r?.kind==='villager'?'villager':'god'),image:r?.image,crop:r?.recapCrop||null,facePriority:!!r?.facePriority,align:r?.recapAlign||'xMidYMid slice',artSize:r?.artSize||[1060,1484],target,actors:event.actors.map(id=>id+'號').join('、')};
+ return {name:event.key==='basic'?basicKnifeName(event):event.displayName|| (lucky?'幸運兒':ROLE_DATA[event.displayRole]?.name||r?.name||''),tone:event.tone|| (r?.kind==='wolf'?'wolf':r?.kind==='villager'?'villager':'god'),image:r?.image,crop:r?.recapCrop||null,facePriority:!!r?.facePriority,align:r?.recapAlign||'xMidYMid slice',artSize:r?.artSize||[1060,1484],target,actors:event.actors.map(id=>id+'號').join('、')};
+}
+
+// The joint wolf attack keeps its generic label. A lone takeover wolf uses
+// the identity stored with that specific night, never a later final identity.
+function basicKnifeName(e){
+ if(e.actors?.length!==1)return '狼人';
+ const snapshot=e.actorSnapshots?.[0],name=snapshot?.name||'';
+ if(name==='感染者'||e.displayName?.includes('（已感染）'))return '感染者';
+ if(name.startsWith('轉化者'))return name;
+ if(e.displayName?.startsWith('轉化者'))return e.displayName;
+ if(e.actorRole==='mechanical')return name.startsWith('機械狼')?name:'機械狼';
+ if(e.actorRole==='younger')return '狼弟';
+ return '狼人';
 }
 
 const reasonNames={guard:'守護抵擋',antidote:'解藥救回',guardAndAntidote:'同守同救',wolfTarget:'狼人目標',knightImmunity:'免疫',demonImmunity:'免疫',immuneNightGun:'免疫',sleep:'夢遊免疫',shield:'守護抵擋'};
@@ -31,7 +44,7 @@ function knownPerson(e,actor,index=0){
 }
 function portrait(p){const box=el('div','recap-image');if(p?.image){const r=ROLE_DATA[p.role],crop=r?.recapCrop||(p.role==='mixed'?[80,120,930,1020]:null),size=r?.artSize||(p.role==='mixed'?[1089,1445]:[1060,1484]);if(crop){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('recap-portrait','recap-fused-art');svg.setAttribute('viewBox',crop.join(' '));svg.setAttribute('preserveAspectRatio',r.recapAlign||'xMidYMid slice');svg.setAttribute('role','img');svg.setAttribute('aria-label',p.name||'');const img=document.createElementNS('http://www.w3.org/2000/svg','image');img.setAttribute('href',p.image);img.setAttribute('width',String(size[0]));img.setAttribute('height',String(size[1]));svg.append(img);box.append(svg);}else{const img=el('img','recap-portrait');img.src=p.image;img.alt=p.name||'';img.loading='lazy';box.append(img);}}return box;}
 function personText(p,{noNumber=false}={}){const text=el('div','recap-person '+(p?.tone||'neutral'));text.append(el('strong',null,p?.name||'未記錄'));if(!noNumber&&p?.id)text.append(el('span',null,p.id+'號'));return text;}
-function actorModel(e){const p=knownPerson(e,true);if(e.displayRole==='lucky'||e.skillSource==='lucky')p.name='幸運兒';if(e.key==='basic'){p.name='狼人';p.tone='wolf';p.role=e.portraitRole||e.actorRole;p.image=ROLE_DATA[p.role]?.image;}return p;}
+function actorModel(e){const p=knownPerson(e,true);if(e.displayRole==='lucky'||e.skillSource==='lucky')p.name='幸運兒';if(e.key==='basic'){p.name=basicKnifeName(e);p.tone='wolf';p.role=e.portraitRole||e.actorRole;p.image=ROLE_DATA[p.role]?.image;}return p;}
 export function eventCard(e){
  const card=el('article','event-card recap-event');card.dataset.event=e.type||e.key||e.skill||'';
  if(['selfDestruct','idiot'].includes(e.type)){const p=knownPerson(e,true);card.classList.add('single-event');card.append(portrait(p),personText(p),el('span','recap-arrow','→'),el('strong','recap-event-label',e.label));return card;}

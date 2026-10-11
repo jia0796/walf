@@ -25,7 +25,7 @@ async function worker(){
 test('staged PWA core installs before portraits; batches finish all optional assets and preserve unrelated cache',async()=>{
  const w=await worker();await w.open('unrelated');await w.event('install');assert.equal(w.requests.some(p=>p.includes('/catalog/')),false);assert.ok(w.requests.includes('engine.js'));assert.ok(w.requests.includes('art/backgrounds/shared.png'));
  await w.event('activate');await w.event('message',{data:{type:'RESUME_PRECACHE'}});
- assert.ok(w.maxActive()<=2);assert.ok(w.buckets.has('unrelated'));const optional=vm.runInContext('OPTIONAL',w.context);for(const p of optional)assert.ok(await (await w.open('council-v13-5')).match('https://example.test/walf/'+p),p);
+ assert.ok(w.maxActive()<=2);assert.ok(w.buckets.has('unrelated'));const optional=vm.runInContext('OPTIONAL',w.context);for(const p of optional)assert.ok(await (await w.open('council-v13-6')).match('https://example.test/walf/'+p),p);
  w.offline(true);assert.match(await (await w.get('engine.js')).text(),/export function createGame/);let response;const handlers=vm.runInContext('self',w.context);assert.ok(handlers);
 });
 test('interrupted optional download retries missing only, foreground deduplicates, valid old bytes reuse',async()=>{
