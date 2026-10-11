@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import {writeFile} from 'node:fs/promises';
+import {writeFile,readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 const {chromium}=await import(process.env.COUNCIL_PLAYWRIGHT_MODULE||'playwright');
 const browser=await chromium.launch({channel:'msedge',headless:true});
 const results=[],errors=[];
@@ -8,6 +9,12 @@ try{
  page.on('pageerror',e=>errors.push(String(e)));
  await page.goto('https://jia0796.github.io/wolf_Emcee/');
  assert.equal(await page.title(),'月下議會｜狼人殺主持工具');
+ assert.ok((await page.evaluate(()=>getComputedStyle(document.body,'::before').backgroundImage)).includes('art/backgrounds/shared.png'));
+ assert.equal(await page.locator('.recap-title').textContent(),'完整復盤');
+ const originalPaths=['art/backgrounds/shared.png','art/recap-vote.png','art/recap-sheriff.png','skills/icon-vote.svg','skills/icon-sheriff-badge.svg'];
+ const hashes=await page.evaluate(async paths=>Promise.all(paths.map(async path=>{const response=await fetch(path);if(!response.ok)throw Error('Missing '+path);const bytes=await response.arrayBuffer();return {path,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('')};})),originalPaths);
+ for(const item of hashes)assert.equal(item.sha256,createHash('sha256').update(await readFile(new URL('../public/'+item.path,import.meta.url))).digest('hex'),item.path);
+ results.push({sharedBackground:true,completeRecapTitle:true,originalAssetHashes:hashes});
  await page.getByRole('button',{name:'開始主持',exact:true}).click();
  await page.locator('[data-count="12"]').click();
  assert.deepEqual(await page.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12','seedHidden12','brothers12']);
@@ -26,7 +33,7 @@ try{
  await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
  assert.deepEqual(errors,[]);
  const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
- assert.ok(cache.includes('council-v13-2'));
+ assert.ok(cache.includes('council-v13-3'));
  await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
  console.log(JSON.stringify({results,cache,errors}));
  await context.close();

@@ -129,7 +129,7 @@ function renderOperation(){
 function renderFinished(){
  $('identityCards').replaceChildren();for(const p of game.players.filter(p=>p.active)){const card=document.createElement('article');card.className='identity-card '+(realWolf(game,p)?'wolf':ROLE_DATA[p.role]?.kind);const img=document.createElement('img');img.src=ROLE_DATA[p.role].image;img.alt='';const text=document.createElement('p');text.textContent=p.id+'號｜'+roleName(game,p)+(infected(game,p)?'｜第'+game.infection.usedNight+'晚感染成功｜狼人陣營｜'+(game.winner==='狼人陣營'?'勝利':'失敗'):game.infection.target===p.id&&game.infection.result?'｜第'+game.infection.usedNight+'晚感染失敗':'');card.append(img,text);$('identityCards').append(card);}
  persist();show('finished');$('finished').className='finished-screen '+(game.winner==='狼人陣營'?'wolves-win':'good-win');$('winnerTitle').textContent=game.winner+'獲勝';$('winnerReason').textContent='勝利原因：'+(game.winnerReason||winnerReason(game));const result=mixedResult(game),mixed=game.players.find(p=>p.role==='mixed');$('mixedOutcome').hidden=!boardOf(game).roles.mixed;
- $('mixedOutcome').textContent=result?'混血兒：'+result.seat+'號｜榜樣：'+result.target+'號（'+ROLES[result.targetRole]+'）｜跟隨陣營：'+result.camp+'｜個人結果：'+(result.won?'勝利':'失敗'):mixed?'混血兒：'+mixed.id+'號｜尚未選定榜樣':'';
+ $('mixedOutcome').hidden=true;$('mixedOutcome').textContent='';$('identityOpen').hidden=true;document.querySelector('#finished > .victory').hidden=true;
  renderRecap($('nightRecap'),game,persist);
 }
 function render(){

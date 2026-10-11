@@ -159,6 +159,25 @@ body[data-screen=boards] main,body[data-screen=setup] main,body[data-screen=coun
 #host{height:calc(var(--app-height,100dvh) - 140px - var(--safe-top) - var(--safe-bottom))}
 .welcome{padding-bottom:16px}.home-brand{flex-shrink:0}.welcome .menu{flex-shrink:0;margin-bottom:12px}
 .problem-report{display:block;margin:0 auto;color:#c7d5e2;text-decoration:none;background:#26344a9c;border:1px solid #8497b657;border-radius:12px;padding:8px 22px;font-size:13px;min-height:36px}
+
+/* One persistent decorative shell. All pages vary only the overlay opacity. */
+body{--background-mask:.45}
+body::before{z-index:-2;background-image:url('art/backgrounds/shared.png');background-size:cover;background-position:center;background-repeat:no-repeat}
+body[data-screen=home]::before,body[data-screen=host]::before{background-image:url('art/backgrounds/shared.png');background-position:center}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:rgb(13 20 36 / var(--background-mask));transform:translateZ(0)}
+body[data-screen=home]{--background-mask:.15}body[data-screen=counts]{--background-mask:.25}body[data-screen=boards]{--background-mask:.35}body[data-screen=setup]{--background-mask:.45}body[data-screen=host]{--background-mask:.6}body[data-screen=encyclopedia],body[data-screen=finished]{--background-mask:.55}
+.recap-segment{margin:0 0 18px}.recap-section-title{margin:12px 0 8px;font-size:17px;color:#eadbbc}
+.recap-event{display:grid;grid-template-columns:minmax(32px,.8fr) minmax(42px,1fr) minmax(34px,.75fr) minmax(42px,1fr) minmax(32px,.8fr);gap:5px;align-items:center;min-height:100px;padding:10px 7px;background:#142138c9;border:1px solid #8191a64d;border-radius:12px;overflow:visible}
+.recap-image{min-width:0;width:100%;display:flex;justify-content:center}.recap-portrait{width:100%;max-height:112px;aspect-ratio:5/7;object-fit:contain;display:block}
+.recap-person{min-width:0;text-align:center;display:flex;flex-direction:column;gap:5px;font-size:clamp(11px,2.8vw,15px);line-height:1.35;overflow-wrap:anywhere}
+.recap-person.wolf,.final-identity-card.wolf{color:var(--wolf)}.recap-person.god,.final-identity-card.god{color:var(--god)}.recap-person.villager,.final-identity-card.villager{color:var(--green)}
+.recap-effect{min-width:0;display:flex;flex-direction:column;align-items:center;gap:5px}.recap-effect .skill-icon{width:30px;height:30px;object-fit:contain}.recap-outcome{font-size:11px;line-height:1.3;text-align:center;color:#e8d6b2;overflow-wrap:anywhere}
+.recap-double-targets{grid-column:4 / 6;min-width:0;display:flex;flex-direction:column;gap:6px}.recap-target-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4px}.recap-target-row img{max-height:80px}
+.recap-mapping{grid-column:1 / -1;font-size:11px;text-align:center;margin:2px 0;color:#d4dceb}.recap-no-target{grid-column:4 / 6;font-size:13px;text-align:center}.single-event{grid-template-columns:1fr 1.4fr .6fr 1.5fr}.recap-event-label{font-size:13px;text-align:center}.badge-destroyed{color:#e99595;font-size:28px;text-align:center}.pk-result{grid-column:1 / -1;margin:0;font-size:13px}
+.recap-victory{margin:18px 0}.recap-victory h2{font-size:23px}.wolves-win .recap-victory h2{color:var(--wolf)}.good-win .recap-victory h2{color:var(--god)}
+.final-identity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.final-identity-card{min-width:0;display:grid;grid-template-columns:minmax(36px,.75fr) minmax(0,1fr);align-items:center;gap:5px;border:1px solid #8191a64d;border-radius:12px;background:#142138cb;padding:7px}.final-identity-card .recap-person{font-size:12px}.final-identity-card img{max-height:114px}.identity-status,.identity-original{font-size:11px;color:#d0d9e6}.final-identities h4{margin:12px 0 7px}
+#finished{height:100%;padding-bottom:85px}#finished .recap-title{margin:12px 0;flex:none}.night-recap{scrollbar-gutter:auto}.night-result h4{margin:0 0 5px}.night-result p{margin:0}
+@media(min-width:768px){.recap-event{gap:12px;min-height:145px;padding:14px 20px}.recap-portrait{max-height:160px}.recap-effect .skill-icon{width:42px;height:42px}.recap-outcome{font-size:14px}.final-identity-card .recap-person{font-size:15px}}
 .problem-report:focus-visible{outline:2px solid #94c3e3;outline-offset:3px}
 .seat.mixed-card{display:flex;flex-direction:column;justify-content:center;gap:0;padding-top:2px;padding-bottom:21px}
 .mixed-card .role-name{font-size:clamp(11px,2vw,17px);line-height:1.05}.mixed-model,.mixed-camp{font-size:clamp(9px,1.4vw,12px);line-height:1.05;white-space:nowrap}

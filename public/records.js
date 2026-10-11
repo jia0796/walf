@@ -1,6 +1,21 @@
-import {converted,convertedName,graveResult,nativeAllowed,infected,infectionName} from './identity.js';
+import {converted,convertedName,graveResult,nativeAllowed,infected,infectionName,realWolf} from './identity.js';
 import {ROLE_DATA} from './data.js';
 import {ordinaryWolves,basicActor,inspectedWolf,tradeOutcome,mapTarget} from './night.js';
+const short={witch:'巫',medium:'通',hunter:'獵',guard:'守',wolf:'狼',villager:'民',seer:'預',dream:'攝',magician:'魔'};
+export function personSnapshot(s,id){
+ const p=s.players.find(p=>p.id===id);if(!p)return null;
+ const r=ROLE_DATA[p.role],changed=infected(s,p)||converted(s,p),changeNight=infected(s,p)?s.infection.usedNight:s.gargoyle.transformedNight;
+ const later=changed&&s.night>changeNight;
+ const name=later?(infected(s,p)?'感染者':'轉化者('+ (short[p.role]||r?.name||'未記錄')+')'):p.role==='mechanical'&&s.mechanical.role&&s.night>s.mechanical.night?'機械狼('+(short[s.mechanical.role]||ROLE_DATA[s.mechanical.role]?.name)+')':r?.name||'未記錄';
+ return {id,role:p.role,name,kind:r?.kind||null,camp:(realWolf(s,p)?'wolf':r?.kind)||null,tone:(changed&&!later?r?.kind:realWolf(s,p)?'wolf':r?.kind)||null,image:r?.image||null,alive:p.alive};
+}
+export function eventPeople(s,actors,targets){return {actorSnapshots:actors.map(id=>personSnapshot(s,id)),targetSnapshots:targets.map(id=>personSnapshot(s,id))};}
+export function recordDay(s,type,{actors=[],targets=[],...detail}={}){
+ s.dayEvents??=[];s.dayEvents.push({type,day:s.night,context:'day',order:s.dayEvents.length,actors:[...actors],rawTargets:[...targets],effectiveTargets:[...targets],executed:true,...eventPeople(s,actors,targets),...detail});
+}
+export function completePendingPeople(s){
+ for(const r of s.nightRecords)for(const e of r.events)for(const key of ['actorSnapshots','targetSnapshots','rawTargetSnapshots'])if(e[key])e[key]=e[key].map(p=>p&&!p.role?personSnapshot(s,p.id):p);
+}
 export function nightRecord(s){
  let record=s.nightRecords.find(r=>r.night===s.night);
  if(!record){record={night:s.night,events:[],deaths:[],settled:false};s.nightRecords.push(record);}
@@ -18,7 +33,7 @@ export function recordStage(s,stage,order){
   const owner=s.players.find(p=>p.id===actors[0]);if(infected(s,owner))opts={...opts,displayName:infectionName(s,owner),tone:'wolf'};
   if(converted(s,owner))opts={...opts,displayName:convertedName(s,owner),tone:'wolf'};
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
-  record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
+  record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,...eventPeople(s,actors,effectiveTargets),rawTargetSnapshots:targets.map(id=>personSnapshot(s,id)),result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
  if(stage==='transform'&&n.transform)add('transform','gargoyle','transform',[n.transform],{unmapped:true});
  if(stage==='graveResult'&&graveResult(s)&&nativeAllowed(s,s.players.find(p=>p.role==='gravekeeper'))){const e=graveResult(s);add('gravekeeper','gravekeeper','gravekeeper',[e.id],{unmapped:true,result:e.wolf?'狼人':'好人'});}
