@@ -1797,5 +1797,124 @@
       }
     ],
     "errors": []
+  },
+  "deployment": {
+    "codeCommit": "e1f39f813e7c7fd2f18678405e0ae20da710b438",
+    "testWorkflow": "https://github.com/jia0796/wolf_Emcee/actions/runs/38164493513",
+    "deploymentWorkflow": "https://github.com/jia0796/wolf_Emcee/actions/runs/38164493507",
+    "conclusion": "success",
+    "url": "https://jia0796.github.io/wolf_Emcee/",
+    "liveVerification": {
+      "results": [
+        {
+          "sharedBackground": true,
+          "completeRecapTitle": true,
+          "originalAssetHashes": [
+            {
+              "path": "app.js",
+              "sha256": "45264ff870b6f0dd298434c5aba82d1186ef514d0d161a761ea51fcab7e8623c"
+            },
+            {
+              "path": "engine.js",
+              "sha256": "f54b126ae79f6d23366e79e8a9fc5d364713599ba0141955579f48a8536e7dd8"
+            },
+            {
+              "path": "night.js",
+              "sha256": "a52fdb7064d1a5071bb4bd8e06b28c5a28f07312a1829e2d0d2597a0305f4648"
+            },
+            {
+              "path": "beauty.js",
+              "sha256": "0a92d96bc8c190e53e337f871aff1132c60ca8f1cca01130799acbd619291a25"
+            },
+            {
+              "path": "data.js",
+              "sha256": "81c686827c80f48b2d761b435fe506a8b588599a7303947248e27831d0570404"
+            },
+            {
+              "path": "recap.js",
+              "sha256": "c39a3eb83c5cd2a9ac8a3baac5d09b01e0355938b2a776dc005aacdf6d5838cc"
+            },
+            {
+              "path": "records.js",
+              "sha256": "819111ac54324636de9ac20d5aff2d7e9cfac23f7b65e63eefd077ac7563d1c6"
+            },
+            {
+              "path": "index.html",
+              "sha256": "eb1ec70fe2ef8c41f264ef70bb7a599b90e16cad54385d4d9389ba9d61d9d000"
+            },
+            {
+              "path": "sw.js",
+              "sha256": "bf076bbde8f7445ff61b6ddaf27e7499e40763dc3642bd2f3c63817fb3413df1"
+            },
+            {
+              "path": "cache-manifest.js",
+              "sha256": "16a5fe68da52bd5aa41064184dcd43d44975a91c54b4a32e7a4e90e6e78fbc75"
+            },
+            {
+              "path": "art/catalog/beauty.png",
+              "sha256": "46d92b1b05a9a403b421af2c5308cc29ffae519d55467510462084d8c084689c"
+            },
+            {
+              "path": "art/catalog/duelist.png",
+              "sha256": "f41c24156559c4cd7141b890f9ec8738811bf1a0909f61996c06572f83d1fe41"
+            },
+            {
+              "path": "skills/icon-charm.svg",
+              "sha256": "5aff4c715517e3ae64a315bfd1e9aa0e95708f7900da6568e0900b8336baba5e"
+            },
+            {
+              "path": "skills/icon-heartbreak.svg",
+              "sha256": "97233180381368c9168cbbd1c2e5a4af66fa455bfe3acf62bd3485c125f0140d"
+            },
+            {
+              "path": "skills/icon-duel.svg",
+              "sha256": "eec5cc1cff7608e97c27848b2e9321308e5cfc208576a1cada7727c8d2a02b5c"
+            },
+            {
+              "path": "art/backgrounds/shared.png",
+              "sha256": "c38604bb53ee8b26dd604c9458884a0fe99daf5e83111b948a970569f146cc38"
+            },
+            {
+              "path": "art/recap-vote.png",
+              "sha256": "87e2987704055423868814b70d7d52f0d789c23f631c0869b09398642e3cda2c"
+            },
+            {
+              "path": "art/recap-sheriff.png",
+              "sha256": "d7a71fa7bc635ab3f61b774b9973ef74c59dc1999009355df1e752ed677ddb48"
+            },
+            {
+              "path": "skills/icon-vote.svg",
+              "sha256": "13cb4fba33d60ad8c6c747b3bcc84b19177ad9398066f0f8755cd8b3b6995fc7"
+            },
+            {
+              "path": "skills/icon-sheriff-badge.svg",
+              "sha256": "f1629595c84c4e459ad5e96dc4c6b4070796a2798410148e381f3bce05d23068"
+            }
+          ]
+        },
+        {
+          "liveBeautyBoard": true,
+          "romanceDefaults": true
+        },
+        {
+          "liveBoard": true,
+          "order": true,
+          "mandatoryHiddenRegistration": true,
+          "pendingWolfTarget": true,
+          "hiddenRefresh": true,
+          "reload": true
+        },
+        {
+          "timerModes": true,
+          "resetOriginal": true,
+          "defaults": true,
+          "gameSaveUnchanged": true
+        }
+      ],
+      "cache": [
+        "council-v14-1"
+      ],
+      "errors": []
+    }
   }
 }

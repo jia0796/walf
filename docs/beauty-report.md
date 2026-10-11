@@ -1,6 +1,6 @@
 # 狼美人／騎士更新與黑箱、壓力驗收報告
 
-日期：2026-10-12。需求基準 main@1758ef4351b3a0b4eb7f843db14a88895e11943b；App 基底 feat/eclipse-host-app@0a14cf26e31f70aad82fd243592a57ad997a9b3b。保留基底的特殊接刀者名稱修正。程式測試已完成，部署資訊待正式站驗證後補記。
+日期：2026-10-12。需求基準 main@1758ef4351b3a0b4eb7f843db14a88895e11943b；App 基底 feat/eclipse-host-app@0a14cf26e31f70aad82fd243592a57ad997a9b3b。保留基底的特殊接刀者名稱修正。已部署供真機驗收：程式提交 [e1f39f8](https://github.com/jia0796/wolf_Emcee/commit/e1f39f813e7c7fd2f18678405e0ae20da710b438)；[測試 CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38164493513)／[部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38164493507) 均成功。正式站核對 20 個現用程式／圖片／圖示檔 SHA256、新板／預設房規、隱狼必選登記與刷新、計時器與 council-v14-1 通過，0 pageerror。文字原始碼雜湊按 Git 的 LF 換行比對，圖片與 SVG 按原始 bytes 比對。
 
 ## 完成功能與修正
 
