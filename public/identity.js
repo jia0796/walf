@@ -1,7 +1,9 @@
 import {ROLE_DATA,BOARDS} from './data.js';
 export const converted=(s,p)=>!!p&&s.gargoyle?.target===p.id;
-export const realWolf=(s,p)=>ROLE_DATA[p?.role]?.kind==='wolf'||converted(s,p);
-export const nativeAllowed=(s,p)=>!converted(s,p)||s.gargoyle.joinNight==null||s.night<s.gargoyle.joinNight;
+export const infected=(s,p)=>!!p&&s.infection?.success===true&&s.infection.target===p.id;
+export const infectionName=(s,p)=>ROLE_DATA[p.role].name+'（已感染）';
+export const realWolf=(s,p)=>ROLE_DATA[p?.role]?.kind==='wolf'||converted(s,p)||infected(s,p);
+export const nativeAllowed=(s,p)=>!infected(s,p)&&(!converted(s,p)||s.gargoyle.joinNight==null||s.night<s.gargoyle.joinNight);
 export const convertedName=(s,p)=>p.role==null?'轉化者':'轉化者（'+({seer:'預',witch:'巫',guard:'守',hunter:'獵',villager:'民',gravekeeper:'墓'}[p.role]||'民')+'）';
 export const displayConvertedName=(s,p)=>s.rolesConfirmed?convertedName(s,p):'轉化者';
 export function transformCandidates(s){const count=BOARDS[s.boardId].playerCount,orig=s.players.filter(p=>p.active&&ROLE_DATA[p.role]?.kind==='wolf');return s.players.filter(p=>p.active&&p.alive&&!realWolf(s,p)&&orig.some(w=>((p.id-w.id+count)%count===1)||((w.id-p.id+count)%count===1))).map(p=>p.id);}

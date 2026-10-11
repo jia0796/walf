@@ -1,6 +1,6 @@
-import {realWolf,converted,convertedName,nativeAllowed,graveResult} from './identity.js';
-import {createGame,upgradeGame,ROLES,boardOf,phaseOf,subtitle,canNext,selectable,selectSeat,choose,next,previous,potionBlocked,inspection,mapTarget,canSelfDestruct,beginSelfDestruct,mechanicalAbility,mechanicalModes,roleName,roleResult,markersForSeat,restartGame,gunSources,mixedResult} from './engine.js';
-import {ROLE_DATA,BOARDS,BRANDING,HOME_ACTIONS,PLAYER_COUNTS,PAGE_BACKGROUNDS} from './data.js';
+import {realWolf,converted,convertedName,nativeAllowed,graveResult,infected} from './identity.js';
+import {createGame,upgradeGame,ROLES,boardOf,phaseOf,subtitle,canNext,selectable,selectSeat,choose,next,previous,potionBlocked,inspection,mapTarget,canSelfDestruct,beginSelfDestruct,mechanicalAbility,mechanicalModes,roleName,roleResult,markersForSeat,restartGame,gunSources,mixedResult,canInfect} from './engine.js';
+import {ROLE_DATA,BOARDS,BRANDING,HOME_ACTIONS,PLAYER_COUNTS,PAGE_BACKGROUNDS,availableBoards} from './data.js';
 import {settleNight,basicActor,ordinaryWolves,revengeAvailable,canTrade,tradeOutcome,luckyAbility,inspectedWolf,winnerReason,fearedRole,forcedEmpty,bloodSealed,skillBlocked} from './night.js';
 import {skillIcon,renderRecap,SKILL_LABELS} from './recap.js';
 import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession} from './timer.js';
@@ -17,11 +17,11 @@ function setupBoard(id){
  selectedBoard=id;const b=BOARDS[id];$('setupTitle').textContent=b.name;$('setupWolves').replaceChildren();$('setupGood').replaceChildren();document.querySelectorAll('#setup details').forEach(d=>d.open=false);
  for(const [role,count] of Object.entries(b.roles)){const li=document.createElement('li');li.textContent=ROLES[role]+' ×'+count;li.className=ROLE_DATA[role].kind;$(ROLE_DATA[role].kind==='wolf'?'setupWolves':'setupGood').append(li);}
  $('knightRules').hidden=b.id!=='evilKnight12';$('ruleImmuneNightGun').value=String(b.defaults.immuneNightGun||false);
- $('setupOrder').textContent=(b.firstNightOrder?'第一晚：'+b.firstNightOrder.map(r=>r==='mediumIdentify'?'通靈師舉手':r==='wolves'?'狼人':r==='brothers'?'狼兄狼弟':r==='lucky'?'幸運兒':(r==='converted'?'轉化者':ROLES[r])).join(' → ')+'\n第二晚起：':'')+b.nightOrder.map(r=>r==='wolves'?'狼人':r==='lucky'?'幸運兒':ROLES[r]).join(' → ');
+ $('setupOrder').textContent=(b.firstNightOrder?'第一晚：'+b.firstNightOrder.map(r=>r==='mediumIdentify'?'通靈師舉手':r==='wolves'?'狼人':r==='brothers'?'狼兄狼弟':r==='lucky'?'幸運兒':(r==='converted'?'轉化者':ROLES[r])).join(' → ')+'\n第二晚起：':'')+b.nightOrder.map(r=>r==='infectionNotice'?'感染者身分確認':r==='wolves'?'狼人':r==='lucky'?'幸運兒':ROLES[r]).join(' → ');
  $('swallowLabel').textContent=(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽';
  $('ruleSheriff').value=String(b.defaults.sheriff);$('ruleSelfRescue').value=String(b.defaults.selfRescue);$('ruleVictory').value=b.defaults.victory;$('ruleSwallow').value=String(b.defaults.swallow);$('idiotRules').hidden=!b.roles.idiot;$('ruleIdiotChase').value=String(b.defaults.idiotChase||false);$('mechanicalRules').hidden=!b.roles.mechanical;$('ruleMechanicalKnife').value=b.defaults.mechanicalKnife||'next';$('ruleReflectPoison').value=String(b.defaults.reflectPoison||false);show('setup');
 }
-function drawBoards(){const available=Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===selectedCount);$('boardTabs').hidden=!available.some(b=>b.category==='awakened');for(const [id,category]of [['boardsNormal','normal'],['boardsAwakened','awakened']])$(id).setAttribute('aria-pressed',String(category===selectedCategory));$('boardChoices').replaceChildren();for(const b of available.filter(b=>b.category===selectedCategory)){const button=document.createElement('button');button.textContent=b.shortLabel;button.dataset.board=b.id;button.onclick=()=>setupBoard(b.id);$('boardChoices').append(button);}document.querySelector('.board-window').scrollTop=0;}
+function drawBoards(){const available=Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===selectedCount);$('boardTabs').hidden=!available.some(b=>b.category==='awakened');for(const [id,category]of [['boardsNormal','normal'],['boardsAwakened','awakened']])$(id).setAttribute('aria-pressed',String(category===selectedCategory));$('boardChoices').replaceChildren();for(const b of availableBoards(selectedCount,selectedCategory)){const button=document.createElement('button');button.textContent=b.shortLabel;button.dataset.board=b.id;button.onclick=()=>setupBoard(b.id);$('boardChoices').append(button);}document.querySelector('.board-window').scrollTop=0;}
 function chooseCount(count){selectedCount=count;selectedCategory='normal';$('boardCount').textContent=count+' 人局';drawBoards();show('boards');}
 function library(origin='home'){
  libraryOrigin=origin;libraryRoles=origin==='host'?Object.keys(boardOf(game).roles):Object.keys(ROLE_DATA);libraryCamp='wolf';$('libraryReturn').textContent=origin==='host'?'返回主持':'返回首頁';drawLibrary();show('encyclopedia');
@@ -42,6 +42,7 @@ function action(label,value,disabled=false){const b=document.createElement('butt
  if(value==='use')pressed=n[step]===true;
  if(value==='skip')pressed=step==='mechanicalAction'?!!n[game.operation==='learnTarget'?'learnSkip':game.operation+'Skip']:step==='guardTarget'?n.guardSkip:step==='attack'?n.emptyAttack:step==='exchange'?n.noExchange:['antidote','poison'].includes(step)?n[step]===false:game.choice==='skip';
  if(value==='none'||value==='tie')pressed=game.choice===value;if(value.startsWith('mode:'))pressed=game.operation===value.slice(5);
+ if(value.startsWith('attackMode:'))pressed=n.attackMode===value.slice(11);
  if(value.startsWith('gift:'))pressed=n.tradeAbility===value.slice(5);
  if(value.startsWith('gun:'))pressed=game.operation===value.slice(4);
  if(value==='skip'&&step==='fear')pressed=n.fearSkip;
@@ -51,6 +52,9 @@ function action(label,value,disabled=false){const b=document.createElement('butt
  if(value!=='draw')b.setAttribute('aria-pressed',String(!!pressed));b.onclick=()=>{if(value==='draw')startDraw();else{choose(game,value);render();}};$('actions').append(b);}
 function hintText(){
  const s=game.step,n=game.nightAction;
+ if(s==='confirm'&&boardOf(game).roles.hiddenWolf)return '法官先登記隱狼座位；隱狼不睜眼、不與狼隊相認';
+ if(['witch','antidote','poison','witchClose','guard','guardTarget','guardClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose'].includes(s)&&game.players.some(p=>infected(game,p)&&p.role===({guardTarget:'guard',guardClose:'guard',inspect:'seer',inspectResult:'seer',seerClose:'seer',gesture:'hunter',hunterClose:'hunter',antidote:'witch',poison:'witch',witchClose:'witch'}[s]||s)))return '已被感染，無法使用技能';
+ if(s==='infectionNotice'||s==='infectionOpen'||s==='infectionClose')return game.infection.success&&game.infection.usedNight===game.night?'僅輕觸 '+game.infection.target+'號肩膀通知；原狼隊當晚不通知':PURE;
  if(s==='finished')return game.winner+'獲勝';
  if((['dream','sleep'].includes(s)&&game.rolesConfirmed&&fearedRole(game,'dream'))||(['witch','antidote','poison','witchClose'].includes(s)&&fearedRole(game,'witch'))||(['seer','inspect','inspectResult','seerClose'].includes(s)&&game.rolesConfirmed&&fearedRole(game,'seer'))||(['hunter','gesture','hunterClose'].includes(s)&&game.rolesConfirmed&&fearedRole(game,'hunter'))||(['wolves','attack'].includes(s)&&game.rolesConfirmed&&forcedEmpty(game)))return '當晚受到恐懼，無法使用技能';
  if(bloodSealed(game)&&game.rolesConfirmed&&['witch','antidote','poison','witchClose','seer','inspect','inspectResult','seerClose','demon','hunt','demonClose'].includes(s))return '當晚神職技能封鎖';
@@ -72,7 +76,7 @@ function hintText(){
  if(s==='merchantClose'&&game.merchant.usedNight===game.night)return game.merchant.success?'交易成功':'交易失敗；死訊不公布原因';
  if(s==='lucky')return game.lucky?.grantedNight===game.night?'通知 '+game.lucky.seat+'號獲得額外'+SKILL_LABELS[game.lucky.ability]+'；查驗／毒藥下一晚起，槍下一個白天起生效':PURE;
  if(s==='luckyAction')return luckyAbility(game)&&game.lucky.remaining>0?'額外'+SKILL_LABELS[game.lucky.ability]+'（獨立一次），選擇目標或保留':'本晚沒有可使用的夜間額外技能';
- if(['magician','witch','seer','hunter','wolves','guard','mechanical','mediumIdentify','nightmare','dream'].includes(s)){if(game.rolesConfirmed)return PURE;if(s==='wolves')return (boardOf(game).roles.king?'依序點黑狼王，再點':boardOf(game).roles.blood?'依序點血月使者，再點':boardOf(game).roles.gargoyle?'依序點覺醒石像鬼，再點':boardOf(game).roles.evilKnight?'依序點惡靈騎士，再點':'點選')+boardOf(game).roles.wolf+'名狼人';return '點選角色本人；再次點選可取消';}
+ if(['magician','witch','seer','hunter','wolves','guard','mechanical','mediumIdentify','nightmare','dream'].includes(s)){if(game.rolesConfirmed)return PURE;if(s==='wolves')return (boardOf(game).roles.king?'依序點黑狼王，再點':boardOf(game).roles.blood?'依序點血月使者，再點':boardOf(game).roles.gargoyle?'依序點覺醒石像鬼，再點':boardOf(game).roles.evilKnight?'依序點惡靈騎士，再點':boardOf(game).roles.seedWolf?'依序點種狼，再點':'點選')+boardOf(game).roles.wolf+'名狼人';return '點選角色本人；再次點選可取消';}
  if(s==='guardTarget')return game.players.some(p=>p.alive&&p.role==='guard')?'點選守護對象，或空守；不能連續兩晚守同一人':'守衛已出局';
  if(s==='mediumInspect')return '點選存活玩家查驗具體職業';
  if(s==='mediumResult')return '查驗結果';
@@ -80,7 +84,7 @@ function hintText(){
  if(s==='exilePKStart')return 'PK 順序：'+game.votePool.map(id=>id+'號').join(' → ');
  if(s==='exchange')return '點選兩名合法玩家，或選擇不交換';
  if(s==='attack'&&forcedEmpty(game))return '當晚受到恐懼，無法使用技能';
- if(s==='attack')return basicActor(game)?'點選狼刀目標，或選擇空刀':'本晚沒有可參與普通狼刀的狼人，普通狼刀自動空刀';
+ if(s==='attack')return basicActor(game)?(boardOf(game).roles.seedWolf&&game.night>1?'選擇同一目標的襲擊／感染模式，或空刀':'點選狼刀目標，或選擇空刀'):'本晚沒有可參與普通狼刀的狼人，普通狼刀自動空刀';
  if(s==='inspect')return '點選查驗目標';
  if(s==='inspectResult')return inspection(game)?'查驗手勢':'預言家已出局';
  if(s==='antidote'){if(!game.potions.antidote&&n.antidote!==true)return '解藥已使用';if(!n.attack)return '今晚沒有狼刀目標';return '原始狼刀：'+n.attack+'號。'+(potionBlocked(game,'antidote')||'選擇使用或不使用解藥。');}
@@ -113,12 +117,12 @@ function renderGesture(){
 }
 function renderOperation(){
  const step=game.step;
- const skill={transform:'transform',graveResult:'gravekeeper',hunt:'hunt',lastBlade:'wolf-attack',roleModel:'role-model',fear:'fear',sleep:'sleep',exchange:'swap',attack:'wolf-attack',revenge:'wolf-attack',antidote:'antidote',poison:'poison',inspect:'inspect',guardTarget:'shield',mediumInspect:'inspect',trade:'trade',skill:'gun',luckyAction:game.lucky?.ability,mechanicalAction:{learnTarget:'learn',extraAttack:'wolf-attack',mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation]}[step];
- $('operationCard').replaceChildren();if(!skill||['當晚受到恐懼，無法使用技能','當晚神職技能封鎖','原職技能已停用'].includes(hintText()))return;
+ const skill={transform:'transform',graveResult:'gravekeeper',hunt:'hunt',lastBlade:'wolf-attack',roleModel:'role-model',fear:'fear',sleep:'sleep',exchange:'swap',attack:game.nightAction.attackMode==='infect'?'infect':'wolf-attack',revenge:'wolf-attack',antidote:'antidote',poison:'poison',inspect:'inspect',guardTarget:'shield',mediumInspect:'inspect',trade:'trade',skill:'gun',luckyAction:game.lucky?.ability,mechanicalAction:{learnTarget:'learn',extraAttack:'wolf-attack',mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation]}[step];
+ $('operationCard').replaceChildren();if(!skill||['當晚受到恐懼，無法使用技能','當晚神職技能封鎖','原職技能已停用','已被感染，無法使用技能'].includes(hintText()))return;
  const control=document.createElement('div');control.className='operation-control';control.append(skillIcon(skill));const label=document.createElement('span');label.textContent=SKILL_LABELS[skill];control.append(label);$('operationCard').append(control);
 }
 function renderFinished(){
- $('identityCards').replaceChildren();for(const p of game.players.filter(p=>p.active)){const card=document.createElement('article');card.className='identity-card '+(realWolf(game,p)?'wolf':ROLE_DATA[p.role]?.kind);const img=document.createElement('img');img.src=ROLE_DATA[p.role].image;img.alt='';const text=document.createElement('p');text.textContent=p.id+'號｜'+roleName(game,p);card.append(img,text);$('identityCards').append(card);}
+ $('identityCards').replaceChildren();for(const p of game.players.filter(p=>p.active)){const card=document.createElement('article');card.className='identity-card '+(realWolf(game,p)?'wolf':ROLE_DATA[p.role]?.kind);const img=document.createElement('img');img.src=ROLE_DATA[p.role].image;img.alt='';const text=document.createElement('p');text.textContent=p.id+'號｜'+roleName(game,p)+(infected(game,p)?'｜第'+game.infection.usedNight+'晚感染成功｜狼人陣營｜'+(game.winner==='狼人陣營'?'勝利':'失敗'):game.infection.target===p.id&&game.infection.result?'｜第'+game.infection.usedNight+'晚感染失敗':'');card.append(img,text);$('identityCards').append(card);}
  persist();show('finished');$('finished').className='finished-screen '+(game.winner==='狼人陣營'?'wolves-win':'good-win');$('winnerTitle').textContent=game.winner+'獲勝';$('winnerReason').textContent='勝利原因：'+(game.winnerReason||winnerReason(game));const result=mixedResult(game),mixed=game.players.find(p=>p.role==='mixed');$('mixedOutcome').hidden=!boardOf(game).roles.mixed;
  $('mixedOutcome').textContent=result?'混血兒：'+result.seat+'號｜榜樣：'+result.target+'號（'+ROLES[result.targetRole]+'）｜跟隨陣營：'+result.camp+'｜個人結果：'+(result.won?'勝利':'失敗'):mixed?'混血兒：'+mixed.id+'號｜尚未選定榜樣':'';
  renderRecap($('nightRecap'),game,persist);
@@ -138,6 +142,7 @@ function render(){
  if(s==='trade'&&canTrade(game)){for(const ability of ['inspect','poison','gun'])action('贈送'+SKILL_LABELS[ability],'gift:'+ability);action('延後交易','skip');}
  if(s==='luckyAction'&&luckyAbility(game)&&game.lucky.remaining>0)action('保留技能','skip');
  if(s==='skill'&&gunSources(game,game.queue[0]).length>1){action('原有角色槍','gun:native');action('幸運兒額外槍','gun:lucky');}
+ if(s==='attack'&&boardOf(game).roles.seedWolf&&game.night>1){action('襲擊','attackMode:attack');action('感染','attackMode:infect',!canInfect(game));}
  if(s==='exchange')action('不交換','skip');if(s==='attack'&&basicActor(game)&&!forcedEmpty(game))action('空刀','skip');if(s==='skill')action('不發動技能','skip');
  if(['antidote','poison'].includes(s)){const blocked=!!potionBlocked(game,s);action(s==='antidote'?'不使用解藥':'不用毒藥','skip',blocked);action(s==='antidote'?'使用解藥':'使用毒藥','use',blocked);}
  if(s==='candidates')action('無人上警','none');if(['draw','dayDraw'].includes(s))action(game.draw?.revealed?'查看抽籤結果':'抽籤','draw');
@@ -145,7 +150,7 @@ function render(){
  if(['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s))action(game.choice==='tie'?'取消平票':'平票','tie');
  for(const [container,offset] of [['left',0],['right',6]]){
   $(container).replaceChildren();for(const p of game.players.slice(offset,offset+6)){
-   const b=document.createElement('button'),r=converted(game,p)?{...ROLE_DATA[p.role],kind:'wolf'}:ROLE_DATA[p.role],selected=game.action.includes(p.id),candidate=['candidates','draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.candidates.includes(p.id);
+   const b=document.createElement('button'),r=converted(game,p)||infected(game,p)?{...ROLE_DATA[p.role],kind:'wolf'}:ROLE_DATA[p.role],selected=game.action.includes(p.id),candidate=['candidates','draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.candidates.includes(p.id);
    const target=selected&&['exchange','attack','poison','inspect','skill','guardTarget','mediumInspect','mechanicalAction','revenge','trade','luckyAction','fear','sleep','roleModel','hunt','lastBlade','transform'].includes(s),speaking=s==='discussion'&&game.speaker===p.id;
    b.className='seat '+(roleName(game,p).length>4?'long-name ':'')+(r?.kind||'unknown')+(selected?(target?' target':' selected'):'')+(p.alive?'':' dead')+(p.active?'':' inactive')+(candidate?' candidate':'')+(speaking?' speaking':'')+(p.role==='idiot'&&game.idiot.revealed&&p.alive?' idiot-revealed':'');
    b.disabled=!selectable(game,p.id);b.setAttribute('aria-pressed',String(selected));const count=markersForSeat(game,p.id).length;b.style.setProperty('--mark-space',(count?22+17*(count-1):0)+'px');
@@ -191,7 +196,9 @@ let finishIntent=null;
 function confirmFinish(intent){finishIntent=intent;$('finishDialogTitle').textContent=intent==='restart'?'重新一局':'回首頁';$('finishDialogText').textContent=intent==='restart'?'保留本局板子與房規，清除全部前局紀錄並重新開始？':'清除本局全部紀錄並返回首頁？';$('finishDialog').showModal();}
 $('playAgain').onclick=()=>confirmFinish('restart');$('finishHome').onclick=()=>confirmFinish('home');$('finishCancel').onclick=()=>$('finishDialog').close();
 $('finishConfirm').onclick=()=>{$('finishDialog').close();timerStop();setSeconds(60);$('nightRecap').replaceChildren();$('winnerTitle').textContent='';$('winnerReason').textContent='';if(finishIntent==='restart'){game=restartGame(game);render();}else{game=null;try{localStorage.removeItem(KEY);}catch{}show('home');}};
-$('next').onclick=()=>{if(next(game))render();};
+$('next').onclick=()=>{if(game.step==='attack'&&game.nightAction.attackMode==='infect'&&!game.nightAction.infectionConfirmed){$('infectionDialog').showModal();return;}if(next(game))render();};
+$('infectionCancel').onclick=()=>$('infectionDialog').close();
+$('infectionConfirm').onclick=()=>{if(choose(game,'confirmInfection')&&next(game)){ $('infectionDialog').close();render();}};
 $('back').onclick=()=>{previous(game);render();};
 $('reset').onclick=()=>$('resetDialog').showModal();$('resetCancel').onclick=()=>$('resetDialog').close();$('resetConfirm').onclick=()=>{$('resetDialog').close();timerStop();clearTimeout(drawTimeout);drawAnimating=false;game=null;try{localStorage.removeItem(KEY);}catch{}show('home');};
 $('boardsNormal').onclick=()=>{selectedCategory='normal';drawBoards();};$('boardsAwakened').onclick=()=>{selectedCategory='awakened';drawBoards();};

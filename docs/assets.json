@@ -351,36 +351,6 @@
       "driveId": "17a6jipMOq8mADIZZjb6g5koBEQIy7mBW"
     },
     {
-      "size": 2005483,
-      "sha256": "51a8a6725855a226e2879735f13a8d4b33ceffdc583fe2bd0127f6af864f5e25",
-      "path": "public/art/backgrounds/home.png",
-      "driveId": "1atkZrSDlaCwy1Ic54YSlWnoM1XClIXA8"
-    },
-    {
-      "size": 1956108,
-      "sha256": "6c2b3c1ab9c1516e6e8cedb85ecd1896c4b9dbd80e862cb96e408d6384c345eb",
-      "path": "public/art/backgrounds/counts.png",
-      "driveId": "1Gaz1vnE-g_dOuf56QmSaB7zya0abkKUa"
-    },
-    {
-      "size": 1903691,
-      "sha256": "8c5f003f586d26945dbca032cbe62bf83facc266d39f95558ac1f9db1c1f0075",
-      "path": "public/art/backgrounds/boards.png",
-      "driveId": "103nQiQxeY6oNjaKVwBMC0XAW1O-zJ8bc"
-    },
-    {
-      "size": 2141090,
-      "sha256": "87a0054c7cbd73adb2583cf9d581b1ca7deb128967fb801125d394779178b30e",
-      "path": "public/art/backgrounds/setup.png",
-      "driveId": "1nWwJIyKHebxob91CQHF0BMiFk6KlU-v1"
-    },
-    {
-      "size": 1763407,
-      "sha256": "e745d6599c5ccd07893f22593f507d476288776ea6ea6bedf5760be6f32d8b3c",
-      "path": "public/art/backgrounds/host.png",
-      "driveId": "1W3KIEd0H_4EtGT7wFwxOZircGipMSZIl"
-    },
-    {
       "sha256": "77c1f2be5ffff350a9c2fb3a195932e7db33a8c67e3947946eea1a0aa89232be",
       "path": "public/art/catalog/gargoyle-v04.png",
       "size": 2279908,
@@ -397,6 +367,48 @@
       "path": "public/skills/icon-evil-knight-reflect.svg",
       "size": 1410,
       "driveId": "1hV7vz9KCXkYDWJNLj506dTkFtpNQCfMW"
+    },
+    {
+      "path": "public/skills/icon-infect.svg",
+      "driveId": "1bcZA4v9MG9LYfggf5JfmiPK50-O3NeMM",
+      "size": 1556,
+      "modified": "2026-10-11T07:27:08.900Z",
+      "sha256": "60d7fc7418ecfe1dd698d2f6634ff8cbddd101bb36df7e5c2e3ad211f07ce2ee"
+    },
+    {
+      "path": "public/art/backgrounds/home.png",
+      "driveId": "1atkZrSDlaCwy1Ic54YSlWnoM1XClIXA8",
+      "size": 899599,
+      "modified": "2026-10-11T08:57:02.825Z",
+      "sha256": "c4f797b57cd15fb984a337a9cf4274bb2a786fbc71294e921c7dac0b7e9c36f9"
+    },
+    {
+      "path": "public/art/backgrounds/counts.png",
+      "driveId": "1Gaz1vnE-g_dOuf56QmSaB7zya0abkKUa",
+      "size": 880086,
+      "modified": "2026-10-11T08:57:08.284Z",
+      "sha256": "884c68f327da223c1abf1a8ae8d0d1e4e26833d5c2e98ebee6020b54b1331724"
+    },
+    {
+      "path": "public/art/backgrounds/boards.png",
+      "driveId": "103nQiQxeY6oNjaKVwBMC0XAW1O-zJ8bc",
+      "size": 830844,
+      "modified": "2026-10-11T08:57:13.845Z",
+      "sha256": "2c28ec2f3cd0fbdc036e0950c741cd376ed6b58c2da129efa1794cbacb93da73"
+    },
+    {
+      "path": "public/art/backgrounds/setup.png",
+      "driveId": "1nWwJIyKHebxob91CQHF0BMiFk6KlU-v1",
+      "size": 700626,
+      "modified": "2026-10-11T08:57:18.622Z",
+      "sha256": "613cc348736fe90c48b451a0c46b56acf1afef02153591f4a177d0d7867ec3be"
+    },
+    {
+      "path": "public/art/backgrounds/host.png",
+      "driveId": "1W3KIEd0H_4EtGT7wFwxOZircGipMSZIl",
+      "size": 643433,
+      "modified": "2026-10-11T08:56:45.037Z",
+      "sha256": "637ac9b6e23120ff9b633c6d4b9f9ad339b071c0166f86171276b103ccf32a72"
     }
   ],
   "home": {

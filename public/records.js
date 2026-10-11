@@ -1,4 +1,4 @@
-import {converted,convertedName,graveResult,nativeAllowed} from './identity.js';
+import {converted,convertedName,graveResult,nativeAllowed,infected,infectionName} from './identity.js';
 import {ROLE_DATA} from './data.js';
 import {ordinaryWolves,basicActor,inspectedWolf,tradeOutcome,mapTarget} from './night.js';
 export function nightRecord(s){
@@ -15,7 +15,8 @@ export function recordStage(s,stage,order){
  const add=(key,actorRole,skill,targets,opts={})=>{
   if(!targets.length||!targets.every(Boolean))return;
   const actors=opts.actors||[actor(actorRole)];if(!actors[0])return;
-  const owner=s.players.find(p=>p.id===actors[0]);if(converted(s,owner))opts={...opts,displayName:convertedName(s,owner),tone:'wolf'};
+  const owner=s.players.find(p=>p.id===actors[0]);if(infected(s,owner))opts={...opts,displayName:infectionName(s,owner),tone:'wolf'};
+  if(converted(s,owner))opts={...opts,displayName:convertedName(s,owner),tone:'wolf'};
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
   record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
@@ -26,7 +27,8 @@ export function recordStage(s,stage,order){
  if(stage==='fear'&&n.fear)add('fear','nightmare','fear',[n.fear],{unmapped:true});
  if(stage==='sleep'&&n.sleep)add('sleep','dream','sleep',[n.sleep],{unmapped:true});
  if(stage==='exchange'&&n.exchange.length===2)add('swap','magician','swap',n.exchange,{unmapped:true});
- if(stage==='attack'&&n.attack){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors,portraitRole:ordinaryWolves(s).some(p=>p.role==='wolf')?'wolf':basicActor(s)?.role,...(converted(s,basicActor(s))?{displayName:convertedName(s,basicActor(s)),tone:'wolf'}:{})});}
+ if(stage==='attack'&&n.attack&&n.attackMode==='infect'){add('infection','seedWolf','infect',[n.attack],{executed:false,unmapped:true});}
+ if(stage==='attack'&&n.attack&&n.attackMode!=='infect'){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors,portraitRole:ordinaryWolves(s).some(p=>p.role==='wolf')?'wolf':basicActor(s)?.role,...(converted(s,basicActor(s))?{displayName:convertedName(s,basicActor(s)),tone:'wolf'}:{})});}
  if(stage==='revenge'&&n.revenge)add('revenge','younger','wolf-attack',[n.revenge],{unmapped:true});
  if(stage==='antidote'&&n.antidote===true)add('antidote','witch','antidote',[n.attack]);
  if(stage==='poison'&&n.poison===true&&n.poisonTarget)add('poison','witch','poison',[n.poisonTarget]);
