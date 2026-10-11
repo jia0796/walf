@@ -1,6 +1,6 @@
 # 隱狼登記時機修正與宣傳圖交付
 
-規格依據：main@f96e362 README；實作沿用 feat/eclipse-host-app。發布狀態：等待本次提交後 Actions 與正式站驗證。
+規格依據：main@f96e362 README；實作沿用 feat/eclipse-host-app。已部署程式 [ec058db](https://github.com/jia0796/wolf_Emcee/commit/ec058dbe613fa462eb6c4d659f9faa341f66c6bd)，[CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38138753094) 與 [部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38138753092) 均成功。正式站實測隱狼必選、未登記狼刀目標、刷新及 council-v13-2 通過，沒有 pageerror。
 
 ## 修正
 
@@ -27,6 +27,8 @@
 ## 宣傳圖
 
 以本版實際擷取的首頁、角色圖鑑、12 人選板、黑狼王／魔術師確認頁、第二晚主持頁及終局復盤製作六畫面宣傳圖。原始截圖與生成成果保存在 output/promo，沒有修改 App 的已核准人物原圖。
+
+內建 image_gen 生成，成果 moon-council-promo.png（1536 × 1024），提示詞記於 output/promo/prompt.md。圖片是本機交付檔，不混入 App 執行素材。
 
 ## 限制與後續優化
 
