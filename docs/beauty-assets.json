@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1asM5CGIXMgjP7RG3-xim6khQXyroojPx",
+    "path": "public/art/catalog/beauty.png",
+    "size": 2074144,
+    "sha256": "46d92b1b05a9a403b421af2c5308cc29ffae519d55467510462084d8c084689c"
+  },
+  {
+    "id": "1kbKKHTtPfqL7rQcm5fG2admb2FjXVGES",
+    "path": "public/art/catalog/duelist.png",
+    "size": 2105056,
+    "sha256": "f41c24156559c4cd7141b890f9ec8738811bf1a0909f61996c06572f83d1fe41"
+  },
+  {
+    "id": "15edvNop649-itum9g0n2tq7K7blRrhnl",
+    "path": "public/skills/icon-charm.svg",
+    "size": 971,
+    "sha256": "5aff4c715517e3ae64a315bfd1e9aa0e95708f7900da6568e0900b8336baba5e"
+  },
+  {
+    "id": "1nJdzyBywT8NZ6ig6l_JR-3-dgCGeiw9g",
+    "path": "public/skills/icon-heartbreak.svg",
+    "size": 980,
+    "sha256": "97233180381368c9168cbbd1c2e5a4af66fa455bfe3acf62bd3485c125f0140d"
+  },
+  {
+    "id": "1ocmdLh9XtNopziAdb1pqukL2P7WQCxfZ",
+    "path": "public/skills/icon-duel.svg",
+    "size": 963,
+    "sha256": "eec5cc1cff7608e97c27848b2e9321308e5cfc208576a1cada7727c8d2a02b5c"
+  }
+]
