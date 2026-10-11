@@ -3,7 +3,7 @@ import {createGame,upgradeGame,ROLES,boardOf,phaseOf,subtitle,canNext,selectable
 import {ROLE_DATA,BOARDS,BRANDING,HOME_ACTIONS,PLAYER_COUNTS,PAGE_BACKGROUNDS,availableBoards,REPORT_URL} from './data.js';
 import {settleNight,basicActor,ordinaryWolves,revengeAvailable,canTrade,tradeOutcome,luckyAbility,inspectedWolf,winnerReason,fearedRole,forcedEmpty,bloodSealed,skillBlocked} from './night.js';
 import {skillIcon,renderRecap,SKILL_LABELS} from './recap.js';
-import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession} from './timer.js';
+import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession,createSpeechTimer} from './timer.js';
 document.addEventListener('pointerdown',()=>{document.body.dataset.input='pointer';},true);document.addEventListener('keydown',e=>{if(e.key==='Tab')document.body.dataset.input='keyboard';},true);
 const $=id=>document.getElementById(id),KEY='eclipse-host-v1',PURE='照字幕主持，完成後按下一步';
 let game=null,storageOK=true,screen='home',selectedBoard='12',selectedCount=12,libraryOrigin='home',libraryRoles=Object.keys(ROLE_DATA),libraryCamp='wolf',selectedCategory='normal';
@@ -60,7 +60,7 @@ function hintText(){
  if(['witch','antidote','poison','witchClose','guard','guardTarget','guardClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose'].includes(s)&&game.players.some(p=>infected(game,p)&&p.role===({guardTarget:'guard',guardClose:'guard',inspect:'seer',inspectResult:'seer',seerClose:'seer',gesture:'hunter',hunterClose:'hunter',antidote:'witch',poison:'witch',witchClose:'witch'}[s]||s)))return '已被感染，無法使用技能';
  if(s==='infectionNotice'||s==='infectionOpen'||s==='infectionClose')return game.infection.success&&game.infection.usedNight===game.night?'僅輕觸 '+game.infection.target+'號肩膀通知；原狼隊當晚不通知':PURE;
  if(s==='finished')return game.winner+'獲勝';
- if((['dream','sleep'].includes(s)&&game.rolesConfirmed&&fearedRole(game,'dream'))||(['witch','antidote','poison','witchClose'].includes(s)&&fearedRole(game,'witch'))||(['seer','inspect','inspectResult','seerClose'].includes(s)&&game.rolesConfirmed&&fearedRole(game,'seer'))||(['hunter','gesture','hunterClose'].includes(s)&&game.rolesConfirmed&&fearedRole(game,'hunter'))||(['wolves','attack'].includes(s)&&game.rolesConfirmed&&forcedEmpty(game)))return '當晚受到恐懼，無法使用技能';
+ if((['dream','sleep'].includes(s)&&fearedRole(game,'dream'))||(['witch','antidote','poison','witchClose'].includes(s)&&fearedRole(game,'witch'))||(['seer','inspect','inspectResult','seerClose'].includes(s)&&fearedRole(game,'seer'))||(['hunter','gesture','hunterClose'].includes(s)&&fearedRole(game,'hunter'))||(['wolves','attack'].includes(s)&&game.rolesConfirmed&&forcedEmpty(game)))return '當晚受到恐懼，無法使用技能';
  if(bloodSealed(game)&&game.rolesConfirmed&&['witch','antidote','poison','witchClose','seer','inspect','inspectResult','seerClose','demon','hunt','demonClose'].includes(s))return '當晚神職技能封鎖';
  if(s==='transform')return '選擇原始狼人相鄰的合法好人；必須選擇';
  if(s==='gravekeeper'&&!game.rolesConfirmed)return '點選守墓人本人';
@@ -177,26 +177,42 @@ function finishDraw(){if(!drawAnimating)return;drawAnimating=false;clearTimeout(
 function startDraw(){if(!choose(game,'draw'))return;render();if(!$('drawDialog').open)$('drawDialog').showModal();if(game.draw.revealed){displayDraw();return;}drawAnimating=true;$('drawPhase').textContent='抽籤中…';$('drawResult').textContent='';$('drawOrder').textContent='';$('drawSpinner').hidden=false;$('drawSkip').hidden=false;$('drawClose').hidden=true;clearTimeout(drawTimeout);drawTimeout=setTimeout(finishDraw,1300);}
 document.addEventListener('pointerdown',()=>{if(drawAnimating)finishDraw();});
 $('drawSkip').onclick=finishDraw;$('drawClose').onclick=()=>$('drawDialog').close();$('drawDialog').addEventListener('cancel',e=>{if(drawAnimating){e.preventDefault();finishDraw();}});
-let timerSeconds=60,deadline=null,interval=null,paintingWheels=false;
+const speechTimer=createSpeechTimer();let interval=null,paintingWheels=false,timerMode='setup',timerAnimation=null,timerGhost=null,timerGhostAnimation=null;
 const wheels=[$('minuteWheel'),$('secondWheel')];
 function paintWheels(force=false){
- paintingWheels=true;
- const values=[Math.floor(timerSeconds/60),timerSeconds%60];
- wheels.forEach((wheel,i)=>{wheel.setAttribute('aria-disabled',String(deadline!==null));wheel.classList.toggle('locked',deadline!==null);wheel.querySelectorAll('button').forEach((option,index)=>{option.disabled=deadline!==null;option.setAttribute('aria-selected',String(index===values[i]));});if(force||!wheel.matches(':hover'))wheel.scrollTop=values[i]*40;});
- paintingWheels=false;
+ paintingWheels=true;const state=speechTimer.view(),values=[Math.floor(state.seconds/60),state.seconds%60];
+ wheels.forEach((wheel,i)=>{const locked=state.mode!=='setup';wheel.setAttribute('aria-disabled',String(locked));wheel.classList.toggle('locked',locked);wheel.querySelectorAll('button').forEach((option,index)=>{option.disabled=locked;option.setAttribute('aria-selected',String(index===values[i]));});if(force||!wheel.matches(':hover'))wheel.scrollTop=values[i]*40;});paintingWheels=false;
 }
-function timerPaint(){if(deadline!==null)timerSeconds=remainingSeconds(deadline);paintWheels(deadline!==null);if(timerSeconds===0&&deadline!==null){timerStop();$('timerNotice').textContent='時間到';}}
-function timerStop(){deadline=null;clearInterval(interval);interval=null;paintWheels(true);}
-function setSeconds(value){timerSeconds=clampSeconds(value);$('timerNotice').textContent='';paintWheels(true);}
+function timerPaint(){
+ const state=speechTimer.tick();const changed=timerMode!==state.mode;
+ if(changed){timerAnimation?.cancel();timerGhostAnimation?.cancel();timerGhost?.remove();timerGhost=null;
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&$('timerDialog').open){
+   const old=$(timerMode==='setup'?'timerSetup':'timerCountdown'),rect=old.getBoundingClientRect(),dialogRect=$('timerDialog').getBoundingClientRect(),ghost=old.cloneNode(true);ghost.removeAttribute('id');ghost.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));ghost.setAttribute('aria-hidden','true');ghost.inert=true;Object.assign(ghost.style,{position:'absolute',left:(rect.left-dialogRect.left-$('timerDialog').clientLeft)+'px',top:(rect.top-dialogRect.top-$('timerDialog').clientTop)+'px',width:rect.width+'px',height:rect.height+'px',pointerEvents:'none',zIndex:'2'});$('timerDialog').append(ghost);ghost.querySelectorAll('.time-wheel').forEach((e,i)=>e.scrollTop=wheels[i].scrollTop);timerGhost=ghost;timerGhostAnimation=ghost.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(.96)'}],{duration:300,easing:'ease-out'});timerGhostAnimation.onfinish=()=>{ghost.remove();if(timerGhost===ghost)timerGhost=null;};
+  }
+ }
+ timerMode=state.mode;
+ $('timerSetup').hidden=state.mode!=='setup';$('timerCountdown').hidden=state.mode!=='countdown';$('timerStart').hidden=state.mode!=='setup';$('timerPause').hidden=state.mode!=='countdown';
+ $('timerPause').textContent=state.running?'暫停':'繼續';$('timerPause').disabled=state.seconds===0;
+ $('timerCountdown').textContent=String(Math.floor(state.seconds/60)).padStart(2,'0')+':'+String(state.seconds%60).padStart(2,'0');
+ if(state.mode==='setup')paintWheels(changed);
+ if(changed){timerAnimation?.cancel();if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&$('timerDialog').open)timerAnimation=$(state.mode==='setup'?'timerSetup':'timerCountdown').animate([{opacity:0,transform:'scale(.96)'},{opacity:1,transform:'scale(1)'}],{duration:300,easing:'ease-out'});}
+ if(state.mode==='countdown'&&state.seconds===0){clearInterval(interval);interval=null;$('timerNotice').textContent='時間到';}
+}
+function timerStop(){speechTimer.pause();clearInterval(interval);interval=null;timerPaint();}
+function setSeconds(value){speechTimer.defaults();speechTimer.set(value);$('timerNotice').textContent='';timerPaint();paintWheels(true);}
+function ensureTimerInterval(){clearInterval(interval);interval=speechTimer.view().running?setInterval(timerPaint,250):null;}
 wheels.forEach((wheel,i)=>{
- for(let value=0;value<=(i===0?10:59);value++){const option=document.createElement('button');option.type='button';option.id='timer-'+i+'-'+value;option.setAttribute('role','option');option.tabIndex=-1;option.textContent=String(value).padStart(2,'0');option.onclick=()=>{if(deadline===null){timerSeconds=i===0?wheelSeconds(value,timerSeconds%60):wheelSeconds(Math.floor(timerSeconds/60),value);paintWheels(true);}};wheel.append(option);}
- wheel.addEventListener('scroll',()=>{if(deadline!==null||paintingWheels||!$('timerDialog').open)return;const value=Math.min(i===0?10:59,Math.max(0,Math.round(wheel.scrollTop/40)));timerSeconds=i===0?wheelSeconds(value,timerSeconds%60):wheelSeconds(Math.floor(timerSeconds/60),value);wheel.querySelectorAll('button').forEach((option,index)=>option.setAttribute('aria-selected',String(index===value)));});
- wheel.addEventListener('keydown',event=>{if(deadline!==null||!['ArrowUp','ArrowDown'].includes(event.key))return;event.preventDefault();const value=(i===0?Math.floor(timerSeconds/60):timerSeconds%60)+(event.key==='ArrowDown'?1:-1);if(value<0||value>(i===0?10:59))return;timerSeconds=i===0?wheelSeconds(value,timerSeconds%60):wheelSeconds(Math.floor(timerSeconds/60),value);paintWheels(true);});
+ const update=value=>{const state=speechTimer.view();if(state.mode!=='setup')return;speechTimer.set(i===0?wheelSeconds(value,state.seconds%60):wheelSeconds(Math.floor(state.seconds/60),value));};
+ for(let value=0;value<=(i===0?10:59);value++){const option=document.createElement('button');option.type='button';option.id='timer-'+i+'-'+value;option.setAttribute('role','option');option.tabIndex=-1;option.textContent=String(value).padStart(2,'0');option.onclick=()=>{update(value);paintWheels(true);};wheel.append(option);}
+ wheel.addEventListener('scroll',()=>{if(speechTimer.view().mode!=='setup'||paintingWheels||!$('timerDialog').open||$('timerSetup').hidden)return;const value=Math.min(i===0?10:59,Math.max(0,Math.round(wheel.scrollTop/40)));update(value);wheel.querySelectorAll('button').forEach((option,index)=>option.setAttribute('aria-selected',String(index===value)));});
+ wheel.addEventListener('keydown',event=>{if(speechTimer.view().mode!=='setup'||!['ArrowUp','ArrowDown'].includes(event.key))return;event.preventDefault();const seconds=speechTimer.view().seconds,value=(i===0?Math.floor(seconds/60):seconds%60)+(event.key==='ArrowDown'?1:-1);if(value<0||value>(i===0?10:59))return;update(value);paintWheels(true);});
 });
-$('timerOpen').onclick=()=>{$('timerDialog').showModal();timerPaint();paintWheels(true);};$('timerClose').onclick=()=>$('timerDialog').close();
-$('timerStart').onclick=()=>{if(deadline!==null||timerSeconds===0)return;deadline=Date.now()+timerSeconds*1000;interval=setInterval(timerPaint,250);$('timerNotice').textContent='';timerPaint();};
-$('timerPause').onclick=()=>{timerPaint();timerStop();};$('timerReset').onclick=()=>{timerStop();setSeconds(60);};
-function adjustSeconds(delta){timerPaint();timerSeconds=clampSeconds(timerSeconds+delta);if(deadline!==null)deadline=Date.now()+timerSeconds*1000;paintWheels(true);timerPaint();}
+$('timerOpen').onclick=()=>{$('timerDialog').showModal();timerPaint();if(speechTimer.view().mode==='setup')paintWheels(true);};$('timerClose').onclick=()=>$('timerDialog').close();
+$('timerStart').onclick=()=>{speechTimer.start();ensureTimerInterval();$('timerNotice').textContent='';timerPaint();};
+$('timerPause').onclick=()=>{if(speechTimer.view().running)speechTimer.pause();else speechTimer.resume();ensureTimerInterval();timerPaint();};
+$('timerRestore').onclick=()=>{speechTimer.reset();ensureTimerInterval();$('timerNotice').textContent='';timerPaint();paintWheels(true);};
+$('timerReset').onclick=()=>{speechTimer.defaults();ensureTimerInterval();$('timerNotice').textContent='';timerPaint();paintWheels(true);};
+function adjustSeconds(delta){if(speechTimer.view().mode!=='setup')return;speechTimer.set(speechTimer.view().seconds+delta);$('timerNotice').textContent='';paintWheels(true);}
 $('timerMinus').onclick=()=>adjustSeconds(-10);$('timerPlus').onclick=()=>adjustSeconds(10);
 let finishIntent=null;
 function confirmFinish(intent){finishIntent=intent;$('finishDialogTitle').textContent=intent==='restart'?'重新一局':'回首頁';$('finishDialogText').textContent=intent==='restart'?'保留本局板子與房規，清除全部前局紀錄並重新開始？':'清除本局全部紀錄並返回首頁？';$('finishDialog').showModal();}

@@ -178,6 +178,21 @@ body[data-screen=home]{--background-mask:.15}body[data-screen=counts]{--backgrou
 .final-identity-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.final-identity-card{min-width:0;display:grid;grid-template-columns:minmax(36px,.75fr) minmax(0,1fr);align-items:center;gap:5px;border:1px solid #8191a64d;border-radius:12px;background:#142138cb;padding:7px}.final-identity-card .recap-person{font-size:12px}.final-identity-card img{max-height:114px}.identity-status,.identity-original{font-size:11px;color:#d0d9e6}.final-identities h4{margin:12px 0 7px}
 #finished{height:100%;padding-bottom:85px}#finished .recap-title{margin:12px 0;flex:none}.night-recap{scrollbar-gutter:auto}.night-result h4{margin:0 0 5px}.night-result p{margin:0}
 @media(min-width:768px){.recap-event{gap:12px;min-height:145px;padding:14px 20px}.recap-portrait{max-height:160px}.recap-effect .skill-icon{width:42px;height:42px}.recap-outcome{font-size:14px}.final-identity-card .recap-person{font-size:15px}}
+
+/* Approved original portraits crop and blend into the existing glass cards. */
+.recap-event{overflow:hidden;position:relative;background:linear-gradient(110deg,#203049ba,#242438b0);backdrop-filter:blur(7px)}
+.recap-event>.recap-image{align-self:stretch;margin:-10px -7px; width:calc(100% + 14px);overflow:hidden}
+.recap-event>.recap-image:first-child{mask-image:linear-gradient(to right,#000 65%,transparent);-webkit-mask-image:linear-gradient(to right,#000 65%,transparent)}
+.recap-event>.recap-image:last-child{mask-image:linear-gradient(to left,#000 65%,transparent);-webkit-mask-image:linear-gradient(to left,#000 65%,transparent)}
+.recap-fused-art{aspect-ratio:auto;height:100%;min-height:90px;max-height:none;filter:saturate(.8);opacity:.85}
+.recap-target-row .recap-image{height:84px;overflow:hidden;mask-image:linear-gradient(to left,#000 70%,transparent);-webkit-mask-image:linear-gradient(to left,#000 70%,transparent)}
+.final-identity-card .recap-image{height:100%;overflow:hidden;mask-image:linear-gradient(to right,#000 80%,transparent);-webkit-mask-image:linear-gradient(to right,#000 80%,transparent)}
+.recap-victory{margin:0 0 18px}
+#timerDialog{width:min(92vw,430px);overflow-x:hidden;position:relative}
+.timer-countdown{min-height:128px;display:flex;align-items:center;justify-content:center;font-size:clamp(42px,12vw,72px);font-variant-numeric:tabular-nums;line-height:1.25;letter-spacing:.04em;color:#f4dfb2}
+.timer-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.timer-controls button{width:100%;min-height:48px}
+.timer-defaults{display:block;margin:10px auto 0;padding:8px 22px;min-height:44px;max-width:145px;font-size:13px}
+.recap-event:not(.single-event){grid-template-columns:minmax(32px,1.15fr) minmax(42px,.85fr) minmax(34px,.7fr) minmax(42px,.85fr) minmax(32px,1.15fr)}
 .problem-report:focus-visible{outline:2px solid #94c3e3;outline-offset:3px}
 .seat.mixed-card{display:flex;flex-direction:column;justify-content:center;gap:0;padding-top:2px;padding-bottom:21px}
 .mixed-card .role-name{font-size:clamp(11px,2vw,17px);line-height:1.05}.mixed-model,.mixed-camp{font-size:clamp(9px,1.4vw,12px);line-height:1.05;white-space:nowrap}

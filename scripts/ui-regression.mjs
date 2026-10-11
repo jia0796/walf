@@ -11,7 +11,7 @@ const browser=await chromium.launch({channel:'msedge',headless:true});
 const results=[],errors=[];
 const promo=new URL('../output/promo/screens/',import.meta.url);
 async function promoShot(page,name){if(process.env.UI_PROMO){await mkdir(promo,{recursive:true});await page.screenshot({path:new URL(name+'.png',promo).pathname.slice(1)});}}
-async function waitCached(page,paths){const until=Date.now()+60000;while(Date.now()<until){if(await page.evaluate(async paths=>{const cache=await caches.open('council-v13-3');return (await Promise.all(paths.map(p=>cache.match(new URL(p,location.href).href)))).every(Boolean);},paths))return;await page.waitForTimeout(100);}throw Error('Cache did not finish');}
+async function waitCached(page,paths){const until=Date.now()+60000;while(Date.now()<until){if(await page.evaluate(async paths=>{const cache=await caches.open('council-v13-4');return (await Promise.all(paths.map(p=>cache.match(new URL(p,location.href).href)))).every(Boolean);},paths))return;await page.waitForTimeout(100);}throw Error('Cache did not finish');}
 
 async function begin(board,viewport={width:390,height:844},sheriff=false,immuneNightGun=false){
  const context=await browser.newContext({viewport}),page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));

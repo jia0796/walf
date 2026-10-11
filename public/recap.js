@@ -28,9 +28,9 @@ function knownPerson(e,actor,index=0){
  const id=(actor?e.actors:e.effectiveTargets||e.rawTargets)?.[index],role=actor?e.actorRole:null,r=ROLE_DATA[role];
  return {id,role,name:r?.name||'未記錄',tone:r?.kind,image:r?.image};
 }
-function portrait(p){const box=el('div','recap-image');if(p?.image){const img=el('img','recap-portrait');img.src=p.image;img.alt=p.name||'';img.loading='lazy';box.append(img);}return box;}
+function portrait(p){const box=el('div','recap-image');if(p?.image){const r=ROLE_DATA[p.role],crop=r?.recapCrop||(p.role==='mixed'?[80,120,930,1020]:null),size=r?.artSize||(p.role==='mixed'?[1089,1445]:[1060,1484]);if(crop){const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.classList.add('recap-portrait','recap-fused-art');svg.setAttribute('viewBox',crop.join(' '));svg.setAttribute('preserveAspectRatio',r.recapAlign||'xMidYMid slice');svg.setAttribute('role','img');svg.setAttribute('aria-label',p.name||'');const img=document.createElementNS('http://www.w3.org/2000/svg','image');img.setAttribute('href',p.image);img.setAttribute('width',String(size[0]));img.setAttribute('height',String(size[1]));svg.append(img);box.append(svg);}else{const img=el('img','recap-portrait');img.src=p.image;img.alt=p.name||'';img.loading='lazy';box.append(img);}}return box;}
 function personText(p,{noNumber=false}={}){const text=el('div','recap-person '+(p?.tone||'neutral'));text.append(el('strong',null,p?.name||'未記錄'));if(!noNumber&&p?.id)text.append(el('span',null,p.id+'號'));return text;}
-function actorModel(e){const p=knownPerson(e,true);if(e.displayRole==='lucky'||e.skillSource==='lucky')p.name='幸運兒';if(e.key==='basic'){p.name='狼人';p.tone='wolf';p.image=ROLE_DATA[e.portraitRole||e.actorRole]?.image;}return p;}
+function actorModel(e){const p=knownPerson(e,true);if(e.displayRole==='lucky'||e.skillSource==='lucky')p.name='幸運兒';if(e.key==='basic'){p.name='狼人';p.tone='wolf';p.role=e.portraitRole||e.actorRole;p.image=ROLE_DATA[p.role]?.image;}return p;}
 export function eventCard(e){
  const card=el('article','event-card recap-event');card.dataset.event=e.type||e.key||e.skill||'';
  if(['selfDestruct','idiot'].includes(e.type)){const p=knownPerson(e,true);card.classList.add('single-event');card.append(portrait(p),personText(p),el('span','recap-arrow','→'),el('strong','recap-event-label',e.label));return card;}
@@ -54,9 +54,10 @@ export function recapTimeline(s){
  if(s.blood?.lastEvent?.executed&&!days.some(e=>e.type==='lastBlade')){let day=sections.find(r=>r.kind==='day'&&r.number===s.night);if(!day){day={kind:'day',number:s.night,events:[]};sections.push(day);}day.events.push(s.blood.lastEvent);}
  return sections;
 }
-export function finalIdentityModel(s){const deaths=s.nightState?.deaths||s.nightResolution?.deaths||[];return ['wolf','good'].map(camp=>({camp,players:s.players.filter(p=>p.active&&(realWolf(s,p)?'wolf':'good')===camp).sort((a,b)=>a.id-b.id).map(p=>{const snap=personSnapshot(s,p.id);snap.alive=p.alive&&!deaths.some(d=>d.id===p.id);if(infected(s,p))snap.name='感染者';if(converted(s,p))snap.name='轉化者';snap.tone=realWolf(s,p)?'wolf':ROLE_DATA[p.role]?.kind;snap.original=infected(s,p)||converted(s,p)?ROLE_DATA[p.role]?.name:null;return snap;})}));}
+export function finalIdentityModel(s){const deaths=s.nightState?.deaths||s.nightResolution?.deaths||[];return ['wolf','good'].map(camp=>({camp,players:s.players.filter(p=>p.active&&(realWolf(s,p)?'wolf':'good')===camp).sort((a,b)=>(camp==='good'?(ROLE_DATA[a.role]?.kind==='god'?0:1)-(ROLE_DATA[b.role]?.kind==='god'?0:1):0)||a.id-b.id).map(p=>{const snap=personSnapshot(s,p.id);snap.alive=p.alive&&!deaths.some(d=>d.id===p.id);if(infected(s,p))snap.name='感染者';if(converted(s,p))snap.name='轉化者';snap.tone=realWolf(s,p)?'wolf':ROLE_DATA[p.role]?.kind;snap.original=infected(s,p)||converted(s,p)?ROLE_DATA[p.role]?.name:null;return snap;})}));}
 export function renderRecap(container,s){
  container.replaceChildren();
+ const result=el('section','victory recap-victory');result.append(el('h3',null,'遊戲結束'),el('h2',null,s.winner+'獲勝'),el('p',null,'勝利原因：'+(s.winnerReason||'')));container.append(result);
  if(s.legacyRecap||!s.recapVersion)container.append(el('p','small','舊版存檔僅顯示實際保存的事件；缺少的白天與身分快照不補造。'));
  for(const segment of recapTimeline(s)){
   const section=el('section','recap-segment '+segment.kind),title=el('h3','recap-section-title','第'+segment.number+(segment.kind==='night'?'晚':'天'));section.append(title);
@@ -64,7 +65,6 @@ export function renderRecap(container,s){
   if(segment.kind==='night'){const r=segment.record,result=el('article','night-result');result.append(el('h4',null,'當晚結果'),el('p',null,r.settled?(r.deaths.length?'死亡：'+[...r.deaths].sort((a,b)=>a.id-b.id).map(d=>d.id+'號').join('、'):'平安夜'):'本晚尚未結算'));section.append(result);}
   container.append(section);
  }
- const result=el('section','victory recap-victory');result.append(el('h3',null,'遊戲結束'),el('h2',null,s.winner+'獲勝'),el('p',null,'勝利原因：'+(s.winnerReason||'')));container.append(result);
  const final=el('section','final-identities');final.append(el('h3','recap-section-title','最終身分回顧'));
  for(const group of finalIdentityModel(s)){final.append(el('h4',null,group.camp==='wolf'?'狼人陣營':'好人陣營'));const grid=el('div','final-identity-grid');for(const p of group.players){const card=el('article','final-identity-card '+p.tone),text=personText(p);text.append(el('span','identity-status',p.alive?'存活':'出局'));if(p.original)text.append(el('span','identity-original','原職：'+p.original));card.append(portrait(p),text);grid.append(card);}final.append(grid);}container.append(final);
 }
