@@ -1,6 +1,6 @@
 import {realWolf,converted,convertedName,nativeAllowed,graveResult,infected} from './identity.js';
-import {createGame,upgradeGame,ROLES,boardOf,phaseOf,subtitle,canNext,selectable,selectSeat,choose,next,previous,potionBlocked,inspection,mapTarget,canSelfDestruct,beginSelfDestruct,mechanicalAbility,mechanicalModes,roleName,roleResult,markersForSeat,restartGame,gunSources,mixedResult,canInfect} from './engine.js';
-import {ROLE_DATA,BOARDS,BRANDING,HOME_ACTIONS,PLAYER_COUNTS,PAGE_BACKGROUNDS,availableBoards} from './data.js';
+import {createGame,upgradeGame,ROLES,boardOf,phaseOf,subtitle,canNext,selectable,selectSeat,choose,next,previous,potionBlocked,inspection,mapTarget,canSelfDestruct,beginSelfDestruct,mechanicalAbility,mechanicalModes,roleName,roleResult,markersForSeat,restartGame,gunSources,mixedResult,canInfect,needsInfectionDecision} from './engine.js';
+import {ROLE_DATA,BOARDS,BRANDING,HOME_ACTIONS,PLAYER_COUNTS,PAGE_BACKGROUNDS,availableBoards,REPORT_URL} from './data.js';
 import {settleNight,basicActor,ordinaryWolves,revengeAvailable,canTrade,tradeOutcome,luckyAbility,inspectedWolf,winnerReason,fearedRole,forcedEmpty,bloodSealed,skillBlocked} from './night.js';
 import {skillIcon,renderRecap,SKILL_LABELS} from './recap.js';
 import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession} from './timer.js';
@@ -52,6 +52,9 @@ function action(label,value,disabled=false){const b=document.createElement('butt
  if(value!=='draw')b.setAttribute('aria-pressed',String(!!pressed));b.onclick=()=>{if(value==='draw')startDraw();else{choose(game,value);render();}};$('actions').append(b);}
 function hintText(){
  const s=game.step,n=game.nightAction;
+ if(s==='hiddenWolf'||s==='hiddenWolfClose')return '確認身分';
+ if(s==='mixedResult')return '跟隨結果';
+ if(s==='mechanicalResult')return '查驗結果';
  if(s==='confirm'&&boardOf(game).roles.hiddenWolf)return '法官先登記隱狼座位；隱狼不睜眼、不與狼隊相認';
  if(['witch','antidote','poison','witchClose','guard','guardTarget','guardClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose'].includes(s)&&game.players.some(p=>infected(game,p)&&p.role===({guardTarget:'guard',guardClose:'guard',inspect:'seer',inspectResult:'seer',seerClose:'seer',gesture:'hunter',hunterClose:'hunter',antidote:'witch',poison:'witch',witchClose:'witch'}[s]||s)))return '已被感染，無法使用技能';
  if(s==='infectionNotice'||s==='infectionOpen'||s==='infectionClose')return game.infection.success&&game.infection.usedNight===game.night?'僅輕觸 '+game.infection.target+'號肩膀通知；原狼隊當晚不通知':PURE;
@@ -84,7 +87,7 @@ function hintText(){
  if(s==='exilePKStart')return 'PK 順序：'+game.votePool.map(id=>id+'號').join(' → ');
  if(s==='exchange')return '點選兩名合法玩家，或選擇不交換';
  if(s==='attack'&&forcedEmpty(game))return '當晚受到恐懼，無法使用技能';
- if(s==='attack')return basicActor(game)?(boardOf(game).roles.seedWolf&&game.night>1?'選擇同一目標的襲擊／感染模式，或空刀':'點選狼刀目標，或選擇空刀'):'本晚沒有可參與普通狼刀的狼人，普通狼刀自動空刀';
+ if(s==='attack')return basicActor(game)?(boardOf(game).roles.seedWolf&&game.night>1?'點選共同目標；下一步詢問是否感染，或選擇空刀':'點選狼刀目標，或選擇空刀'):'本晚沒有可參與普通狼刀的狼人，普通狼刀自動空刀';
  if(s==='inspect')return '點選查驗目標';
  if(s==='inspectResult')return inspection(game)?'查驗手勢':'預言家已出局';
  if(s==='antidote'){if(!game.potions.antidote&&n.antidote!==true)return '解藥已使用';if(!n.attack)return '今晚沒有狼刀目標';return '原始狼刀：'+n.attack+'號。'+(potionBlocked(game,'antidote')||'選擇使用或不使用解藥。');}
@@ -104,6 +107,7 @@ function hintText(){
 function renderGesture(){
  $('gestureResult').replaceChildren();
  let role=null,label='';
+ if(game.step==='mechanicalResult'&&game.nightAction.mechanicalResult){const result=game.nightAction.mechanicalResult;role=result.role;label=result.target+'號玩家・'+ROLES[role];}
  if(game.step==='mediumResult'&&game.nightAction.mediumInspect){role=roleResult(game,game.nightAction.mediumInspect);label=game.nightAction.mediumInspect+'號玩家・'+ROLES[role];}
  if(game.step==='mechanicalAction'){
   const n=game.nightAction;
@@ -111,7 +115,7 @@ function renderGesture(){
   else if(game.operation==='mechanicalInspect'&&n.mechanicalInspect){role=roleResult(game,n.mechanicalInspect);label=n.mechanicalInspect+'號玩家・'+ROLES[role];}
  }
  if(role){const title=document.createElement('p');title.textContent=label;$('gestureResult').append(title);return;}
- const grave=graveResult(game);const result=game.step==='graveResult'&&grave?(grave.wolf?'down':'up'):(game.step==='inspectResult'||game.step==='inspect'&&game.players.find(p=>p.id===game.nightAction.inspect)?.role==='evilKnight')?inspection(game):game.step==='luckyAction'&&game.nightAction.luckyInspect?(inspectedWolf(game,mapTarget(game,game.nightAction.luckyInspect))?'down':'up'):'';if(!result)return;
+ const grave=graveResult(game);const result=game.step==='mixedResult'?(game.mixed.camp==='狼人陣營'?'down':'up'):game.step==='graveResult'&&grave?(grave.wolf?'down':'up'):(game.step==='inspectResult'||game.step==='inspect'&&game.players.find(p=>p.id===game.nightAction.inspect)?.role==='evilKnight')?inspection(game):game.step==='luckyAction'&&game.nightAction.luckyInspect?(inspectedWolf(game,mapTarget(game,game.nightAction.luckyInspect))?'down':'up'):'';if(!result)return;
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 32 32');svg.setAttribute('role','img');svg.setAttribute('aria-label',result==='up'?'好人手勢：讚':'狼人手勢：倒讚');svg.classList.add('thumb-icon',result);
  const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M5 14h5v14H5z M10 15l6-7V4c4 0 5 3 4 7l-1 3h6c2 0 3 2 2 4l-2 8c0 1-1 2-3 2H10z');svg.append(path);$('gestureResult').append(svg);
 }
@@ -142,7 +146,7 @@ function render(){
  if(s==='trade'&&canTrade(game)){for(const ability of ['inspect','poison','gun'])action('贈送'+SKILL_LABELS[ability],'gift:'+ability);action('延後交易','skip');}
  if(s==='luckyAction'&&luckyAbility(game)&&game.lucky.remaining>0)action('保留技能','skip');
  if(s==='skill'&&gunSources(game,game.queue[0]).length>1){action('原有角色槍','gun:native');action('幸運兒額外槍','gun:lucky');}
- if(s==='attack'&&boardOf(game).roles.seedWolf&&game.night>1){action('襲擊','attackMode:attack');action('感染','attackMode:infect',!canInfect(game));}
+
  if(s==='exchange')action('不交換','skip');if(s==='attack'&&basicActor(game)&&!forcedEmpty(game))action('空刀','skip');if(s==='skill')action('不發動技能','skip');
  if(['antidote','poison'].includes(s)){const blocked=!!potionBlocked(game,s);action(s==='antidote'?'不使用解藥':'不用毒藥','skip',blocked);action(s==='antidote'?'使用解藥':'使用毒藥','use',blocked);}
  if(s==='candidates')action('無人上警','none');if(['draw','dayDraw'].includes(s))action(game.draw?.revealed?'查看抽籤結果':'抽籤','draw');
@@ -152,10 +156,11 @@ function render(){
   $(container).replaceChildren();for(const p of game.players.slice(offset,offset+6)){
    const b=document.createElement('button'),r=converted(game,p)||infected(game,p)?{...ROLE_DATA[p.role],kind:'wolf'}:ROLE_DATA[p.role],selected=game.action.includes(p.id),candidate=['candidates','draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.candidates.includes(p.id);
    const target=selected&&['exchange','attack','poison','inspect','skill','guardTarget','mediumInspect','mechanicalAction','revenge','trade','luckyAction','fear','sleep','roleModel','hunt','lastBlade','transform'].includes(s),speaking=s==='discussion'&&game.speaker===p.id;
-   b.className='seat '+(roleName(game,p).length>4?'long-name ':'')+(r?.kind||'unknown')+(selected?(target?' target':' selected'):'')+(p.alive?'':' dead')+(p.active?'':' inactive')+(candidate?' candidate':'')+(speaking?' speaking':'')+(p.role==='idiot'&&game.idiot.revealed&&p.alive?' idiot-revealed':'');
+   const mixedCard=p.role==='mixed'&&game.mixed.chosen;
+   b.className='seat '+(mixedCard?'mixed-card ':'')+(roleName(game,p).length>4?'long-name ':'')+(r?.kind||'unknown')+(selected?(target?' target':' selected'):'')+(p.alive?'':' dead')+(p.active?'':' inactive')+(candidate?' candidate':'')+(speaking?' speaking':'')+(p.role==='idiot'&&game.idiot.revealed&&p.alive?' idiot-revealed':'');
    b.disabled=!selectable(game,p.id);b.setAttribute('aria-pressed',String(selected));const count=markersForSeat(game,p.id).length;b.style.setProperty('--mark-space',(count?22+17*(count-1):0)+'px');
    b.setAttribute('aria-label',p.id+'號 '+(!p.active?'未使用':roleName(game,p)+' '+(p.alive?'存活':'死亡'))+(candidate?' 警上':'')+(game.sheriff===p.id?' 警長':''));
-   for(const [cls,text] of [['seat-number',p.id+'號'],['role-name',p.active?roleName(game,p):'未使用']]){const el=document.createElement('span');el.className=cls;el.textContent=text;b.append(el);}
+   for(const [cls,text] of (mixedCard?[['role-name','混血兒'],['mixed-model',p.id+'（榜樣）'+game.mixed.target],['mixed-camp',game.mixed.camp==='狼人陣營'?'狼人':'好人']]:[['seat-number',p.id+'號'],['role-name',p.active?roleName(game,p):'未使用']])){const el=document.createElement('span');el.className=cls;el.textContent=text;b.append(el);}
    const tags=document.createElement('span');tags.className='seat-tags';
    for(const text of [candidate?'警上':'',p.active&&!p.alive?'死亡':'',speaking?'發言':''])if(text){const tag=document.createElement('span');tag.textContent=text;tags.append(tag);}b.append(tags);if(game.sheriff===p.id){const badge=document.createElement('img');badge.src='art/moon-eclipse-sheriff-badge.svg';badge.alt='警徽';badge.className='sheriff-badge';b.append(badge);}
    const marks=document.createElement('span');marks.className='skill-marks';for(const m of markersForSeat(game,p.id)){const wrap=document.createElement('span');wrap.className='skill-mark';wrap.style.zIndex=String(m.sequence);wrap.dataset.sequence=m.sequence;wrap.dataset.source=m.key;const icon=document.createElement('img');icon.src='skills/icon-'+m.type+'.svg';icon.alt=SKILL_LABELS[m.type];wrap.append(icon);if(m.partner){const partner=document.createElement('span');partner.className='swap-partner';partner.textContent=m.partner;wrap.append(partner);}marks.append(wrap);}b.append(marks);
@@ -196,8 +201,9 @@ let finishIntent=null;
 function confirmFinish(intent){finishIntent=intent;$('finishDialogTitle').textContent=intent==='restart'?'重新一局':'回首頁';$('finishDialogText').textContent=intent==='restart'?'保留本局板子與房規，清除全部前局紀錄並重新開始？':'清除本局全部紀錄並返回首頁？';$('finishDialog').showModal();}
 $('playAgain').onclick=()=>confirmFinish('restart');$('finishHome').onclick=()=>confirmFinish('home');$('finishCancel').onclick=()=>$('finishDialog').close();
 $('finishConfirm').onclick=()=>{$('finishDialog').close();timerStop();setSeconds(60);$('nightRecap').replaceChildren();$('winnerTitle').textContent='';$('winnerReason').textContent='';if(finishIntent==='restart'){game=restartGame(game);render();}else{game=null;try{localStorage.removeItem(KEY);}catch{}show('home');}};
-$('next').onclick=()=>{if(game.step==='attack'&&game.nightAction.attackMode==='infect'&&!game.nightAction.infectionConfirmed){$('infectionDialog').showModal();return;}if(next(game))render();};
+$('next').onclick=()=>{if(needsInfectionDecision(game)){$('infectionDialog').showModal();return;}if(next(game))render();};
 $('infectionCancel').onclick=()=>$('infectionDialog').close();
+$('infectionDecline').onclick=()=>{if(choose(game,'declineInfection')&&next(game)){$('infectionDialog').close();render();}};
 $('infectionConfirm').onclick=()=>{if(choose(game,'confirmInfection')&&next(game)){ $('infectionDialog').close();render();}};
 $('back').onclick=()=>{previous(game);render();};
 $('reset').onclick=()=>$('resetDialog').showModal();$('resetCancel').onclick=()=>$('resetDialog').close();$('resetConfirm').onclick=()=>{$('resetDialog').close();timerStop();clearTimeout(drawTimeout);drawAnimating=false;game=null;try{localStorage.removeItem(KEY);}catch{}show('home');};
@@ -216,4 +222,8 @@ $('previewCard').onclick=()=>{const flipped=$('previewCard').classList.toggle('f
 $('rolePreview').onclick=e=>{if(e.target===$('rolePreview')||e.target.classList.contains('preview-returnhint'))$('rolePreview').close();};
 if(game&&screen!=='home')render();else show('home');
 if(screen==='host'&&game&&['draw','dayDraw'].includes(game.step)&&game.draw&&!game.draw.revealed)startDraw();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{});
+$('problemReport').href=REPORT_URL;
+const updateViewport=()=>{const viewport=window.visualViewport;document.documentElement.style.setProperty('--app-height',(viewport&&viewport.scale===1?viewport.height:window.innerHeight)+'px');};
+updateViewport();window.addEventListener('resize',updateViewport);window.visualViewport?.addEventListener('resize',updateViewport);
+if('serviceWorker' in navigator){const resumePrecache=()=>navigator.serviceWorker.controller?.postMessage({type:'RESUME_PRECACHE'});navigator.serviceWorker.addEventListener('controllerchange',resumePrecache);navigator.serviceWorker.ready.then(resumePrecache);window.addEventListener('online',resumePrecache);document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePrecache();});}

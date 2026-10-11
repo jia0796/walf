@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,selectable,selectSeat,choose,next,canNext,previous,upgradeGame,mechanicalModes,beginSelfDestruct,canSelfDestruct,restartGame,canInfect} from '../public/engine.js';
+import {createGame,selectable,selectSeat,choose,next,canNext,previous,upgradeGame,mechanicalModes,beginSelfDestruct,canSelfDestruct,restartGame,canInfect,needsInfectionDecision} from '../public/engine.js';
 import {BOARDS} from '../public/data.js';
 // Seeded API black-box games: only public commands mutate game state.
 function rng(seed){let x=seed;return ()=>{x=(Math.imul(x,1664525)+1013904223)>>>0;return x/4294967296;};}
@@ -32,8 +32,9 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
    if(canSelfDestruct(s)&&random()<.04){assert.equal(beginSelfDestruct(s),true);continue;}
    assert.equal(canNext(s),true,board+' seed '+seed+' blocked '+s.step+' '+JSON.stringify({night:s.night,legal:legal(),action:s.action,nightAction:s.nightAction,lastFear:s.lastFear,alive:s.players.filter(p=>p.alive).map(p=>[p.id,p.role])}));
    if(step==='attack'&&s.nightAction.attack&&canInfect(s)&&random()<.4){assert.equal(choose(s,'attackMode:infect'),true);assert.equal(next(s),false);assert.equal(choose(s,'confirmInfection'),true);}
+   if(needsInfectionDecision(s))assert.equal(choose(s,'declineInfection'),true);
    assert.equal(next(s),true);actions++;
-   if(i%37===15){const before=JSON.stringify(s);s=upgradeGame(JSON.parse(before));assert.deepEqual(s,JSON.parse(before),'refresh changed state');assert.ok(previous(s));if(s.step==='attack'&&s.nightAction.attackMode==='infect')choose(s,'confirmInfection');assert.equal(next(s),true,'rollback could not replay');}
+   if(i%37===15){const before=JSON.stringify(s);s=upgradeGame(JSON.parse(before));assert.deepEqual(s,JSON.parse(before),'refresh changed state');assert.ok(previous(s));if(s.step==='attack'&&s.nightAction.attackMode==='infect')choose(s,'confirmInfection');if(needsInfectionDecision(s))choose(s,'declineInfection');assert.equal(next(s),true,'rollback could not replay');}
   }
   assert.ok(s.winner,board+' seed '+seed+' did not finish');finished++;maxBytes=Math.max(maxBytes,Buffer.byteLength(JSON.stringify(s)));
   const fresh=restartGame(s);assert.deepEqual(fresh.rules,s.rules);assert.equal(fresh.boardId,s.boardId);assert.ok(fresh.players.every(p=>p.role===null));assert.deepEqual(fresh.nightRecords,[]);assert.equal(fresh.blood.lastEvent,null);assert.equal(fresh.infection.remaining,1);assert.equal(fresh.infection.target,null);assert.equal(fresh.mixed.chosen,false);assert.equal(fresh.idiot.revealed,false);

@@ -4,7 +4,7 @@ import {createGame,selectSeat,selectable,choose,next,previous,canNext,nightSteps
 import {BOARDS} from '../public/data.js';
 import {ordinaryWolves,basicActor,revengeAvailable,settleNight,trueWinner,luckyAbility} from '../public/night.js';
 import {recapNights} from '../public/records.js';
-const go=s=>assert.equal(next(s),true,'cannot leave '+s.step);
+const go=s=>{assert.equal(next(s),true,'cannot leave '+s.step);if(['wolvesClose','mixedResult'].includes(s.step))assert.equal(next(s),true,s.step);};
 function ready(rules={}){const s=createGame('brothers12',rules);let i=0;for(const [role,n]of Object.entries(BOARDS.brothers12.roles))for(let j=0;j<n;j++)s.players[i++].role=role;s.rolesConfirmed=true;return s;}
 const seat=(s,r)=>s.players.find(p=>p.role===r).id;
 function trade(s,target,ability){s.step='trade';choose(s,'gift:'+ability);selectSeat(s,target);go(s);}

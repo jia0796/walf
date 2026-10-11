@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createGame,upgradeGame,selectSeat,choose,next,previous,canNext,subtitle,potionBlocked,nightDeaths,winner,inspection,drawResult,drawPool,hasLastWords,beginSelfDestruct,canSelfDestruct,skillTarget} from '../public/engine.js';
-const advance=s=>assert.equal(next(s),true,`cannot leave ${s.step}`);
+const advance=s=>{assert.equal(next(s),true,`cannot leave ${s.step}`);if(['wolvesClose','mixedResult'].includes(s.step))assert.equal(next(s),true,s.step);};
 function firstNight(){
  const s=createGame();advance(s);advance(s);
  selectSeat(s,1);advance(s);choose(s,'skip');advance(s);advance(s);
@@ -43,7 +43,7 @@ test('back restores decision and potion inventory without double consumption',()
  previous(s);assert.equal(s.step,'antidote');assert.equal(s.nightAction.poison,null);assert.equal(s.potions.poison,true);choose(s,'use');advance(s);assert.equal(choose(s,'use'),false);
 });
 test('back permits correction of wolf target and first-night role marks',()=>{
- const s=firstNight();previous(s);assert.equal(s.step,'witch');previous(s);assert.equal(s.step,'attack');selectSeat(s,10);advance(s);assert.equal(s.nightAction.attack,10);
+ const s=firstNight();previous(s);assert.equal(s.step,'witch');previous(s);if(s.step==='wolvesClose')previous(s);assert.equal(s.step,'attack');selectSeat(s,10);advance(s);assert.equal(s.nightAction.attack,10);
  const a=createGame();advance(a);advance(a);selectSeat(a,1);advance(a);previous(a);selectSeat(a,1);selectSeat(a,2);assert.equal(a.players[0].role,null);assert.equal(a.players[1].role,'magician');
 });
 test('swap maps final effects and inspection; poison dominates cause on shared target',()=>{
@@ -153,6 +153,6 @@ test('simultaneous deaths each receive exactly one notice and poison suppresses 
 });
 test('saved v1 game migrates without changing identities/potions and published lotteries survive refresh',()=>{
  const old=ready();old.version=1;old.step='direction';old.potions.antidote=false;const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));
- assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,12);
+ assert.equal(migrated.step,'dayDraw');assert.deepEqual(migrated.players,old.players);assert.equal(migrated.potions.antidote,false);assert.equal(migrated.version,13);
  const s=ready();s.step='draw';s.candidates=[9,10];choose(s,'draw');choose(s,'revealDraw');const loaded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(loaded.draw,s.draw);choose(loaded,'draw');assert.deepEqual(loaded.draw,s.draw);
 });

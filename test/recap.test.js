@@ -8,7 +8,7 @@ import {recapNights} from '../public/records.js';
 import {cardModel} from '../public/recap.js';
 import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession} from '../public/timer.js';
 function ready(board){const s=createGame(board);let i=0;for(const [role,n]of Object.entries(BOARDS[board].roles))for(let j=0;j<n;j++)s.players[i++].role=role;s.rolesConfirmed=true;return s;}
-const go=s=>assert.equal(next(s),true,s.step);
+const go=s=>{assert.equal(next(s),true,s.step);if(['wolvesClose','mixedResult'].includes(s.step))assert.equal(next(s),true,s.step);};
 test('recap snapshots raw/effective targets, includes only executed skills, order and undo are stable',()=>{
  const s=ready('12');s.step='exchange';selectSeat(s,9);selectSeat(s,10);go(s);s.step='attack';selectSeat(s,9);go(s);s.step='antidote';choose(s,'use');go(s);s.step='poison';go(s);s.step='inspect';selectSeat(s,9);go(s);
  const events=recapNights(s)[0].events;assert.deepEqual(events.map(e=>e.skill),['swap','wolf-attack','antidote','inspect']);assert.equal(cardModel(events[1]).target,'9號 → 10號');previous(s);assert.equal(recapNights(s)[0].events.length,3);go(s);

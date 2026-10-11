@@ -6,7 +6,7 @@ import {BOARDS,ROLE_DATA} from '../public/data.js';
 import {trueWinner,ordinaryWolves,winnerReason} from '../public/night.js';
 import {recapNights} from '../public/records.js';
 import {cardModel} from '../public/recap.js';
-const go=s=>assert.equal(next(s),true,'blocked '+s.step);
+const go=s=>{assert.equal(next(s),true,'blocked '+s.step);if(['wolvesClose','mixedResult'].includes(s.step))assert.equal(next(s),true,s.step);};
 function ready(board='classicMixed12',rules={}){const s=createGame(board,{sheriff:false,...rules});let id=1;for(const [role,count]of Object.entries(BOARDS[board].roles))for(let i=0;i<count;i++)s.players[id++-1].role=role;s.rolesConfirmed=true;return s;}
 const seat=(s,role)=>s.players.find(p=>p.role===role).id;
 function vote(s,id,stage='exileVote'){s.step=stage;s.votePool=s.players.filter(p=>p.alive).map(p=>p.id);assert.equal(selectSeat(s,id),true);go(s);}
@@ -24,7 +24,7 @@ for(const board of ['classic12','classicMixed12']){
   if(b.roles.mixed){assert.equal(subtitle(s),'混血兒請睜眼');assert.equal(next(s),false);selectSeat(s,assigned.mixed[0]);go(s);assert.equal(s.players.filter(p=>p.role==='villager').length,3);assert.equal(subtitle(s),'選擇你要跟隨的榜樣');assert.equal(next(s),false);selectSeat(s,1);go(s);assert.equal(subtitle(s),'混血兒請閉眼');go(s);}
   assert.equal(s.step,'candidates');choose(s,'none');go(s);assert.equal(s.step,'dawn');assert.equal(s.players.filter(p=>p.role==='villager').length,b.roles.villager);
   assert.equal(recapNights(s)[0].events.some(e=>e.actorRole==='idiot'),false);assert.equal(recapNights(s)[0].events.filter(e=>e.skill==='role-model').length,b.roles.mixed?1:0);
-  s.night=2;assert.deepEqual(nightSteps(s),['dark','wolves','attack','witch','antidote','poison','witchClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose','dawn']);
+  s.night=2;assert.deepEqual(nightSteps(s),['dark','wolves','attack','wolvesClose','witch','antidote','poison','witchClose','seer','inspect','inspectResult','seerClose','hunter','gesture','hunterClose','dawn']);
  });
  for(const stage of ['exileVote','exileRevote'])test(board+' '+stage+' flips without death, words or re-vote; forbids all later exile targets',()=>{
   const s=ready(board),id=seat(s,'idiot');vote(s,id,stage);assert.equal(s.step,'idiotReveal');assert.equal(subtitle(s),id+'號玩家翻牌，身分為白痴，本次放逐無效');assert.equal(s.players[id-1].alive,true);assert.equal(s.idiot.voteLost,true);assert.equal(s.idiot.exileBanned,true);assert.equal(s.idiot.countsEliminatedForVictory,true);assert.deepEqual(s.queue,[]);assert.deepEqual(s.deaths,[]);assert.deepEqual(s.log,[]);assert.equal(eligibleVoters(s).some(p=>p.id===id),false);assert.equal(roleName(s,s.players[id-1]),'白痴・已翻牌');
@@ -58,7 +58,7 @@ test('early terminal does not require model or fabricate a skill event',()=>{
 });
 for(const target of [1,5])test('mixed model snapshot, mark lifecycle, one green first-night recap target='+target,()=>{
  const s=ready();s.step='roleModel';selectSeat(s,target);assert.equal(markersForSeat(s,target)[0].type,'role-model');assert.equal(selectSeat(s,target),true);assert.deepEqual(markersForSeat(s,target),[]);selectSeat(s,target);go(s);const event=recapNights(s)[0].events.find(e=>e.skill==='role-model');assert.equal(cardModel(event).tone,'villager');assert.equal(cardModel(event).image,'art/mixed-blood-dual-approved.jpeg');
- const restored=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(restored,s);assert.equal(previous(restored),true);assert.equal(restored.mixed.chosen,false);assert.equal(recapNights(restored).flatMap(r=>r.events).length,0);selectSeat(restored,target);assert.deepEqual(markersForSeat(restored,target),[]);
+ const restored=upgradeGame(JSON.parse(JSON.stringify(s)));assert.deepEqual(restored,s);assert.equal(previous(restored),true);if(restored.step==='mixedResult')assert.equal(previous(restored),true);assert.equal(restored.mixed.chosen,false);assert.equal(recapNights(restored).flatMap(r=>r.events).length,0);selectSeat(restored,target);assert.deepEqual(markersForSeat(restored,target),[]);
  s.step='nextNight';go(s);assert.equal(s.mixed.target,target);assert.equal(markersForSeat(s,target).length,0);assert.equal(nightSteps(s).includes('roleModel'),false);assert.equal(recapNights(s).flatMap(r=>r.events).filter(e=>e.skill==='role-model').length,1);
  const fresh=restartGame(s);assert.deepEqual(fresh.rules,s.rules);assert.equal(fresh.mixed.chosen,false);assert.equal(fresh.idiot.revealed,false);assert.equal(fresh.lucky,null);assert.deepEqual(fresh.nightRecords,[]);
 });
@@ -73,7 +73,7 @@ for(const original of ['villager','seer','witch','hunter'])test('lucky name and 
  const s=ready('brothers12'),id=seat(s,original);s.step='trade';choose(s,'gift:inspect');selectSeat(s,id);go(s);assert.equal(roleName(s,s.players[id-1]),ROLE_DATA[original].name+'（幸）');assert.equal(s.players[id-1].role,original);s.step='nextNight';go(s);s.step='luckyAction';selectSeat(s,1);go(s);const event=recapNights(s).at(-1).events.find(e=>e.displayRole==='lucky'),c=cardModel(event);assert.equal(c.name,'幸運兒');assert.equal(c.tone,original==='villager'?'villager':'god');assert.equal(c.image,ROLE_DATA[original].image);s.players[id-1].alive=false;assert.equal(roleName(s,s.players[id-1]),ROLE_DATA[original].name+'（幸）');
 });
 test('v7 unfinished save and history migrate without losing original games, records or potions',()=>{
- const s=ready('12');s.version=7;delete s.idiot;delete s.mixed;delete s.nightAction.roleModel;s.potions.poison=false;const h=structuredClone(s);delete h.history;h.step='poison';s.history=[h];const upgraded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.equal(upgraded.version,12);assert.deepEqual(upgraded.potions,s.potions);assert.deepEqual(upgraded.nightRecords,s.nightRecords);assert.equal(upgraded.mixed.chosen,false);assert.equal(previous(upgraded),true);assert.equal(upgraded.step,'poison');assert.equal(upgraded.idiot.revealed,false);
+ const s=ready('12');s.version=7;delete s.idiot;delete s.mixed;delete s.nightAction.roleModel;s.potions.poison=false;const h=structuredClone(s);delete h.history;h.step='poison';s.history=[h];const upgraded=upgradeGame(JSON.parse(JSON.stringify(s)));assert.equal(upgraded.version,13);assert.deepEqual(upgraded.potions,s.potions);assert.deepEqual(upgraded.nightRecords,s.nightRecords);assert.equal(upgraded.mixed.chosen,false);assert.equal(previous(upgraded),true);assert.equal(upgraded.step,'poison');assert.equal(upgraded.idiot.revealed,false);
 });
 test('formal assets and script/skill metadata are wired without host portraits',async()=>{
  for(const role of ['idiot','mixed']){const b=await readFile(new URL('../public/'+ROLE_DATA[role].image,import.meta.url));assert.ok(b.length>500000);}

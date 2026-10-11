@@ -9,7 +9,7 @@
 <main>
 <section id="home" class="screen welcome" hidden>
 <div class="home-brand"><h1>月下議會</h1><p>狼人殺主持工具</p></div>
-<div class="menu"><button id="start" class="primary">開始主持</button><button id="encyclopediaOpen">角色圖鑑</button></div>
+<div class="menu"><button id="start" class="primary">開始主持</button><button id="encyclopediaOpen">角色圖鑑</button></div><a id="problemReport" class="problem-report" target="_blank" rel="noopener noreferrer">問題回報</a>
 </section>
 <section id="counts" class="screen" hidden><h1>選擇人數</h1><p class="page-subtitle">請選擇本場遊戲的人數</p><div id="countChoices" class="menu count-choices"></div><button data-home class="quiet page-back">返回首頁</button></section>
 <section id="boards" class="screen" hidden><h1>選擇板子</h1><p id="boardCount" class="page-subtitle"></p><div id="boardTabs" class="board-tabs" hidden><button id="boardsNormal" aria-pressed="true">一般板子</button><button id="boardsAwakened" aria-pressed="false">覺醒板子</button></div><div class="board-window"><div id="boardChoices" class="menu"></div></div><button id="boardBack" class="quiet page-back">上一步</button></section>
@@ -48,6 +48,6 @@
 <dialog id="drawDialog" class="draw-dialog" aria-labelledby="drawTitle"><h2 id="drawTitle">抽發言順序</h2><p id="drawPhase" role="status"></p><div id="drawSpinner" class="draw-spinner" aria-hidden="true">✦</div><p id="drawResult" class="draw-result"></p><p id="drawOrder" class="small"></p><button id="drawSkip">點一下立即顯示結果</button><button id="drawClose" class="primary">完成</button></dialog>
 <dialog id="rulesDialog"><div class="dialog-head"><h2>本局規則</h2><button id="rulesClose" aria-label="關閉規則">×</button></div><p id="gameRules"></p></dialog>
 <dialog id="rolePreview" aria-label="角色介紹"><div class="role-preview-content"><button id="previewCard" class="preview-card" aria-label="翻面查看角色介紹"><span class="preview-inner"><span id="previewFront" class="preview-front"></span><span id="previewBack" class="preview-back" aria-hidden="true"></span></span></button><p>點擊卡片翻面查看角色介紹</p></div><p class="preview-returnhint">點擊空白處即可返回角色圖鑑</p></dialog>
-<dialog id="infectionDialog" aria-labelledby="infectionTitle"><h2 id="infectionTitle">確認發動感染？</h2><p>本局僅能使用一次感染技能，正式發動後無論成功或失敗，都會消耗次數。</p><div class="actions"><button id="infectionCancel">取消</button><button id="infectionConfirm" class="primary">確認感染</button></div></dialog>
+<dialog id="infectionDialog" aria-labelledby="infectionTitle"><h2 id="infectionTitle">是否發動感染？</h2><p>本局僅能使用一次感染技能，正式發動後無論成功或失敗，都會消耗次數。</p><div class="actions"><button id="infectionCancel">取消</button><button id="infectionDecline">不感染</button><button id="infectionConfirm" class="primary">確認感染</button></div></dialog>
 <script type="module" src="app.js"></script>
 </body></html>

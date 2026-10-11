@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {BOARDS,ROLE_DATA} from '../public/data.js';
 import {createGame,selectSeat,selectable,choose,next,previous,winner,subtitle,potionBlocked,nightDeaths,beginSelfDestruct,canSelfDestruct,skillTarget,canNext,drawResult} from '../public/engine.js';
-const go=s=>assert.equal(next(s),true,'cannot leave '+s.step);
+const go=s=>{assert.equal(next(s),true,'cannot leave '+s.step);if(['wolvesClose','mixedResult'].includes(s.step))assert.equal(next(s),true,s.step);};
 function ready(board='12',rules={}){const s=createGame(board,rules);let id=0;for(const [role,count] of Object.entries(BOARDS[board].roles))for(let i=0;i<count;i++)s.players[id++].role=role;s.rolesConfirmed=true;return s;}
 const seat=(s,r)=>s.players.find(p=>p.role===r).id;
 function drain(s,stop){for(let i=0;i<80&&!stop.includes(s.step);i++){if(s.step==='skill'||s.step==='badgeTransfer')choose(s,'skip');go(s);}assert.ok(stop.includes(s.step));}

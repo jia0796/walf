@@ -150,3 +150,29 @@ body[data-screen=boards] main,body[data-screen=setup] main,body[data-screen=coun
 nav{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
 footer{bottom:calc(69px + env(safe-area-inset-bottom))}
 #host{height:calc(100dvh - 140px - env(safe-area-inset-top) - env(safe-area-inset-bottom));min-height:0}
+/* Consistent viewport and single safe-area owner for installed PWA. */
+:root{--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px)}
+html,body{height:var(--app-height,100dvh)}
+main{height:100%;padding-top:max(10px,var(--safe-top));padding-bottom:max(8px,var(--safe-bottom));min-height:0}
+body[data-screen=boards] main,body[data-screen=setup] main,body[data-screen=counts] main,body[data-screen=encyclopedia] main{padding-bottom:max(8px,var(--safe-bottom))}
+#boards{height:100%;min-height:0;padding-bottom:0}#boards .board-window{flex:1 1 0;min-height:0}#boardBack{flex:0 0 auto}
+#host{height:calc(var(--app-height,100dvh) - 140px - var(--safe-top) - var(--safe-bottom))}
+.welcome{padding-bottom:16px}.home-brand{flex-shrink:0}.welcome .menu{flex-shrink:0;margin-bottom:12px}
+.problem-report{display:block;margin:0 auto;color:#c7d5e2;text-decoration:none;background:#26344a9c;border:1px solid #8497b657;border-radius:12px;padding:8px 22px;font-size:13px;min-height:36px}
+.problem-report:focus-visible{outline:2px solid #94c3e3;outline-offset:3px}
+.seat.mixed-card{display:flex;flex-direction:column;justify-content:center;gap:0;padding-top:2px;padding-bottom:21px}
+.mixed-card .role-name{font-size:clamp(11px,2vw,17px);line-height:1.05}.mixed-model,.mixed-camp{font-size:clamp(9px,1.4vw,12px);line-height:1.05;white-space:nowrap}
+@media(max-height:650px){.mixed-card .role-name{font-size:10px}.mixed-model,.mixed-camp{font-size:8px}.seat.mixed-card{padding-bottom:18px}}
+@media(max-height:650px){
+ .seat.mixed-card{padding-top:2px!important;padding-bottom:2px!important}
+ #left .seat.mixed-card{padding-left:calc(var(--mark-space,0px) + 6px)!important;padding-right:4px!important}
+ #right .seat.mixed-card{padding-right:calc(var(--mark-space,0px) + 6px)!important;padding-left:4px!important}
+ #left .seat.mixed-card:has(.sheriff-badge){padding-left:calc(max(var(--mark-space,0px),24px) + 6px)!important}
+ #right .seat.mixed-card:has(.sheriff-badge){padding-right:calc(max(var(--mark-space,0px),24px) + 6px)!important}
+ .mixed-card .skill-marks{top:50%;bottom:auto;transform:translateY(-50%)}
+}
+nav{padding-bottom:calc(12px + var(--safe-bottom))}footer{bottom:calc(69px + var(--safe-bottom))}
+html,body{min-height:0}
+.seat.mixed-card .role-name{font-size:clamp(12px,2.8vw,15px);line-height:1.05}
+.seat.mixed-card .mixed-model,.seat.mixed-card .mixed-camp{font-size:clamp(9px,1.4vw,10px);line-height:1.05}
+@media(max-height:650px){.seat.mixed-card .role-name{font-size:10px}.seat.mixed-card .mixed-model,.seat.mixed-card .mixed-camp{font-size:8px}}
