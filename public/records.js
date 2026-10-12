@@ -28,13 +28,16 @@ export function recordStage(s,stage,order){
  const map=id=>mapTarget(s,id);
  const apparent=id=>role(id)==='mechanical'?(s.mechanical.role||'mechanical'):role(id);
  const add=(key,actorRole,skill,targets,opts={})=>{
-  if(!targets.length||!targets.every(Boolean))return;
+  if((!targets.length&&!opts.allowEmpty)||!targets.every(Boolean))return;
   const actors=opts.actors||[actor(actorRole)];if(!actors[0])return;
   const owner=s.players.find(p=>p.id===actors[0]);if(infected(s,owner))opts={...opts,displayName:infectionName(s,owner),tone:'wolf'};
   if(converted(s,owner))opts={...opts,displayName:convertedName(s,owner),tone:'wolf'};
   const effectiveTargets=opts.unmapped?targets:targets.map(map);
   record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,...eventPeople(s,actors,effectiveTargets),rawTargetSnapshots:targets.map(id=>personSnapshot(s,id)),result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
+ if(stage==='dance'&&n.danceTargets?.length===3)add('dance','dancer','dance',n.danceTargets,{unmapped:true,executed:false});
+ if(stage==='maskInspect'&&n.maskInspect)add('maskInspect','mask','mask',[n.maskInspect],{unmapped:true,result:n.maskResult,participated:n.danceTargets.includes(n.maskInspect)});
+ if(stage==='maskAssign'&&(n.maskTarget||n.maskSkip))add('maskAssign','mask','mask',n.maskTarget?[n.maskTarget]:[],{unmapped:true,allowEmpty:true,executed:false});
  if(stage==='charm'&&n.charm)add('charm','beauty','charm',[n.charm],{unmapped:true});
  if(stage==='transform'&&n.transform)add('transform','gargoyle','transform',[n.transform],{unmapped:true});
  if(stage==='graveResult'&&graveResult(s)&&nativeAllowed(s,s.players.find(p=>p.role==='gravekeeper'))){const e=graveResult(s);add('gravekeeper','gravekeeper','gravekeeper',[e.id],{unmapped:true,result:e.wolf?'狼人':'好人'});}
@@ -44,7 +47,7 @@ export function recordStage(s,stage,order){
  if(stage==='sleep'&&n.sleep)add('sleep','dream','sleep',[n.sleep],{unmapped:true});
  if(stage==='exchange'&&n.exchange.length===2)add('swap','magician','swap',n.exchange,{unmapped:true});
  if(stage==='attack'&&n.attack&&n.attackMode==='infect'){add('infection','seedWolf','infect',[n.attack],{executed:false,unmapped:true});}
- if(stage==='attack'&&n.attack&&n.attackMode!=='infect'){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors,portraitRole:ordinaryWolves(s).some(p=>p.role==='wolf')?'wolf':basicActor(s)?.role,...(converted(s,basicActor(s))?{displayName:convertedName(s,basicActor(s)),tone:'wolf'}:{})});}
+ if(stage==='attack'&&n.attack&&n.attackMode!=='infect'){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors,...(basicActor(s)?.role==='mask'?{takeoverNight:s.masquerade.takeoverNight}:{}),portraitRole:ordinaryWolves(s).some(p=>p.role==='wolf')?'wolf':basicActor(s)?.role,...(converted(s,basicActor(s))?{displayName:convertedName(s,basicActor(s)),tone:'wolf'}:{})});}
  if(stage==='revenge'&&n.revenge)add('revenge','younger','wolf-attack',[n.revenge],{unmapped:true});
  if(stage==='antidote'&&n.antidote===true)add('antidote','witch','antidote',[n.attack]);
  if(stage==='poison'&&n.poison===true&&n.poisonTarget)add('poison','witch','poison',[n.poisonTarget]);
@@ -65,4 +68,4 @@ export function recordDeaths(s,deaths){
  const r=nightRecord(s);
  for(const d of deaths)if(d.context==='night'&&!r.deaths.some(x=>x.id===d.id))r.deaths.push(structuredClone(d));
 }
-export function recapNights(s){return [...s.nightRecords].sort((a,b)=>a.night-b.night).map(r=>({...r,events:[...r.events].filter(e=>e.executed).sort((a,b)=>a.order-b.order)}));}
+export function recapNights(s){return [...s.nightRecords].sort((a,b)=>a.night-b.night).map(r=>({...r,events:[...r.events].filter(e=>e.executed||e.unsettled).sort((a,b)=>a.order-b.order)}));}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="假面賦面">
+<title>假面賦面</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+<!-- Venetian masquerade mask: swept upper corners, eye openings, tapered bridge. -->
+<path d="M13.9 23.8 Q21.8 20 27.4 23.8 Q32 26.5 36.6 23.8 Q42.2 20 50.1 23.8 L47.3 36.3 Q44.8 43.8 36.5 42.3 L32 39.8 L27.5 42.3 Q19.2 43.8 16.7 36.3 Z" fill="#471C29" stroke="#F27680" stroke-width="2.8" stroke-linejoin="round"/>
+<path d="M19.4 30.8 Q25.3 27.5 29.3 33.1 Q25.3 37.2 20.4 34.4 Z" fill="#121A2B" stroke="#F6A6AF" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M44.6 30.8 Q38.7 27.5 34.7 33.1 Q38.7 37.2 43.6 34.4 Z" fill="#121A2B" stroke="#F6A6AF" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M31.9 30.8 L32 39" stroke="#F27680" stroke-width="2" stroke-linecap="round"/>
+<path d="M47 15.5 L48.1 19.2 L51.8 20.3 L48.1 21.4 L47 25.1 L45.9 21.4 L42.2 20.3 L45.9 19.2 Z" fill="#F27680"/>
+</svg>

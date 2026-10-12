@@ -1,3 +1,4 @@
+import {maskActor,danceInfo} from './masquerade.js';
 import {realWolf,nativeAllowed,converted,infected} from './identity.js';
 import {ROLE_DATA} from './data.js';
 import {heartbreakBatch} from './beauty.js';
@@ -20,7 +21,7 @@ export const forcedEmpty=s=>s.nightAction.fearApplied&&s.players.find(p=>p.id===
 export function inspectedWolf(s,id){if(s.gargoyle?.target===id)return s.night>1;const p=s.players.find(p=>p.id===id);if(infected(s,p))return true;if(p?.role==='hiddenWolf')return false;if(p?.role==='younger')return s.brothers?.disguiseEndNight!=null?s.night>=s.brothers.disguiseEndNight:!!s.brothers?.elderDeath&&s.night>s.brothers.elderDeath.night;return ROLE_DATA[p?.role]?.kind==='wolf';}
 export function luckyAbility(s){const l=s.lucky;if(!l||!s.players.find(p=>p.id===l.seat)?.alive||s.night<l.unlockNight||!['inspect','poison'].includes(l.ability))return null;return l.remaining>0||l.usedNight===s.night?l.ability:null;}
 export function winnerReason(s,win=trueWinner(s)){if(!win)return '';if(win==='好人陣營')return s.players.some(p=>p.role==='hiddenWolf')?'所有帶刀狼人已出局':'所有狼人已出局';const live=s.players.filter(p=>aliveForVictory(s,p));if(s.rules.victory==='city')return '屠城：所有好人已出局';return !live.some(p=>!realWolf(s,p)&&ROLE_DATA[p.role]?.kind==='god')?'屠邊：所有神職已出局':'屠邊：所有平民已出局';}
-export const basicActor=s=>ordinaryWolves(s)[0]||liveRole(s,'mechanical');
+export const basicActor=s=>ordinaryWolves(s)[0]||liveRole(s,'mechanical')||maskActor(s);
 export function mechanicalAbility(s){
  const m=s.mechanical,actor=liveRole(s,'mechanical');
  if(!actor||!m?.role)return null;
@@ -43,7 +44,7 @@ export function trueWinner(s){
 export function settleNight(s,{phase='all'}={}){
  const n=s.nightAction,map=id=>mapTarget(s,id);
  const ability=mechanicalAbility(s),mechanical=liveRole(s,'mechanical'),actor=basicActor(s);
- const shieldDamage=[];
+ const shieldDamage=[],dance=danceInfoSafe(s);
  const attacks=[];
  const infecting=n.attackMode==='infect'&&n.infectionFired&&n.attack;
  let infection=null;
@@ -62,6 +63,7 @@ export function settleNight(s,{phase='all'}={}){
  for(const attack of attacks){
   let blocked=null;
   if(s.players.find(p=>p.id===attack.id)?.role==='evilKnight')blocked='knightImmunity';
+  else if(dance.protected&&dance.people.some(p=>p.id===attack.id))blocked='danceProtection';
   else if(sleep===attack.id)blocked='sleep';
   else if(shield===attack.id){shieldDamage.push({...attack,sameSave:cure===attack.id});blocked=cure===attack.id?null:'shield';}
   else if(guard===attack.id&&cure===attack.id)blocked=null;
@@ -74,7 +76,8 @@ export function settleNight(s,{phase='all'}={}){
  const projected={...s,infection:infection?.success?{...s.infection,...infection,usedNight:s.night}:s.infection,players:structuredClone(s.players)};
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
  const attackWinner=trueWinner(projected);
- if(attackWinner||phase==='wolf')return {deaths:[...dead.values()],events,winner:attackWinner,poisonSkipped:!!attackWinner,batch:'wolf',infection,shieldDamage};
+ if(attackWinner||phase==='wolf')return {deaths:[...dead.values()],events,winner:attackWinner,poisonSkipped:!!attackWinner,batch:'wolf',infection,shieldDamage,dance:{...dance,deaths:[],settled:false}};
+ for(const id of dance.deaths){const d={id,cause:'dance',sourceActor:s.players.find(p=>p.role==='dancer')?.id,sourceRole:'dancer',source:'dance'};events.push({...d,blocked:null});if(s.players.find(p=>p.id===id)?.alive&&!dead.has(id))dead.set(id,d);}
  const poisons=[];
  const witch=s.players.find(p=>p.role==='witch');
  if(n.poison===true&&n.poisonTarget&&witch&&!feared(s,witch.id)&&nativeAllowed(s,witch))poisons.push({id:map(n.poisonTarget),cause:'poison',sourceActor:witch.id,sourceRole:'witch',source:'witch'});
@@ -82,6 +85,7 @@ export function settleNight(s,{phase='all'}={}){
  if(luckyAbility(s)==='poison'&&n.luckyPoison)poisons.push({id:map(n.luckyPoison),cause:'poison',sourceActor:s.lucky.seat,sourceRole:s.players.find(p=>p.id===s.lucky.seat).role,source:'luckyPoison'});
  for(const poison of poisons){
   if(s.players.find(p=>p.id===poison.id)?.role==='evilKnight'){events.push({...poison,blocked:'knightImmunity'});}
+  else if(['mask','dancer'].includes(s.players.find(p=>p.id===poison.id)?.role)){events.push({...poison,blocked:'masqueradeImmunity'});}
   else if(s.players.find(p=>p.id===poison.id)?.role==='demon'){events.push({...poison,blocked:'demonImmunity'});}
   else if(sleep===poison.id){events.push({...poison,blocked:'sleep'});}
   else if(shield===poison.id){
@@ -98,5 +102,7 @@ export function settleNight(s,{phase='all'}={}){
  if(phase==='dawn'&&n.huntApplied&&n.huntDeath){const hunt={id:n.huntDeath,cause:'hunt',sourceActor:s.players.find(p=>p.role==='demon')?.id,sourceRole:'demon',source:'hunt'};events.push({...hunt,blocked:null});if(!dead.has(hunt.id))dead.set(hunt.id,hunt);}
  const romance=heartbreakBatch(s,[...dead.values()]);for(const d of romance.linked){dead.set(d.id,d);events.push(d);}
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
- return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf',infection,romanceBlocked:romance.blocked,shieldDamage};
+ return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf',infection,romanceBlocked:romance.blocked,shieldDamage,dance:{...dance,settled:true}};
 }
+
+function danceInfoSafe(s){return s.masquerade?danceInfo(s):{people:[],protected:false,deaths:[]};}

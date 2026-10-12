@@ -1,3 +1,4 @@
+import {dancerAvailable,danceCandidates,maskInspectCandidates,maskAvailable} from './masquerade.js';
 import {realWolf,converted,convertedName,nativeAllowed,graveResult,infected} from './identity.js';
 import {canDuel,beginDuel,confirmDuel,createGame,upgradeGame,ROLES,boardOf,phaseOf,subtitle,canNext,selectable,selectSeat,choose,next,previous,potionBlocked,inspection,mapTarget,canSelfDestruct,beginSelfDestruct,mechanicalAbility,mechanicalModes,roleName,roleResult,markersForSeat,restartGame,gunSources,mixedResult,canInfect,needsInfectionDecision} from './engine.js';
 import {ROLE_DATA,BOARDS,BRANDING,HOME_ACTIONS,PLAYER_COUNTS,PAGE_BACKGROUNDS,availableBoards,REPORT_URL} from './data.js';
@@ -11,7 +12,7 @@ let previousScreen=null;try{previousScreen=sessionStorage.getItem(KEY+'-screen')
 try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved){game=upgradeGame(saved);if(restoresSession(performance.getEntriesByType('navigation')[0]?.type,previousScreen,saved.version))screen=saved.step==='finished'?'finished':'host';}}catch{storageOK=false;}
 function persist(){if(!game)return;try{localStorage.setItem(KEY,JSON.stringify(game));storageOK=true;}catch{storageOK=false;}}
 function show(name){screen=name;for(const id of ['home','counts','boards','setup','encyclopedia','host','finished'])$(id).hidden=id!==name;document.body.dataset.screen=name;document.body.style.setProperty('--page-background',PAGE_BACKGROUNDS[name]?`url('${PAGE_BACKGROUNDS[name]}')`:'none');try{sessionStorage.setItem(KEY+'-screen',name==='encyclopedia'&&libraryOrigin==='host'?'host':name);}catch{}}
-function rulesText(b,r){return b.name+'\n警長：'+(r.sheriff?'開':'關')+'\n女巫自救：'+(r.selfRescue?'允許':'不允許')+'\n狼人勝利條件：'+(r.victory==='edge'?'屠邊':'屠城')+'\n'+(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽：'+(r.swallow?'啟用':'不啟用')+(b.roles.beauty?'\n女巫毒殺觸發殉情：'+(r.poisonRomance?'開':'關')+'\n最後一狼可殉情：'+(r.lastWolfRomance?'開':'關'):'')+(b.roles.mechanical?'\n學狼人：'+(r.mechanicalKnife==='next'?'下一晚可刀':'狼全死才有雙刀')+'\n機械守衛守護規則：'+((r.shieldMode||'once')==='once'?'只能使用一次':'成功守護一次後失效')+'\n機械守衛反彈毒藥：'+(r.reflectPoison?'開':'關'):'')+(b.roles.idiot?'\n白痴追刀：'+(r.idiotChase?'開啟':'關閉'):'')+(b.id==='evilKnight12'?'\n免疫獵人夜槍：'+(r.immuneNightGun?'開啟':'關閉'):'');}
+function rulesText(b,r){return b.name+'\n警長：'+(r.sheriff?'開':'關')+'\n女巫自救：'+(r.selfRescue?'允許':'不允許')+'\n狼人勝利條件：'+(r.victory==='edge'?'屠邊':'屠城')+'\n'+(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽：'+(r.swallow?'啟用':'不啟用')+(b.roles.beauty?'\n女巫毒殺觸發殉情：'+(r.poisonRomance?'開':'關')+'\n最後一狼可殉情：'+(r.lastWolfRomance?'開':'關'):'')+(b.roles.mechanical?'\n學狼人：'+(r.mechanicalKnife==='next'?'下一晚可刀':'狼全死才有雙刀')+'\n機械守衛守護規則：'+((r.shieldMode||'once')==='once'?'只能使用一次':'成功守護一次後失效')+'\n機械守衛反彈毒藥：'+(r.reflectPoison?'開':'關'):'')+(b.roles.mask?'\n白痴翻牌後仍計入存活神職：'+(r.idiotCountsAlive?'開啟':'關閉'):'')+(b.roles.idiot&&!b.roles.mask?'\n白痴追刀：'+(r.idiotChase?'開啟':'關閉'):'')+(b.id==='evilKnight12'?'\n免疫獵人夜槍：'+(r.immuneNightGun?'開啟':'關閉'):'');}
 const OP_LABEL={learnTarget:'學習身分',extraAttack:'額外狼刀',mechanicalInspect:'查驗',mechanicalPoison:'一次性毒藥',shield:'無敵盾'};
 function setupBoard(id){
  selectedBoard=id;const b=BOARDS[id];$('beautyRules').hidden=!b.roles.beauty;$('rulePoisonRomance').value=String(b.defaults.poisonRomance??true);$('ruleLastWolfRomance').value=String(b.defaults.lastWolfRomance??true);$('ruleShieldMode').value=b.defaults.shieldMode||'once';$('setupTitle').textContent=b.name;$('setupWolves').replaceChildren();$('setupGood').replaceChildren();document.querySelectorAll('#setup details').forEach(d=>d.open=false);
@@ -19,9 +20,9 @@ function setupBoard(id){
  $('knightRules').hidden=b.id!=='evilKnight12';$('ruleImmuneNightGun').value=String(b.defaults.immuneNightGun||false);
  $('setupOrder').textContent=(b.firstNightOrder?'第一晚：'+b.firstNightOrder.map(r=>r==='mediumIdentify'?'通靈師舉手':r==='wolves'?'狼人':r==='brothers'?'狼兄狼弟':r==='lucky'?'幸運兒':(r==='converted'?'轉化者':ROLES[r])).join(' → ')+'\n第二晚起：':'')+b.nightOrder.map(r=>r==='infectionNotice'?'感染者身分確認':r==='wolves'?'狼人':r==='lucky'?'幸運兒':ROLES[r]).join(' → ');
  $('swallowLabel').textContent=(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽';
- $('ruleSheriff').value=String(b.defaults.sheriff);$('ruleSelfRescue').value=String(b.defaults.selfRescue);$('ruleSwallow').value=String(b.defaults.swallow);$('idiotRules').hidden=!b.roles.idiot;$('ruleIdiotChase').value=String(b.defaults.idiotChase||false);$('mechanicalRules').hidden=!b.roles.mechanical;$('ruleMechanicalKnife').value=b.defaults.mechanicalKnife||'next';$('ruleReflectPoison').value=String(b.defaults.reflectPoison||false);show('setup');
+ $('ruleSheriff').value=String(b.defaults.sheriff);$('ruleSelfRescue').value=String(b.defaults.selfRescue);$('ruleSwallow').value=String(b.defaults.swallow);$('maskIdiotRules').hidden=!b.roles.mask;$('ruleIdiotCountsAlive').value=String(b.defaults.idiotCountsAlive||false);$('idiotRules').hidden=!b.roles.idiot||!!b.roles.mask;$('ruleIdiotChase').value=String(b.defaults.idiotChase||false);$('mechanicalRules').hidden=!b.roles.mechanical;$('ruleMechanicalKnife').value=b.defaults.mechanicalKnife||'next';$('ruleReflectPoison').value=String(b.defaults.reflectPoison||false);show('setup');
 }
-function drawBoards(){const available=Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===selectedCount);$('boardTabs').hidden=!available.some(b=>b.category==='awakened');for(const [id,category]of [['boardsNormal','normal'],['boardsAwakened','awakened']])$(id).setAttribute('aria-pressed',String(category===selectedCategory));$('boardChoices').replaceChildren();for(const b of availableBoards(selectedCount,selectedCategory)){const button=document.createElement('button');button.textContent=b.shortLabel;button.dataset.board=b.id;button.onclick=()=>setupBoard(b.id);$('boardChoices').append(button);}document.querySelector('.board-window').scrollTop=0;}
+function drawBoards(){const available=Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===selectedCount);$('boardTabs').hidden=!available.some(b=>b.category==='special');for(const [id,category]of [['boardsNormal','normal'],['boardsSpecial','special']])$(id).setAttribute('aria-pressed',String(category===selectedCategory));$('boardChoices').replaceChildren();for(const b of availableBoards(selectedCount,selectedCategory)){const button=document.createElement('button');button.textContent=b.shortLabel;button.dataset.board=b.id;button.onclick=()=>setupBoard(b.id);$('boardChoices').append(button);}document.querySelector('.board-window').scrollTop=0;}
 function chooseCount(count){selectedCount=count;selectedCategory='normal';$('boardCount').textContent=count+' 人局';drawBoards();show('boards');}
 function library(origin='home'){
  libraryOrigin=origin;libraryRoles=origin==='host'?Object.keys(boardOf(game).roles):Object.keys(ROLE_DATA);libraryCamp='wolf';$('libraryReturn').textContent=origin==='host'?'返回主持':'返回首頁';drawLibrary();show('encyclopedia');
@@ -52,6 +53,11 @@ function action(label,value,disabled=false){const b=document.createElement('butt
  if(value==='skip'&&step==='luckyAction')pressed=n.luckySkip;
  if(value!=='draw')b.setAttribute('aria-pressed',String(!!pressed));b.onclick=()=>{if(value==='draw')startDraw();else{choose(game,value);render();}};$('actions').append(b);}
 function hintText(){
+ if(!game.rolesConfirmed&&['dancer','mask'].includes(game.step))return '點選'+ROLES[game.step]+'本人；再次點選可取消';
+ if(game.step==='dance'&&!game.players.some(p=>p.alive&&p.role==='dancer'))return '舞者已出局';
+ if(game.step==='dance')return dancerAvailable(game)?'點選三名整局未共舞的存活玩家，可選自己':'不足三名合法共舞者，技能失效';
+ if(game.step==='maskInspect')return maskInspectCandidates(game).length?'點選存活玩家，可選自己，不可連續查驗同一人':'沒有合法查驗對象';
+ if(game.step==='maskAssign')return maskAvailable(game)?'可選任意合法存活玩家（不必共舞），或空過':'假面已出局';
  const s=game.step,n=game.nightAction;
  if(s==='beauty'||s==='beautyClose')return '照字幕主持，完成後按下一步';
  if(s==='charm')return game.players.some(p=>p.role==='beauty'&&p.alive)?'選擇其他存活玩家，或空魅惑；不可連續兩晚選同一人':'狼美人已出局';
@@ -112,7 +118,7 @@ function hintText(){
  return PURE;
 }
 function renderGesture(){
- $('gestureResult').replaceChildren();
+ $('gestureResult').replaceChildren();if(game.step==='maskInspect'&&game.nightAction.maskResult){const result=document.createElement('p');result.textContent=game.nightAction.maskResult;$('gestureResult').append(result);return;}
  let role=null,label='';
  if(game.step==='mechanicalResult'&&game.nightAction.mechanicalResult){const result=game.nightAction.mechanicalResult;role=result.role;label=result.target+'號玩家・'+ROLES[role];}
  if(game.step==='mediumResult'&&game.nightAction.mediumInspect){role=roleResult(game,game.nightAction.mediumInspect);label=game.nightAction.mediumInspect+'號玩家・'+ROLES[role];}
@@ -128,7 +134,7 @@ function renderGesture(){
 }
 function renderOperation(){
  const step=game.step;
- const skill={charm:'charm',duel:'duel',transform:'transform',graveResult:'gravekeeper',hunt:'hunt',lastBlade:'wolf-attack',roleModel:'role-model',fear:'fear',sleep:'sleep',exchange:'swap',attack:game.nightAction.attackMode==='infect'?'infect':'wolf-attack',revenge:'wolf-attack',antidote:'antidote',poison:'poison',inspect:'inspect',guardTarget:'shield',mediumInspect:'inspect',trade:'trade',skill:'gun',luckyAction:game.lucky?.ability,mechanicalAction:{learnTarget:'learn',extraAttack:'wolf-attack',mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation]}[step];
+ const skill={dance:'dance',maskInspect:'mask',maskAssign:'mask',charm:'charm',duel:'duel',transform:'transform',graveResult:'gravekeeper',hunt:'hunt',lastBlade:'wolf-attack',roleModel:'role-model',fear:'fear',sleep:'sleep',exchange:'swap',attack:game.nightAction.attackMode==='infect'?'infect':'wolf-attack',revenge:'wolf-attack',antidote:'antidote',poison:'poison',inspect:'inspect',guardTarget:'shield',mediumInspect:'inspect',trade:'trade',skill:'gun',luckyAction:game.lucky?.ability,mechanicalAction:{learnTarget:'learn',extraAttack:'wolf-attack',mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation]}[step];
  $('operationCard').replaceChildren();if(!skill||['當晚受到恐懼，無法使用技能','當晚神職技能封鎖','原職技能已停用','已被感染，無法使用技能'].includes(hintText()))return;
  const control=document.createElement('div');control.className='operation-control';control.append(skillIcon(skill));const label=document.createElement('span');label.textContent=SKILL_LABELS[skill];control.append(label);$('operationCard').append(control);
 }
@@ -147,6 +153,7 @@ function render(){
  if(s==='discussion'&&!game.sheriff&&game.draw?.revealed)$('selection').textContent='發言順序：'+game.draw.order.map(id=>id+'號').join(' → ');
  $('actions').replaceChildren();
  $('duelOpen').hidden=!boardOf(game).roles.duelist;$('duelOpen').disabled=!canDuel(game);
+ if(s==='maskAssign'&&maskAvailable(game))action('空過','skip');
  if(s==='charm'&&game.players.some(p=>p.role==='beauty'&&p.alive))action('空魅惑','skip');
  if(s==='hunt')action('不使用','skip',skillBlocked(game,'demon')||!game.players.some(p=>p.alive&&p.role==='demon'));
  if(s==='fear')action('空恐','skip',!game.players.some(p=>p.alive&&p.role==='nightmare'));
@@ -165,7 +172,7 @@ function render(){
  for(const [container,offset] of [['left',0],['right',6]]){
   $(container).replaceChildren();for(const p of game.players.slice(offset,offset+6)){
    const b=document.createElement('button'),r=converted(game,p)||infected(game,p)?{...ROLE_DATA[p.role],kind:'wolf'}:ROLE_DATA[p.role],selected=game.action.includes(p.id),candidate=['candidates','draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.candidates.includes(p.id);
-   const target=selected&&['exchange','attack','poison','inspect','skill','guardTarget','mediumInspect','mechanicalAction','revenge','trade','luckyAction','fear','sleep','roleModel','hunt','lastBlade','transform','charm','duel'].includes(s),speaking=s==='discussion'&&game.speaker===p.id;
+   const target=selected&&['dance','maskInspect','maskAssign','exchange','attack','poison','inspect','skill','guardTarget','mediumInspect','mechanicalAction','revenge','trade','luckyAction','fear','sleep','roleModel','hunt','lastBlade','transform','charm','duel'].includes(s),speaking=s==='discussion'&&game.speaker===p.id;
    const mixedCard=p.role==='mixed'&&game.mixed.chosen;
    b.className='seat '+(mixedCard?'mixed-card ':'')+(roleName(game,p).length>4?'long-name ':'')+(r?.kind||'unknown')+(selected?(target?' target':' selected'):'')+(p.alive?'':' dead')+(p.active?'':' inactive')+(candidate?' candidate':'')+(speaking?' speaking':'')+(p.role==='idiot'&&game.idiot.revealed&&p.alive?' idiot-revealed':'');
    b.disabled=!selectable(game,p.id);b.setAttribute('aria-pressed',String(selected));const count=markersForSeat(game,p.id).length;b.style.setProperty('--mark-space',(count?22+17*(count-1):0)+'px');
@@ -234,14 +241,14 @@ $('infectionDecline').onclick=()=>{if(choose(game,'declineInfection')&&next(game
 $('infectionConfirm').onclick=()=>{if(choose(game,'confirmInfection')&&next(game)){ $('infectionDialog').close();render();}};
 $('back').onclick=()=>{previous(game);render();};
 $('reset').onclick=()=>$('resetDialog').showModal();$('resetCancel').onclick=()=>$('resetDialog').close();$('resetConfirm').onclick=()=>{$('resetDialog').close();timerStop();clearTimeout(drawTimeout);drawAnimating=false;game=null;try{localStorage.removeItem(KEY);}catch{}show('home');};
-$('boardsNormal').onclick=()=>{selectedCategory='normal';drawBoards();};$('boardsAwakened').onclick=()=>{selectedCategory='awakened';drawBoards();};
+$('boardsNormal').onclick=()=>{selectedCategory='normal';drawBoards();};$('boardsSpecial').onclick=()=>{selectedCategory='special';drawBoards();};
 $('identityOpen').onclick=()=>{$('identityReview').showModal();$('identityReview').scrollTop=0;};$('identityReview').onclick=e=>{const r=$('identityReview').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('identityReview').close();};
 $('start').onclick=()=>show('counts');$('encyclopediaOpen').onclick=()=>library('home');$('hostLibrary').onclick=()=>library('host');
 document.title=BRANDING.name+'｜'+BRANDING.subtitle;document.querySelector('.home-brand h1').textContent=BRANDING.name;document.querySelector('.home-brand p').textContent=BRANDING.subtitle;
 for(const a of HOME_ACTIONS)$(a.id).textContent=a.label;
 for(const count of PLAYER_COUNTS){const button=document.createElement('button');button.dataset.count=count;button.textContent=count+'人局';$('countChoices').append(button);}
 document.querySelectorAll('[data-home]').forEach(b=>b.onclick=()=>show('home'));document.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>chooseCount(Number(b.dataset.count)));$('boardBack').onclick=()=>show('counts');
-$('setupBack').onclick=()=>{drawBoards();show('boards');};$('setupStart').onclick=()=>{game=createGame(selectedBoard,{...(BOARDS[selectedBoard].roles.beauty?{poisonRomance:$('rulePoisonRomance').value==='true',lastWolfRomance:$('ruleLastWolfRomance').value==='true'}:{}),sheriff:$('ruleSheriff').value==='true',selfRescue:$('ruleSelfRescue').value==='true',victory:'edge',swallow:$('ruleSwallow').value==='true',...(selectedBoard==='evilKnight12'?{immuneNightGun:$('ruleImmuneNightGun').value==='true'}:{}),...(BOARDS[selectedBoard].roles.idiot?{idiotChase:$('ruleIdiotChase').value==='true'}:{}),...(BOARDS[selectedBoard].roles.mechanical?{mechanicalKnife:$('ruleMechanicalKnife').value,reflectPoison:$('ruleReflectPoison').value==='true',shieldMode:$('ruleShieldMode').value}:{})});timerStop();setSeconds(60);render();};
+$('setupBack').onclick=()=>{drawBoards();show('boards');};$('setupStart').onclick=()=>{game=createGame(selectedBoard,{...(BOARDS[selectedBoard].roles.mask?{idiotCountsAlive:$('ruleIdiotCountsAlive').value==='true'}:{}),...(BOARDS[selectedBoard].roles.beauty?{poisonRomance:$('rulePoisonRomance').value==='true',lastWolfRomance:$('ruleLastWolfRomance').value==='true'}:{}),sheriff:$('ruleSheriff').value==='true',selfRescue:$('ruleSelfRescue').value==='true',victory:'edge',swallow:$('ruleSwallow').value==='true',...(selectedBoard==='evilKnight12'?{immuneNightGun:$('ruleImmuneNightGun').value==='true'}:{}),...(BOARDS[selectedBoard].roles.idiot?{idiotChase:$('ruleIdiotChase').value==='true'}:{}),...(BOARDS[selectedBoard].roles.mechanical?{mechanicalKnife:$('ruleMechanicalKnife').value,reflectPoison:$('ruleReflectPoison').value==='true',shieldMode:$('ruleShieldMode').value}:{})});timerStop();setSeconds(60);render();};
 $('rulesOpen').onclick=()=>{$('gameRules').textContent=rulesText(boardOf(game),game.rules);$('rulesDialog').showModal();};$('rulesClose').onclick=()=>$('rulesDialog').close();
 $('explodeOpen').onclick=()=>{if(beginSelfDestruct(game)){timerPaint();timerStop();render();}};
 $('libraryWolves').onclick=()=>{libraryCamp='wolf';drawLibrary();};$('libraryGood').onclick=()=>{libraryCamp='good';drawLibrary();};$('libraryReturn').onclick=()=>libraryOrigin==='host'?render():show('home');

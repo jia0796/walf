@@ -43,7 +43,7 @@ export const BRANDING={name:'月下議會',subtitle:'狼人殺主持工具'};
 export const HOME_ACTIONS=[{id:'start',label:'開始主持',enabled:true},{id:'encyclopediaOpen',label:'角色圖鑑',enabled:true}];
 const BOARD_LABELS={'10':'黑狼王/魔術師','12':'黑狼王/魔術師',mechanical:'機械狼/通靈師',brothers:'狼兄狼弟/黑市商人',nightmare:'夢魘/攝夢人',classic:'預女獵白',classicMixed:'預女獵白混',blood:'血月/獵魔人',kingGuard:'黑狼王/守衛',kingDream:'黑狼王/攝夢人'};
 for(const b of Object.values(BOARDS)){b.canonicalName=b.name;b.shortLabel=BOARD_LABELS[b.id]||BOARD_LABELS[b.id.replace(/(10|12)$/,'')];}
-for(const count of [10,12]){const id='gargoyle'+count;BOARDS[id]={id,name:count+'人 覺醒石像鬼/守墓人',canonicalName:count+'人 覺醒石像鬼/守墓人',shortLabel:'覺醒石像鬼/守墓人',category:'awakened',enabled:true,playerCount:count,roles:{gargoyle:1,wolf:count===12?2:1,guard:1,witch:1,seer:1,gravekeeper:1,...(count===12?{hunter:1}:{}),villager:4},firstNightOrder:['guard','wolves','gargoyle','witch','seer','gravekeeper',...(count===12?['hunter']:[]),'converted'],nightOrder:['guard','wolves','witch','seer','gravekeeper',...(count===12?['hunter']:[])],defaults:{...defaults,swallow:count===12},adjustable:['sheriff','selfRescue','victory','swallow'],swallowThreshold:count===12?2:1};}
+for(const count of [10,12]){const id='gargoyle'+count;BOARDS[id]={id,name:count+'人 覺醒石像鬼/守墓人',canonicalName:count+'人 覺醒石像鬼/守墓人',shortLabel:'覺醒石像鬼/守墓人',category:'special',enabled:true,playerCount:count,roles:{gargoyle:1,wolf:count===12?2:1,guard:1,witch:1,seer:1,gravekeeper:1,...(count===12?{hunter:1}:{}),villager:4},firstNightOrder:['guard','wolves','gargoyle','witch','seer','gravekeeper',...(count===12?['hunter']:[]),'converted'],nightOrder:['guard','wolves','witch','seer','gravekeeper',...(count===12?['hunter']:[])],defaults:{...defaults,swallow:count===12},adjustable:['sheriff','selfRescue','victory','swallow'],swallowThreshold:count===12?2:1};}
 for(const b of Object.values(BOARDS)){b.category??='normal';b.enabled??=true;}
 for(const count of [10,12]){const id='evilKnight'+count;BOARDS[id]={id,name:count+'人 惡靈騎士/守衛',canonicalName:count+'人 惡靈騎士/守衛',shortLabel:'惡靈騎士/守衛',category:'normal',enabled:true,playerCount:count,roles:{evilKnight:1,wolf:count===12?3:2,guard:1,witch:1,seer:1,...(count===12?{hunter:1}:{}),villager:4},nightOrder:['guard','wolves','witch','seer',...(count===12?['hunter']:[])],defaults:{...defaults,swallow:count===12,...(count===12?{immuneNightGun:false}:{})},adjustable:['sheriff','selfRescue','victory','swallow',...(count===12?['immuneNightGun']:[])],swallowThreshold:count===12?2:1};}
 ROLE_DATA.elder.recapCrop=[90,185,880,950];ROLE_DATA.younger.recapCrop=[90,205,880,950];for(const r of ['elder','younger']){ROLE_DATA[r].recapAlign='xMidYMin slice';ROLE_DATA[r].facePriority=true;}
@@ -63,3 +63,15 @@ BOARD_ORDER.push('beauty10');
 BOARD_ORDER.splice(BOARD_ORDER.indexOf('classicMixed12')+1,0,'beauty12');
 CATALOG_ART.beauty={image:ROLE_DATA.beauty.image,driveId:'1asM5CGIXMgjP7RG3-xim6khQXyroojPx',crop:ROLE_DATA.beauty.recapCrop};
 CATALOG_ART.duelist={image:ROLE_DATA.duelist.image,driveId:'1kbKKHTtPfqL7rQcm5fG2admb2FjXVGES',crop:ROLE_DATA.duelist.recapCrop};
+
+// Classification only; board IDs and game configurations stay unchanged.
+for(const id of ['seedHidden10','seedHidden12','brothers12'])BOARDS[id].category='special';
+
+ROLE_DATA.dancer={name:'舞者',kind:'god',camp:'好人陣營',image:'art/catalog/dancer.png',artSize:[1060,1484],recapCrop:[90,170,880,970],canShoot:false,skill:'舞者免疫女巫毒藥。第二晚起，每晚必須選擇三名未曾共舞的存活玩家，也可以選擇自己，每名玩家整局只能參與一次共舞。若三人陣營相同則無人死亡；若不同陣營則少數陣營玩家死亡。舞者參與共舞時，三人當晚免疫狼刀。合法對象不足三人時，技能失效。',goal:'找出並解決所有狼人。'};
+CATALOG_ART.dancer={image:ROLE_DATA.dancer.image,driveId:'12FwyCpRx-6Vgg4rM-uAqVNxLgLH67MF_',crop:ROLE_DATA.dancer.recapCrop};
+
+ROLE_DATA.mask={name:'假面',kind:'wolf',camp:'狼隊陣營',image:'art/catalog/mask.png',artSize:[1060,1484],recapCrop:[90,170,880,970],canShoot:false,skill:'假面免疫女巫毒藥。夜晚不與狼人相認，不能自爆。第二晚起，每晚必須查驗一名存活玩家是否參與當晚共舞，也可以查驗自己，但不可連續兩晚查驗同一人。每晚可選擇任意一名存活玩家賦予面具，若該玩家參與當晚共舞，其判定陣營將反轉，但不影響真實陣營。可以對自己賦面，不可連續兩晚賦面同一人。當普通狼人全部出局後，便會回歸狼隊，接手基本狼刀。',goal:'欺騙好人，帶領狼人陣營取得勝利。'};
+CATALOG_ART.mask={image:ROLE_DATA.mask.image,driveId:'1e_769n3-EnRhBzShZ4eaDMNrdcFJ5YDP',crop:ROLE_DATA.mask.recapCrop};
+
+BOARDS.masquerade12={id:'masquerade12',name:'12人 假面／舞者',canonicalName:'12人 假面／舞者',shortLabel:'假面／舞者',category:'special',enabled:true,playerCount:12,roles:{wolf:3,mask:1,dancer:1,seer:1,witch:1,idiot:1,villager:4},firstNightOrder:['dancer','mask','wolves','witch','seer','idiot'],nightOrder:['dancer','mask','wolves','witch','seer'],defaults:{...defaults,swallow:true,idiotChase:false,idiotCountsAlive:false},swallowThreshold:2,adjustable:['sheriff','selfRescue','swallow','idiotCountsAlive']};
+BOARD_ORDER.push('masquerade12');

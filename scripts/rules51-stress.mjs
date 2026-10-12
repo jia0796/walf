@@ -13,7 +13,7 @@ for(const viewport of [{width:320,height:568},{width:390,height:844},{width:844,
  await p.goto('http://127.0.0.1:5351/');await p.locator('#start').click();await p.locator('[data-count="12"]').click();
  assert.deepEqual(await p.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),availableBoards(12,'normal').map(b=>b.id));
  for(let i=0;i<40;i++){
-  await p.locator('[data-board="'+availableBoards(12,'normal')[i%12].id+'"]').click();
+  await p.locator('[data-board="'+availableBoards(12,'normal')[i%availableBoards(12,'normal').length].id+'"]').click();
   assert.equal(await p.locator('#boardDetails,#boardRulesText').count(),0);
   assert.deepEqual(await p.locator('#setup details > summary').allTextContents(),['特殊房規','夜間順序']);
   await p.locator('#setup .rules-form > summary').click();await p.locator('#ruleSheriff').selectOption(i%2?'true':'false');await p.locator('#setup .night-order > summary').click();
