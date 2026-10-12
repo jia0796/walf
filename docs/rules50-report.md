@@ -1,0 +1,54 @@
+# 第 50 章功能更新、Bug 修正與驗收報告
+
+日期：2026-10-12。規格 main@8c8b615；程式基底 feat/eclipse-host-app@44e2dc0。已部署供真機驗收：程式提交 [8e1d153](https://github.com/jia0796/wolf_Emcee/commit/8e1d153cf0400acfd42e3c13eedee9fd7ea92b25)；[測試 CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38215925826)／[部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38215925824) 均成功。正式站 23 個程式／樣式／素材檔 SHA256、詳細規則與特殊房規、新局移除屠城控制、隱狼登記／刷新、計時器及 council-v15-1 通過，0 pageerror。文字原始碼按 Git LF 換行比對，圖片／SVG 按原始 bytes 比對。原 App 引擎與版型沿用，不合併 App 程式至 main。
+
+## 完成內容
+
+| 範圍 | 完成內容 |
+|---|---|
+| 板子預覽 | 13 類、23 配置均提供「詳細規則→特殊房規→夜間順序」；三區預設收合，詳細規則平面文字、內部捲動上限 320px；僅顯示當局職業及房規 |
+| 勝利模式 | 新開局 UI 固定屠邊，移除模式控制；舊屠城存檔及歷史回退保持屠城。重新一局依新開局規格固定屠邊，其餘房規保留 |
+| 轉化者 | 接刀權限與原職技能資格分開；接刀前後女巫、守衛、預言家、守墓人、獵人合法槍照原規則保留；唯一基本刀、不自爆、不補第二刀 |
+| 轉化復盤 | 同晚原職技能及狼刀獨立記錄，真狼陣營、紅卡及原職人物保持；特殊接刀者名稱修正保留 |
+| 無敵盾 | shieldMode=once／success，預設 once；分開保存發動夜／目標、上一晚目標、成功、失效及實際傷害來源；不連守，空守中斷 |
+| 盾結算修正 | 無敵盾＋解藥＋合法狼刀同守同救死亡，但盾計成功；普通守衛同守仍計盾成功；發盾者夜死不取消已發動保護；毒反彈仍受原開關與狼刀終局優先 |
+| 終局導航 | 夜間正式傷害、白天放逐／槍擊／決鬥已終局直接進結束；取消天亮／結果／殉情緩衝頁與後續操作；真實事件及完整回退仍保留 |
+| 預覽 Bug | 大字長規則下按鈕原會遮住閱讀內容，改為獨立高度底列，內容在自身區域捲動，手機／平板與橫式通過 |
+| 圖鑑文案 | 使用者明確確認：石像鬼單句「轉化者失去原有技能」改為「轉化者保留原有技能」；README、規格、實際圖鑑一致，其他文字及核准原圖不變 |
+| 存檔／離線 | v15 相容 v1～v14，包含各歷史快照；舊盾預設一次且不補充用完盾；舊終局待公告頁恢復成結束，不重算／補造事件。快取 council-v15-1，board-rules.js 加入核心檔 |
+
+## 規格來源與衝突處理
+
+README 第 49 新修訂取消原終局殉情公告例外；第 50／最新第 25.4、44.6 節優先覆蓋舊一次盾、接刀停技敘述。固定主持字幕本輪無改寫，只有流程在已正式終局時停止。
+
+兩個重點板子的詳細段落源自 README 第 50.2／50.3，按人數篩選；其他板子使用既定角色技能文案及已定稿特殊房規，未宣稱另取得 13 篇獨立逐字手稿。核准原圖與 SVG 沿用既有 SHA256。Drive v1.1 背景參考屬較早補充，以 GitHub 最新共用母圖規格為準，不恢復舊五頁背景。
+
+圖鑑舊文案與新接刀規則的真正衝突已詢問使用者並獲確認，僅修正該句。遊戲規則未自行新增。
+
+## 實測結果
+
+- `node --test`：574 項通過，0 失敗／跳過。新增 28 項覆蓋 UI01～03、M01～08、G01～06、R01～02；其他驗收由既有全板回歸及 DOM 覆蓋。
+- API 黑箱壓力：offset 5100／5200／5300，各 23 配置×12 局，合計 828 局、89,170 次操作；每局須真正結束，混合新盾模式／反彈／額外刀設定、轉化角色、感染、自爆、女巫、槍、PK、警長及間歇回退／刷新。另保留舊屠城模式回歸 fixture。三輪全部通過，最大 JSON 存檔 3,646,873 bytes。
+- 完整 DOM 黑箱 32 局：全部 23 配置，另加感染、機械通靈、惡靈反傷／夜槍免疫；刷新、回退、重新一局通過。
+- 預覽／盾／舊存檔 DOM 31 情境：全配置條件／預設、五種尺寸、150% 字級、盾 once／success、確認回退、連守禁選、舊屠城及舊盾模式恢復通過。
+- 狼美人／騎士專項 10 情境：非終局結果頁、取消／確認／回退；終局直接結束且真實魅惑／殉情卡存在、刷新回頂通過。存檔 fixture 與完整新局黑箱分開記錄。
+- 長復盤：40 晚／40 天五尺寸 fixture、雙欄、固定底欄、150% 字級、共用背景及刷新通過；不將版面 fixture 宣稱成 40 天實際對局。
+- 26 角色圖鑑逐字核對、正式原畫與 48 個現用素材離線通過；最後經使用者確認修句與預覽版面修正後，另重跑覺醒／機械兩板共四配置、圖鑑、主持版面及離線。
+- JavaScript 語法、快取 53 素材雜湊及 git diff --check 通過。本專案為原生靜態 JS，沒有額外 bundler 或 TypeScript 建置；部署 CI 執行測試後打包 public。
+
+初輪失敗主要是舊測試預期停在天亮／終局結果頁、接刀停技、舊版本號與重新一局保留屠城。已依新定稿更新預期，保留非終局字幕與原有事件校驗。圖鑑逐字測試改核對最新 README，不修改歷史來源快照。
+
+## 修改檔案
+
+- public：新增 board-rules.js；修改 app.js、data.js、engine.js、identity.js、night.js、index.html、style.css、sw.js。
+- 測試：新增 test/rules50.test.js；更新 beauty、brothers、classic、complete-recap、council、engine、mechanical、next-update、nightmare、pwa、readme45、readme47、readme48、recap、stress 測試。
+- 瀏覽器驗收：新增 scripts/rules50-ui.mjs；更新 beauty-ui-regression、cache-regression、next-ui-regression、ui-regression、verify-deployment。
+- 文件：README.md、docs/specification.md、codex-board-rules-handoff.md、rules50-report.md、rules50-validation.json。角色 PNG／技能 SVG 原檔無修改。
+
+## 未驗收與後續優化
+
+iPhone Safari、已安裝 iOS PWA、Android、低階手機、真機安全區／雙指縮放／慣性捲動尚未驗收；使用者授權先部署供真機驗收。桌面 Edge 與模擬尺寸不是實機驗收。
+
+長局最大存檔約 3.65 MB；後續先量測真機保存時間與可用儲存，再評估快照持久化優化。本輪不裁減回退歷史、不任意改保存架構。
+
+重跑：npm test；node scripts/update-cache-manifest.mjs --check；Playwright＋Edge 執行 scripts/ui-regression.mjs、rules50-ui.mjs、beauty-ui-regression.mjs、complete-recap-ui.mjs。完整輸出摘要見 rules50-validation.json。
