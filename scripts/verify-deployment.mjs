@@ -11,14 +11,14 @@ try{
  assert.equal(await page.title(),'月下議會｜狼人殺主持工具');
  assert.ok((await page.evaluate(()=>getComputedStyle(document.body,'::before').backgroundImage)).includes('art/backgrounds/shared.png'));
  assert.equal(await page.locator('.recap-title').textContent(),'完整復盤');
- const originalPaths=['app.js','engine.js','night.js','beauty.js','data.js','recap.js','records.js','index.html','sw.js','cache-manifest.js','art/catalog/beauty.png','art/catalog/duelist.png','skills/icon-charm.svg','skills/icon-heartbreak.svg','skills/icon-duel.svg','art/backgrounds/shared.png','art/recap-vote.png','art/recap-sheriff.png','skills/icon-vote.svg','skills/icon-sheriff-badge.svg'];
+ const originalPaths=['style.css','identity.js','board-rules.js','app.js','engine.js','night.js','beauty.js','data.js','recap.js','records.js','index.html','sw.js','cache-manifest.js','art/catalog/beauty.png','art/catalog/duelist.png','skills/icon-charm.svg','skills/icon-heartbreak.svg','skills/icon-duel.svg','art/backgrounds/shared.png','art/recap-vote.png','art/recap-sheriff.png','skills/icon-vote.svg','skills/icon-sheriff-badge.svg'];
  const hashes=await page.evaluate(async paths=>Promise.all(paths.map(async path=>{const response=await fetch(path);if(!response.ok)throw Error('Missing '+path);const bytes=await response.arrayBuffer();return {path,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('')};})),originalPaths);
- for(const item of hashes)assert.equal(item.sha256,createHash('sha256').update(/\.(js|html)$/.test(item.path)?(await readFile(new URL('../public/'+item.path,import.meta.url),'utf8')).replace(/\r\n/g,'\n'):await readFile(new URL('../public/'+item.path,import.meta.url))).digest('hex'),item.path);
+ for(const item of hashes)assert.equal(item.sha256,createHash('sha256').update(/\.(js|html|css)$/.test(item.path)?(await readFile(new URL('../public/'+item.path,import.meta.url),'utf8')).replace(/\r\n/g,'\n'):await readFile(new URL('../public/'+item.path,import.meta.url))).digest('hex'),item.path);
  results.push({sharedBackground:true,completeRecapTitle:true,originalAssetHashes:hashes});
  await page.getByRole('button',{name:'開始主持',exact:true}).click();
  await page.locator('[data-count="12"]').click();
  assert.deepEqual(await page.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12','seedHidden12','brothers12','beauty12']);
- await page.locator('[data-board="beauty12"]').click();await page.locator('#setup .rules-form summary').click();assert.equal(await page.locator('#rulePoisonRomance').inputValue(),'true');assert.equal(await page.locator('#ruleLastWolfRomance').inputValue(),'true');assert.ok((await page.locator('#setupWolves').textContent()).includes('狼美人'));assert.ok((await page.locator('#setupGood').textContent()).includes('騎士'));results.push({liveBeautyBoard:true,romanceDefaults:true});await page.locator('#setupBack').click();await page.locator('[data-board="seedHidden12"]').click();
+ await page.locator('[data-board="beauty12"]').click();await page.locator('#setup .rules-form summary').click();assert.equal(await page.locator('#rulePoisonRomance').inputValue(),'true');assert.equal(await page.locator('#ruleLastWolfRomance').inputValue(),'true');assert.ok((await page.locator('#setupWolves').textContent()).includes('狼美人'));assert.ok((await page.locator('#setupGood').textContent()).includes('騎士'));assert.equal(await page.locator('#ruleVictory').count(),0);assert.deepEqual(await page.locator('#setup details > summary').allTextContents(),['詳細規則','特殊房規','夜間順序']);results.push({liveBeautyBoard:true,romanceDefaults:true,detailsPreview:true,newEdgeOnly:true});await page.locator('#setupBack').click();await page.locator('[data-board="seedHidden12"]').click();
  assert.ok((await page.locator('#setupWolves').textContent()).includes('隱狼'));
  assert.ok((await page.locator('#setupOrder').textContent()).includes('感染者身分確認'));
  await page.locator('#setupStart').click();assert.ok((await page.locator('#hint').textContent()).includes('隱狼'));
@@ -34,7 +34,7 @@ try{
  await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
  assert.deepEqual(errors,[]);
  const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
- assert.ok(cache.includes('council-v14-1'));
+ assert.ok(cache.includes('council-v15-1'));
  await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
  console.log(JSON.stringify({results,cache,errors}));
  await context.close();

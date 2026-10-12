@@ -9,7 +9,7 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
  let actions=0,finished=0,maxBytes=0;
  for(let seed=1;seed<=Number(process.env.STRESS_SEEDS||18);seed++){
   const random=rng((seed+Number(process.env.STRESS_OFFSET||0))*479),pick=items=>items[Math.floor(random()*items.length)];
-  let s=createGame(board,{sheriff:seed%2===0,victory:seed%3===0?'city':'edge',...(BOARDS[board].roles.idiot?{idiotChase:seed%2===1}:{})}),assigned={};let seat=1;
+  let s=createGame(board,{sheriff:seed%2===0,victory:seed%3===0?'city':'edge',...(BOARDS[board].roles.mechanical?{shieldMode:seed%2?'success':'once',reflectPoison:seed%2===0,mechanicalKnife:seed%3?'next':'allDead'}:{}),...(BOARDS[board].roles.idiot?{idiotChase:seed%2===1}:{})}),assigned={};let seat=1;
   // Plan role seats once, then identify them through the same API as the UI.
   for(const [role,n]of Object.entries(BOARDS[board].roles)){assigned[role]=[];for(let j=0;j<n;j++)assigned[role].push(seat++);}
   for(let i=0;i<1200&&s.step!=='finished';i++){
@@ -39,7 +39,7 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
    if(i%37===15){const before=JSON.stringify(s);s=upgradeGame(JSON.parse(before));assert.deepEqual(s,JSON.parse(before),'refresh changed state');assert.ok(previous(s));if(s.step==='attack'&&s.nightAction.attackMode==='infect')choose(s,'confirmInfection');if(needsInfectionDecision(s))choose(s,'declineInfection');assert.equal(next(s),true,'rollback could not replay');}
   }
   assert.ok(s.winner,board+' seed '+seed+' did not finish');finished++;maxBytes=Math.max(maxBytes,Buffer.byteLength(JSON.stringify(s)));
-  const fresh=restartGame(s);assert.deepEqual(fresh.rules,s.rules);assert.equal(fresh.boardId,s.boardId);assert.ok(fresh.players.every(p=>p.role===null));assert.deepEqual(fresh.nightRecords,[]);assert.equal(fresh.blood.lastEvent,null);assert.equal(fresh.infection.remaining,1);assert.equal(fresh.infection.target,null);assert.equal(fresh.mixed.chosen,false);assert.equal(fresh.idiot.revealed,false);
+  const fresh=restartGame(s);assert.deepEqual(fresh.rules,{...s.rules,victory:'edge'});assert.equal(fresh.boardId,s.boardId);assert.ok(fresh.players.every(p=>p.role===null));assert.deepEqual(fresh.nightRecords,[]);assert.equal(fresh.blood.lastEvent,null);assert.equal(fresh.infection.remaining,1);assert.equal(fresh.infection.target,null);assert.equal(fresh.mixed.chosen,false);assert.equal(fresh.idiot.revealed,false);
   assert.equal(s.step,'finished');assert.ok(s.nightRecords.every(r=>new Set(r.events.map(e=>e.key)).size===r.events.length));
  }
  console.log(JSON.stringify({board,seeds:Number(process.env.STRESS_SEEDS||18),finished,actions,maxSaveBytes:maxBytes}));

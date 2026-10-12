@@ -34,8 +34,8 @@ export function createGame(boardId='12',rules={}) {
   if(b.roles.beauty&&!['poisonRomance','lastWolfRomance'].every(k=>typeof config[k]==='boolean'))throw new Error('Invalid beauty rules');
   if(b.id==='evilKnight12'&&typeof config.immuneNightGun!=='boolean')throw new Error('Invalid knight rules');
   if(b.roles.idiot&&typeof config.idiotChase!=='boolean')throw new Error('Invalid idiot rule');
-  if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'))throw new Error('Invalid mechanical rules');
-  return { version: 14,charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
+  if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'||!['once','success'].includes(config.shieldMode)))throw new Error('Invalid mechanical rules');
+  return { version: 15,charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
     infection:{remaining:1,usedNight:null,target:null,originalRole:null,success:null,result:null,joinNight:null,notifiedNight:null},
     knight:{immune:true,remaining:1,triggers:[]},
     gargoyle:{target:null,originalRole:null,originalWolves:[],transformedNight:null,joinNight:null},exiles:[],
@@ -43,7 +43,7 @@ export function createGame(boardId='12',rules={}) {
     idiot:{seat:null,revealed:false,revealedDay:null,revealedStage:null,voteLost:false,exileBanned:false,countsEliminatedForVictory:false},mixed:{seat:null,target:null,targetRole:null,camp:null,chosen:false,night:null},boardId,rules:config, step: 'confirm', night: 1, players: Array.from({length:12}, (_,i) => ({ id:i+1, role:null,active:i<b.playerCount, alive:i<b.playerCount })),
     lastFear:null,lastSleep:null,nightState:{wolfDone:false,postDone:false,deaths:[],batches:[],winningStage:null},
     brothers:{elderDeath:null,revengeNight:null,revengeUsed:false,revengeUsedNight:null,joinNight:null,disguiseEndNight:null},merchant:{used:false,usedNight:null,target:null,ability:null,success:null},lucky:null,nightRecords:[],recapExpanded:[1],dayEvents:[],winnerReason:null,legacyRecap:false,
-    mechanical:{role:null,target:null,night:null,poison:true,shield:true,extraUnlocked:false,extraUsed:false,extraUsedNight:null,extraTarget:null},marks:[],markSequence:0,noSheriffReason:null,noSheriffNoticeShown:false,swallowNoticeNight:null,swallowNoticeShown:false,lastGuard:null,operation:null,nightResolution:null,rolesConfirmed:false, action:[], choice:null, nightAction:blankNight(), potions:{antidote:true,poison:true},
+    mechanical:{role:null,target:null,night:null,poison:true,shield:true,lastShield:null,shieldFiredNight:null,shieldSuccess:false,shieldExpired:false,shieldDamage:[],extraUnlocked:false,extraUsed:false,extraUsedNight:null,extraTarget:null},marks:[],markSequence:0,noSheriffReason:null,noSheriffNoticeShown:false,swallowNoticeNight:null,swallowNoticeShown:false,lastGuard:null,operation:null,nightResolution:null,rolesConfirmed:false, action:[], choice:null, nightAction:blankNight(), potions:{antidote:true,poison:true},
     candidates:[], nominees:[], sheriff:null, draw:null, drawCache:{}, pendingBadge:null, deathsCommitted:false,
     deaths:[], queue:[], continuation:null,
     votePool:[], winner:null, log:[], history:[],speaker:null,usedExchanges:[],electionStatus:config.sheriff?'pending':'none',preSheriffExplosions:0,badgeSwallowed:false,resumeElection:false,announcementContinuation:'direction',electionTie:false };
@@ -54,10 +54,10 @@ const wolves = p => ROLE_DATA[p.role]?.kind==='wolf';
 const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role&&nativeAllowed(s,p)));
 export function upgradeGame(saved) {
-  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  if(saved.version===14)return clone(saved);
+  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
+  if(saved.version===15)return clone(saved);
   const migrate = (old,past=[]) => {
-    const s={...createGame(old.boardId || '12'),...old,version:14}; delete s.direction;s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
+    const s={...createGame(old.boardId || '12'),...old,version:15}; delete s.direction;s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
     s.infection={...createGame(s.boardId).infection,...old.infection};
     s.knight={...createGame(s.boardId).knight,...old.knight};
     s.gargoyle={...createGame(s.boardId).gargoyle,...old.gargoyle};s.exiles=old.exiles||[];
@@ -73,7 +73,7 @@ export function upgradeGame(saved) {
       s.usedExchanges=[...new Set([...past.values()].flat().concat(s.step==='exchange'?[]:s.nightAction.exchange))];
     }
     s.nightAction={...blankNight(),...old.nightAction};if(old.nightAction?.infectionConfirmed)s.nightAction.infectionDecision=true;
-    s.mechanical={...createGame(s.boardId).mechanical,...old.mechanical};
+    s.mechanical={...createGame(s.boardId).mechanical,...old.mechanical};if(boardOf(s).roles.mechanical)s.rules.shieldMode??='once';s.mechanical.shieldExpired ||= !s.mechanical.shield;if(old.version<15&&old.nightAction?.shield){const pending=['mechanical','mechanicalAction'].includes(old.step);if(!pending)s.mechanical.shieldFiredNight=old.night;}
     if(old.version<5){
       const spent=[...past,...(old.history||[]),old].filter(h=>h.nightAction?.extraAttack&&h.step!=='mechanicalAction'&&h.step!=='mechanical'&&h.step!=='dark'&&h.night>=s.mechanical.night);
       if(spent.length){const used=spent[0];Object.assign(s.mechanical,{extraUsed:true,extraUsedNight:used.night,extraTarget:used.nightAction.extraAttack});}
@@ -92,6 +92,7 @@ export function upgradeGame(saved) {
         s.drawCache[`election:${s.night}`]=clone(s.draw);
       } else s.draw=null;
     }
+    if(s.winner&&s.step!=='finished'){for(const d of s.nightState?.deaths||s.deaths||[])if(player(s,d.id))Object.assign(player(s,d.id),{alive:false,cause:d.cause});s.deathsCommitted=true;s.step='finished';s.action=[];s.choice=null;}
     if(!Object.hasOwn(old,'history'))delete s.history;
     if(s.step==='direction' && !s.sheriff) {s.step='dayDraw';s.draw=null;}
     return s;
@@ -168,7 +169,7 @@ export function selectable(s,id) {
   if(s.step==='luckyAction')return !!luckyAbility(s)&&s.lucky.remaining>0;
   if(s.step==='guardTarget')return livingRole(s,'guard')&&id!==s.lastGuard;
   if(s.step==='mediumInspect')return livingRole(s,'medium');
-  if(s.step==='mechanicalAction')return livingRole(s,'mechanical')&&(s.operation==='learnTarget'?!s.mechanical.role&&p.role!=='mechanical':s.operation===mechanicalAbility(s));
+  if(s.step==='mechanicalAction')return livingRole(s,'mechanical')&&(s.operation==='learnTarget'?!s.mechanical.role&&p.role!=='mechanical':s.operation===mechanicalAbility(s))&&(s.operation!=='shield'||id!==s.mechanical.lastShield);
   if (['exchange','attack','inspect'].includes(s.step)) return (s.step==='attack'?!!basicActor(s)&&!forcedEmpty(s):livingRole(s, {exchange:'magician',inspect:'seer'}[s.step])) && (s.step!=='exchange'||!s.usedExchanges.includes(id))&&(s.step!=='attack'||!['elder','evilKnight','beauty'].includes(p.role))&&(s.step!=='inspect'||!skillBlocked(s,'seer'));
   if (s.step==='poison') return s.nightAction.poison===true && !potionBlocked(s,'poison');
   if (s.step==='skill') return id !== s.queue[0]?.id && !!player(s,skillTarget(s,id))?.alive;
@@ -274,13 +275,14 @@ export function choose(s,value) {
 }
 function identityCount(s){return s.step==='wolves'?boardOf(s).roles.wolf+(boardOf(s).roles.king||0)+(boardOf(s).roles.blood||0)+(boardOf(s).roles.gargoyle||0)+(boardOf(s).roles.evilKnight||0)+(boardOf(s).roles.seedWolf||0)+(boardOf(s).roles.beauty||0):s.step==='brothers'?2:1;}
 export function canNext(s) {
+  if(s.winner)return false;
   if(['duelResult','heartbreakAnnouncement','beautyLastWords'].includes(s.step))return true;
   if(s.step==='duel')return canDuelSelection(s)&&s.action.length===1&&selectable(s,s.action[0]);
   if(s.step==='charm')return !s.winner&&(!livingRole(s,'beauty')||s.nightAction.charmSkip||!!s.nightAction.charm);
   if(s.step==='transform')return !s.winner&&s.night===1&&!s.gargoyle.target&&s.action.length===1&&selectable(s,s.action[0]);
   if(s.step==='lastBlade')return !s.winner&&s.action.length===1&&selectable(s,s.action[0]);
   if(s.step==='hunt')return !s.winner&&s.night>1&&(!livingRole(s,'demon')||skillBlocked(s,'demon')||s.nightAction.huntSkip||!!s.nightAction.hunt);
-  if(s.winner) return s.step==='dawn';
+  if(s.winner) return false;
   if (!s.rolesConfirmed && roleForStep(s)) return s.action.length===identityCount(s);
   if(s.step==='roleModel')return s.night===1&&(s.mixed.chosen||!!s.nightAction.roleModel&&selectable(s,s.nightAction.roleModel));
   if(s.step==='fear')return !livingRole(s,'nightmare')||s.nightAction.fearSkip||!!s.nightAction.fear;
@@ -347,7 +349,7 @@ export function roleName(s,p){const short={witch:'巫',medium:'通',hunter:'獵'
  if(s.lucky?.seat===p.id)name+='（幸）';return name;
 }
 export function roleResult(s,id,trueRole=false){const p=player(s,id);if(!p?.active)return null;return p.role==='mechanical'&&!trueRole?(s.mechanical.role||p.role):p.role||'villager';}
-export function restartGame(s){return createGame(s.boardId,{...s.rules});}
+export function restartGame(s){return createGame(s.boardId,{...s.rules,victory:'edge'});}
 export function gunSources(s,d){
  if(s.winner||!d||['poison','selfDestruct','dreamRepeat','dreamLink','heartbreak','duel'].includes(d.cause)||s.charm?.gunBlocked.includes(d.id)||d.context==='night'&&(d.day??s.night)===s.night&&feared(s,d.id))return [];
  const p=player(s,d.id),sources=[];if(!nativeAllowed(s,p))return [];
@@ -373,6 +375,7 @@ function continueAfterDeaths(s) {
   else enter(s,s.continuation);
 }
 function deathSteps(s) {
+ if(s.winner){enter(s,'finished');return;}
  if(s.charm.announcements.length){enter(s,s.charm.beautyWords?'beautyLastWords':'heartbreakAnnouncement');return;}
   if(s.winner){enter(s,'finished');return;}
   if(!s.queue.length){continueAfterDeaths(s);return;}
@@ -382,6 +385,7 @@ function deathSteps(s) {
   s.queue.shift();deathSteps(s);
 }
 function startNight(s) {
+  s.mechanical.lastShield=s.mechanical.shieldFiredNight===s.night?s.nightAction.shield:null;s.mechanical.shieldDamage=[];
   updateTakeover(s);
   s.charm.lastTarget=s.charm.night===s.night?s.charm.target:null;s.charm.target=null;s.charm.night=null;
   s.lastFear=s.nightAction.fearApplied?s.nightAction.fear:null;s.lastSleep=s.nightAction.sleepApplied?s.nightAction.sleep:null;s.nightState={wolfDone:false,postDone:false,deaths:[],batches:[],winningStage:null};
@@ -399,7 +403,8 @@ function confirmRoles(s){
 }
 function nightProjection(s,resolution){const projected={...s,players:clone(s.players)};for(const d of resolution.deaths)player(projected,d.id).alive=false;return projected;}
 function commitNightPhase(s,phase,stage){
- const r=settleNight(s,{phase}),state=s.nightState;s.charm.gunBlocked=[...new Set([...s.charm.gunBlocked,...(r.romanceBlocked||[])])];
+ const r=settleNight(s,{phase}),state=s.nightState;
+ if(s.mechanical.shieldFiredNight===s.night){s.mechanical.shieldDamage=clone(r.shieldDamage||[]);if(s.mechanical.shieldDamage.length){s.mechanical.shieldSuccess=true;s.mechanical.shieldExpired=true;s.mechanical.shield=false;}const shieldEvent=nightRecord(s).events.find(e=>e.key==='shield');if(shieldEvent)Object.assign(shieldEvent,{shieldMode:s.rules.shieldMode||'once',shieldSuccess:s.mechanical.shieldDamage.length>0,shieldExpired:s.mechanical.shieldExpired,shieldDamage:clone(s.mechanical.shieldDamage)});}s.charm.gunBlocked=[...new Set([...s.charm.gunBlocked,...(r.romanceBlocked||[])])];
  const linked=r.events.filter(e=>e.source==='heartbreak');for(const d of linked)if(!nightRecord(s).events.some(e=>e.key==='heartbreak'&&e.rawTargets[0]===d.id)){nightRecord(s).events.push({key:'heartbreak',night:s.night,stage,order:nightSteps(s).indexOf(stage)+.5,actors:[d.sourceActor],actorRole:'beauty',displayRole:'beauty',skill:'heartbreak',rawTargets:[d.id],effectiveTargets:[d.id],...eventPeople(s,[d.sourceActor],[d.id]),executed:true,result:null});}
  if(r.infection){Object.assign(s.infection,{...r.infection,result:r.infection.reason,usedNight:s.night,joinNight:r.infection.success?s.night+1:null});}
  state.wolfDone=true;if(phase==='all'||phase==='dawn')state.postDone=true;
@@ -436,6 +441,7 @@ function resolveAtStage(s,step){
  if(s.rolesConfirmed&&s.nightResolution){const projected=nightProjection(s,s.nightResolution),win=trueWinner(projected);if(win){s.winner=win;s.winnerReason=winnerReason(projected,win);s.nightState.winningStage=step;nightRecord(s).settled=true;return true;}}
  return false;
 }
+function finishNight(s){kill(s,s.deaths);s.deathsCommitted=true;enter(s,'finished');}
 function prepareDawn(s){
  if(!confirmRoles(s))return false;
  if(!s.nightState.wolfDone)commitNightPhase(s,'wolf','dawn');
@@ -483,14 +489,15 @@ export function next(s) {
       if(n.mechanicalInspect)n.mechanicalResult={target:n.mechanicalInspect,role:roleResult(s,n.mechanicalInspect)};
       if(!s.mechanical.role&&n.learnTarget){s.mechanical.role=player(s,n.learnTarget).role||'villager';s.mechanical.target=n.learnTarget;s.mechanical.night=s.night;}
       if(n.extraAttack){s.mechanical.extraUsed=true;s.mechanical.extraUsedNight=s.night;s.mechanical.extraTarget=n.extraAttack;}
-      if(n.shield)s.mechanical.shield=false;if(n.mechanicalPoison)s.mechanical.poison=false;
+      if(n.shield){s.mechanical.shieldFiredNight=s.night;if((s.rules.shieldMode||'once')==='once'){s.mechanical.shield=false;s.mechanical.shieldExpired=true;}}if(n.mechanicalPoison)s.mechanical.poison=false;
     }
     if(step==='exchange')s.usedExchanges=[...new Set([...s.usedExchanges,...s.nightAction.exchange])];
-    if(step==='transform'&&trueWinner(s)){s.winner=trueWinner(s);s.winnerReason=winnerReason(s);s.nightState.winningStage=step;nightRecord(s).settled=true;enter(s,'dawn');return true;}
-    if(resolveAtStage(s,step)){enter(s,'dawn');return true;}
+    if(step==='transform'&&trueWinner(s)){s.winner=trueWinner(s);s.winnerReason=winnerReason(s);s.nightState.winningStage=step;nightRecord(s).settled=true;finishNight(s);return true;}
+    if(resolveAtStage(s,step)){finishNight(s);return true;}
     const steps=nightSteps(s);let upcoming=steps[steps.indexOf(step)+1];
     if(upcoming==='dawn') {
       if(!prepareDawn(s)){previous(s);return false;}
+      if(s.winner){finishNight(s);return true;}
       if(!s.winner&&s.night===1 && s.rules.sheriff)upcoming='candidates';
     }
     enter(s,upcoming);
@@ -597,4 +604,4 @@ export function inspection(s) {
 export function canDuel(s){return !s.winner&&!!boardOf(s).roles.duelist&&!s.duelist.used&&s.players.some(p=>p.alive&&p.role==='duelist')&&['direction','dayDraw','discussion','voteIntro'].includes(s.step)&&s.electionStatus!=='pending';}
 const canDuelSelection=s=>s.step==='duel'&&!s.winner&&!s.duelist.used&&s.players.some(p=>p.alive&&p.role==='duelist');
 export function beginDuel(s){if(!canDuel(s))return false;s.history.push(snapshot(s));s.duelist.resume=s.step;s.duelist.speaker=s.speaker;enter(s,'duel');return true;}
-export function confirmDuel(s){if(!canNext(s)||s.step!=='duel')return false;s.history.push(snapshot(s));const actor=s.players.find(p=>p.role==='duelist'),target=player(s,s.action[0]),success=realWolf(s,target);s.duelist.used=true;s.duelist.target=target.id;s.duelist.success=success;s.duelist.revealed=true;recordDay(s,'duel',{actors:[actor.id],targets:[target.id],skill:'duel',result:success?'決鬥成功':'決鬥失敗'});kill(s,[{id:success?target.id:actor.id,cause:'duel',day:s.night,context:'day',sourceActor:actor.id,sourceRole:'duelist'}]);enter(s,'duelResult');return true;}
+export function confirmDuel(s){if(!canNext(s)||s.step!=='duel')return false;s.history.push(snapshot(s));const actor=s.players.find(p=>p.role==='duelist'),target=player(s,s.action[0]),success=realWolf(s,target);s.duelist.used=true;s.duelist.target=target.id;s.duelist.success=success;s.duelist.revealed=true;recordDay(s,'duel',{actors:[actor.id],targets:[target.id],skill:'duel',result:success?'決鬥成功':'決鬥失敗'});kill(s,[{id:success?target.id:actor.id,cause:'duel',day:s.night,context:'day',sourceActor:actor.id,sourceRole:'duelist'}]);enter(s,s.winner?'finished':'duelResult');return true;}

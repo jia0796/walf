@@ -14,7 +14,7 @@ test('dawn confirmation preserves actually used poison in recap on old and new b
   assert.ok(recapNights(s).flatMap(r=>r.events).some(e=>e.skill==='poison'&&e.executed&&e.rawTargets.includes(target)),board);
  }
 });
-function knife(s,id,cure='skip'){s.step='attack';if(id)selectSeat(s,id);else choose(s,'skip');go(s);if(s.step==='dawn')return;s.step='antidote';if(!canNext(s))choose(s,cure);go(s);}
+function knife(s,id,cure='skip'){s.step='attack';if(id)selectSeat(s,id);else choose(s,'skip');go(s);if(s.step==='finished')return;s.step='antidote';if(!canNext(s))choose(s,cure);go(s);}
 function noPoison(s){s.step='poison';if(!canNext(s))choose(s,'skip');go(s);}
 function hunt(s,id){s.step='hunt';if(id)assert.equal(selectSeat(s,id),true);else choose(s,'skip');go(s);}
 function exile(s,id){s.step='exileVote';s.votePool=s.players.filter(p=>p.alive).map(p=>p.id);selectSeat(s,id);go(s);}
@@ -57,7 +57,7 @@ test('demon poison immunity consumes medicine and records blocked event',()=>{
 });
 for(const victory of ['edge','city'])test('knife dead demon retains hunt only if '+victory+' not terminal',()=>{
  const s=ready('blood12',{victory});s.night=2;knife(s,seat(s,'demon'));noPoison(s);assert.equal(s.winner,null);hunt(s,2);go(s);assert.deepEqual(s.deaths.map(d=>d.id).sort((a,b)=>a-b),[2,seat(s,'demon')].sort((a,b)=>a-b));
- const a=ready('blood12',{victory});a.night=2;a.potions.antidote=false;a.players.filter(p=>p.role!=='demon'&&(victory==='city'?ROLE_DATA[p.role]?.kind!=='wolf':ROLE_DATA[p.role]?.kind==='god')).forEach(p=>p.alive=false);knife(a,seat(a,'demon'));assert.equal(a.winner,'狼人陣營');assert.equal(a.step,'dawn');assert.equal(selectSeat(a,2),false);assert.equal(a.nightAction.huntApplied,false);
+ const a=ready('blood12',{victory});a.night=2;a.potions.antidote=false;a.players.filter(p=>p.role!=='demon'&&(victory==='city'?ROLE_DATA[p.role]?.kind!=='wolf':ROLE_DATA[p.role]?.kind==='god')).forEach(p=>p.alive=false);knife(a,seat(a,'demon'));assert.equal(a.winner,'狼人陣營');assert.equal(a.step,'finished');assert.equal(selectSeat(a,2),false);assert.equal(a.nightAction.huntApplied,false);
 });
 for(const id of ['kingGuard10','kingGuard12'])test(id+' guard self/other wolves/empty breaks repeat and same guard cure kills',()=>{
  const s=ready(id),guard=seat(s,'guard');s.step='guardTarget';assert.equal(selectSeat(s,guard),true);s.nightAction.guard=null;s.action=[];assert.equal(selectSeat(s,1),true);go(s);s.step='nextNight';go(s);s.step='guardTarget';assert.equal(selectSeat(s,1),false);choose(s,'skip');go(s);s.step='nextNight';go(s);s.step='guardTarget';assert.equal(selectSeat(s,1),true);go(s);s.nightAction.attack=1;s.nightAction.antidote=true;assert.ok(settleNight(s).deaths.some(d=>d.id===1));
@@ -68,7 +68,7 @@ for(const id of ['kingDream10','kingDream12'])test(id+' dream repeat or link kil
 for(const board of ['kingGuard10','kingGuard12','kingDream10','kingDream12'])for(const victory of ['edge','city'])test(board+' '+victory+' death priority and no post-win guns',()=>{
  const s=ready(board,{victory});s.night=2;const target=seat(s,board.startsWith('kingGuard')?'guard':'dream');s.players.filter(p=>ROLE_DATA[p.role]?.kind==='god'&&p.id!==target).forEach(p=>p.alive=false);s.potions.antidote=false;knife(s,target);
  assert.equal(s.winner,victory==='edge'?'狼人陣營':null);
- if(victory==='edge'){assert.equal(s.step,'dawn');assert.equal(choose(s,'use'),false);assert.deepEqual(gunSources(s,{id:1,cause:'attack',context:'night',day:2}),[]);}
+ if(victory==='edge'){assert.equal(s.step,'finished');assert.equal(choose(s,'use'),false);assert.deepEqual(gunSources(s,{id:1,cause:'attack',context:'night',day:2}),[]);}
  else{assert.equal(s.step,'poison');assert.ok(s.deaths.some(d=>d.id===target));}
  const a=ready(board,{victory});a.night=2;a.potions.antidote=false;const protectedId=9;
  if(board.startsWith('kingGuard')){a.step='guardTarget';selectSeat(a,protectedId);go(a);}else{a.step='sleep';selectSeat(a,protectedId);go(a);}
@@ -81,7 +81,7 @@ test('demon killed by knife and failed hunt is counted once with both legal even
  const s=ready();s.night=2;const d=seat(s,'demon');knife(s,d);noPoison(s);hunt(s,9);go(s);assert.equal(s.deaths.filter(x=>x.id===d).length,1);assert.equal(s.nightResolution.events.filter(e=>e.id===d).length,2);
 });
 test('last blood hunted or poisoned is ordinary good win, never last blade',()=>{
- for(const cause of ['hunt','poison']){const s=ready();s.night=2;s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);knife(s,null);if(cause==='poison'){s.step='poison';choose(s,'use');selectSeat(s,1);go(s);}else{noPoison(s);hunt(s,1);go(s);}assert.equal(s.winner,'好人陣營');assert.equal(s.step,'dawn');assert.equal(s.blood.lastPending,false);assert.equal(s.blood.lastEvent,null);}
+ for(const cause of ['hunt','poison']){const s=ready();s.night=2;s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);knife(s,null);if(cause==='poison'){s.step='poison';choose(s,'use');selectSeat(s,1);go(s);}else{noPoison(s);hunt(s,1);go(s);}assert.equal(s.winner,'好人陣營');assert.equal(s.step,'finished');assert.equal(s.blood.lastPending,false);assert.equal(s.blood.lastEvent,null);}
 });
 test('blood last blade can hit a living revealed idiot; victory never double-counts',()=>{
  const s=ready('blood12',{victory:'city'}),id=seat(s,'idiot');s.idiot={...s.idiot,seat:id,revealed:true,voteLost:true,exileBanned:true,countsEliminatedForVictory:true};s.players.filter(p=>p.role==='wolf').forEach(p=>p.alive=false);exile(s,1);go(s);assert.equal(selectSeat(s,id),true);go(s);assert.equal(s.players[id-1].alive,false);assert.equal(s.winner,'好人陣營');assert.equal(s.idiot.countsEliminatedForVictory,true);

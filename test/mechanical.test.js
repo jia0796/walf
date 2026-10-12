@@ -79,7 +79,7 @@ for(const board of ['12','10','mechanical12','mechanical10']){
   s.players.filter(p=>ROLE_DATA[p.role]?.kind==='wolf').slice(1).forEach(p=>p.alive=false);
   s.nightAction.attack=target;s.nightAction.poison=true;s.nightAction.poisonTarget=s.players.find(p=>p.alive&&ROLE_DATA[p.role]?.kind==='wolf').id;
   const result=settleNight(s);assert.equal(result.winner,'狼人陣營');assert.equal(result.poisonSkipped,true);assert.equal(result.events.length,1);assert.equal(result.deaths.length,1);
-  s.step='attack';s.action=[target];go(s);assert.equal(s.step,'dawn');assert.equal(subtitle(s),'天亮請睜眼');go(s);assert.equal(s.step,'finished');assert.equal(s.winner,'狼人陣營');assert.equal(s.players.find(p=>p.id===s.nightAction.poisonTarget).alive,true);previous(s);previous(s);assert.equal(s.winner,null);assert.equal(s.players[target-1].alive,true);
+  s.step='attack';s.action=[target];go(s);assert.equal(s.step,'finished');assert.equal(next(s),false);assert.equal(s.step,'finished');assert.equal(s.winner,'狼人陣營');assert.equal(s.players.find(p=>p.id===s.nightAction.poisonTarget).alive,true);previous(s);assert.equal(s.winner,null);assert.equal(s.players[target-1].alive,true);
  });
 }
 test('nonterminal wolf death then poison can end for good; no forced wolf priority over defense',()=>{

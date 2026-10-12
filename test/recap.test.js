@@ -40,7 +40,7 @@ test('all nine formal SVGs, new approved PNG signatures and PWA assets exist; no
 test('wolf-phase victory stops unconfirmed poison and subsequent recap events',()=>{
  const s=ready('brothers12');s.players.filter(p=>p.role==='villager'&&p.id!==9).forEach(p=>p.alive=false);
  s.step='attack';selectSeat(s,9);go(s);assert.equal(s.step,'witch');go(s);choose(s,'skip');go(s);
- assert.equal(s.step,'dawn');assert.equal(s.nightResolution.poisonSkipped,true);assert.equal(recapNights(s)[0].events.some(e=>e.skill==='poison'),false);
+ assert.equal(s.step,'finished');assert.equal(s.nightResolution.poisonSkipped,true);assert.equal(recapNights(s)[0].events.some(e=>e.skill==='poison'),false);
  assert.equal(s.players[2].alive,true);previous(s);assert.equal(s.winner,null);choose(s,'use');go(s);assert.equal(s.step,'poison');assert.deepEqual(s.nightResolution.deaths,[]);
 });
 test('approved original assets match the documented Drive SHA256 and size',async()=>{
