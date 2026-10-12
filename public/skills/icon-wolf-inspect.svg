@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="狼人查驗">
+<title>狼人查驗</title>
+<rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+<!-- The angular outer eye distinguishes the wolf's inspection from the gold seer inspection. -->
+<path d="M13.6 32 Q22.3 21.4 32 21.4 Q41.7 21.4 50.4 32 Q41.7 42.6 32 42.6 Q22.3 42.6 13.6 32 Z" fill="#3A1A2A" stroke="#F27680" stroke-width="3.1" stroke-linejoin="round"/>
+<!-- Wolf-like vertical pupil, readable even when the icon is small. -->
+<circle cx="32" cy="32" r="7.2" fill="#121A2B" stroke="#F7A4AC" stroke-width="2"/>
+<path d="M32 25.3 L35.3 32 L32 38.7 L28.7 32 Z" fill="#F27680"/>
+<path d="M32 28 V36" stroke="#601E2A" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M18 25.4 L22.8 26.1 M46 25.4 L41.2 26.1" fill="none" stroke="#F7A4AC" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

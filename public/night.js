@@ -92,7 +92,7 @@ export function settleNight(s,{phase='all'}={}){
    shieldDamage.push({...poison,sameSave:false});
    events.push({...poison,blocked:'shield'});
    if(s.rules.reflectPoison){const reflected={...poison,id:poison.sourceActor,source:'reflection'};events.push(reflected);if(s.players.find(p=>p.id===reflected.id)?.alive)dead.set(reflected.id,reflected);}
-  }else {events.push({...poison,blocked:null});if(s.players.find(p=>p.id===poison.id)?.alive)dead.set(poison.id,{...poison});}
+  }else {events.push({...poison,blocked:null});if(s.players.find(p=>p.id===poison.id)?.alive&&(!s.players.some(p=>p.role==='mask')||!dead.has(poison.id)))dead.set(poison.id,{...poison});}
  }
  for(const reflection of s.knight?.triggers||[]){if(reflection.night!==s.night)continue;events.push({...reflection,cause:'reflect',source:'evilKnight',sourceRole:'evilKnight'});if(s.players.find(p=>p.id===reflection.id)?.alive&&!dead.has(reflection.id))dead.set(reflection.id,{...reflection,cause:'reflect',source:'evilKnight',sourceRole:'evilKnight'});}
  if(s.merchant?.usedNight===s.night&&s.merchant.success===false){const merchant=liveRole(s,'merchant');if(merchant){const failure={id:merchant.id,cause:'tradeFailure',sourceActor:merchant.id,sourceRole:'merchant',source:'trade'};events.push(failure);if(!dead.has(merchant.id))dead.set(merchant.id,failure);}}

@@ -36,8 +36,8 @@ export function recordStage(s,stage,order){
   record.events.push({key,night:s.night,stage,order,actors,actorRole:role(actors[0]),displayRole:actorRole,skill,rawTargets:[...targets],effectiveTargets,...eventPeople(s,actors,effectiveTargets),rawTargetSnapshots:targets.map(id=>personSnapshot(s,id)),result:null,executed:!['wolf-attack','poison','antidote'].includes(skill),...opts});
  };
  if(stage==='dance'&&n.danceTargets?.length===3)add('dance','dancer','dance',n.danceTargets,{unmapped:true,executed:false});
- if(stage==='maskInspect'&&n.maskInspect)add('maskInspect','mask','mask',[n.maskInspect],{unmapped:true,result:n.maskResult,participated:n.danceTargets.includes(n.maskInspect)});
- if(stage==='maskAssign'&&(n.maskTarget||n.maskSkip))add('maskAssign','mask','mask',n.maskTarget?[n.maskTarget]:[],{unmapped:true,allowEmpty:true,executed:false});
+ if(stage==='maskInspect'&&n.maskInspect)add('maskInspect','mask','wolf-inspect',[n.maskInspect],{unmapped:true,result:n.maskResult,participated:n.danceTargets.includes(n.maskInspect)});
+ if(stage==='maskAssign'&&(n.maskTarget||n.maskSkip))add('maskAssign','mask','mask',n.maskTarget?[n.maskTarget]:[],{unmapped:true,allowEmpty:true,executed:false,participated:n.danceTargets.includes(n.maskTarget)});
  if(stage==='charm'&&n.charm)add('charm','beauty','charm',[n.charm],{unmapped:true});
  if(stage==='transform'&&n.transform)add('transform','gargoyle','transform',[n.transform],{unmapped:true});
  if(stage==='graveResult'&&graveResult(s)&&nativeAllowed(s,s.players.find(p=>p.role==='gravekeeper'))){const e=graveResult(s);add('gravekeeper','gravekeeper','gravekeeper',[e.id],{unmapped:true,result:e.wolf?'狼人':'好人'});}
@@ -68,4 +68,4 @@ export function recordDeaths(s,deaths){
  const r=nightRecord(s);
  for(const d of deaths)if(d.context==='night'&&!r.deaths.some(x=>x.id===d.id))r.deaths.push(structuredClone(d));
 }
-export function recapNights(s){return [...s.nightRecords].sort((a,b)=>a.night-b.night).map(r=>({...r,events:[...r.events].filter(e=>e.executed||e.unsettled).sort((a,b)=>a.order-b.order)}));}
+export function recapNights(s){return [...s.nightRecords].sort((a,b)=>a.night-b.night).map(r=>{const dance=r.events.find(e=>e.key==='dance'),events=r.events.map(e=>e.key==='maskAssign'&&e.participated==null?{...e,participated:!!dance?.rawTargets.includes(e.rawTargets[0])}:e);const victims=r.deaths.filter(d=>d.cause==='dance').map(d=>d.id);if(dance?.executed&&!dance.unsettled&&victims.length&&!events.some(e=>e.key==='danceDeath'))events.push({...structuredClone(dance),key:'danceDeath',order:Math.max(dance.order,...events.filter(e=>['maskInspect','maskAssign'].includes(e.key)).map(e=>e.order))+.5,rawTargets:victims,effectiveTargets:victims,targetSnapshots:(dance.targetSnapshots||[]).filter(p=>victims.includes(p.id)),result:'共舞死亡'});return {...r,events:events.filter(e=>e.key==='maskAssign'?e.rawTargets.length>0&&(e.executed||e.unsettled):e.unsettled?e.key==='dance':e.executed).sort((a,b)=>a.order-b.order)};});}
