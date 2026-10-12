@@ -1,0 +1,30 @@
+[
+  {
+    "path": "skills/icon-dance.svg",
+    "driveId": "1wZPTn9nKt4FU6mFD_0QHr_nCdyQgj52R",
+    "bytes": 875,
+    "sha256": "cf771203ca8c984ff8daa29108f3c320099e08d3655c1e635a1f06585f70021a",
+    "md5": "a2e3744f866791e6ff7c93fdd56c408e"
+  },
+  {
+    "path": "skills/icon-mask.svg",
+    "driveId": "15chOcX7kZDgPB9cKcp_KbtsTprGG07f6",
+    "bytes": 1058,
+    "sha256": "624a852658acdfbafd0df28ac577435126613191d6e1bd3724389ce178fc2e68",
+    "md5": "084d36e6b287cbb26cc5102aba76b048"
+  },
+  {
+    "path": "art/catalog/dancer.png",
+    "driveId": "12FwyCpRx-6Vgg4rM-uAqVNxLgLH67MF_",
+    "bytes": 2133737,
+    "sha256": "2d31372e01a6be4811d0d5e35f91252f60b287f14b56444c3ed91627c80d32fb",
+    "md5": "e73b5089373ee180716e99b5fd803896"
+  },
+  {
+    "path": "art/catalog/mask.png",
+    "driveId": "1e_769n3-EnRhBzShZ4eaDMNrdcFJ5YDP",
+    "bytes": 2011550,
+    "sha256": "ac57ebbf80d04fd9b2d9bfb6b5297a9d5abbcefb4aa46658e93b0f334c94cc93",
+    "md5": "95e233f7b7fe8f33162af2463b021e74"
+  }
+]
