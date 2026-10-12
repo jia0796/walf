@@ -211,4 +211,7 @@ html,body{min-height:0}
 .seat.mixed-card .mixed-model,.seat.mixed-card .mixed-camp{font-size:clamp(9px,1.4vw,10px);line-height:1.05}
 @media(max-height:650px){.seat.mixed-card .role-name{font-size:10px}.seat.mixed-card .mixed-model,.seat.mixed-card .mixed-camp{font-size:8px}}
 
-.board-rule-text{white-space:pre-line;max-height:320px;overflow-y:auto;overscroll-behavior:contain;line-height:1.7;margin-top:14px;overflow-wrap:anywhere}#setup{display:flex;flex-direction:column;overflow:hidden}.setup-content{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}#setup .actions{flex-shrink:0;margin:0;padding:12px 0;background:var(--bg)}
+#setup{display:flex;flex-direction:column;overflow:hidden}.setup-content{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}#setup .actions{flex-shrink:0;margin:0;padding:12px 0;background:var(--bg)}
+
+/* Footer reserves space while showing only the existing action buttons. */
+#setup .actions{background:transparent;padding:12px 0}

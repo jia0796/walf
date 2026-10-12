@@ -17,8 +17,8 @@ try{
  results.push({sharedBackground:true,completeRecapTitle:true,originalAssetHashes:hashes});
  await page.getByRole('button',{name:'開始主持',exact:true}).click();
  await page.locator('[data-count="12"]').click();
- assert.deepEqual(await page.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12','seedHidden12','brothers12','beauty12']);
- await page.locator('[data-board="beauty12"]').click();await page.locator('#setup .rules-form summary').click();assert.equal(await page.locator('#rulePoisonRomance').inputValue(),'true');assert.equal(await page.locator('#ruleLastWolfRomance').inputValue(),'true');assert.ok((await page.locator('#setupWolves').textContent()).includes('狼美人'));assert.ok((await page.locator('#setupGood').textContent()).includes('騎士'));assert.equal(await page.locator('#ruleVictory').count(),0);assert.deepEqual(await page.locator('#setup details > summary').allTextContents(),['詳細規則','特殊房規','夜間順序']);results.push({liveBeautyBoard:true,romanceDefaults:true,detailsPreview:true,newEdgeOnly:true});await page.locator('#setupBack').click();await page.locator('[data-board="seedHidden12"]').click();
+ assert.deepEqual(await page.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','beauty12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12','seedHidden12','brothers12']);
+ await page.locator('[data-board="beauty12"]').click();await page.locator('#setup .rules-form summary').click();assert.equal(await page.locator('#rulePoisonRomance').inputValue(),'true');assert.equal(await page.locator('#ruleLastWolfRomance').inputValue(),'true');assert.ok((await page.locator('#setupWolves').textContent()).includes('狼美人'));assert.ok((await page.locator('#setupGood').textContent()).includes('騎士'));assert.equal(await page.locator('#ruleVictory').count(),0);assert.deepEqual(await page.locator('#setup details > summary').allTextContents(),['特殊房規','夜間順序']);assert.equal(await page.locator('#boardDetails,#boardRulesText').count(),0);results.push({liveBeautyBoard:true,romanceDefaults:true,detailsRemoved:true,newEdgeOnly:true});await page.locator('#setupBack').click();await page.locator('[data-board="seedHidden12"]').click();
  assert.ok((await page.locator('#setupWolves').textContent()).includes('隱狼'));
  assert.ok((await page.locator('#setupOrder').textContent()).includes('感染者身分確認'));
  await page.locator('#setupStart').click();assert.ok((await page.locator('#hint').textContent()).includes('隱狼'));
@@ -34,7 +34,7 @@ try{
  await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
  assert.deepEqual(errors,[]);
  const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
- assert.ok(cache.includes('council-v15-1'));
+ assert.ok(cache.includes('council-v15-2'));
  await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
  console.log(JSON.stringify({results,cache,errors}));
  await context.close();
