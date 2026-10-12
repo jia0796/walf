@@ -1,6 +1,6 @@
 # 第 50 章功能更新、Bug 修正與驗收報告
 
-日期：2026-10-12。規格 main@8c8b615；程式基底 feat/eclipse-host-app@44e2dc0。程式已完成測試；部署資訊於正式站驗證後補記。原 App 引擎與版型沿用，不合併 App 程式至 main。
+日期：2026-10-12。規格 main@8c8b615；程式基底 feat/eclipse-host-app@44e2dc0。已部署供真機驗收：程式提交 [8e1d153](https://github.com/jia0796/wolf_Emcee/commit/8e1d153cf0400acfd42e3c13eedee9fd7ea92b25)；[測試 CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38215925826)／[部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38215925824) 均成功。正式站 23 個程式／樣式／素材檔 SHA256、詳細規則與特殊房規、新局移除屠城控制、隱狼登記／刷新、計時器及 council-v15-1 通過，0 pageerror。文字原始碼按 Git LF 換行比對，圖片／SVG 按原始 bytes 比對。原 App 引擎與版型沿用，不合併 App 程式至 main。
 
 ## 完成內容
 

@@ -2087,5 +2087,138 @@
       }
     ],
     "errors": []
+  },
+  "deployment": {
+    "codeCommit": "8e1d153cf0400acfd42e3c13eedee9fd7ea92b25",
+    "testWorkflow": "https://github.com/jia0796/wolf_Emcee/actions/runs/38215925826",
+    "deploymentWorkflow": "https://github.com/jia0796/wolf_Emcee/actions/runs/38215925824",
+    "conclusion": "success",
+    "url": "https://jia0796.github.io/wolf_Emcee/",
+    "liveVerification": {
+      "results": [
+        {
+          "sharedBackground": true,
+          "completeRecapTitle": true,
+          "originalAssetHashes": [
+            {
+              "path": "style.css",
+              "sha256": "b5fa94bde50053254f699b5c7494785eeb0c45433843da2b97a188db1106a4f9"
+            },
+            {
+              "path": "identity.js",
+              "sha256": "1096228701c663e3beec4faa364f5b25b1248cade6383723517d37bc78127831"
+            },
+            {
+              "path": "board-rules.js",
+              "sha256": "02d8e5e070fe638c563dd8254deb43c6969431cbef8697266be10d566bd1987b"
+            },
+            {
+              "path": "app.js",
+              "sha256": "30f231b66c1ceabb274031195018eaf605211dedd20b729b0f74c674f23a27cd"
+            },
+            {
+              "path": "engine.js",
+              "sha256": "d3b3344d32283e10113c2fd7adb7fe63d8a08ce764f85894ec592754d834c949"
+            },
+            {
+              "path": "night.js",
+              "sha256": "7b743cb7e4a28d8cfc0d0da2b185172d086de801fd76f272c9f009582b941474"
+            },
+            {
+              "path": "beauty.js",
+              "sha256": "0a92d96bc8c190e53e337f871aff1132c60ca8f1cca01130799acbd619291a25"
+            },
+            {
+              "path": "data.js",
+              "sha256": "be7e669ebe82c51e76e70200a22907dee15aa698c89975ee498dce00bbd1a1c5"
+            },
+            {
+              "path": "recap.js",
+              "sha256": "c39a3eb83c5cd2a9ac8a3baac5d09b01e0355938b2a776dc005aacdf6d5838cc"
+            },
+            {
+              "path": "records.js",
+              "sha256": "819111ac54324636de9ac20d5aff2d7e9cfac23f7b65e63eefd077ac7563d1c6"
+            },
+            {
+              "path": "index.html",
+              "sha256": "3f94a6622f39001d7c6a92d50cca8d55ecba4b0288386bad453b833771adedad"
+            },
+            {
+              "path": "sw.js",
+              "sha256": "315920bb1b3f33797d72b1a1300dca40a662866b8055b467582c383e94930b95"
+            },
+            {
+              "path": "cache-manifest.js",
+              "sha256": "16a5fe68da52bd5aa41064184dcd43d44975a91c54b4a32e7a4e90e6e78fbc75"
+            },
+            {
+              "path": "art/catalog/beauty.png",
+              "sha256": "46d92b1b05a9a403b421af2c5308cc29ffae519d55467510462084d8c084689c"
+            },
+            {
+              "path": "art/catalog/duelist.png",
+              "sha256": "f41c24156559c4cd7141b890f9ec8738811bf1a0909f61996c06572f83d1fe41"
+            },
+            {
+              "path": "skills/icon-charm.svg",
+              "sha256": "5aff4c715517e3ae64a315bfd1e9aa0e95708f7900da6568e0900b8336baba5e"
+            },
+            {
+              "path": "skills/icon-heartbreak.svg",
+              "sha256": "97233180381368c9168cbbd1c2e5a4af66fa455bfe3acf62bd3485c125f0140d"
+            },
+            {
+              "path": "skills/icon-duel.svg",
+              "sha256": "eec5cc1cff7608e97c27848b2e9321308e5cfc208576a1cada7727c8d2a02b5c"
+            },
+            {
+              "path": "art/backgrounds/shared.png",
+              "sha256": "c38604bb53ee8b26dd604c9458884a0fe99daf5e83111b948a970569f146cc38"
+            },
+            {
+              "path": "art/recap-vote.png",
+              "sha256": "87e2987704055423868814b70d7d52f0d789c23f631c0869b09398642e3cda2c"
+            },
+            {
+              "path": "art/recap-sheriff.png",
+              "sha256": "d7a71fa7bc635ab3f61b774b9973ef74c59dc1999009355df1e752ed677ddb48"
+            },
+            {
+              "path": "skills/icon-vote.svg",
+              "sha256": "13cb4fba33d60ad8c6c747b3bcc84b19177ad9398066f0f8755cd8b3b6995fc7"
+            },
+            {
+              "path": "skills/icon-sheriff-badge.svg",
+              "sha256": "f1629595c84c4e459ad5e96dc4c6b4070796a2798410148e381f3bce05d23068"
+            }
+          ]
+        },
+        {
+          "liveBeautyBoard": true,
+          "romanceDefaults": true,
+          "detailsPreview": true,
+          "newEdgeOnly": true
+        },
+        {
+          "liveBoard": true,
+          "order": true,
+          "mandatoryHiddenRegistration": true,
+          "pendingWolfTarget": true,
+          "hiddenRefresh": true,
+          "reload": true
+        },
+        {
+          "timerModes": true,
+          "resetOriginal": true,
+          "defaults": true,
+          "gameSaveUnchanged": true
+        }
+      ],
+      "cache": [
+        "council-v15-1"
+      ],
+      "errors": []
+    }
   }
 }
