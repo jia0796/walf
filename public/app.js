@@ -1,3 +1,4 @@
+import {voteLocked} from './votes.js';
 import {createVoteDialog} from './vote-ui.js';
 import {dancerAvailable,danceCandidates,maskInspectCandidates,maskAvailable} from './masquerade.js';
 import {realWolf,converted,convertedName,nativeAllowed,graveResult,infected} from './identity.js';
@@ -11,11 +12,11 @@ const $=id=>document.getElementById(id),KEY='eclipse-host-v1',PURE='照字幕主
 let game=null,storageOK=true,screen='home',selectedBoard='12',selectedCount=12,libraryOrigin='home',libraryRoles=Object.keys(ROLE_DATA),libraryCamp='wolf',selectedCategory='normal';
 let previousScreen=null;try{previousScreen=sessionStorage.getItem(KEY+'-screen');}catch{}
 try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved){game=upgradeGame(saved);if(restoresSession(performance.getEntriesByType('navigation')[0]?.type,previousScreen,saved.version))screen=saved.step==='finished'?'finished':'host';}}catch{storageOK=false;}
-function persist(){if(!game)return;try{localStorage.setItem(KEY,JSON.stringify(game));storageOK=true;}catch{storageOK=false;}}
+function persist(){if(!game)return false;try{localStorage.setItem(KEY,JSON.stringify(game));storageOK=true;}catch{storageOK=false;}$('saveStatus').textContent=storageOK?'':'儲存失敗，重新整理可能遺失目前進度';return storageOK;}
 function cacheForeground(){navigator.serviceWorker?.controller?.postMessage({type:'SET_FOREGROUND',busy:['host','encyclopedia','finished'].includes(screen)});}
 function show(name){const entering=screen!==name;screen=name;for(const id of ['home','counts','boards','setup','encyclopedia','host','finished'])$(id).hidden=id!==name;document.body.dataset.screen=name;document.body.style.setProperty('--page-background',PAGE_BACKGROUNDS[name]?`url('${PAGE_BACKGROUNDS[name]}')`:'none');if(entering){cacheForeground();for(const e of [$(name),...$(name).querySelectorAll('.board-window,.setup-content,.library,.preview-back,#nightRecap')])e.scrollTop=0;}try{sessionStorage.setItem(KEY+'-screen',name==='encyclopedia'&&libraryOrigin==='host'?'host':name);}catch{}}
 function rulesText(b,r){return b.name+'\n警長：'+(r.sheriff?'開':'關')+'\n女巫自救：'+(r.selfRescue?'允許':'不允許')+'\n狼人勝利條件：'+(r.victory==='edge'?'屠邊':'屠城')+'\n'+(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽：'+(r.swallow?'啟用':'不啟用')+(b.roles.beauty?'\n女巫毒殺觸發殉情：'+(r.poisonRomance?'開':'關')+'\n最後一狼可殉情：'+(r.lastWolfRomance?'開':'關'):'')+(b.roles.mechanical?'\n學狼人：'+(r.mechanicalKnife==='next'?'下一晚可刀':'狼全死才有雙刀')+'\n機械守衛守護規則：'+((r.shieldMode||'once')==='once'?'只能使用一次':'成功守護一次後失效')+'\n機械守衛反彈毒藥：'+(r.reflectPoison?'開':'關'):'')+(b.roles.idiot?'\n白痴追刀：'+(r.idiotChase?'開啟':'關閉'):'')+(b.id==='evilKnight12'?'\n免疫獵人夜槍：'+(r.immuneNightGun?'開啟':'關閉'):'');}
-const voteDialog=createVoteDialog({getGame:()=>game,save:persist});
+const voteDialog=createVoteDialog({getGame:()=>game,save:persist,render});
 const OP_LABEL={learnTarget:'學習身分',extraAttack:'額外狼刀',mechanicalInspect:'查驗',mechanicalPoison:'一次性毒藥',shield:'無敵盾'};
 function setupBoard(id){
  selectedBoard=id;const b=BOARDS[id];$('beautyRules').hidden=!b.roles.beauty;$('rulePoisonRomance').value=String(b.defaults.poisonRomance??true);$('ruleLastWolfRomance').value=String(b.defaults.lastWolfRomance??true);$('ruleShieldMode').value=b.defaults.shieldMode||'once';$('setupTitle').textContent=b.name;$('setupWolves').replaceChildren();$('setupGood').replaceChildren();document.querySelectorAll('#setup details').forEach(d=>d.open=false);
@@ -116,7 +117,7 @@ function hintText(){
  if(s==='candidates')return '點選上警玩家，或選擇無人上警';
  if(['draw','dayDraw'].includes(s))return '按抽籤決定發言順序';
  if(['speeches','withdraw'].includes(s))return '點警上玩家退水；再次點可恢復警上';
- if(['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s)){if(game.choice==='tie')return s==='sheriffRevote'?'雙方再次平票，本局將沒有警長':s==='exileRevote'?'無人出局，進入黑夜':'點選平票玩家；可按取消平票更正';return '點選最終結果，或選擇平票';}
+ if(['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s)){if(voteLocked(game))return '已套用票型統計；修改請重新編輯票型，或放棄票型紀錄';if(game.choice==='tie')return s==='sheriffRevote'?'雙方再次平票，本局將沒有警長':s==='exileRevote'?'無人出局，進入黑夜':'點選平票玩家；可按取消平票更正';return '點選最終結果，或選擇平票';}
  if(s==='badgeTransfer')return '點選存活玩家移交警徽，或撕掉／不移交';
  if(s==='skill')return (game.operation==='lucky'?'幸運兒額外槍':'原有角色槍')+'：點選一名存活玩家，或選擇不發動技能';
  if(s==='selfDestruct')return '點選一名存活狼人，再按下一步確認';
@@ -174,7 +175,7 @@ function render(){
  if(['antidote','poison'].includes(s)){const blocked=!!potionBlocked(game,s);action(s==='antidote'?'不使用解藥':'不用毒藥','skip',blocked);action(s==='antidote'?'使用解藥':'使用毒藥','use',blocked);}
  if(s==='candidates'){action('全員上警','all');action('無人上警','none');}if(['draw','dayDraw'].includes(s))action(game.draw?.revealed?'查看抽籤結果':'抽籤','draw');
  if(s==='badgeTransfer')action('撕掉／不移交','skip');
- if(['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s)){action(game.choice==='tie'?'取消平票':'平票','tie');const button=document.createElement('button');button.textContent='紀錄票型（選用）';button.className='quiet';button.id='voteNotesOpen';button.onclick=()=>voteDialog.open();$('actions').append(button);}
+ if(['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s)){action(game.choice==='tie'?'取消平票':'平票','tie');$('actions').lastElementChild.disabled=voteLocked(game);const button=document.createElement('button');button.textContent='紀錄票型（選用）';button.className='quiet';button.id='voteNotesOpen';button.onclick=()=>voteDialog.open();$('actions').append(button);}
  for(const [container,offset] of [['left',0],['right',6]]){
   $(container).replaceChildren();for(const p of game.players.slice(offset,offset+6)){
    const b=document.createElement('button'),r=converted(game,p)||infected(game,p)?{...ROLE_DATA[p.role],kind:'wolf'}:ROLE_DATA[p.role],selected=game.action.includes(p.id),candidate=['candidates','draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.candidates.includes(p.id),withdrawn=['speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.nominees.includes(p.id)&&!game.candidates.includes(p.id),voteSelected=selected&&['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s);

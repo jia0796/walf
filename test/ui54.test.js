@@ -18,7 +18,7 @@ test('UI54 withdrawal retains original nominees while refresh and previous resto
 });
 test('UI54 one exile vote screen, exact captions, legacy vote-intro migration includes history',()=>{
  const s=ready();s.step='discussion';s.electionStatus='none';next(s);assert.equal(s.step,'exileVote');assert.equal(subtitle(s),'現在進行投票，3、2、1請投票');assert.equal(s.votePool.length,12);previous(s);assert.equal(s.step,'discussion');
- const old=ready();old.version=17;old.step='voteIntro';old.history=[{...structuredClone(old),history:undefined}];const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));assert.equal(migrated.version,19);assert.equal(migrated.step,'exileVote');assert.equal(migrated.history[0].step,'exileVote');assert.equal(migrated.votePool.length,12);
+ const old=ready();old.version=17;old.step='voteIntro';old.history=[{...structuredClone(old),history:undefined}];const migrated=upgradeGame(JSON.parse(JSON.stringify(old)));assert.equal(migrated.version,20);assert.equal(migrated.step,'exileVote');assert.equal(migrated.history[0].step,'exileVote');assert.equal(migrated.votePool.length,12);
  for(const step of ['sheriffVote','exileVote','sheriffRevote','exileRevote']){s.step=step;assert.equal(subtitle(s),step.endsWith('Revote')?'再次進行投票，3、2、1請投票':'現在進行投票，3、2、1請投票');}
 });
 test('UI53 progress follows one timer deadline, pauses, thresholds, zero and latest duration reset',()=>{

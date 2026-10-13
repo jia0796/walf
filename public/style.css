@@ -231,3 +231,8 @@ html,body{min-height:0}
 .vote-groups>div{padding:8px 0;border-bottom:1px solid var(--line)}.vote-groups>div:last-child{border-bottom:0}.vote-people{display:flex;flex-wrap:wrap;gap:8px;margin:5px 0 0!important;font-size:13px;color:var(--muted)}.vote-people>span{display:inline-flex;align-items:center;white-space:nowrap}
 .vote-records{margin:0 0 12px;padding:10px 12px;background:#161d30b8;color:var(--ink);font-size:13px}.vote-records>summary{font-weight:500}.vote-records h4{font-size:13px;margin:10px 0 0}.vote-records details{margin:10px 0 0;padding:8px;background:transparent}.vote-records .vote-groups strong{font-weight:600}
 @media(max-height:480px){.vote-dialog{gap:5px;padding:9px}.vote-dialog h2{font-size:18px}.vote-dialog .dialog-head button{padding:4px 10px}.vote-modes button{padding:5px 2px}.vote-target select{padding:6px}.vote-footer{padding-top:4px}}
+
+/* Keep every editing control scrollable above the fixed submission footer. */
+.vote-scroll>.vote-modes,.vote-scroll>.vote-target,.vote-scroll>#voteProgress{margin:10px 0}
+#voteSubmissionHint{margin:0 0 6px;overflow-wrap:anywhere}
+#voteOptions button+button{margin-top:8px}

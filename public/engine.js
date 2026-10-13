@@ -1,4 +1,4 @@
-import {confirmVoteNotes} from './votes.js';
+import {confirmVoteNotes,voteLocked,voteResultMatches,migrateVoteNotes} from './votes.js';
 import {masqueradeState,dancerAvailable,danceCandidates,maskAvailable,maskInspectCandidates,updateMaskTakeover} from './masquerade.js';
 import {heartbreakBatch} from './beauty.js';
 // 主持字幕只取自使用者原句；法官操作提示不屬於字幕。
@@ -40,7 +40,7 @@ export function createGame(boardId='12',rules={}) {
   if(b.id==='evilKnight12'&&typeof config.immuneNightGun!=='boolean')throw new Error('Invalid knight rules');
   if(b.roles.idiot&&typeof config.idiotChase!=='boolean')throw new Error('Invalid idiot rule');
   if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'||!['once','success'].includes(config.shieldMode)))throw new Error('Invalid mechanical rules');
-  return { version: 19,votePatterns:[],masquerade:masqueradeState(),charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
+  return { version: 20,votePatterns:[],masquerade:masqueradeState(),charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
     infection:{remaining:1,usedNight:null,target:null,originalRole:null,success:null,result:null,joinNight:null,notifiedNight:null},
     knight:{immune:true,remaining:1,triggers:[]},
     gargoyle:{target:null,originalRole:null,originalWolves:[],transformedNight:null,joinNight:null},exiles:[],
@@ -59,12 +59,12 @@ const wolves = p => ROLE_DATA[p.role]?.kind==='wolf';
 const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role&&nativeAllowed(s,p)));
 export function upgradeGame(saved) {
-  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  if(saved.version===19)return clone(saved);
-  const mergeVote=s=>{s.version=19;s.votePatterns??=[];if(s.step==='voteIntro'){s.step='exileVote';s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);}return s;};
-  if([17,18].includes(saved.version)){const s=mergeVote(clone(saved));s.history=s.history.map(mergeVote);return s;}
+  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
+  if(saved.version===20)return clone(saved);
+  const mergeVote=s=>{s.version=20;migrateVoteNotes(s);if(s.step==='voteIntro'){s.step='exileVote';s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);}return s;};
+  if([17,18,19].includes(saved.version)){const s=mergeVote(clone(saved));s.history=s.history.map(mergeVote);return s;}
   const migrate = (old,past=[]) => {
-    const s={...createGame(old.boardId || '12'),...old,version:19}; delete s.direction;s.masquerade={...masqueradeState(),...old.masquerade};s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
+    const s={...createGame(old.boardId || '12'),...old,version:20}; delete s.direction;s.masquerade={...masqueradeState(),...old.masquerade};s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
     s.infection={...createGame(s.boardId).infection,...old.infection};
     s.knight={...createGame(s.boardId).knight,...old.knight};
     s.gargoyle={...createGame(s.boardId).gargoyle,...old.gargoyle};s.exiles=old.exiles||[];
@@ -193,7 +193,7 @@ export function selectable(s,id) {
   return false;
 }
 export function selectSeat(s,id) {
-  if (!selectable(s,id)) return false;
+  if (voteLocked(s)||!selectable(s,id)) return false;
   const role=roleForStep(s);
   if (!s.rolesConfirmed && role) {
     if (s.action.includes(id)) {
@@ -237,6 +237,7 @@ export function selectSeat(s,id) {
   syncMarks(s);return true;
 }
 export function choose(s,value) {
+  if(voteLocked(s)&&value==='tie')return false;
   if (s.winner) return false;
   const n=s.nightAction;
   if(s.step==='maskAssign'&&value==='skip'){if(!maskAvailable(s))return false;n.maskTarget=null;n.maskSkip=!n.maskSkip;s.action=[];s.choice=n.maskSkip?'skip':null;syncMarks(s);return true;}
@@ -321,7 +322,7 @@ export function canNext(s) {
   if (s.step==='candidates') return s.choice!==null;
   if (['draw','dayDraw'].includes(s.step)) return !!s.draw?.revealed;
   if (['sheriffVote','exileVote','sheriffRevote','exileRevote'].includes(s.step)) {
-    return s.action.every(id=>selectable(s,id))&&(s.choice==='tie' ? (s.step.endsWith('Revote') || s.action.length>=2) : s.action.length===1);
+    return voteResultMatches(s)&&s.action.every(id=>selectable(s,id))&&(s.choice==='tie' ? (s.step.endsWith('Revote') || s.action.length>=2) : s.action.length===1);
   }
   return true;
 }
