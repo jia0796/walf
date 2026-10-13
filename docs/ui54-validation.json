@@ -2218,5 +2218,351 @@
       }
     ],
     "errors": []
-  }
+  },
+  "deployment": {
+    "commit": "91fa6fd330f8bce4a8a6968ad63d4040b5dff715",
+    "branch": "feat/eclipse-host-app",
+    "testRun": 38351160467,
+    "deployRun": 38351160477,
+    "conclusion": "success",
+    "url": "https://jia0796.github.io/wolf_Emcee/",
+    "live": {
+      "results": [
+        {
+          "sharedBackground": true,
+          "completeRecapTitle": true,
+          "originalAssetHashes": [
+            {
+              "path": "timer.js",
+              "sha256": "4e74514905cf4d2f75b9990086d443aa45aad0416fd0cfb097eafb8a1b376556"
+            },
+            {
+              "path": "art/thumbs/evilKnight.webp",
+              "sha256": "53b0db8e3ed27f7adaf222c44b64d248419696ca5d3c30b477a06ad646d72c97"
+            },
+            {
+              "path": "art/thumbs/gargoyle.webp",
+              "sha256": "13460907c0b1da6a9286b61d2cd25becc3c42d16ca57b3097b9f049cbde5dc35"
+            },
+            {
+              "path": "art/thumbs/gravekeeper.webp",
+              "sha256": "692b05d8e98103569e4d7943edc0e249b4da5cdb07ce759a91da2b8989f42b7f"
+            },
+            {
+              "path": "art/thumbs/blood.webp",
+              "sha256": "3fba9b8014101a88e42b0f3bc71c1239151b832323f3ab109667e03a2abca9d3"
+            },
+            {
+              "path": "art/thumbs/demon.webp",
+              "sha256": "d888c321d6bfd574f86e04343a8426150c4b234c6bfe0080267a7d99435713a3"
+            },
+            {
+              "path": "art/thumbs/idiot.webp",
+              "sha256": "d60e94bab554a61c79097bb8950e00f5911956d260523b4d35f27396d6b38802"
+            },
+            {
+              "path": "art/thumbs/mixed.webp",
+              "sha256": "4f1c12193e784f6481673d2a597c3a17f0df788b350c16389e2007a67b661781"
+            },
+            {
+              "path": "art/thumbs/nightmare.webp",
+              "sha256": "e00277f296efe93f93c6708f5739f2f60bcb6b0624500fcbb357ec7a10bcfd6a"
+            },
+            {
+              "path": "art/thumbs/dream.webp",
+              "sha256": "050d14b33e89e2fbcd900b61e57d3a5d078a725253ae009ebf8ba57cfa5b0afa"
+            },
+            {
+              "path": "art/thumbs/elder.webp",
+              "sha256": "2d44b0e10655b81f4c35ecea81b73d3f94a466657f925583f2a07f9f308b53b7"
+            },
+            {
+              "path": "art/thumbs/younger.webp",
+              "sha256": "56429b5d15967729afb3b241b84ba52266562cc329e99b809105f1a70367f3a7"
+            },
+            {
+              "path": "art/thumbs/merchant.webp",
+              "sha256": "3e2b5ea075aafd5035be050569180d9f73436880a0bbd5608c38b1fee3309629"
+            },
+            {
+              "path": "art/thumbs/king.webp",
+              "sha256": "7b12c3d64ed8144fdbb8ebfa4cd86e1ee7f50c4fc34e2f7ed923cb89867a5a71"
+            },
+            {
+              "path": "art/thumbs/wolf.webp",
+              "sha256": "bab1a8025fab56626a4291546724abbe9e5ed0a013fc5db45537a38084a793d5"
+            },
+            {
+              "path": "art/thumbs/seer.webp",
+              "sha256": "79cf57247e55c27ca010a388097bd168ac07b8e444ad4ae76c2301f15e223e0c"
+            },
+            {
+              "path": "art/thumbs/witch.webp",
+              "sha256": "af866a0e6a997e62175cf3706e593f9735df813e1ebd01255cff7d4ec8cdb701"
+            },
+            {
+              "path": "art/thumbs/hunter.webp",
+              "sha256": "c86a8366f6ccd6721ef6c118e01effbd3af1e0b444643f29cab6846dcb08b5a7"
+            },
+            {
+              "path": "art/thumbs/magician.webp",
+              "sha256": "c0f2830a3e62cb64f1ede3c330dd9e3a767b0fcfab4269a6bbaa4d7f4556ea37"
+            },
+            {
+              "path": "art/thumbs/villager.webp",
+              "sha256": "b5ce3fed82771c84424ade9dde8fbce1c355b8e7ce15e1b842a31da586a07db6"
+            },
+            {
+              "path": "art/thumbs/mechanical.webp",
+              "sha256": "3fd858a890aa04021a1c87c99c331cac3b3f4d5d7a443e50334b87977bbc0e3d"
+            },
+            {
+              "path": "art/thumbs/medium.webp",
+              "sha256": "2dc52091b6666ce73a63428678a7b37cec4a6e68faa60e703570c003515c4afc"
+            },
+            {
+              "path": "art/thumbs/guard.webp",
+              "sha256": "df92a14757b89f646fa3b4229f2cdf1f3c5edfb61d8eef9fc038ea94be8d6fed"
+            },
+            {
+              "path": "art/thumbs/seedWolf.webp",
+              "sha256": "e1d1c0f6337c988879ea272bec1acf319ae5fe198069b771c642c531e746bda0"
+            },
+            {
+              "path": "art/thumbs/hiddenWolf.webp",
+              "sha256": "c18a453ae2f7379c56fb668a89191ca66d476f2fc9aeaa37dbf9b1b79026eb60"
+            },
+            {
+              "path": "art/thumbs/beauty.webp",
+              "sha256": "eee8cf7e932e6d30e49efc798c3df5400ddf992956ca908112da27ca3c730695"
+            },
+            {
+              "path": "art/thumbs/duelist.webp",
+              "sha256": "9adbb1473390f50b0147384ef5cf06872f38b00499b09f203dc925b9763a6f00"
+            },
+            {
+              "path": "art/thumbs/dancer.webp",
+              "sha256": "7f9069661c9477a8184115e11cd11063a28cab74f1795e507f6ec3b62b0f363a"
+            },
+            {
+              "path": "art/thumbs/mask.webp",
+              "sha256": "79f4f730c7f72f46e03a4ca2b3c2e67c4f76b627d92d8622e3ccae94d2d8f074"
+            },
+            {
+              "path": "skills/icon-inspect.svg",
+              "sha256": "c19df40007f6656a4072df354e5536c3824308b5962f32cd7e34866910f8dfb8"
+            },
+            {
+              "path": "skills/icon-wolf-inspect.svg",
+              "sha256": "ba4cf9f6be94e69fcfad26aeb8434daa7a086d342d03f7981a4fe3d5b1d1de96"
+            },
+            {
+              "path": "masquerade.js",
+              "sha256": "8832b68e7bd94ffd49dd2a1ef2f67e5030b640002e9b0bdff74791bad8b746ec"
+            },
+            {
+              "path": "art/catalog/mask.png",
+              "sha256": "ac57ebbf80d04fd9b2d9bfb6b5297a9d5abbcefb4aa46658e93b0f334c94cc93"
+            },
+            {
+              "path": "art/catalog/dancer.png",
+              "sha256": "2d31372e01a6be4811d0d5e35f91252f60b287f14b56444c3ed91627c80d32fb"
+            },
+            {
+              "path": "skills/icon-mask.svg",
+              "sha256": "624a852658acdfbafd0df28ac577435126613191d6e1bd3724389ce178fc2e68"
+            },
+            {
+              "path": "skills/icon-dance.svg",
+              "sha256": "cf771203ca8c984ff8daa29108f3c320099e08d3655c1e635a1f06585f70021a"
+            },
+            {
+              "path": "style.css",
+              "sha256": "49832c9565813d030f7d4db292311f92ceda2706836b496aa8c3460c6e64e655"
+            },
+            {
+              "path": "identity.js",
+              "sha256": "1096228701c663e3beec4faa364f5b25b1248cade6383723517d37bc78127831"
+            },
+            {
+              "path": "board-rules.js",
+              "sha256": "02d8e5e070fe638c563dd8254deb43c6969431cbef8697266be10d566bd1987b"
+            },
+            {
+              "path": "app.js",
+              "sha256": "ac829c8207e8ce9717cd3857a2d83ec3b65cc13492ea7d6e104c62b68fe9f351"
+            },
+            {
+              "path": "engine.js",
+              "sha256": "abc6e823d410b94041af9fa423d0a0547cc150afeb0d3d2d110a70c44a1b0b59"
+            },
+            {
+              "path": "night.js",
+              "sha256": "c2b24741f0f1bb245682ced4494b4f1c67186558a111438cb0513c8c7e7ea3c8"
+            },
+            {
+              "path": "beauty.js",
+              "sha256": "0a92d96bc8c190e53e337f871aff1132c60ca8f1cca01130799acbd619291a25"
+            },
+            {
+              "path": "data.js",
+              "sha256": "bbf01245a4eb7a08dc8ebc2eabeba00a8cae471959f1cb69a117aadf915fad50"
+            },
+            {
+              "path": "recap.js",
+              "sha256": "80793223e92d244afd11616d12619bf54d5dc09fe462548d0480dce8376e7216"
+            },
+            {
+              "path": "records.js",
+              "sha256": "54c257d40301af7f55cba36bb590eda717f374c34066f35b813b7ad70d06ff22"
+            },
+            {
+              "path": "index.html",
+              "sha256": "ab9eb07f793837f4f44fbd88ce083f2d15bd52734b74b658eac7aabd881ec46d"
+            },
+            {
+              "path": "sw.js",
+              "sha256": "8ccebf16af7732ef1ad7ec83b36049bdb7433fcea3b2177bc0a87b0b87c1e8d0"
+            },
+            {
+              "path": "cache-manifest.js",
+              "sha256": "609072d354014c94b1ab5d8dc4e2d664cded2ad0321bcadf14e31c55be81b2c8"
+            },
+            {
+              "path": "art/catalog/beauty.png",
+              "sha256": "46d92b1b05a9a403b421af2c5308cc29ffae519d55467510462084d8c084689c"
+            },
+            {
+              "path": "art/catalog/duelist.png",
+              "sha256": "f41c24156559c4cd7141b890f9ec8738811bf1a0909f61996c06572f83d1fe41"
+            },
+            {
+              "path": "skills/icon-charm.svg",
+              "sha256": "5aff4c715517e3ae64a315bfd1e9aa0e95708f7900da6568e0900b8336baba5e"
+            },
+            {
+              "path": "skills/icon-heartbreak.svg",
+              "sha256": "97233180381368c9168cbbd1c2e5a4af66fa455bfe3acf62bd3485c125f0140d"
+            },
+            {
+              "path": "skills/icon-duel.svg",
+              "sha256": "eec5cc1cff7608e97c27848b2e9321308e5cfc208576a1cada7727c8d2a02b5c"
+            },
+            {
+              "path": "art/backgrounds/shared.png",
+              "sha256": "c38604bb53ee8b26dd604c9458884a0fe99daf5e83111b948a970569f146cc38"
+            },
+            {
+              "path": "art/recap-vote.png",
+              "sha256": "87e2987704055423868814b70d7d52f0d789c23f631c0869b09398642e3cda2c"
+            },
+            {
+              "path": "art/recap-sheriff.png",
+              "sha256": "d7a71fa7bc635ab3f61b774b9973ef74c59dc1999009355df1e752ed677ddb48"
+            },
+            {
+              "path": "skills/icon-vote.svg",
+              "sha256": "13cb4fba33d60ad8c6c747b3bcc84b19177ad9398066f0f8755cd8b3b6995fc7"
+            },
+            {
+              "path": "skills/icon-sheriff-badge.svg",
+              "sha256": "f1629595c84c4e459ad5e96dc4c6b4070796a2798410148e381f3bce05d23068"
+            }
+          ]
+        },
+        {
+          "liveBeautyBoard": true,
+          "romanceDefaults": true,
+          "detailsRemoved": true,
+          "newEdgeOnly": true
+        },
+        {
+          "liveMasquerade": true,
+          "firstNightRegistration": true,
+          "defaultIdiotChase": false,
+          "roomChoiceSaved": true,
+          "refresh": true
+        },
+        {
+          "liveBoard": true,
+          "order": true,
+          "mandatoryHiddenRegistration": true,
+          "pendingWolfTarget": true,
+          "hiddenRefresh": true,
+          "reload": true
+        },
+        {
+          "timerModes": true,
+          "resetOriginal": true,
+          "defaults": true,
+          "gameSaveUnchanged": true
+        }
+      ],
+      "cache": [
+        "council-v18-1"
+      ],
+      "errors": []
+    }
+  },
+  "changedFiles": [
+    "README.md",
+    "docs/ui54-report.md",
+    "docs/ui54-thumbnails.json",
+    "docs/ui54-validation.json",
+    "public/app.js",
+    "public/art/thumbs/beauty.webp",
+    "public/art/thumbs/blood.webp",
+    "public/art/thumbs/dancer.webp",
+    "public/art/thumbs/demon.webp",
+    "public/art/thumbs/dream.webp",
+    "public/art/thumbs/duelist.webp",
+    "public/art/thumbs/elder.webp",
+    "public/art/thumbs/evilKnight.webp",
+    "public/art/thumbs/gargoyle.webp",
+    "public/art/thumbs/gravekeeper.webp",
+    "public/art/thumbs/guard.webp",
+    "public/art/thumbs/hiddenWolf.webp",
+    "public/art/thumbs/hunter.webp",
+    "public/art/thumbs/idiot.webp",
+    "public/art/thumbs/king.webp",
+    "public/art/thumbs/magician.webp",
+    "public/art/thumbs/mask.webp",
+    "public/art/thumbs/mechanical.webp",
+    "public/art/thumbs/medium.webp",
+    "public/art/thumbs/merchant.webp",
+    "public/art/thumbs/mixed.webp",
+    "public/art/thumbs/nightmare.webp",
+    "public/art/thumbs/seedWolf.webp",
+    "public/art/thumbs/seer.webp",
+    "public/art/thumbs/villager.webp",
+    "public/art/thumbs/witch.webp",
+    "public/art/thumbs/wolf.webp",
+    "public/art/thumbs/younger.webp",
+    "public/cache-manifest.js",
+    "public/data.js",
+    "public/engine.js",
+    "public/index.html",
+    "public/recap.js",
+    "public/style.css",
+    "public/sw.js",
+    "public/timer.js",
+    "scripts/complete-recap-ui.mjs",
+    "scripts/followup-ui.mjs",
+    "scripts/image-performance.mjs",
+    "scripts/slow-server.mjs",
+    "scripts/timer-review-ui.mjs",
+    "scripts/ui-regression.mjs",
+    "scripts/ui54-ui.mjs",
+    "scripts/verify-deployment.mjs",
+    "test/beauty.test.js",
+    "test/classic.test.js",
+    "test/complete-recap.test.js",
+    "test/engine.test.js",
+    "test/masquerade.test.js",
+    "test/mechanical.test.js",
+    "test/nightmare.test.js",
+    "test/pwa.test.js",
+    "test/readme48.test.js",
+    "test/ui54.test.js"
+  ]
 }
