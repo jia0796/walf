@@ -1660,12 +1660,4 @@ MD-23～MD-35及UI-01～UI-04的規則、DOM與桌面尺寸／離線測試通過
 
 ### 55.7 本輪已實作與修復紀錄（2026-10-13）
 
-已部署 [adb1a92](https://github.com/jia0796/wolf_Emcee/commit/adb1a9276d8bcbf524c38ce57c5b91f968a02df8)。[完整實作報告](docs/ui55-implementation-report.md) · [本輪驗收數據](docs/ui55-implementation-validation.json)；[測試 CI](https://github.com/jia0796/wolf_Emcee/actions/runs/38358392269)／[部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38358392320) 成功，正式站 61 項雜湊及新功能已核對。
-
-- 警上白框＋「警上」、退水灰藍框＋「退水」延續到警長投票／PK，當前結果用紫框，取消恢復白框。
-- 選用票型彈窗有多人同投／逐人兩模式、改票、棄票、未紀錄、二次清空、即時分組統計；原快速選結果流程與手動判定維持。
-- 警長投票排除警上／退水者；放逐警長 1.5 票記住當時警徽，PK 新輪不複製前輪；復盤只有實際紀錄才在原事件卡下方追加收合票型區。
-- 混血兒維持原座號＋「混血兒（好／狼）」版型，不再切成三行榜樣／陣營文字。榜樣資料及角色規則未改。
-- 636 項測試、432 局／46,643 次引擎壓力操作、33 局／2,914 次完整主持黑箱、五尺寸及 150% 字體／模擬安全區通過。存檔 v19、快取 council-v19-1。
-- UI55-12 的實體 iPhone Safari／iOS PWA／Android、實際縮放仍待驗收。本節僅記錄步驟一已實作與修復；步驟三獨立報告不回頭修改本 README 或程式。
-
+警上／退水持續標記、選用票型兩模式、當輪資格與歷史警徽權重、PK 分輪復盤及混血兒原座位版型已完成；程式 [adb1a92](https://github.com/jia0796/wolf_Emcee/commit/adb1a9276d8bcbf524c38ce57c5b91f968a02df8) 已部署，存檔 v19、快取 council-v19-1。636 項測試、432 局壓力回歸與 33 局完整 DOM 主持通過；UI55-12 真機仍待驗收。[完整實作／修復清單](docs/ui55-implementation-report.md) · [本輪驗收數據](docs/ui55-implementation-validation.json)。步驟三獨立檢查報告不回頭修改本 README 或程式。
