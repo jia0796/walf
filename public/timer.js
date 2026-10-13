@@ -17,3 +17,5 @@ export function createSpeechTimer(){
   defaults(){deadline=null;seconds=60;original=null;mode='setup';return view();}
  };
 }
+
+export function timerProgress({seconds,original}){return {ratio:Math.min(1,Math.max(0,seconds/(original||seconds||1))),tone:seconds<=10?'urgent':seconds<=30?'warm':'normal'};}

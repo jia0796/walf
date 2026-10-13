@@ -23,10 +23,10 @@ export const SCRIPT = {
   seer: '預言家請睜眼', inspect: '選擇你今晚要查驗的對象', seerClose: '預言家請閉眼',
   hunter: '獵人請睜眼', gesture: '今晚的開槍手勢', hunterClose: '獵人請閉眼',
   dawn: '天亮請睜眼', candidates: '現在開始競選警長，候選人請起立', draw: '請抽發言順序',
-  withdraw: '要退水的玩家請坐下', sheriffVote: '現在進行投票，3、2、1  請投票',
-  sheriffPK: '請平手玩家依序再次發表政見', sheriffRevote: '再次進行投票，3、2、1  請投票',
+  withdraw: '要退水的玩家請坐下', sheriffVote: '現在進行投票，3、2、1請投票',
+  sheriffPK: '請平手玩家依序再次發表政見', sheriffRevote: '再次進行投票，3、2、1請投票',
   direction: '警長決定警左警右', badgeTransfer: '請警長移交警徽',
-  voteIntro: '現在進行投票', exileVote: '3、2、1  請投票', exileRevote:'3、2、1  請投票', noExile:'無人出局，進入下一晚',
+  voteIntro: '現在進行投票，3、2、1請投票', exileVote: '現在進行投票，3、2、1請投票', exileRevote:'再次進行投票，3、2、1請投票', noExile:'無人出局，進入下一晚',
   mediumIdentify:'通靈師請舉手', mediumIdentified:'通靈師手放下', guard:'守衛請睜眼', guardTarget:'今晚你要守護的對象是？', guardClose:'守衛請閉眼', mechanical:'機械狼請睜眼', mechanicalAction:'-', mechanicalClose:'機械狼請閉眼', medium:'通靈師請睜眼', mediumInspect:'選擇你今晚要查驗的對象', mediumClose:'通靈師請閉眼'
 };
 const blankNight = () => ({ danceTargets:[],danceConfirmed:false,maskInspect:null,maskResult:null,maskTarget:null,maskSkip:false,maskConfirmed:false,charm:null,charmSkip:false,attackMode:'attack',infectionDecision:false,mechanicalResult:null,infectionConfirmed:false,infectionFired:false,exchange: [], noExchange: false, attack: null, emptyAttack: false, antidote: null, poison: null, poisonTarget: null, inspect: null, guard:null,guardSkip:false,learnTarget:null,learnSkip:false,extraAttack:null,extraAttackSkip:false,mechanicalInspect:null,mechanicalPoison:null,mechanicalPoisonSkip:false,shield:null,shieldSkip:false,mediumInspect:null,revenge:null,revengeSkip:false,tradeTarget:null,tradeAbility:null,tradeSkip:false,luckyInspect:null,luckyPoison:null,luckySkip:false,fear:null,fearSkip:false,fearApplied:false,sleep:null,sleepApplied:false,repeatPending:null,repeatExecuted:false,forcedAttackReason:null,roleModel:null,transform:null,hunt:null,huntSkip:false,huntApplied:false,huntSuccess:null,huntDeath:null,huntResolved:false });
@@ -39,7 +39,7 @@ export function createGame(boardId='12',rules={}) {
   if(b.id==='evilKnight12'&&typeof config.immuneNightGun!=='boolean')throw new Error('Invalid knight rules');
   if(b.roles.idiot&&typeof config.idiotChase!=='boolean')throw new Error('Invalid idiot rule');
   if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'||!['once','success'].includes(config.shieldMode)))throw new Error('Invalid mechanical rules');
-  return { version: 17,masquerade:masqueradeState(),charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
+  return { version: 18,masquerade:masqueradeState(),charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
     infection:{remaining:1,usedNight:null,target:null,originalRole:null,success:null,result:null,joinNight:null,notifiedNight:null},
     knight:{immune:true,remaining:1,triggers:[]},
     gargoyle:{target:null,originalRole:null,originalWolves:[],transformedNight:null,joinNight:null},exiles:[],
@@ -58,10 +58,12 @@ const wolves = p => ROLE_DATA[p.role]?.kind==='wolf';
 const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role&&nativeAllowed(s,p)));
 export function upgradeGame(saved) {
-  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  if(saved.version===17)return clone(saved);
+  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
+  if(saved.version===18)return clone(saved);
+  const mergeVote=s=>{s.version=18;if(s.step==='voteIntro'){s.step='exileVote';s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);}return s;};
+  if(saved.version===17){const s=mergeVote(clone(saved));s.history=s.history.map(mergeVote);return s;}
   const migrate = (old,past=[]) => {
-    const s={...createGame(old.boardId || '12'),...old,version:17}; delete s.direction;s.masquerade={...masqueradeState(),...old.masquerade};s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
+    const s={...createGame(old.boardId || '12'),...old,version:18}; delete s.direction;s.masquerade={...masqueradeState(),...old.masquerade};s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
     s.infection={...createGame(s.boardId).infection,...old.infection};
     s.knight={...createGame(s.boardId).knight,...old.knight};
     s.gargoyle={...createGame(s.boardId).gargoyle,...old.gargoyle};s.exiles=old.exiles||[];
@@ -100,7 +102,7 @@ export function upgradeGame(saved) {
     if(s.winner&&s.step!=='finished'){for(const d of s.nightState?.deaths||s.deaths||[])if(player(s,d.id))Object.assign(player(s,d.id),{alive:false,cause:d.cause});s.deathsCommitted=true;s.step='finished';s.action=[];s.choice=null;}
     if(!Object.hasOwn(old,'history'))delete s.history;
     if(s.step==='direction' && !s.sheriff) {s.step='dayDraw';s.draw=null;}
-    return s;
+    return mergeVote(s);
   };
   const s=migrate(saved);s.history=saved.history.map((h,i)=>migrate(h,h.version<5?saved.history.slice(0,i):[]));return s;
 }
@@ -271,6 +273,7 @@ export function choose(s,value) {
     if(n[type]===null)value=null;
     if (type==='poison') {s.action=[];n.poisonTarget=null;}
   } else if (['skill','badgeTransfer'].includes(s.step) && value==='skip') {s.action=[];value=s.choice==='skip'?null:'skip';}
+  else if (s.step==='candidates' && value==='all') {s.candidates=eligibleVoters(s).map(p=>p.id);}
   else if (s.step==='candidates' && value==='none') {s.candidates=[];value=s.choice==='none'?null:'none';}
   else if (['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s.step) && value==='tie') {s.action=[];value=s.choice==='tie'?null:'tie';}
   else if (['draw','dayDraw'].includes(s.step) && value==='draw') {
@@ -530,7 +533,7 @@ export function next(s) {
     if(s.badgeSwallowed&&!s.swallowNoticeShown&&s.night===s.swallowNoticeNight)enter(s,'swallowNotice');else afterDawn(s);
   } else if(step==='candidates') {
     s.nominees=[...s.candidates];
-    if(!s.candidates.length||s.candidates.length===s.players.filter(p=>p.active&&p.alive).length){s.noSheriffReason=s.candidates.length?'all':'none';s.electionStatus='none';s.resumeElection=false;s.sheriff=null;}
+    if(!s.candidates.length||s.candidates.length===eligibleVoters(s).length){s.noSheriffReason=s.candidates.length?'all':'none';s.electionStatus='none';s.resumeElection=false;s.sheriff=null;}
     enter(s,'dawn');
   } else if(step==='noSheriffNotice'){s.noSheriffNoticeShown=true;recordDay(s,'sheriff',{skill:'sheriff-badge',result:'無警長'});enter(s,'announcement');}
   else if(step==='swallowNotice'){s.swallowNoticeShown=true;afterDawn(s);}
@@ -575,7 +578,7 @@ export function next(s) {
   }
   else if(step==='idiotReveal') {if(s.sheriff===s.idiot.seat){s.pendingBadge=s.idiot.seat;s.continuation='nextNight';enter(s,'badgeTransfer');}else enter(s,'nextNight');}
   else if(step==='direction' || step==='dayDraw') enter(s,'discussion');
-  else if(step==='discussion') enter(s,'voteIntro');
+  else if(step==='discussion') {s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);enter(s,'exileVote');}
   else if(step==='voteIntro') {s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);enter(s,'exileVote');}
   else if(['exileVote','exileRevote'].includes(step)) {
     if(s.choice==='tie') {

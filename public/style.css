@@ -215,3 +215,16 @@ html,body{min-height:0}
 
 /* Footer reserves space while showing only the existing action buttons. */
 #setup .actions{background:transparent;padding:12px 0}
+
+/* README 53/54: operation states take priority over role border colours. */
+#host .seat.candidate{border-color:#CBD5E1;box-shadow:inset 0 0 0 1px #CBD5E1}
+#host .seat.withdrawn{border-color:#778396;box-shadow:inset 0 0 0 1px #778396}
+#host .seat.withdrawn .seat-tags span:first-child{background:#343f50;color:#d9e0ec}
+#host .seat.vote-selected{border-color:#A99AC7;outline:2px solid #A99AC7;outline-offset:-2px;box-shadow:none}
+.timer-countdown{position:relative;width:min(240px,100%);height:auto;min-height:0;aspect-ratio:1;margin:8px auto;color:#CBD5E1;font-family:Georgia,'Times New Roman',serif;font-size:clamp(38px,12vw,58px);letter-spacing:.02em}
+.timer-ring{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke-width:2}
+.timer-ring-track{stroke:#CBD5E1;opacity:.12}
+.timer-ring-progress{stroke:currentColor;stroke-dasharray:1;transform:rotate(-90deg);transform-origin:120px 120px;transition:stroke-dashoffset .25s linear,color .3s ease}
+.timer-countdown[data-tone=warm]{color:#F3E9D2}.timer-countdown[data-tone=urgent]{color:#E9A095}
+@media(max-height:550px){.timer-countdown{width:min(180px,100%)}}
+@media(prefers-reduced-motion:reduce){.timer-ring-progress{transition:none}}

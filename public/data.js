@@ -75,3 +75,5 @@ CATALOG_ART.mask={image:ROLE_DATA.mask.image,driveId:'1e_769n3-EnRhBzShZ4eaDMNrd
 
 BOARDS.masquerade12={id:'masquerade12',name:'12人 假面／舞者',canonicalName:'12人 假面／舞者',shortLabel:'假面／舞者',category:'special',enabled:true,playerCount:12,roles:{wolf:3,mask:1,dancer:1,seer:1,witch:1,idiot:1,villager:4},firstNightOrder:['dancer','mask','wolves','witch','seer','idiot'],nightOrder:['dancer','mask','wolves','witch','seer'],defaults:{...defaults,swallow:true,idiotChase:false},swallowThreshold:2,adjustable:['sheriff','selfRescue','swallow','idiotChase']};
 BOARD_ORDER.push('masquerade12');
+
+for(const [id,role] of Object.entries(ROLE_DATA))role.thumbnail='art/thumbs/'+id+'.webp';

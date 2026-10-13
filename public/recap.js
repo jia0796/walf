@@ -26,6 +26,7 @@ function basicKnifeName(e){
 
 const reasonNames={danceProtection:'共舞免刀',masqueradeImmunity:'免疫毒藥',guard:'守護抵擋',antidote:'解藥救回',guardAndAntidote:'同守同救',wolfTarget:'狼人目標',knightImmunity:'免疫',demonImmunity:'免疫',immuneNightGun:'免疫',sleep:'夢遊免疫',shield:'守護抵擋'};
 export function outcomeLabel(e){
+ if(e.key==='learn'||e.skill==='learn'||e.type==='badge'&&!e.rawTargets.length)return '';
  if(e.key==='dance')return '';
  if(e.key==='danceDeath')return '共舞死亡';
  if(e.key==='maskInspect')return e.participated??e.result==='有參與共舞'?'參與':'未參與';

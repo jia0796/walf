@@ -1,0 +1,366 @@
+[
+  {
+    "id": "evilKnight",
+    "image": "art/catalog/evilKnight.png",
+    "thumbnail": "art/thumbs/evilKnight.webp",
+    "originalBytes": 2110308,
+    "thumbnailBytes": 56290,
+    "originalSha256": "fa377d661797cb24b21551e39d6a2fc875645c878aff38cc65f60c271f468987",
+    "thumbnailSha256": "53b0db8e3ed27f7adaf222c44b64d248419696ca5d3c30b477a06ad646d72c97",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "gargoyle",
+    "image": "art/catalog/gargoyle-v04.png",
+    "thumbnail": "art/thumbs/gargoyle.webp",
+    "originalBytes": 2279908,
+    "thumbnailBytes": 56590,
+    "originalSha256": "77c1f2be5ffff350a9c2fb3a195932e7db33a8c67e3947946eea1a0aa89232be",
+    "thumbnailSha256": "13460907c0b1da6a9286b61d2cd25becc3c42d16ca57b3097b9f049cbde5dc35",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "gravekeeper",
+    "image": "art/catalog/gravekeeper.png",
+    "thumbnail": "art/thumbs/gravekeeper.webp",
+    "originalBytes": 1712976,
+    "thumbnailBytes": 55634,
+    "originalSha256": "aa53d52ea68a3456b1bdc51d5e1a73d421df1f35c9b7fce16f2181a60a5c6fe2",
+    "thumbnailSha256": "692b05d8e98103569e4d7943edc0e249b4da5cdb07ce759a91da2b8989f42b7f",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "blood",
+    "image": "art/blood-moon-messenger-approved.png",
+    "thumbnail": "art/thumbs/blood.webp",
+    "originalBytes": 2273362,
+    "thumbnailBytes": 59190,
+    "originalSha256": "4fd1920ade7640ec363326fac49e547a5f31c13ac69a0aca547a498dcda59613",
+    "thumbnailSha256": "3fba9b8014101a88e42b0f3bc71c1239151b832323f3ab109667e03a2abca9d3",
+    "size": [
+      420,
+      560
+    ]
+  },
+  {
+    "id": "demon",
+    "image": "art/demon-hunter-approved.png",
+    "thumbnail": "art/thumbs/demon.webp",
+    "originalBytes": 2465418,
+    "thumbnailBytes": 64572,
+    "originalSha256": "3a43ac0a933717f76600f10da290f2ee313f489856a4b2c538b941d13050462d",
+    "thumbnailSha256": "d888c321d6bfd574f86e04343a8426150c4b234c6bfe0080267a7d99435713a3",
+    "size": [
+      420,
+      560
+    ]
+  },
+  {
+    "id": "idiot",
+    "image": "art/catalog/idiot.png",
+    "thumbnail": "art/thumbs/idiot.webp",
+    "originalBytes": 1803766,
+    "thumbnailBytes": 37238,
+    "originalSha256": "c5e057141ffaef5081519802bdc2aa4eb7678022a3b922b8e91f502e27095082",
+    "thumbnailSha256": "d60e94bab554a61c79097bb8950e00f5911956d260523b4d35f27396d6b38802",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "mixed",
+    "image": "art/mixed-blood-dual-approved.jpeg",
+    "thumbnail": "art/thumbs/mixed.webp",
+    "originalBytes": 560485,
+    "thumbnailBytes": 50326,
+    "originalSha256": "289f669684cc946b465902d637d71e04d5bd75ed3b4265607a6d5bdf129f95b9",
+    "thumbnailSha256": "4f1c12193e784f6481673d2a597c3a17f0df788b350c16389e2007a67b661781",
+    "size": [
+      420,
+      557
+    ]
+  },
+  {
+    "id": "nightmare",
+    "image": "art/catalog/nightmare.png",
+    "thumbnail": "art/thumbs/nightmare.webp",
+    "originalBytes": 1948636,
+    "thumbnailBytes": 42976,
+    "originalSha256": "6b70c48600bf891db6922d4dd6ad7cc82921d1f693cc549eca5ddb3e5716bc12",
+    "thumbnailSha256": "e00277f296efe93f93c6708f5739f2f60bcb6b0624500fcbb357ec7a10bcfd6a",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "dream",
+    "image": "art/catalog/dream.png",
+    "thumbnail": "art/thumbs/dream.webp",
+    "originalBytes": 1923984,
+    "thumbnailBytes": 52664,
+    "originalSha256": "22889833ef1474b279c10424b916560dfc78ce4c5e8958dd8ef08182f308be45",
+    "thumbnailSha256": "050d14b33e89e2fbcd900b61e57d3a5d078a725253ae009ebf8ba57cfa5b0afa",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "elder",
+    "image": "art/catalog/elder.png",
+    "thumbnail": "art/thumbs/elder.webp",
+    "originalBytes": 1920777,
+    "thumbnailBytes": 49062,
+    "originalSha256": "08bf943e5a641441efed93f3cee5493abe8e643b19050739fd477afa9a8bd8e9",
+    "thumbnailSha256": "2d44b0e10655b81f4c35ecea81b73d3f94a466657f925583f2a07f9f308b53b7",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "younger",
+    "image": "art/catalog/younger.png",
+    "thumbnail": "art/thumbs/younger.webp",
+    "originalBytes": 1892678,
+    "thumbnailBytes": 39090,
+    "originalSha256": "7a087916cbfdc2341615813cb9553057a55bc7d9b558539873b03c6a7ed2923c",
+    "thumbnailSha256": "56429b5d15967729afb3b241b84ba52266562cc329e99b809105f1a70367f3a7",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "merchant",
+    "image": "art/catalog/merchant.png",
+    "thumbnail": "art/thumbs/merchant.webp",
+    "originalBytes": 1925914,
+    "thumbnailBytes": 50304,
+    "originalSha256": "a2e3c4a8fa62b0ccaab2a857169fe559a62d011504ec5cf93e4fdfc5f8015e63",
+    "thumbnailSha256": "3e2b5ea075aafd5035be050569180d9f73436880a0bbd5608c38b1fee3309629",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "king",
+    "image": "art/catalog/king.png",
+    "thumbnail": "art/thumbs/king.webp",
+    "originalBytes": 1830292,
+    "thumbnailBytes": 44966,
+    "originalSha256": "1a146cfc290437b6562384b7f6a302c5d92a3d8dc17402b6dfb4b3d1671d2d7d",
+    "thumbnailSha256": "7b12c3d64ed8144fdbb8ebfa4cd86e1ee7f50c4fc34e2f7ed923cb89867a5a71",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "wolf",
+    "image": "art/catalog/wolf.png",
+    "thumbnail": "art/thumbs/wolf.webp",
+    "originalBytes": 1971990,
+    "thumbnailBytes": 43446,
+    "originalSha256": "1233c4f4d5f42afe72a5824a55b4538af976d4ba4aca51b21c25b9b410c36f7a",
+    "thumbnailSha256": "bab1a8025fab56626a4291546724abbe9e5ed0a013fc5db45537a38084a793d5",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "seer",
+    "image": "art/catalog/seer.png",
+    "thumbnail": "art/thumbs/seer.webp",
+    "originalBytes": 1828441,
+    "thumbnailBytes": 49314,
+    "originalSha256": "75658b0d38140bdc21ea6a6dd80a68a6e701b4e37c16b82c591f6eea7b6f4e3b",
+    "thumbnailSha256": "79cf57247e55c27ca010a388097bd168ac07b8e444ad4ae76c2301f15e223e0c",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "witch",
+    "image": "art/catalog/witch.png",
+    "thumbnail": "art/thumbs/witch.webp",
+    "originalBytes": 1775428,
+    "thumbnailBytes": 43878,
+    "originalSha256": "071a3354e04dc7eec4af81fa2d7878f971a78f773c60194b61db75609b90c326",
+    "thumbnailSha256": "af866a0e6a997e62175cf3706e593f9735df813e1ebd01255cff7d4ec8cdb701",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "hunter",
+    "image": "art/catalog/hunter.png",
+    "thumbnail": "art/thumbs/hunter.webp",
+    "originalBytes": 1951400,
+    "thumbnailBytes": 48724,
+    "originalSha256": "380c5d50da1caeaf2cd8e06c652703eeb0d9d80600d438a942d7251f263d4531",
+    "thumbnailSha256": "c86a8366f6ccd6721ef6c118e01effbd3af1e0b444643f29cab6846dcb08b5a7",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "magician",
+    "image": "art/catalog/magician.png",
+    "thumbnail": "art/thumbs/magician.webp",
+    "originalBytes": 1885526,
+    "thumbnailBytes": 50422,
+    "originalSha256": "09476f9f4162332849aac1bc9964a7754eae9b2240e43d1c5be4079eac821b91",
+    "thumbnailSha256": "c0f2830a3e62cb64f1ede3c330dd9e3a767b0fcfab4269a6bbaa4d7f4556ea37",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "villager",
+    "image": "art/catalog/villager.png",
+    "thumbnail": "art/thumbs/villager.webp",
+    "originalBytes": 1755841,
+    "thumbnailBytes": 36750,
+    "originalSha256": "f549d8d8432e8c9a034ad3b65bfe5b93b9dbce476623654db0fa5e7d40750d01",
+    "thumbnailSha256": "b5ce3fed82771c84424ade9dde8fbce1c355b8e7ce15e1b842a31da586a07db6",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "mechanical",
+    "image": "art/catalog/mechanical.png",
+    "thumbnail": "art/thumbs/mechanical.webp",
+    "originalBytes": 1961706,
+    "thumbnailBytes": 47214,
+    "originalSha256": "a4649059659bd1d0487a8c69ceae6707c03a61fdd3267de71e6c61560c86c904",
+    "thumbnailSha256": "3fd858a890aa04021a1c87c99c331cac3b3f4d5d7a443e50334b87977bbc0e3d",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "medium",
+    "image": "art/catalog/medium.png",
+    "thumbnail": "art/thumbs/medium.webp",
+    "originalBytes": 1916965,
+    "thumbnailBytes": 51970,
+    "originalSha256": "a948bd3dd482a60173716e84d2727c9a9dbd853c23148ecd5f7c5e63091d4420",
+    "thumbnailSha256": "2dc52091b6666ce73a63428678a7b37cec4a6e68faa60e703570c003515c4afc",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "guard",
+    "image": "art/catalog/guard.png",
+    "thumbnail": "art/thumbs/guard.webp",
+    "originalBytes": 1786137,
+    "thumbnailBytes": 43484,
+    "originalSha256": "beddccba82356521986d4fc9c64b4afec8b1cb2ec2a87d127b37cd784e5c9c3d",
+    "thumbnailSha256": "df92a14757b89f646fa3b4229f2cdf1f3c5edfb61d8eef9fc038ea94be8d6fed",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "seedWolf",
+    "image": "art/catalog/seedWolf.png",
+    "thumbnail": "art/thumbs/seedWolf.webp",
+    "originalBytes": 1937070,
+    "thumbnailBytes": 44078,
+    "originalSha256": "9fbf4844d82d4aea0678a561194e5177bbee63f1e94c40574d3ff8dc433e6712",
+    "thumbnailSha256": "e1d1c0f6337c988879ea272bec1acf319ae5fe198069b771c642c531e746bda0",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "hiddenWolf",
+    "image": "art/catalog/hiddenWolf.png",
+    "thumbnail": "art/thumbs/hiddenWolf.webp",
+    "originalBytes": 1870545,
+    "thumbnailBytes": 37424,
+    "originalSha256": "a7d9eba161798bb76887163b9ab5d0f099d627246cdaadb1e6375d29f93fbe9b",
+    "thumbnailSha256": "c18a453ae2f7379c56fb668a89191ca66d476f2fc9aeaa37dbf9b1b79026eb60",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "beauty",
+    "image": "art/catalog/beauty.png",
+    "thumbnail": "art/thumbs/beauty.webp",
+    "originalBytes": 2074144,
+    "thumbnailBytes": 50544,
+    "originalSha256": "46d92b1b05a9a403b421af2c5308cc29ffae519d55467510462084d8c084689c",
+    "thumbnailSha256": "eee8cf7e932e6d30e49efc798c3df5400ddf992956ca908112da27ca3c730695",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "duelist",
+    "image": "art/catalog/duelist.png",
+    "thumbnail": "art/thumbs/duelist.webp",
+    "originalBytes": 2105056,
+    "thumbnailBytes": 60190,
+    "originalSha256": "f41c24156559c4cd7141b890f9ec8738811bf1a0909f61996c06572f83d1fe41",
+    "thumbnailSha256": "9adbb1473390f50b0147384ef5cf06872f38b00499b09f203dc925b9763a6f00",
+    "size": [
+      415,
+      588
+    ]
+  },
+  {
+    "id": "dancer",
+    "image": "art/catalog/dancer.png",
+    "thumbnail": "art/thumbs/dancer.webp",
+    "originalBytes": 2133737,
+    "thumbnailBytes": 56152,
+    "originalSha256": "2d31372e01a6be4811d0d5e35f91252f60b287f14b56444c3ed91627c80d32fb",
+    "thumbnailSha256": "7f9069661c9477a8184115e11cd11063a28cab74f1795e507f6ec3b62b0f363a",
+    "size": [
+      420,
+      588
+    ]
+  },
+  {
+    "id": "mask",
+    "image": "art/catalog/mask.png",
+    "thumbnail": "art/thumbs/mask.webp",
+    "originalBytes": 2011550,
+    "thumbnailBytes": 53832,
+    "originalSha256": "ac57ebbf80d04fd9b2d9bfb6b5297a9d5abbcefb4aa46658e93b0f334c94cc93",
+    "thumbnailSha256": "79f4f730c7f72f46e03a4ca2b3c2e67c4f76b627d92d8622e3ccae94d2d8f074",
+    "size": [
+      420,
+      588
+    ]
+  }
+]
