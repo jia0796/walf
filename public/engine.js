@@ -1,3 +1,4 @@
+import {confirmVoteNotes} from './votes.js';
 import {masqueradeState,dancerAvailable,danceCandidates,maskAvailable,maskInspectCandidates,updateMaskTakeover} from './masquerade.js';
 import {heartbreakBatch} from './beauty.js';
 // 主持字幕只取自使用者原句；法官操作提示不屬於字幕。
@@ -39,7 +40,7 @@ export function createGame(boardId='12',rules={}) {
   if(b.id==='evilKnight12'&&typeof config.immuneNightGun!=='boolean')throw new Error('Invalid knight rules');
   if(b.roles.idiot&&typeof config.idiotChase!=='boolean')throw new Error('Invalid idiot rule');
   if(b.roles.mechanical&&(!['next','allDead'].includes(config.mechanicalKnife)||typeof config.reflectPoison!=='boolean'||!['once','success'].includes(config.shieldMode)))throw new Error('Invalid mechanical rules');
-  return { version: 18,masquerade:masqueradeState(),charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
+  return { version: 19,votePatterns:[],masquerade:masqueradeState(),charm:{target:null,night:null,lastTarget:null,gunBlocked:[],announcements:[],announcementIndex:0,beautyWords:null},duelist:{used:false,target:null,success:null,resume:null,revealed:false},recapVersion:1,
     infection:{remaining:1,usedNight:null,target:null,originalRole:null,success:null,result:null,joinNight:null,notifiedNight:null},
     knight:{immune:true,remaining:1,triggers:[]},
     gargoyle:{target:null,originalRole:null,originalWolves:[],transformedNight:null,joinNight:null},exiles:[],
@@ -58,12 +59,12 @@ const wolves = p => ROLE_DATA[p.role]?.kind==='wolf';
 const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role&&nativeAllowed(s,p)));
 export function upgradeGame(saved) {
-  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  if(saved.version===18)return clone(saved);
-  const mergeVote=s=>{s.version=18;if(s.step==='voteIntro'){s.step='exileVote';s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);}return s;};
-  if(saved.version===17){const s=mergeVote(clone(saved));s.history=s.history.map(mergeVote);return s;}
+  if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
+  if(saved.version===19)return clone(saved);
+  const mergeVote=s=>{s.version=19;s.votePatterns??=[];if(s.step==='voteIntro'){s.step='exileVote';s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);}return s;};
+  if([17,18].includes(saved.version)){const s=mergeVote(clone(saved));s.history=s.history.map(mergeVote);return s;}
   const migrate = (old,past=[]) => {
-    const s={...createGame(old.boardId || '12'),...old,version:18}; delete s.direction;s.masquerade={...masqueradeState(),...old.masquerade};s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
+    const s={...createGame(old.boardId || '12'),...old,version:19}; delete s.direction;s.masquerade={...masqueradeState(),...old.masquerade};s.charm={...createGame(s.boardId).charm,...old.charm};s.duelist={...createGame(s.boardId).duelist,...old.duelist};
     s.infection={...createGame(s.boardId).infection,...old.infection};
     s.knight={...createGame(s.boardId).knight,...old.knight};
     s.gargoyle={...createGame(s.boardId).gargoyle,...old.gargoyle};s.exiles=old.exiles||[];
@@ -543,6 +544,7 @@ export function next(s) {
     if(s.candidates.length<2){s.sheriff=s.candidates[0]||null;finishElection(s);}
     else {s.votePool=[...s.candidates];enter(s,'sheriffVote');}
   } else if(['sheriffVote','sheriffRevote'].includes(step)) {
+    confirmVoteNotes(s);
     if(s.choice==='tie' && step==='sheriffVote') {s.votePool=[...s.action];enter(s,'sheriffPK');}
     else {s.sheriff=s.choice==='tie'?null:s.action[0];finishElection(s,s.choice==='tie');}
   } else if(step==='sheriffPK') enter(s,'sheriffRevote');
@@ -581,6 +583,7 @@ export function next(s) {
   else if(step==='discussion') {s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);enter(s,'exileVote');}
   else if(step==='voteIntro') {s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);enter(s,'exileVote');}
   else if(['exileVote','exileRevote'].includes(step)) {
+    confirmVoteNotes(s);
     if(s.choice==='tie') {
       recordDay(s,step==='exileVote'?'exilePK':'exile',{targets:step==='exileVote'?[...s.action]:[],skill:'vote',result:step==='exileVote'?'放逐平票：'+s.action.map(id=>id+'號').join('、')+'進入 PK':'平票／無人出局'});
       if(step==='exileVote'){s.votePool=[...s.action].sort((a,b)=>a-b);enter(s,'exilePK');}

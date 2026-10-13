@@ -1,3 +1,4 @@
+import {voteDetails} from './votes.js';
 import {ROLE_DATA} from './data.js';
 import {recapNights,personSnapshot} from './records.js';
 import {realWolf,infected,converted} from './identity.js';
@@ -83,7 +84,7 @@ export function renderRecap(container,s){
  if(s.legacyRecap||!s.recapVersion)container.append(el('p','small','舊版存檔僅顯示實際保存的事件；缺少的白天與身分快照不補造。'));
  for(const segment of recapTimeline(s)){
   const section=el('section','recap-segment '+segment.kind),title=el('h3','recap-section-title','第'+segment.number+(segment.kind==='night'?'晚':'天'));section.append(title);
-  for(const event of segment.events)section.append(eventCard(event));
+  for(const event of segment.events){section.append(eventCard(event));const superseded=event.type==='exilePK'&&segment.events.some(e=>e!==event&&['exile','idiot'].includes(e.type)&&e.voteRounds?.some(r=>event.voteRounds?.some(first=>first.key===r.key)));if(!superseded){const details=voteDetails(event.voteRounds);if(details)section.append(details);}}
   if(segment.kind==='night'){const r=segment.record,result=el('article','night-result');result.append(el('h4',null,'當晚結果'),el('p',null,r.settled?(r.deaths.length?'死亡：'+[...r.deaths].sort((a,b)=>a.id-b.id).map(d=>d.id+'號').join('、'):'平安夜'):'本晚尚未結算'));section.append(result);}
   container.append(section);
  }

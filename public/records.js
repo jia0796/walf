@@ -1,3 +1,4 @@
+import {savedVoteNotes} from './votes.js';
 import {converted,convertedName,graveResult,nativeAllowed,infected,infectionName,realWolf} from './identity.js';
 import {ROLE_DATA} from './data.js';
 import {ordinaryWolves,basicActor,inspectedWolf,tradeOutcome,mapTarget} from './night.js';
@@ -11,7 +12,8 @@ export function personSnapshot(s,id){
 }
 export function eventPeople(s,actors,targets){return {actorSnapshots:actors.map(id=>personSnapshot(s,id)),targetSnapshots:targets.map(id=>personSnapshot(s,id))};}
 export function recordDay(s,type,{actors=[],targets=[],...detail}={}){
- s.dayEvents??=[];s.dayEvents.push({type,day:s.night,context:'day',order:s.dayEvents.length,actors:[...actors],rawTargets:[...targets],effectiveTargets:[...targets],executed:true,...eventPeople(s,actors,targets),...detail});
+ const voteRounds=['sheriff','exile','exilePK','idiot'].includes(type)?savedVoteNotes(s,type==='sheriff'?'sheriff':'exile'):[];
+ s.dayEvents??=[];s.dayEvents.push({type,day:s.night,context:'day',order:s.dayEvents.length,actors:[...actors],rawTargets:[...targets],effectiveTargets:[...targets],executed:true,...eventPeople(s,actors,targets),...detail,...(voteRounds.length?{voteRounds}:{})});
 }
 export function completePendingPeople(s){
  for(const r of s.nightRecords)for(const e of r.events)for(const key of ['actorSnapshots','targetSnapshots','rawTargetSnapshots'])if(e[key])e[key]=e[key].map(p=>p&&!p.role?personSnapshot(s,p.id):p);
