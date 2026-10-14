@@ -60,7 +60,7 @@ export function eventCard(e){
  let left=actorModel(e);const vote=['sheriff','exile'].includes(e.type);
  if(vote)left={name:e.type==='sheriff'?'警長競選':'放逐投票',image:e.type==='sheriff'?'art/recap-sheriff.png':'art/recap-vote.png',tone:'neutral'};
  card.append(portrait(left),personText(left,{noNumber:vote||e.key==='basic'&&e.actorRole!=='fragrance'}));
- const center=el('div','recap-effect'),label=outcomeLabel(e);if(label&&!vote)center.append(el('span','recap-outcome',label));if(e.skill)center.append(skillIcon(e.key==='maskInspect'?'wolf-inspect':e.skill));else center.append(el('span','recap-arrow','→'));card.append(center);
+ const center=el('div','recap-effect'),label=outcomeLabel(e);if(label&&!vote)center.append(el('span','recap-outcome',label));if(e.key==='extraAttack')center.append(el('span','recap-outcome','額外狼刀'));if(e.skill)center.append(skillIcon(e.key==='maskInspect'?'wolf-inspect':e.skill));else center.append(el('span','recap-arrow','→'));card.append(center);
  if(e.key==='maskAssign'&&!e.rawTargets.length){card.append(el('strong','recap-no-target',e.unsettled?'未結算（遊戲已結束）':'空過'));return card;}
  if(e.type==='badge'&&!e.rawTargets.length){card.append(el('strong','badge-destroyed','X'),el('span','recap-event-label','撕毀警徽'));return card;}
  if(vote&&!e.rawTargets.length){card.append(el('strong','recap-no-target',e.result||'無人出局'));return card;}

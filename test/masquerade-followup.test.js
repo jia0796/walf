@@ -1,5 +1,6 @@
+import {createGame} from '../test-support/legacy-flow.js';
 import test from 'node:test';import assert from 'node:assert/strict';
-import {createGame,next,selectSeat,choose,previous,upgradeGame,nightSteps,subtitle,canNext} from '../public/engine.js';import {BOARDS} from '../public/data.js';import {recapNights} from '../public/records.js';import {outcomeLabel} from '../public/recap.js';
+import {next,selectSeat,choose,previous,upgradeGame,nightSteps,subtitle,canNext} from '../public/engine.js';import {BOARDS} from '../public/data.js';import {recapNights} from '../public/records.js';import {outcomeLabel} from '../public/recap.js';
 const go=s=>assert.equal(next(s),true,s.step);
 function ready(){const s=createGame('masquerade12',{sheriff:false});let i=0;for(const[r,n]of Object.entries(BOARDS.masquerade12.roles))for(let j=0;j<n;j++)s.players[i++].role=r;s.rolesConfirmed=true;s.night=2;return s;}
 function dance(s,ids){s.step='dance';ids.forEach(id=>selectSeat(s,id));go(s);}

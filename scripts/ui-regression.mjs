@@ -11,7 +11,7 @@ const browser=await chromium.launch({channel:'msedge',headless:true});
 const results=[],errors=[];
 const promo=new URL('../output/promo/screens/',import.meta.url);
 async function promoShot(page,name){if(process.env.UI_PROMO){await mkdir(promo,{recursive:true});await page.screenshot({path:new URL(name+'.png',promo).pathname.slice(1)});}}
-async function waitCached(page,paths){const until=Date.now()+60000;while(Date.now()<until){if(await page.evaluate(async paths=>{const cache=await caches.open('council-v21-3');return (await Promise.all(paths.map(p=>cache.match(new URL(p,location.href).href)))).every(Boolean);},paths))return;await page.waitForTimeout(100);}throw Error('Cache did not finish');}
+async function waitCached(page,paths){const until=Date.now()+60000;while(Date.now()<until){if(await page.evaluate(async paths=>{const cache=await caches.open('council-v22-1');return (await Promise.all(paths.map(p=>cache.match(new URL(p,location.href).href)))).every(Boolean);},paths))return;await page.waitForTimeout(100);}throw Error('Cache did not finish');}
 
 async function begin(board,viewport={width:390,height:844},sheriff=false,immuneNightGun=false){
  const context=await browser.newContext({viewport}),page=await context.newPage();page.on('pageerror',e=>errors.push(String(e)));
@@ -56,7 +56,7 @@ async function runBoard(board,{flip=false,reflect=null,nightGun=false,immuneNigh
     else if(sub==='請選擇你要賦予面具的對象')await page.getByRole('button',{name:'空過',exact:true}).click();
     else if(sub==='選擇你今晚要查驗的對象'){const ids=reflect==='inspect'&&day===1?assigned.evilKnight:assigned.villager||[];for(const id of ids)if(await seat(page,id).isEnabled()){await seat(page,id).click();break;}}
     else if(sub==='選擇你要交易的對象')await page.getByRole('button',{name:'延後交易',exact:true}).click();
-    else if(mechanicalMedium&&sub==='-'){await seat(page,day===1?assigned.medium[0]:assigned.villager[(day-2)%4]).click();}
+    else if(mechanicalMedium&&(sub==='-'||sub==='選擇你要學習的對象'||sub==='選擇使用技能的對象')){await seat(page,day===1?assigned.medium[0]:assigned.villager[(day-2)%4]).click();}
     else if(await page.getByRole('button',{name:'暫不學習',exact:true}).isVisible())await page.getByRole('button',{name:'暫不學習',exact:true}).click();
     else if(await page.getByRole('button',{name:'抽籤',exact:true}).isVisible()){await page.getByRole('button',{name:'抽籤',exact:true}).click();if(await page.locator('#drawSkip').isVisible())await page.locator('#drawSkip').click();await page.locator('#drawClose').click();}
     else if(['現在進行投票，3、2、1請投票','再次進行投票，3、2、1請投票'].includes(sub)){

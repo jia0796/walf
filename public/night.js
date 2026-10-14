@@ -1,3 +1,4 @@
+import {specialFlow,originalKnifeActors,takeoverOwner} from './takeover.js';
 import {fragranceActor,bindingBatch} from './fragrance.js';
 import {maskActor,danceInfo} from './masquerade.js';
 import {realWolf,nativeAllowed,converted,infected} from './identity.js';
@@ -9,7 +10,7 @@ export const eligibleVoters=s=>s.players.filter(p=>p.active&&p.alive&&!(p.role==
 export const eligibleExileTarget=(s,p)=>!!p?.active&&p.alive&&!(p.role==='idiot'&&s.idiot?.exileBanned);
 export function mixedResult(s){const m=s.mixed;if(!m?.chosen||!s.winner)return null;return {seat:m.seat,target:m.target,targetRole:m.targetRole,camp:m.camp,won:m.camp===s.winner};}
 const liveRole=(s,role)=>s.players.find(p=>p.alive&&p.role===role&&nativeAllowed(s,p));
-export const ordinaryWolves=s=>s.players.filter(p=>p.alive&&(['wolf','king','elder','nightmare','blood','gargoyle','evilKnight','seedWolf','beauty'].includes(p.role)||(infected(s,p)&&s.night>s.infection.usedNight||converted(s,p)&&s.gargoyle.joinNight!=null&&s.night>=s.gargoyle.joinNight||(p.role==='younger'&&s.brothers?.joinNight!=null&&s.night>=s.brothers.joinNight))));
+export const ordinaryWolves=s=>s.players.filter(p=>p.alive&&(['wolf','king','elder','nightmare','blood','gargoyle','evilKnight','seedWolf','beauty'].includes(p.role)||(infected(s,p)&&s.night>s.infection.usedNight||!specialFlow(s)&&converted(s,p)&&s.gargoyle.joinNight!=null&&s.night>=s.gargoyle.joinNight||(p.role==='younger'&&s.brothers?.joinNight!=null&&s.night>=s.brothers.joinNight))));
 export const revengeAvailable=s=>!!liveRole(s,'younger')&&s.brothers?.revengeNight===s.night&&!s.brothers.revengeUsed;
 export const revengeRecorded=s=>!!liveRole(s,'younger')&&s.brothers?.revengeNight===s.night&&(revengeAvailable(s)||s.brothers.revengeUsedNight===s.night);
 export const canTrade=s=>!!liveRole(s,'merchant')&&!s.merchant?.used;
@@ -22,7 +23,7 @@ export const forcedEmpty=s=>s.nightAction.fearApplied&&s.players.find(p=>p.id===
 export function inspectedWolf(s,id){if(s.gargoyle?.target===id)return s.night>1;const p=s.players.find(p=>p.id===id);if(infected(s,p))return true;if(p?.role==='hiddenWolf')return false;if(p?.role==='younger')return s.brothers?.disguiseEndNight!=null?s.night>=s.brothers.disguiseEndNight:!!s.brothers?.elderDeath&&s.night>s.brothers.elderDeath.night;return ROLE_DATA[p?.role]?.kind==='wolf';}
 export function luckyAbility(s){const l=s.lucky;if(!l||!s.players.find(p=>p.id===l.seat)?.alive||s.night<l.unlockNight||!['inspect','poison'].includes(l.ability))return null;return l.remaining>0||l.usedNight===s.night?l.ability:null;}
 export function winnerReason(s,win=trueWinner(s)){if(!win)return '';if(win==='好人陣營')return s.players.some(p=>p.role==='hiddenWolf')?'所有帶刀狼人已出局':'所有狼人已出局';const live=s.players.filter(p=>aliveForVictory(s,p));if(s.rules.victory==='city')return '屠城：所有好人已出局';return !live.some(p=>!realWolf(s,p)&&ROLE_DATA[p.role]?.kind==='god')?'屠邊：所有神職已出局':'屠邊：所有平民已出局';}
-export const basicActor=s=>ordinaryWolves(s)[0]||liveRole(s,'mechanical')||maskActor(s)||fragranceActor(s);
+export const basicActor=s=>specialFlow(s)?s.players.find(p=>p.id===s.nightAction.basicActor)||originalKnifeActors(s)[0]||(takeoverOwner(s)?.alive?takeoverOwner(s):undefined):ordinaryWolves(s)[0]||liveRole(s,'mechanical')||maskActor(s)||fragranceActor(s);
 export function mechanicalAbility(s){
  const m=s.mechanical,actor=liveRole(s,'mechanical');
  if(!actor||!m?.role)return null;
@@ -44,7 +45,7 @@ export function trueWinner(s){
 // Preserve independent attacks; defenses are spent per hit, never per target.
 export function settleNight(s,{phase='all'}={}){
  const n=s.nightAction,map=id=>mapTarget(s,id);
- const ability=mechanicalAbility(s),mechanical=liveRole(s,'mechanical'),actor=basicActor(s);
+ const ability=specialFlow(s)&&s.nightAction.mechanicalCommitted?(n.extraSubmitted&&n.extraAttack?'extraAttack':n.shield?'shield':n.mechanicalPoison?'mechanicalPoison':mechanicalAbility(s)):mechanicalAbility(s),mechanical=specialFlow(s)&&s.nightAction.mechanicalCommitted?s.players.find(p=>p.role==='mechanical'):liveRole(s,'mechanical'),actor=basicActor(s);
  const shieldDamage=[],dance=danceInfoSafe(s);
  const attacks=[];
  const infecting=n.attackMode==='infect'&&n.infectionFired&&n.attack;

@@ -1,7 +1,8 @@
+import {createGame} from '../test-support/legacy-flow.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {BOARDS,ROLE_DATA} from '../public/data.js';
-import {createGame,canNext,choose,selectSeat,selectable,next,previous,nightSteps,subtitle,winner,roleResult,roleName,canSelfDestruct,beginSelfDestruct,upgradeGame} from '../public/engine.js';
+import {canNext,choose,selectSeat,selectable,next,previous,nightSteps,subtitle,winner,roleResult,roleName,canSelfDestruct,beginSelfDestruct,upgradeGame} from '../public/engine.js';
 import {settleNight,mechanicalAbility,basicActor} from '../public/night.js';
 const go=s=>assert.equal(next(s),true,'Cannot leave '+s.step);
 function ready(board='mechanical12',rules={}){const s=createGame(board,rules);let id=0;for(const [role,count]of Object.entries(BOARDS[board].roles))for(let i=0;i<count;i++)s.players[id++].role=role;s.rolesConfirmed=true;return s;}

@@ -1,3 +1,4 @@
+import {specialFlow,knifeEntry,knifeSelection,knifeKinds,statusSteps,switchSteps,knifeSummary,knifeStatus,closeRole} from './takeover.js';
 import {bondAvailable} from './fragrance.js';
 import {voteLocked} from './votes.js';
 import {createVoteDialog} from './vote-ui.js';
@@ -23,7 +24,7 @@ function setupBoard(id){
  selectedBoard=id;const b=BOARDS[id];$('beautyRules').hidden=!b.roles.beauty;$('rulePoisonRomance').value=String(b.defaults.poisonRomance??true);$('ruleLastWolfRomance').value=String(b.defaults.lastWolfRomance??true);$('ruleShieldMode').value=b.defaults.shieldMode||'once';$('setupTitle').textContent=b.name;$('setupWolves').replaceChildren();$('setupGood').replaceChildren();document.querySelectorAll('#setup details').forEach(d=>d.open=false);
  for(const [role,count] of Object.entries(b.roles)){const li=document.createElement('li');li.textContent=ROLES[role]+' ×'+count;li.className=ROLE_DATA[role].kind;$(ROLE_DATA[role].kind==='wolf'?'setupWolves':'setupGood').append(li);}
  $('knightRules').hidden=b.id!=='evilKnight12';$('ruleImmuneNightGun').value=String(b.defaults.immuneNightGun||false);
- $('setupOrder').textContent=(b.firstNightOrder?'第一晚：'+b.firstNightOrder.map(r=>r==='mediumIdentify'?'通靈師舉手':r==='wolves'?'狼人':r==='brothers'?'狼兄狼弟':r==='lucky'?'幸運兒':(r==='converted'?'轉化者':ROLES[r])).join(' → ')+'\n第二晚起：':'')+b.nightOrder.map(r=>r==='infectionNotice'?'感染者身分確認':r==='wolves'?'狼人':r==='lucky'?'幸運兒':ROLES[r]).join(' → ');
+ $('setupOrder').textContent=(b.firstNightOrder?'第一晚：'+b.firstNightOrder.map(r=>r==='mediumIdentify'?'通靈師舉手':r==='wolves'?'狼人':r==='brothers'?'狼兄狼弟':r==='lucky'?'幸運兒':(r==='converted'?'轉化者':ROLES[r])).join(' → ')+'\n第二晚起：':'')+b.nightOrder.map(r=>r==='infectionNotice'?'感染者身分確認':r==='wolves'?'狼人':r==='lucky'?'幸運兒':r==='converted'?'轉化者':ROLES[r]).join(' → ');
  $('swallowLabel').textContent=(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽';
  $('ruleSheriff').value=String(b.defaults.sheriff);$('ruleSelfRescue').value=String(b.defaults.selfRescue);$('ruleSwallow').value=String(b.defaults.swallow);$('idiotRules').hidden=!b.roles.idiot;$('ruleIdiotChase').value=String(b.defaults.idiotChase||false);$('mechanicalRules').hidden=!b.roles.mechanical;$('ruleMechanicalKnife').value=b.defaults.mechanicalKnife||'next';$('ruleReflectPoison').value=String(b.defaults.reflectPoison||false);show('setup');
 }
@@ -47,6 +48,8 @@ function previewRole(role){const r=ROLE_DATA[role];$('previewCard').classList.re
 }
 function action(label,value,disabled=false){const b=document.createElement('button');b.textContent=label;b.disabled=disabled;
  const n=game.nightAction,step=game.step;let pressed=false;
+ if(value.startsWith('knifeKind:'))pressed=game.takeover.kind===value.slice(10);
+ if(value==='skip'&&knifeSelection(game))pressed=!!n[game.takeover.kind==='extra'?'extraAttackSkip':'emptyAttack'];
  if(value==='use')pressed=n[step]===true;
  if(value==='skip')pressed=step==='mechanicalAction'?!!n[game.operation==='learnTarget'?'learnSkip':game.operation+'Skip']:step==='guardTarget'?n.guardSkip:step==='attack'?n.emptyAttack:step==='exchange'?n.noExchange:['antidote','poison'].includes(step)?n[step]===false:game.choice==='skip';
  if(value==='none'||value==='tie')pressed=game.choice===value;if(value.startsWith('mode:'))pressed=game.operation===value.slice(5);
@@ -60,6 +63,7 @@ function action(label,value,disabled=false){const b=document.createElement('butt
  if(value==='skip'&&step==='luckyAction')pressed=n.luckySkip;
  if(value!=='draw')b.setAttribute('aria-pressed',String(!!pressed));b.onclick=()=>{if(value==='draw')startDraw();else{choose(game,value);render();}};$('actions').append(b);}
 function hintText(){
+ if(specialFlow(game)){if(statusSteps.includes(game.step))return knifeStatus(game);if(closeRole(game)&&knifeKinds(game).length)return knifeSummary(game)||PURE;if(knifeSelection(game))return '狼刀選擇';if(game.step==='mechanicalLearn')return game.mechanical.role?'已完成學習，不能重複學習':game.players.some(p=>p.alive&&p.role==='mechanical')?'點選其他存活玩家學習身分，或暫不學習':'機械狼已出局';if(game.step==='mechanicalSkill')return game.operation&&game.operation!=='extraAttack'?OP_LABEL[game.operation]+'：點選合法對象':'本晚無可使用技能';}
  if(game.step==='bond')return game.fragrance.used?'綁定能力已使用':bondAvailable(game)?'選擇兩名不同存活玩家，可選自己，或不綁定':'尋香魅影已出局';
  if(game.step==='fragranceKnown')return PURE;
  if(['fragrance','awakenedSeer'].includes(game.step))return game.rolesConfirmed?PURE:'點選角色本人；再次點選可取消';
@@ -131,11 +135,11 @@ function hintText(){
  return PURE;
 }
 function renderGesture(){
- $('gestureResult').replaceChildren();
+ $('gestureResult').replaceChildren();if(knifeSelection(game))return;
  let role=null,label='';
  if(game.step==='mechanicalResult'&&game.nightAction.mechanicalResult){const result=game.nightAction.mechanicalResult;role=result.role;label=result.target+'號玩家・'+ROLES[role];}
  if(game.step==='mediumResult'&&game.nightAction.mediumInspect){role=roleResult(game,game.nightAction.mediumInspect);label=game.nightAction.mediumInspect+'號玩家・'+ROLES[role];}
- if(game.step==='mechanicalAction'){
+ if(['mechanicalAction','mechanicalLearn','mechanicalSkill'].includes(game.step)){
   const n=game.nightAction;
   if(game.operation==='learnTarget'&&n.learnTarget){role=roleResult(game,n.learnTarget,true)||'villager';label=n.learnTarget+'號玩家・'+ROLES[role];}
   else if(game.operation==='mechanicalInspect'&&n.mechanicalInspect){role=roleResult(game,n.mechanicalInspect);label=n.mechanicalInspect+'號玩家・'+ROLES[role];}
@@ -147,9 +151,9 @@ function renderGesture(){
 }
 function renderOperation(){
  const step=game.step;
- const skill={bond:'bond',awakenedInspect:'inspect',dance:'dance',maskInspect:'wolf-inspect',maskAssign:'mask',charm:'charm',duel:'duel',transform:'transform',graveResult:'gravekeeper',hunt:'hunt',lastBlade:'wolf-attack',roleModel:'role-model',fear:'fear',sleep:'sleep',exchange:'swap',attack:game.nightAction.attackMode==='infect'?'infect':'wolf-attack',revenge:'wolf-attack',antidote:'antidote',poison:'poison',inspect:'inspect',guardTarget:'shield',mediumInspect:'inspect',trade:'trade',skill:'gun',luckyAction:game.lucky?.ability,mechanicalAction:{learnTarget:'learn',extraAttack:'wolf-attack',mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation]}[step];
- $('operationCard').replaceChildren();if(!skill||['當晚受到恐懼，無法使用技能','當晚神職技能封鎖','原職技能已停用','已被感染，無法使用技能'].includes(hintText()))return;
- const control=document.createElement('div');control.className='operation-control';control.append(skillIcon(skill));const label=document.createElement('span');label.textContent=SKILL_LABELS[skill];control.append(label);$('operationCard').append(control);
+ const skill=knifeSelection(game)?'wolf-attack':{mechanicalLearn:'learn',mechanicalSkill:{mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation],bond:'bond',awakenedInspect:'inspect',dance:'dance',maskInspect:'wolf-inspect',maskAssign:'mask',charm:'charm',duel:'duel',transform:'transform',graveResult:'gravekeeper',hunt:'hunt',lastBlade:'wolf-attack',roleModel:'role-model',fear:'fear',sleep:'sleep',exchange:'swap',attack:game.nightAction.attackMode==='infect'?'infect':'wolf-attack',revenge:'wolf-attack',antidote:'antidote',poison:'poison',inspect:'inspect',guardTarget:'shield',mediumInspect:'inspect',trade:'trade',skill:'gun',luckyAction:game.lucky?.ability,mechanicalAction:{learnTarget:'learn',extraAttack:'wolf-attack',mechanicalInspect:'inspect',mechanicalPoison:'poison',shield:'shield'}[game.operation]}[step];
+ $('operationCard').replaceChildren();if(!skill&&specialFlow(game)&&switchSteps.includes(step)&&knifeKinds(game).length){const toggle=document.createElement('button');toggle.id='knifeToggle';toggle.textContent='狼刀';toggle.onclick=()=>{choose(game,'knife');render();};toggle.style.float='right';$('operationCard').append(toggle);}if(!skill||['當晚受到恐懼，無法使用技能','當晚神職技能封鎖','原職技能已停用','已被感染，無法使用技能'].includes(hintText()))return;
+ const control=document.createElement('div');control.className='operation-control';control.append(skillIcon(skill));const label=document.createElement('span');label.textContent=SKILL_LABELS[skill];control.append(label);if(specialFlow(game)&&switchSteps.includes(step)&&knifeKinds(game).length){const toggle=document.createElement('button');toggle.type='button';toggle.id='knifeToggle';toggle.textContent=knifeSelection(game)?'技能':'狼刀';toggle.style.marginLeft='auto';toggle.onclick=()=>{choose(game,knifeSelection(game)?'skill':'knife');render();};control.append(toggle);}$('operationCard').append(control);
 }
 function renderFinished(){
  const wasFinished=screen==='finished';
@@ -161,11 +165,15 @@ function renderFinished(){
 function render(){
  if(!game){show('home');return;}if(game.step==='finished'){timerStop();renderFinished();return;}persist();show('host');const s=game.step;
  $('phase').textContent='第'+game.night+'天・'+phaseOf(game);$('boardName').textContent=boardOf(game).name;
- $('stepLabel').hidden=true;$('subtitle').textContent=subtitle(game);$('hint').textContent=hintText();renderGesture();renderOperation();
+ $('stepLabel').hidden=true;$('subtitle').textContent=subtitle(game);$('hint').textContent=hintText();$('hint').style.whiteSpace=specialFlow(game)&&statusSteps.includes(s)?'pre-line':'';renderGesture();renderOperation();
  $('selection').textContent=game.action.length?'已選：'+game.action.map(id=>id+'號').join('、'):game.draw?.revealed&&['draw','dayDraw','speeches'].includes(s)?game.draw.seat+'號開始，'+(game.draw.clockwise?'順':'逆')+'時針發言':'';
  if(s==='discussion'&&!game.sheriff&&game.draw?.revealed)$('selection').textContent='發言順序：'+game.draw.order.map(id=>id+'號').join(' → ');
  $('actions').replaceChildren();
  $('duelOpen').hidden=!boardOf(game).roles.duelist;$('duelOpen').disabled=!canDuel(game);
+ if(specialFlow(game)&&knifeSelection(game)){if(knifeKinds(game).length>1)for(const kind of knifeKinds(game))action(kind==='basic'?'基本狼刀':'額外狼刀','knifeKind:'+kind);action('空刀','skip');}
+ else {
+ if(specialFlow(game)&&s==='mechanicalLearn'&&!game.mechanical.role&&game.players.some(p=>p.alive&&p.role==='mechanical'))action('暫不學習','skip');
+ if(specialFlow(game)&&s==='mechanicalSkill'&&game.operation&&game.operation!=='mechanicalInspect'&&game.operation!=='extraAttack')action('本晚不使用','skip');
  if(s==='maskAssign'&&maskAvailable(game))action('空過','skip');
  if(s==='charm'&&game.players.some(p=>p.role==='beauty'&&p.alive))action('空魅惑','skip');
  if(s==='hunt')action('不使用','skip',skillBlocked(game,'demon')||!game.players.some(p=>p.alive&&p.role==='demon'));
@@ -183,10 +191,11 @@ function render(){
  if(s==='candidates'){action('全員上警','all');action('無人上警','none');}if(['draw','dayDraw'].includes(s))action(game.draw?.revealed?'查看抽籤結果':'抽籤','draw');
  if(s==='badgeTransfer')action('撕掉／不移交','skip');
  if(['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s)){action(game.choice==='tie'?'取消平票':'平票','tie');$('actions').lastElementChild.disabled=voteLocked(game);const button=document.createElement('button');button.textContent='紀錄票型（選用）';button.className='quiet';button.id='voteNotesOpen';button.onclick=()=>voteDialog.open();$('actions').append(button);}
+ }
  for(const [container,offset] of [['left',0],['right',6]]){
   $(container).replaceChildren();for(const p of game.players.slice(offset,offset+6)){
    const b=document.createElement('button'),r=converted(game,p)||infected(game,p)?{...ROLE_DATA[p.role],kind:'wolf'}:ROLE_DATA[p.role],selected=game.action.includes(p.id),candidate=['candidates','draw','speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.candidates.includes(p.id),withdrawn=['speeches','withdraw','sheriffVote','sheriffPK','sheriffRevote'].includes(s)&&game.nominees.includes(p.id)&&!game.candidates.includes(p.id),voteSelected=selected&&['sheriffVote','sheriffRevote','exileVote','exileRevote'].includes(s);
-   const target=selected&&['bond','awakenedInspect','dance','maskInspect','maskAssign','exchange','attack','poison','inspect','skill','guardTarget','mediumInspect','mechanicalAction','revenge','trade','luckyAction','fear','sleep','roleModel','hunt','lastBlade','transform','charm','duel'].includes(s),speaking=s==='discussion'&&game.speaker===p.id;
+   const target=selected&&(knifeSelection(game)||['bond','awakenedInspect','dance','maskInspect','maskAssign','exchange','attack','poison','inspect','skill','guardTarget','mediumInspect','mechanicalAction','revenge','trade','luckyAction','fear','sleep','roleModel','hunt','lastBlade','transform','charm','duel'].includes(s)),speaking=s==='discussion'&&game.speaker===p.id;
    b.className='seat '+(roleName(game,p).length>4?'long-name ':'')+(r?.kind||'unknown')+(selected?(target?' target':' selected'):'')+(p.alive?'':' dead')+(p.active?'':' inactive')+(candidate?' candidate':'')+(withdrawn?' withdrawn':'')+(voteSelected?' vote-selected':'')+(speaking?' speaking':'')+(p.role==='idiot'&&game.idiot.revealed&&p.alive?' idiot-revealed':'');
    b.disabled=!selectable(game,p.id);b.setAttribute('aria-pressed',String(selected));const count=markersForSeat(game,p.id).length;b.style.setProperty('--mark-space',(count?22+17*(count-1):0)+'px');
    b.setAttribute('aria-label',p.id+'號 '+(!p.active?'未使用':roleName(game,p)+' '+(p.alive?'存活':'死亡'))+(candidate?' 警上':'')+(game.sheriff===p.id?' 警長':''));

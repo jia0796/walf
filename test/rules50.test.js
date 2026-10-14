@@ -1,6 +1,7 @@
+import {createGame} from '../test-support/legacy-flow.js';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {BOARDS,ROLE_DATA} from '../public/data.js';import {boardRules} from '../public/board-rules.js';
-import {createGame,next,choose,selectSeat,selectable,previous,upgradeGame,mechanicalAbility,gunSources,nightSteps,restartGame,beginDuel,confirmDuel} from '../public/engine.js';
+import {next,choose,selectSeat,selectable,previous,upgradeGame,mechanicalAbility,gunSources,nightSteps,restartGame,beginDuel,confirmDuel} from '../public/engine.js';
 import {settleNight,basicActor,inspectedWolf} from '../public/night.js';import {nativeAllowed} from '../public/identity.js';import {recapNights} from '../public/records.js';
 const go=s=>assert.equal(next(s),true,s.step);
 function ready(board='mechanical12',rules={}){const s=createGame(board,{sheriff:false,...rules});let i=0;for(const[r,n]of Object.entries(BOARDS[board].roles))for(let j=0;j<n;j++)s.players[i++].role=r;s.rolesConfirmed=true;s.night=2;s.electionStatus='none';return s;}
