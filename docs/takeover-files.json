@@ -1,0 +1,182 @@
+[
+  {
+    "file": "README.md",
+    "reason": "標明四角色已實作、存檔兼容、驗收結果與報告入口；保留正式規格。"
+  },
+  {
+    "file": "docs/takeover-files.json",
+    "reason": "逐檔修改原因。"
+  },
+  {
+    "file": "docs/takeover-flow-spec.md",
+    "reason": "完整保留0f52395提交的唯一需求原文及來源。"
+  },
+  {
+    "file": "docs/takeover-nightknife-report.md",
+    "reason": "本次完整驗收、限制、基準變更與安全回退操作。"
+  },
+  {
+    "file": "docs/takeover-validation.json",
+    "reason": "實際測試與逐板壓力／畫面數據，部署狀態待核對。"
+  },
+  {
+    "file": "public/app.js",
+    "reason": "在原技能操作區增加狼刀切換、刀種選取、狀態及閉眼小字摘要；原座位DOM與標記位置沿用。"
+  },
+  {
+    "file": "public/data.js",
+    "reason": "僅將轉化者加入兩款石像鬼板第二晚順序；配置、人物及圖鑑文字不改。"
+  },
+  {
+    "file": "public/engine.js",
+    "reason": "新增正式字幕／階段、閉眼提交、相依資料清理、v22存檔相容與完整快照回退。"
+  },
+  {
+    "file": "public/night.js",
+    "reason": "排除新版轉化者重複共同狼刀，按已提交來源結算；原防護、傷害去重與勝負函式保留。"
+  },
+  {
+    "file": "public/recap.js",
+    "reason": "只在額外刀SVG上方加「額外狼刀」，不改卡片版型。"
+  },
+  {
+    "file": "public/records.js",
+    "reason": "保存已提交基本刀的真實執行者；舊雙刀展示基本優先，底層歷史事件不改寫，卡片仍用既有快照與人物。"
+  },
+  {
+    "file": "public/sw.js",
+    "reason": "快取v22-1並將takeover.js加入CORE，離線機制維持。"
+  },
+  {
+    "file": "public/takeover.js",
+    "reason": "新增四角色每晚固定接刀資格、分頁與獨立選取，沿用原座位系統。"
+  },
+  {
+    "file": "scripts/followup-ui.mjs",
+    "reason": "僅更新對應正式快取版本v22-1。"
+  },
+  {
+    "file": "scripts/fv57-ui.mjs",
+    "reason": "兩個完整劇本改用專屬接刀、閉眼提交的回退位置，其他原驗收保留。"
+  },
+  {
+    "file": "scripts/next-ui-regression.mjs",
+    "reason": "僅更新對應正式快取版本v22-1。"
+  },
+  {
+    "file": "scripts/skill-followup-ui.mjs",
+    "reason": "明確使用v21舊局流程fixture，維持上一輪公告／標記回歸。"
+  },
+  {
+    "file": "scripts/takeover-ui.mjs",
+    "reason": "新增七配置接刀、雙刀救治、死亡固定步驟、版面、回退、重整與離線模組實測。 正式站復盤等待DOM就緒，避免大型PNG整頁load逾時，原驗收斷言保留。"
+  },
+  {
+    "file": "scripts/ui-regression.mjs",
+    "reason": "既有全板及機械通靈劇本對應新學習／技能字幕；快取期望更新。"
+  },
+  {
+    "file": "scripts/verify-deployment.mjs",
+    "reason": "僅更新對應正式快取版本v22-1。"
+  },
+  {
+    "file": "test-support/legacy-flow.js",
+    "reason": "以真實v21遷移入口建立舊流程fixture；供原有階段精確測試檢查舊存檔。"
+  },
+  {
+    "file": "test/beauty.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/classic.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/complete-recap.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/engine.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/fragrance-e2e.test.js",
+    "reason": "將完整劇本接刀選取移到新尋香魅影狀態頁，其餘勝負／復盤斷言保留。"
+  },
+  {
+    "file": "test/fragrance-followup.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/fragrance.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/latest-spec.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/masquerade-followup.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/masquerade.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/mechanical.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/next-update.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/nightmare.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/pwa.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/readme45.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/readme47.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/readme48.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/recap.test.js",
+    "reason": "以v21存檔fixture驗證舊流程；雙刀展示排序依本次定稿調整為基本在前，傷害與原身份斷言維持。"
+  },
+  {
+    "file": "test/rules50.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/rules51.test.js",
+    "reason": "原有戰鬥／字幕精確測試改由v21舊存檔fixture建立，保留原斷言；存檔／快取期望按需要升級。"
+  },
+  {
+    "file": "test/stress.test.js",
+    "reason": "支援新機械學習／技能及帶刀狀態；全部26配置18種子仍走新版公開API。"
+  },
+  {
+    "file": "test/takeover.test.js",
+    "reason": "新增71項新版精準驗收，直接使用新版createGame與原共用結算器。"
+  },
+  {
+    "file": "test/ui54.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  },
+  {
+    "file": "test/votes.test.js",
+    "reason": "僅更新存檔v22或快取v22-1的期望值，原功能／規則斷言保留。"
+  }
+]
