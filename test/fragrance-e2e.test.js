@@ -9,6 +9,7 @@ function toDiscussion(s,count){const plan=plans[count];let steps=0;while(s.step!
  if(!s.rolesConfirmed&&(plan[s.step]||s.step==='wolves'))for(const id of plan[s.step==='wolves'?'wolf':s.step])selectSeat(s,id);
  if(s.step==='guardTarget')selectSeat(s,s.night%2?1:4);
  if(s.step==='bond'&&!s.fragrance.used){selectSeat(s,3);selectSeat(s,count===10?8:10);}
+ if(s.step==='fragranceKnifeState'&&s.takeover.actor)selectSeat(s,s.night===3?(count===10?10:6):8);
  if(s.step==='attack'){const target=s.night===1?(count===10?6:12):s.night===2?3:s.night===3?(count===10?10:6):8;selectSeat(s,target);}
  if(s.step==='antidote'&&!canNext(s))choose(s,s.night===1?'use':'skip');
  if(s.step==='poison'&&!canNext(s))choose(s,'skip');

@@ -1,3 +1,4 @@
+import {knifeKinds,statusSteps} from '../public/takeover.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createGame,selectable,selectSeat,choose,next,canNext,previous,upgradeGame,mechanicalModes,beginSelfDestruct,canSelfDestruct,restartGame,canInfect,needsInfectionDecision,canDuel,beginDuel,confirmDuel} from '../public/engine.js';
@@ -25,6 +26,10 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
    }else if(step==='maskInspect'){if(legal().length)selectSeat(s,pick(legal()));
    }else if(step==='maskAssign'){if(legal().length&&random()>.3)selectSeat(s,pick(legal()));else choose(s,'skip');
    }else if(step==='charm'){if(random()<.4)choose(s,'skip');else{const pool=legal();if(pool.length)selectSeat(s,pick(pool));else choose(s,'skip');}
+   }else if(statusSteps.includes(step)){
+    for(const kind of knifeKinds(s)){choose(s,'knifeKind:'+kind);const pool=legal();if(pool.length&&random()>.3)selectSeat(s,pick(pool));else choose(s,'skip');}
+   }else if(['mechanicalLearn','mechanicalSkill'].includes(step)){
+    if(!canNext(s)){const pool=legal();if(pool.length&& (s.operation==='mechanicalInspect'||random()>.3))selectSeat(s,pick(pool));else choose(s,'skip');}
    }else if(step==='mechanicalAction'){
     for(const mode of mechanicalModes(s)){choose(s,'mode:'+mode);const pool=legal();if(mode==='mechanicalInspect'||random()>.3){if(pool.length)selectSeat(s,pick(pool));}else choose(s,'skip');}
    }else if(step==='trade'){

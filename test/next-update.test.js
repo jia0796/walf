@@ -1,7 +1,8 @@
+import {createGame} from '../test-support/legacy-flow.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {BOARDS,ROLE_DATA,REPORT_URL} from '../public/data.js';
-import {createGame,next,previous,choose,selectSeat,nightSteps,subtitle,upgradeGame,needsInfectionDecision,canInfect,canNext} from '../public/engine.js';
+import {next,previous,choose,selectSeat,nightSteps,subtitle,upgradeGame,needsInfectionDecision,canInfect,canNext} from '../public/engine.js';
 import {readFile} from 'node:fs/promises';
 const go=s=>assert.equal(next(s),true,s.step);
 function ready(board='seedHidden12'){const s=createGame(board,{sheriff:false});let i=0;for(const[r,n]of Object.entries(BOARDS[board].roles))for(let j=0;j<n;j++)s.players[i++].role=r;s.rolesConfirmed=true;return s;}

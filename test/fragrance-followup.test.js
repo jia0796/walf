@@ -1,6 +1,7 @@
+import {createGame} from '../test-support/legacy-flow.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createGame,next,previous,selectSeat,choose,subtitle,markersForSeat,upgradeGame,gunSources,beginSelfDestruct} from '../public/engine.js';
+import {next,previous,selectSeat,choose,subtitle,markersForSeat,upgradeGame,gunSources,beginSelfDestruct} from '../public/engine.js';
 import {BOARDS} from '../public/data.js';
 const ready=count=>{const s=createGame('fragrance'+count,{sheriff:false});let i=0;for(const [r,n] of Object.entries(BOARDS[s.boardId].roles))for(let j=0;j<n;j++)s.players[i++].role=r;s.rolesConfirmed=true;return s;};
 const ids=(s,r)=>s.players.filter(p=>p.active&&p.role===r).map(p=>p.id);

@@ -34,7 +34,7 @@ try{
  await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
  assert.deepEqual(errors,[]);
  const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
- assert.ok(cache.includes('council-v21-3'));
+ assert.ok(cache.includes('council-v22-1'));
  await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
  console.log(JSON.stringify({results,cache,errors}));
  await context.close();
