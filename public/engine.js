@@ -626,7 +626,7 @@ export function next(s) {
 }
 export function subtitle(s) {
  if(s.step==='fragranceKnown')return '你的其中一位狼隊友是：'+s.fragrance.knownWolf+' 號玩家';
- if(s.step==='bond'&&(!fragranceActor(s)||s.fragrance.used))return '-';
+ if(s.step==='bond'&&!fragranceActor(s))return '-';
  if(s.step==='fragranceAnnouncement')return s.fragrance.announcements[s.fragrance.announcementIndex]+'號玩家殉情出局，沒有遺言';
  if(s.step==='duelResult')return s.duelist.success?'決鬥成功，'+s.duelist.target+'號出局，沒有遺言':'決鬥失敗，騎士出局，沒有遺言';
  if(s.step==='heartbreakAnnouncement')return s.charm.announcements[s.charm.announcementIndex]+'號玩家殉情出局，沒有遺言';
