@@ -61,7 +61,7 @@ const gods = p => ROLE_DATA[p.role]?.kind==='god';
 const livingRole = (s,role) => s.players.some(p=>p.alive && (role==='wolves' ? wolves(p) : p.role===role&&nativeAllowed(s,p)));
 export function upgradeGame(saved) {
   if (![1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21].includes(saved?.version) || saved.players?.length!==12 || !Array.isArray(saved.history)) throw new Error('Invalid saved game');
-  if(saved.version===21)return clone(saved);
+  if(saved.version===21){const s=clone(saved);if(pendingBondAnnouncement(s))syncMarks(s);return s;}
   const mergeVote=s=>{if(s.version<20)migrateVoteNotes(s);s.version=21;s.fragrance={...fragranceState(),...s.fragrance};s.nightAction={...blankNight(),...s.nightAction};if(s.step==='voteIntro'){s.step='exileVote';s.votePool=s.players.filter(p=>eligibleExileTarget(s,p)).map(p=>p.id);}return s;};
   if([17,18,19,20].includes(saved.version)){const s=mergeVote(clone(saved));s.history=s.history.map(mergeVote);return s;}
   const migrate = (old,past=[]) => {
@@ -334,10 +334,12 @@ export function canNext(s) {
   return true;
 }
 // Marks follow original judge inputs; source keys keep independent attacks.
+// Confirmed night damage is private until the public death announcement.
+const pendingBondAnnouncement=s=>s.fragrance?.used&&s.fragrance.consumedContext==='night'&&s.fragrance.consumedNight===s.night&&!s.deathsCommitted&&!s.winner;
 export function syncMarks(s){
  const n=s.nightAction,desired=[];
  const add=(key,type,id,partner=null)=>{if(id)desired.push({key,type,id,partner});};
- const bond=!s.winner&&!s.fragrance?.used?(s.step==='bond'?n.bondTargets:s.fragrance?.binding&&s.fragrance.binding.night===s.night?s.fragrance.binding.targets:[]):[];
+ const bond=!s.winner&&(!s.fragrance?.used||pendingBondAnnouncement(s))?(s.step==='bond'?n.bondTargets:s.fragrance?.binding&&s.fragrance.binding.night===s.night?s.fragrance.binding.targets:[]):[];
  if(bond.length===2){add('bondA','bond',bond[0],bond[1]);add('bondB','bond',bond[1],bond[0]);}
  for(const id of n.awakenedTargets||[])add('awakened'+id,'inspect',id);
  if(n.exchange.length===2){add('swapA','swap',n.exchange[0],n.exchange[1]);add('swapB','swap',n.exchange[1],n.exchange[0]);}
@@ -356,7 +358,7 @@ export function syncMarks(s){
  add('luckyInspect','inspect',n.luckyInspect);add('luckyPoison','poison',n.luckyPoison);
  add('mediumInspect','inspect',n.mediumInspect);add('mechanicalInspect','inspect',n.mechanicalInspect);
  s.marks=(s.marks||[]).filter(m=>desired.some(d=>d.key===m.key&&d.type===m.type&&d.id===m.id&&d.partner===m.partner));
- for(const d of desired)if(!s.marks.some(m=>m.key===d.key)){s.markSequence=(s.markSequence||0)+1;s.marks.push({...d,sequence:s.markSequence});}
+ for(const d of desired)if(!s.marks.some(m=>m.key===d.key)){const prior=d.type==='bond'&&pendingBondAnnouncement(s)?[...(s.history||[])].reverse().filter(h=>h.night===s.night).flatMap(h=>h.marks||[]).find(m=>m.key===d.key&&m.id===d.id&&m.partner===d.partner):null;if(prior)s.marks.push({...d,sequence:prior.sequence});else{s.markSequence=(s.markSequence||0)+1;s.marks.push({...d,sequence:s.markSequence});}}
 }
 export function markersForSeat(s,id){return (s.marks||[]).filter(m=>m.id===id).sort((a,b)=>a.sequence-b.sequence);}
 function snapshot(s) { const {history,...rest}=s; return clone(rest); }
@@ -366,6 +368,7 @@ export function previous(s) {
   const history=s.history,drawCache=s.drawCache,knownWolf=s.fragrance?.knownWolf; Object.assign(s,old);s.history=history;s.drawCache=drawCache;if(knownWolf!=null)s.fragrance.knownWolf=knownWolf;
   if(s.step==='attack'&&canInfect(s)){s.nightAction.infectionDecision=false;s.nightAction.infectionConfirmed=false;}
   if(['draw','dayDraw'].includes(s.step))restoreDraw(s);
+  if(pendingBondAnnouncement(s))syncMarks(s);
   return true;
 }
 export function nightDeaths(s) {return settleNight(s).deaths.map(({id,cause})=>({id,cause}));}
@@ -408,7 +411,7 @@ function continueAfterDeaths(s) {
 }
 function deathSteps(s) {
  if(s.winner){enter(s,'finished');return;}
- if(s.fragrance.announcements.length){enter(s,'fragranceAnnouncement');return;}
+ if(s.fragrance.announcements.length&&(!s.queue[0]||s.queue[0].noticeDone||s.queue[0].source==='fragranceBond')){enter(s,'fragranceAnnouncement');return;}
  if(s.charm.announcements.length){enter(s,s.charm.beautyWords?'beautyLastWords':'heartbreakAnnouncement');return;}
   if(s.winner){enter(s,'finished');return;}
   if(!s.queue.length){continueAfterDeaths(s);return;}
@@ -571,7 +574,7 @@ export function next(s) {
   else if(step==='announcement') {
     if(!s.deathsCommitted) {
       s.deaths=s.deaths.filter(d=>player(s,d.id).alive).sort((a,b)=>a.id-b.id);
-      kill(s,s.deaths);if(s.nightResolution?.winner)s.winner=s.nightResolution.winner;s.winnerReason=winnerReason(s,s.winner);nightRecord(s).settled=true;s.queue=s.deaths.map(d=>({...d,multi:s.deaths.length>1,day:s.night,context:'night',noticeDone:s.night>1}));s.continuation=s.announcementContinuation;s.deathsCommitted=true;
+      kill(s,s.deaths);if(s.nightResolution?.winner)s.winner=s.nightResolution.winner;s.winnerReason=winnerReason(s,s.winner);nightRecord(s).settled=true;s.queue=s.deaths.map(d=>({...d,multi:s.deaths.length>1,day:s.night,context:'night',noticeDone:s.night>1}));s.continuation=s.announcementContinuation;s.deathsCommitted=true;if(s.fragrance.used)syncMarks(s);
     }
     deathSteps(s);
   } else if(['lastWords','eliminated'].includes(step)) {s.queue[0].noticeDone=true;deathSteps(s);}
