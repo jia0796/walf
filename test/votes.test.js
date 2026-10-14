@@ -45,11 +45,11 @@ test('UI56-10 restart clears votes; submitted confirmed rounds alone enter recap
  const s=ready();submit(s,[[1,9]]);assert.deepEqual(savedVoteNotes(s,'exile'),[]);next(s);assert.equal(savedVoteNotes(s,'exile').length,1);const fresh=restartGame(s);assert.deepEqual(fresh.votePatterns,[]);assert.deepEqual(fresh.dayEvents,[]);
 });
 test('UI56-10 v19 drafts discarded, historical completed notes retained without retrospective locks',()=>{
- const s=ready();s.version=19;const pending={...createVoteDraft(s),ballots:{1:9},confirmed:false};s.votePatterns=[pending,{...pending,key:'0:exileVote',day:0,confirmed:true}];s.dayEvents=[{voteRounds:[s.votePatterns[1]]}];s.action=[5];s.choice='target';s.history=[{...structuredClone(s),history:undefined}];const loaded=upgradeGame(s);assert.equal(loaded.version,20);assert.equal(loaded.votePatterns.length,1);assert.equal(loaded.votePatterns[0].legacy,true);assert.equal(loaded.dayEvents[0].voteRounds[0].submitted,true);assert.equal(loaded.history[0].votePatterns.length,1);assert.deepEqual(loaded.action,[5]);assert.equal(voteLocked(loaded),false);
+ const s=ready();s.version=19;const pending={...createVoteDraft(s),ballots:{1:9},confirmed:false};s.votePatterns=[pending,{...pending,key:'0:exileVote',day:0,confirmed:true}];s.dayEvents=[{voteRounds:[s.votePatterns[1]]}];s.action=[5];s.choice='target';s.history=[{...structuredClone(s),history:undefined}];const loaded=upgradeGame(s);assert.equal(loaded.version,21);assert.equal(loaded.votePatterns.length,1);assert.equal(loaded.votePatterns[0].legacy,true);assert.equal(loaded.dayEvents[0].voteRounds[0].submitted,true);assert.equal(loaded.history[0].votePatterns.length,1);assert.deepEqual(loaded.action,[5]);assert.equal(voteLocked(loaded),false);
 });
 test('UI56 older saves migrate without invented ballots',()=>{
- for(const version of [17,18]){const s=ready();s.version=version;delete s.votePatterns;s.history=[{...structuredClone(s),history:undefined}];const loaded=upgradeGame(s);assert.equal(loaded.version,20);assert.deepEqual(loaded.votePatterns,[]);assert.deepEqual(loaded.history[0].votePatterns,[]);}
+ for(const version of [17,18]){const s=ready();s.version=version;delete s.votePatterns;s.history=[{...structuredClone(s),history:undefined}];const loaded=upgradeGame(s);assert.equal(loaded.version,21);assert.deepEqual(loaded.votePatterns,[]);assert.deepEqual(loaded.history[0].votePatterns,[]);}
 });
-test('UI56 all 24 boards retain rules and manual route; optional tally does not settle skills',()=>{
+test('UI56 all current boards retain rules and manual route; optional tally does not settle skills',()=>{
  for(const board of Object.keys(BOARDS)){const s=ready(board),rules=structuredClone(s.rules);submit(s,[[1,1]]);assert.deepEqual(s.rules,rules);assert.equal(s.winner,null);assert.equal(s.step,'exileVote');assert.equal(s.players[0].alive,true);}
 });

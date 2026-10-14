@@ -1,0 +1,44 @@
+[
+  {
+    "role": "fragrance",
+    "driveId": "1-XfDI1TORkJXnNjB2AwuNGBs_8FWqYdm",
+    "path": "public/art/catalog/fragrance.png",
+    "size": 2016951,
+    "sha256": "a0cd2ce7ed591e7c015ed57305875d4de3b21d18063973a03ea64f94fe91f9c2",
+    "canvas": [
+      1060,
+      1484
+    ],
+    "thumbnail": "public/art/thumbs/fragrance.webp",
+    "thumbnailSize": [
+      420,
+      588
+    ],
+    "thumbnailSha256": "7b71a0c6223fda54536dc912b69752ef6d88fbb4e8797da9c35504cd3a33f5d0"
+  },
+  {
+    "role": "awakenedSeer",
+    "driveId": "1ErLTWOSNU5kqpkACUz11emDvLBXznBVe",
+    "path": "public/art/catalog/awakenedSeer.png",
+    "size": 2334179,
+    "sha256": "81e9b72cbfa849a90b933d68a01577a9137221ff89a384cc6b2e2533096167a1",
+    "canvas": [
+      1060,
+      1484
+    ],
+    "thumbnail": "public/art/thumbs/awakenedSeer.webp",
+    "thumbnailSize": [
+      420,
+      588
+    ],
+    "thumbnailSha256": "30665e8c5d1ee72083af5f572846413f3e388a286b289f227a32273c824614dd"
+  },
+  {
+    "path": "public/skills/icon-bond.svg",
+    "driveId": "1cUHJVB0zbdGqC9Ak1814-2vflz-RkOAr",
+    "sourceName": "icon-bond-fixed-v2.svg",
+    "size": 1496,
+    "sha256": "f48b96a26db32838df12bb77430e2b80ffb34b84e4fc086d8342cb31dde03b37",
+    "legacyCurrentMatchesV2": true
+  }
+]

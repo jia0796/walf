@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import {BOARDS,availableBoards} from '../public/data.js';
 import {createGame,upgradeGame,restartGame} from '../public/engine.js';
 test('special classification includes existing approved boards with no duplicate or omitted configuration',()=>{
- assert.deepEqual(availableBoards(10,'special').map(b=>b.id),['gargoyle10','seedHidden10']);
- assert.deepEqual(availableBoards(12,'special').map(b=>b.id),['gargoyle12','seedHidden12','brothers12','masquerade12']);
+ assert.deepEqual(availableBoards(10,'special').map(b=>b.id),['gargoyle10','seedHidden10','fragrance10']);
+ assert.deepEqual(availableBoards(12,'special').map(b=>b.id),['gargoyle12','seedHidden12','brothers12','masquerade12','fragrance12']);
  for(const count of [10,12]){const all=['normal','special'].flatMap(c=>availableBoards(count,c).map(b=>b.id));assert.equal(new Set(all).size,all.length);assert.deepEqual(all.sort(),Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===count).map(b=>b.id).sort());}
 });
 test('moving a board preserves saved identity, room settings, restart and upgrade',()=>{

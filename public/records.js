@@ -47,6 +47,8 @@ export function recordStage(s,stage,order){
  if(stage==='roleModel'&&s.night===1&&!s.mixed.chosen&&n.roleModel)add('roleModel','mixed','role-model',[n.roleModel],{unmapped:true});
  if(stage==='fear'&&n.fear)add('fear','nightmare','fear',[n.fear],{unmapped:true});
  if(stage==='sleep'&&n.sleep)add('sleep','dream','sleep',[n.sleep],{unmapped:true});
+ if(stage==='bond'&&n.bondTargets.length===2&&!s.fragrance.used)add('bond','fragrance','bond',n.bondTargets,{unmapped:true});
+ if(stage==='awakenedInspect'&&n.awakenedTargets.length===2)add('awakenedInspect','awakenedSeer','inspect',n.awakenedTargets,{result:n.awakenedTargets.some(id=>inspectedWolf(s,map(id)))?'壞人':'好人'});
  if(stage==='exchange'&&n.exchange.length===2)add('swap','magician','swap',n.exchange,{unmapped:true});
  if(stage==='attack'&&n.attack&&n.attackMode==='infect'){add('infection','seedWolf','infect',[n.attack],{executed:false,unmapped:true});}
  if(stage==='attack'&&n.attack&&n.attackMode!=='infect'){const actors=ordinaryWolves(s).map(p=>p.id);if(!actors.length&&basicActor(s))actors.push(basicActor(s).id);add('basic','wolf','wolf-attack',[n.attack],{actors,...(basicActor(s)?.role==='mask'?{takeoverNight:s.masquerade.takeoverNight}:{}),portraitRole:ordinaryWolves(s).some(p=>p.role==='wolf')?'wolf':basicActor(s)?.role,...(converted(s,basicActor(s))?{displayName:convertedName(s,basicActor(s)),tone:'wolf'}:{})});}

@@ -2,7 +2,7 @@ import {voteDetails} from './votes.js';
 import {ROLE_DATA} from './data.js';
 import {recapNights,personSnapshot} from './records.js';
 import {realWolf,infected,converted} from './identity.js';
-export const SKILL_LABELS={'wolf-inspect':'狼人查驗',dance:'共舞',mask:'面具',charm:'魅惑',heartbreak:'殉情',duel:'決鬥',vote:'放逐投票','sheriff-badge':'警徽',infect:'感染','wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊','role-model':'榜樣',hunt:'狩獵',transform:'轉化',gravekeeper:'守墓查驗','evil-knight-reflect':'反傷'};
+export const SKILL_LABELS={bond:'綁定','wolf-inspect':'狼人查驗',dance:'共舞',mask:'面具',charm:'魅惑',heartbreak:'殉情',duel:'決鬥',vote:'放逐投票','sheriff-badge':'警徽',infect:'感染','wolf-attack':'狼刀',antidote:'解藥',poison:'毒藥',shield:'守護',inspect:'查驗',swap:'交換',gun:'槍',learn:'學習',trade:'交易',fear:'恐懼',sleep:'夢遊','role-model':'榜樣',hunt:'狩獵',transform:'轉化',gravekeeper:'守墓查驗','evil-knight-reflect':'反傷'};
 const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!=null)node.textContent=text;return node;};
 export function skillIcon(skill){const icon=el('img','skill-icon');icon.src='skills/icon-'+skill+'.svg';icon.alt=SKILL_LABELS[skill];return icon;}
 export function cardModel(event){
@@ -21,14 +21,14 @@ function basicKnifeName(e){
  if(name.startsWith('轉化者'))return conversionLabel(name);
  if(e.displayName?.startsWith('轉化者'))return conversionLabel(e.displayName);
  if(e.actorRole==='mechanical')return name.startsWith('機械狼')?name:'機械狼';
- if(e.actorRole==='younger')return '狼弟';if(e.actorRole==='mask')return '假面';
+ if(e.actorRole==='fragrance')return '尋香魅影';if(e.actorRole==='younger')return '狼弟';if(e.actorRole==='mask')return '假面';
  return '狼人';
 }
 
 const reasonNames={danceProtection:'共舞免刀',masqueradeImmunity:'免疫毒藥',guard:'守護抵擋',antidote:'解藥救回',guardAndAntidote:'同守同救',wolfTarget:'狼人目標',knightImmunity:'免疫',demonImmunity:'免疫',immuneNightGun:'免疫',sleep:'夢遊免疫',shield:'守護抵擋'};
 export function outcomeLabel(e){
  if(e.key==='learn'||e.skill==='learn'||e.type==='badge'&&!e.rawTargets.length)return '';
- if(e.key==='dance')return '';
+ if(e.key==='dance'||e.key==='bond')return '';
  if(e.key==='danceDeath')return '共舞死亡';
  if(e.key==='maskInspect')return e.participated??e.result==='有參與共舞'?'參與':'未參與';
  if(e.key==='maskAssign')return e.rawTargets.some(id=>e.danceTargets?.includes(id))||e.participated||e.reversed?'陣營反轉':'未參與';
@@ -59,13 +59,13 @@ export function eventCard(e){
  if(e.type==='exilePK'){card.append(el('p','pk-result',e.result));return card;}
  let left=actorModel(e);const vote=['sheriff','exile'].includes(e.type);
  if(vote)left={name:e.type==='sheriff'?'警長競選':'放逐投票',image:e.type==='sheriff'?'art/recap-sheriff.png':'art/recap-vote.png',tone:'neutral'};
- card.append(portrait(left),personText(left,{noNumber:vote||e.key==='basic'}));
+ card.append(portrait(left),personText(left,{noNumber:vote||e.key==='basic'&&e.actorRole!=='fragrance'}));
  const center=el('div','recap-effect'),label=outcomeLabel(e);if(label&&!vote)center.append(el('span','recap-outcome',label));if(e.skill)center.append(skillIcon(e.key==='maskInspect'?'wolf-inspect':e.skill));else center.append(el('span','recap-arrow','→'));card.append(center);
  if(e.key==='maskAssign'&&!e.rawTargets.length){card.append(el('strong','recap-no-target',e.unsettled?'未結算（遊戲已結束）':'空過'));return card;}
  if(e.type==='badge'&&!e.rawTargets.length){card.append(el('strong','badge-destroyed','X'),el('span','recap-event-label','撕毀警徽'));return card;}
  if(vote&&!e.rawTargets.length){card.append(el('strong','recap-no-target',e.result||'無人出局'));return card;}
  const targets=e.targetSnapshots||e.rawTargets||[];
- if(e.skill==='swap'||e.key==='dance'){
+ if(e.skill==='swap'||e.key==='dance'||e.key==='bond'||e.key==='awakenedInspect'){
   const people=el('div','recap-double-targets');targets.forEach((_,i)=>{const p=knownPerson(e,false,i),row=el('div','recap-target-row');row.append(personText(p),portrait(p));people.append(row);});card.append(people);
  }else{const p=knownPerson(e,false);card.append(personText(p),portrait(p));}
  if(e.rawTargets?.some((id,i)=>id!==e.effectiveTargets?.[i])){const raw=e.rawTargets.map((id,i)=>id+'號 → '+e.effectiveTargets[i]+'號').join('、');card.append(el('p','recap-mapping','原始 → 實際：'+raw));}

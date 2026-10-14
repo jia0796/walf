@@ -11,7 +11,7 @@ try{
  assert.equal(await page.title(),'月下議會｜狼人殺主持工具');
  assert.ok((await page.evaluate(()=>getComputedStyle(document.body,'::before').backgroundImage)).includes('art/backgrounds/shared.png'));
  assert.equal(await page.locator('.recap-title').textContent(),'完整復盤');
- const originalPaths=['votes.js','vote-ui.js','timer.js',...Object.keys((await import('../public/data.js')).ROLE_DATA).map(id=>'art/thumbs/'+id+'.webp'),'skills/icon-inspect.svg','skills/icon-wolf-inspect.svg','masquerade.js','art/catalog/mask.png','art/catalog/dancer.png','skills/icon-mask.svg','skills/icon-dance.svg','style.css','identity.js','board-rules.js','app.js','engine.js','night.js','beauty.js','data.js','recap.js','records.js','index.html','sw.js','cache-manifest.js','art/catalog/beauty.png','art/catalog/duelist.png','skills/icon-charm.svg','skills/icon-heartbreak.svg','skills/icon-duel.svg','art/backgrounds/shared.png','art/recap-vote.png','art/recap-sheriff.png','skills/icon-vote.svg','skills/icon-sheriff-badge.svg'];
+ const originalPaths=['fragrance.js','skills/icon-bond.svg','art/catalog/fragrance.png','art/catalog/awakenedSeer.png','votes.js','vote-ui.js','timer.js',...Object.keys((await import('../public/data.js')).ROLE_DATA).map(id=>'art/thumbs/'+id+'.webp'),'skills/icon-inspect.svg','skills/icon-wolf-inspect.svg','masquerade.js','art/catalog/mask.png','art/catalog/dancer.png','skills/icon-mask.svg','skills/icon-dance.svg','style.css','identity.js','board-rules.js','app.js','engine.js','night.js','beauty.js','data.js','recap.js','records.js','index.html','sw.js','cache-manifest.js','art/catalog/beauty.png','art/catalog/duelist.png','skills/icon-charm.svg','skills/icon-heartbreak.svg','skills/icon-duel.svg','art/backgrounds/shared.png','art/recap-vote.png','art/recap-sheriff.png','skills/icon-vote.svg','skills/icon-sheriff-badge.svg'];
  const hashes=await page.evaluate(async paths=>Promise.all(paths.map(async path=>{const response=await fetch(path,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Missing '+path);const bytes=await response.arrayBuffer();return {path,sha256:[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(n=>n.toString(16).padStart(2,'0')).join('')};})),originalPaths);
  for(const item of hashes)assert.equal(item.sha256,createHash('sha256').update(/\.(js|html|css)$/.test(item.path)?(await readFile(new URL('../public/'+item.path,import.meta.url),'utf8')).replace(/\r\n/g,'\n'):await readFile(new URL('../public/'+item.path,import.meta.url))).digest('hex'),item.path);
  results.push({sharedBackground:true,completeRecapTitle:true,originalAssetHashes:hashes});
@@ -34,7 +34,7 @@ try{
  await page.screenshot({path:new URL('../../qa-artifacts/next-update-live.png',import.meta.url).pathname.slice(1)});
  assert.deepEqual(errors,[]);
  const cache=await page.evaluate(async()=>{await navigator.serviceWorker.ready;return caches.keys();});
- assert.ok(cache.includes('council-v20-1'));
+ assert.ok(cache.includes('council-v21-1'));
  await writeFile(new URL('../../qa-artifacts/readme48-live.json',import.meta.url),JSON.stringify({results,cache,errors},null,2));
  console.log(JSON.stringify({results,cache,errors}));
  await context.close();

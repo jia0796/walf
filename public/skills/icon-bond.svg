@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="尋香魅影雙人綁定">
+  <title>尋香魅影雙人綁定</title>
+  <!-- Matches the existing 64 px midnight-blue, wolf-red skill icons. -->
+  <rect x="4" y="4" width="56" height="56" rx="13" fill="#121A2B" stroke="#F27680" stroke-width="3.1"/>
+  <!-- Balanced twin figures, with both arms visibly anchored at their shoulders. -->
+  <g fill="#F27680">
+    <circle cx="19" cy="26" r="5"/>
+    <circle cx="45" cy="26" r="5"/>
+  </g>
+  <g fill="#451723" stroke="#F27680" stroke-width="2.6" stroke-linejoin="round">
+    <path d="M10.8 47.2 V43.5 C10.8 37.4 13.7 34.6 19 34.6 C24.3 34.6 27.2 37.4 27.2 43.5 V47.2 Z"/>
+    <path d="M53.2 47.2 V43.5 C53.2 37.4 50.3 34.6 45 34.6 C39.7 34.6 36.8 37.4 36.8 43.5 V47.2 Z"/>
+  </g>
+  <!-- A single symmetrical pair of arms: shoulder → forearm → joined hands.
+       No disembodied or crossing wrists. -->
+  <g fill="none" stroke="#F7A4AC" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24.1 38.5 L28 41.2 L31 40"/>
+    <path d="M39.9 38.5 L36 41.2 L33 40"/>
+  </g>
+  <!-- Single clasp point between the two wrists. -->
+  <path d="M30.5 39.3 Q32 37.9 33.5 39.3 Q34.2 40.3 32 42 Q29.8 40.3 30.5 39.3 Z" fill="#F7A4AC"/>
+  <!-- Small fragrance glint, consistent with the existing charm SVG. -->
+  <path d="M32 12.7 L33.4 16.3 L37 17.8 L33.4 19.3 L32 22.9 L30.6 19.3 L27 17.8 L30.6 16.3 Z" fill="#F7A4AC"/>
+</svg>

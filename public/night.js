@@ -1,3 +1,4 @@
+import {fragranceActor,bindingBatch} from './fragrance.js';
 import {maskActor,danceInfo} from './masquerade.js';
 import {realWolf,nativeAllowed,converted,infected} from './identity.js';
 import {ROLE_DATA} from './data.js';
@@ -21,7 +22,7 @@ export const forcedEmpty=s=>s.nightAction.fearApplied&&s.players.find(p=>p.id===
 export function inspectedWolf(s,id){if(s.gargoyle?.target===id)return s.night>1;const p=s.players.find(p=>p.id===id);if(infected(s,p))return true;if(p?.role==='hiddenWolf')return false;if(p?.role==='younger')return s.brothers?.disguiseEndNight!=null?s.night>=s.brothers.disguiseEndNight:!!s.brothers?.elderDeath&&s.night>s.brothers.elderDeath.night;return ROLE_DATA[p?.role]?.kind==='wolf';}
 export function luckyAbility(s){const l=s.lucky;if(!l||!s.players.find(p=>p.id===l.seat)?.alive||s.night<l.unlockNight||!['inspect','poison'].includes(l.ability))return null;return l.remaining>0||l.usedNight===s.night?l.ability:null;}
 export function winnerReason(s,win=trueWinner(s)){if(!win)return '';if(win==='好人陣營')return s.players.some(p=>p.role==='hiddenWolf')?'所有帶刀狼人已出局':'所有狼人已出局';const live=s.players.filter(p=>aliveForVictory(s,p));if(s.rules.victory==='city')return '屠城：所有好人已出局';return !live.some(p=>!realWolf(s,p)&&ROLE_DATA[p.role]?.kind==='god')?'屠邊：所有神職已出局':'屠邊：所有平民已出局';}
-export const basicActor=s=>ordinaryWolves(s)[0]||liveRole(s,'mechanical')||maskActor(s);
+export const basicActor=s=>ordinaryWolves(s)[0]||liveRole(s,'mechanical')||maskActor(s)||fragranceActor(s);
 export function mechanicalAbility(s){
  const m=s.mechanical,actor=liveRole(s,'mechanical');
  if(!actor||!m?.role)return null;
@@ -73,10 +74,13 @@ export function settleNight(s,{phase='all'}={}){
   if(!blocked&&s.players.find(p=>p.id===attack.id)?.alive&&!dead.has(attack.id))dead.set(attack.id,{...attack});
  }
  if(infection){events.push({id:infection.target,cause:'infection',source:'infection',sourceActor:s.players.find(p=>p.role==='seedWolf')?.id,sourceRole:'seedWolf',blocked:infection.success?null:infection.reason});if(infection.reason==='guardAndAntidote')dead.set(infection.target,{id:infection.target,cause:'attack',source:'guardAndAntidote',sourceRole:'seedWolf'});}
+ const bindingEnabled=!!s.fragrance?.binding&&(!s.fragrance.used||s.fragrance.consumedNight===s.night&&s.fragrance.consumedContext==='night');
+ const wolfBond=bindingBatch(s,[...dead.values()],{enabled:bindingEnabled});for(const d of wolfBond.linked){dead.set(d.id,d);events.push(d);}
  const projected={...s,infection:infection?.success?{...s.infection,...infection,usedNight:s.night}:s.infection,players:structuredClone(s.players)};
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
  const attackWinner=trueWinner(projected);
- if(attackWinner||phase==='wolf')return {deaths:[...dead.values()],events,winner:attackWinner,poisonSkipped:!!attackWinner,batch:'wolf',infection,shieldDamage,dance:{...dance,deaths:[],settled:false}};
+ if(attackWinner||phase==='wolf')return {deaths:[...dead.values()],events,winner:attackWinner,poisonSkipped:!!attackWinner,batch:'wolf',bondConsumed:wolfBond.consumed,infection,shieldDamage,dance:{...dance,deaths:[],settled:false}};
+ const wolfIds=new Set(dead.keys());
  for(const id of dance.deaths){const d={id,cause:'dance',sourceActor:s.players.find(p=>p.role==='dancer')?.id,sourceRole:'dancer',source:'dance'};events.push({...d,blocked:null});if(s.players.find(p=>p.id===id)?.alive&&!dead.has(id))dead.set(id,d);}
  const poisons=[];
  const witch=s.players.find(p=>p.role==='witch');
@@ -92,7 +96,7 @@ export function settleNight(s,{phase='all'}={}){
    shieldDamage.push({...poison,sameSave:false});
    events.push({...poison,blocked:'shield'});
    if(s.rules.reflectPoison){const reflected={...poison,id:poison.sourceActor,source:'reflection'};events.push(reflected);if(s.players.find(p=>p.id===reflected.id)?.alive)dead.set(reflected.id,reflected);}
-  }else {events.push({...poison,blocked:null});if(s.players.find(p=>p.id===poison.id)?.alive&&(!s.players.some(p=>p.role==='mask')||!dead.has(poison.id)))dead.set(poison.id,{...poison});}
+  }else {events.push({...poison,blocked:null});if(s.players.find(p=>p.id===poison.id)?.alive&&(!s.players.some(p=>['mask','fragrance'].includes(p.role))||!dead.has(poison.id)))dead.set(poison.id,{...poison});}
  }
  for(const reflection of s.knight?.triggers||[]){if(reflection.night!==s.night)continue;events.push({...reflection,cause:'reflect',source:'evilKnight',sourceRole:'evilKnight'});if(s.players.find(p=>p.id===reflection.id)?.alive&&!dead.has(reflection.id))dead.set(reflection.id,{...reflection,cause:'reflect',source:'evilKnight',sourceRole:'evilKnight'});}
  if(s.merchant?.usedNight===s.night&&s.merchant.success===false){const merchant=liveRole(s,'merchant');if(merchant){const failure={id:merchant.id,cause:'tradeFailure',sourceActor:merchant.id,sourceRole:'merchant',source:'trade'};events.push(failure);if(!dead.has(merchant.id))dead.set(merchant.id,failure);}}
@@ -100,9 +104,10 @@ export function settleNight(s,{phase='all'}={}){
  const dream=s.players.find(p=>p.role==='dream');
  if(n.sleepApplied&&dream&&dead.has(dream.id)){const link={id:n.sleep,cause:'dreamLink',sourceActor:dream.id,sourceRole:'dream',source:'dreamLink'};events.push({...link,blocked:null});if(!dead.has(link.id))dead.set(link.id,link);}
  if(phase==='dawn'&&n.huntApplied&&n.huntDeath){const hunt={id:n.huntDeath,cause:'hunt',sourceActor:s.players.find(p=>p.role==='demon')?.id,sourceRole:'demon',source:'hunt'};events.push({...hunt,blocked:null});if(!dead.has(hunt.id))dead.set(hunt.id,hunt);}
+ const postBond=bindingBatch(projected,[...dead.values()].filter(d=>!wolfIds.has(d.id)),{enabled:bindingEnabled&&!wolfBond.consumed});for(const d of postBond.linked){dead.set(d.id,d);events.push(d);}
  const romance=heartbreakBatch(s,[...dead.values()]);for(const d of romance.linked){dead.set(d.id,d);events.push(d);}
  for(const id of dead.keys())projected.players.find(p=>p.id===id).alive=false;
- return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf',infection,romanceBlocked:romance.blocked,shieldDamage,dance:{...dance,settled:true}};
+ return {deaths:[...dead.values()],events,winner:trueWinner(projected),poisonSkipped:false,batch:'nonWolf',bondConsumed:wolfBond.consumed||postBond.consumed,infection,romanceBlocked:romance.blocked,shieldDamage,dance:{...dance,settled:true}};
 }
 
 function danceInfoSafe(s){return s.masquerade?danceInfo(s):{people:[],protected:false,deaths:[]};}
