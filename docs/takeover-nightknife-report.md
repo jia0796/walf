@@ -2,7 +2,12 @@
 
 日期：2026-10-15。需求唯一來源為 `feat/eclipse-host-app` README@`0f523954e300a55b696786df6877680f5bf1e244` 新章；[完整原文快照](takeover-flow-spec.md)。
 
-程式已完成本機驗收，部署待確認。實作分支 `feat/special-takeover-nightknife`，驗收後合併回 `feat/eclipse-host-app`；App不合併至main。程式Commit與部署結果於發布核對後補記。
+程式已實作並部署至 [正式App](https://jia0796.github.io/wolf_Emcee/)。實作分支 `feat/special-takeover-nightknife` 已合併回 `feat/eclipse-host-app`；App沒有合併至main。
+
+- 實作Commit：`779fdf6b1ad118ade9efef32c208654f3db5eb2f`。
+- 合併／發布Commit：`889bf2489e5d7c65b0d6e4d195db89088f03d3dc`。
+- [GitHub npm test](https://github.com/jia0796/wolf_Emcee/actions/runs/38609454992)及[Pages部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38609454948)均成功；正式站13組接刀DOM／離線驗證全部通過。
+- README與文件於正式站驗證後另行更新，程式版本與發布Commit仍如上。
 
 ## 備份與修改範圍
 
@@ -39,7 +44,7 @@
 - `scripts/takeover-ui.mjs`：**13組**（七配置、四尺寸、雙刀救治與復盤、接刀模組離線）。320×568、390×844、768×1024、1024×768維持2欄×6排，固定底部按鈕無溢出；SVG仍用原22／24px及既有疊放。攝夢x2、上一輪字幕與綁定公告修正未移除。
 - `scripts/ui56-ui.mjs`：原警長／PK／選用票型13組通過，原功能程式未變更。
 - 所有已完成DOM執行未見pageerror。雙刀卡片排版使用可控終局fixture；真實結算與勝負由模型及完整對局驗證。實際截圖已檢視；閉眼摘要、人物融合與額外刀小字符合本次範圍。
-- 專案沒有獨立build或TypeScript檢查。部署用原GitHub Pages靜態檔上傳；CI的 `npm test` 及發布結果待後續核對。
+- 專案沒有獨立build或TypeScript檢查。部署用原GitHub Pages靜態檔上傳；GitHub Actions使用Node.js22執行 `npm test` 並發布成功（連結見上）。
 
 詳細數據：[takeover-validation.json](takeover-validation.json)。首次失敗與後續跑測日誌保留在本機qa目錄。
 
@@ -59,7 +64,8 @@ PWA快取升至 **council-v22-1**，將takeover.js加入原CORE；原因是新�
 4. 同晚已提交機械額外刀／守護／毒藥的來源需保存，不能只看施法者當下alive；已保存提交來源並補非終局死亡情境。
 5. 帶刀測試需區分基本資格與仍可用的額外刀；基本不追補時，額外刀仍按原房規使用。測試曾使用「最後一狼確實死亡」卻期待繼續毒殺；該局已好人終局，改用仍有原狼的非終局fixture驗證已提交毒藥，原終局停止斷言保留。
 6. 維持原普通狼attack階段終局時機，接刀已閉眼提交且防護／解藥已確定時立即判勝終止，避免多走空狼人字幕；補兩項精準測試。舊機械雙刀復盤僅調整展示排序，不改歷史事件。
-7. UI工具曾以固定六次下一步期待女巫解藥頁，實際尚在女巫睜眼；工具改為依實際stage前進，原雙刀與單次救治斷言未改。
+7. 正式站首輪復盤reload等待整頁load逾時（大型核准PNG載入）；測試改等DOMContentLoaded與finished可見，再維持原有卡片／來源／救治斷言。正式程式、素材及快取機制未改；保留首輪失敗日誌，重跑13組全部通過。
+8. UI工具曾以固定六次下一步期待女巫解藥頁，實際尚在女巫睜眼；工具改為依實際stage前進，原雙刀與單次救治斷言未改。
 
 ## 未驗收及保留風險
 
@@ -90,7 +96,7 @@ PWA快取升至 **council-v22-1**，將takeover.js加入原CORE；原因是新�
 | `scripts/fv57-ui.mjs` | 兩個完整劇本改用專屬接刀、閉眼提交的回退位置，其他原驗收保留。 |
 | `scripts/next-ui-regression.mjs` | 僅更新對應正式快取版本v22-1。 |
 | `scripts/skill-followup-ui.mjs` | 明確使用v21舊局流程fixture，維持上一輪公告／標記回歸。 |
-| `scripts/takeover-ui.mjs` | 新增七配置接刀、雙刀救治、死亡固定步驟、版面、回退、重整與離線模組實測。 |
+| `scripts/takeover-ui.mjs` | 新增七配置接刀、雙刀救治、死亡固定步驟、版面、回退、重整與離線模組實測。 正式站復盤等待DOM就緒，避免大型PNG整頁load逾時，原驗收斷言保留。 |
 | `scripts/ui-regression.mjs` | 既有全板及機械通靈劇本對應新學習／技能字幕；快取期望更新。 |
 | `scripts/verify-deployment.mjs` | 僅更新對應正式快取版本v22-1。 |
 | `test-support/legacy-flow.js` | 以真實v21遷移入口建立舊流程fixture；供原有階段精確測試檢查舊存檔。 |
@@ -129,9 +135,14 @@ PWA快取升至 **council-v22-1**，將takeover.js加入原CORE；原因是新�
 git switch feat/eclipse-host-app
 git pull --ff-only
 git switch -c revert/special-takeover-nightknife
-git revert -m 1 --no-commit <本功能合併Commit>
+git revert -m 1 --no-commit 889bf2489e5d7c65b0d6e4d195db89088f03d3dc
 ```
 
 先檢視反向差異與衝突，只撤銷本功能，保留其他後續修改，再測試、commit及走回開發分支的正常審查／發布。若要取消尚未完成的revert，用 `git revert --abort`；不要使用hard reset。
 
 **存檔注意**：舊備份只接受v1～v21，不能直接讀本輪v22存檔。回退PR必須保留v22相容與正在進行的新流程所需模組，或等所有v22新局完成後再發布。較安全的功能停用方式，是另做新提交只將新局預設takeover.flow設為false，保留v22及已開始對局的原流程；同步開局預覽與對應驗收。切換快取版本並驗證離線及新舊讀檔後才部署，不清除玩家localStorage。
+
+
+## 部署後核對
+
+正式站七配置字幕／切換／閉眼提交／自刀／已死固定階段／重整回退與空狼人階段、四尺寸、同人雙刀解藥只抵一擊、基本／額外卡排序及唯一額外標題、接刀模組離線200全部通過，pageerror為空。備份發布後再次確認仍為91c14aa，未改動。真機待驗收項目保持原列。

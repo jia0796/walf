@@ -1386,7 +1386,13 @@
     "errors": []
   },
   "physicalDevices": "not verified",
-  "deployment": "pending",
+  "deployment": {
+    "status": "success",
+    "commit": "889bf2489e5d7c65b0d6e4d195db89088f03d3dc",
+    "url": "https://jia0796.github.io/wolf_Emcee/",
+    "ci": "https://github.com/jia0796/wolf_Emcee/actions/runs/38609454992",
+    "run": "https://github.com/jia0796/wolf_Emcee/actions/runs/38609454948"
+  },
   "npmTest": {
     "command": "npm test",
     "node": "24.19.0",
@@ -1799,5 +1805,343 @@
       }
     ],
     "errors": []
+  },
+  "featureCommit": "779fdf6b1ad118ade9efef32c208654f3db5eb2f",
+  "mergeCommit": "889bf2489e5d7c65b0d6e4d195db89088f03d3dc",
+  "liveUI": {
+    "results": [
+      {
+        "board": "mechanical10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "mechanical12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "gargoyle10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "gargoyle12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "masquerade12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "fragrance10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "fragrance12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "layout": {
+          "width": 320,
+          "height": 568
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 556,
+        "marks": [
+          [
+            22,
+            22
+          ],
+          [
+            22,
+            22
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 390,
+          "height": 844
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 832,
+        "marks": [
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            24
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 768,
+          "height": 1024
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 1010,
+        "marks": [
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            24
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 1024,
+          "height": 768
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 754,
+        "marks": [
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            24
+          ]
+        ]
+      },
+      {
+        "dualMarkers": true,
+        "cureOnlyOneHit": true,
+        "basicBeforeExtra": true,
+        "extraLabelOnly": true
+      },
+      {
+        "offlineTakeoverModule": true
+      }
+    ],
+    "errors": []
+  },
+  "initialLiveAttempt": {
+    "results": [
+      {
+        "board": "mechanical10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "mechanical12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "gargoyle10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "gargoyle12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "masquerade12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "fragrance10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "fragrance12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "layout": {
+          "width": 320,
+          "height": 568
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 556,
+        "marks": [
+          [
+            22,
+            22
+          ],
+          [
+            22,
+            22
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 390,
+          "height": 844
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 832,
+        "marks": [
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            24
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 768,
+          "height": 1024
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 1010,
+        "marks": [
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            24
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 1024,
+          "height": 768
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 754,
+        "marks": [
+          [
+            24,
+            24
+          ],
+          [
+            24,
+            24
+          ]
+        ]
+      }
+    ],
+    "errors": [],
+    "error": "TimeoutError: page.reload: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for navigation until \"load\"\u001b[22m\n\u001b[2m    - navigated to \"https://jia0796.github.io/wolf_Emcee/\"\u001b[22m\n"
   }
 }

@@ -69,7 +69,7 @@
   },
   {
     "file": "scripts/takeover-ui.mjs",
-    "reason": "新增七配置接刀、雙刀救治、死亡固定步驟、版面、回退、重整與離線模組實測。"
+    "reason": "新增七配置接刀、雙刀救治、死亡固定步驟、版面、回退、重整與離線模組實測。 正式站復盤等待DOM就緒，避免大型PNG整頁load逾時，原驗收斷言保留。"
   },
   {
     "file": "scripts/ui-regression.mjs",
