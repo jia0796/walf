@@ -19,8 +19,8 @@ for(const viewport of [{width:320,height:568},{width:390,height:844},{width:844,
   assert.equal(await p.locator('.board-window').evaluate(e=>e.scrollTop),0);
   await p.locator('[data-board="'+pool[i%pool.length].id+'"]').click();
   assert.equal(await p.locator('#boardDetails,#boardRulesText').count(),0);
-  assert.deepEqual(await p.locator('#setup details > summary').allTextContents(),['特殊房規','夜間順序']);
-  await p.locator('#setup .rules-form > summary').click();await p.locator('#ruleSheriff').selectOption(i%2?'true':'false');await p.locator('#setup .night-order > summary').click();
+  assert.deepEqual(await p.locator('#setup details > summary').allTextContents(),['一般設定','板子專屬設定','夜間順序']);
+  await p.locator('#setup .rules-form details').evaluateAll(es=>es.forEach(e=>e.open=true));await p.locator('#ruleSheriff').selectOption(i%2?'true':'false');await p.locator('#setup .night-order > summary').click();
   await p.locator('.setup-content').evaluate(e=>{e.style.fontSize='150%';e.scrollTop=e.scrollHeight;});
   const geometry=await p.evaluate(()=>{const a=document.querySelector('#setup .actions'),b=document.querySelector('#setupStart').getBoundingClientRect();return {width:document.documentElement.scrollWidth,top:b.top,bottom:b.bottom,height:innerHeight,background:getComputedStyle(a).backgroundImage,color:getComputedStyle(a).backgroundColor,border:getComputedStyle(a).borderTopWidth};});
   assert.ok(geometry.width<=viewport.width+1);assert.ok(geometry.top>=0&&geometry.bottom<=geometry.height+1);assert.equal(geometry.background,'none');assert.equal(geometry.color,'rgba(0, 0, 0, 0)');assert.equal(geometry.border,'0px');

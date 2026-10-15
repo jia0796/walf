@@ -4,6 +4,10 @@
 
 [開啟App](https://jia0796.github.io/wolf_Emcee/) · [本輪接刀報告](docs/takeover-nightknife-report.md) · [尋香魅影報告](docs/fv57-report.md) · [FV57逐項驗收](docs/fv57-validation.json)
 
+## 本分支待審：DESIGN.md 與 UI-01～UI-33
+
+本分支以最新 App 為基準，依既定 A/B/C 調整介面呈現，保留原規則、狀態機、存檔及回退歷史；尚未合併或部署。設計取捨見 [DESIGN.md](DESIGN.md)，33項對照、修改前後截圖、實跑證據及安全回退見 [本次 PR 報告](docs/design-md-ui-report.md)。下方「目前版本」為原正式版紀錄。
+
 ## 目前版本
 
 2026-10-15：**四種特殊角色接刀流程已實作、通過驗收並部署**。App在 `feat/eclipse-host-app`；main只保存規格與文件。存檔v22，快取 `council-v22-2`。
