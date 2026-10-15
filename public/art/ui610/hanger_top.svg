@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 422" role="img" aria-label="狼人殺玩家座位卡裝飾（無文字）">
+<defs><linearGradient id="linkGold" x1="4%" y1="0%" x2="97%" y2="100%"><stop stop-color="#5C4028"/><stop offset=".23" stop-color="#B8884E"/><stop offset=".52" stop-color="#F9DDA4"/><stop offset=".76" stop-color="#967044"/><stop offset="1" stop-color="#6D492A"/></linearGradient></defs>
+<!-- Upper vertical stem with metal ring. Designed to sit behind the card frame. -->
+<rect x="165.4" y="1.8" width="9.2" height="29" rx="4.6" stroke="url(#linkGold)" stroke-width="4.2" fill="none"/>
+<ellipse cx="170" cy="50" rx="20" ry="22.5" stroke="#58391E" stroke-width="10" fill="none"/>
+<ellipse cx="170" cy="50" rx="20" ry="22.5" stroke="url(#linkGold)" stroke-width="6.4" fill="none"/>
+<ellipse cx="170" cy="50" rx="12.8" ry="15.2" stroke="#F4D59A" stroke-opacity=".42" stroke-width="1.1" fill="none"/>
+</svg>

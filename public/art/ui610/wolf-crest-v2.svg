@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="960" viewBox="0 0 600 600">
+<defs>
+<linearGradient id="gold" x1=".12" y1="0" x2=".85" y2="1"><stop offset="0" stop-color="#FFE6A4"/><stop offset=".36" stop-color="#FFD176"/><stop offset=".65" stop-color="#F2A64B"/><stop offset="1" stop-color="#FFF0B0"/></linearGradient>
+<radialGradient id="inner"><stop offset="0" stop-color="#FFD17D" stop-opacity=".24"/><stop offset="1" stop-color="#D88C35" stop-opacity="0"/></radialGradient>
+<filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+<filter id="softglow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<path id="sil" d="M117 339 L199 260 L173 274 L229 195 L251 86 L283 171 L314 162 L402 120 L368 191 Q405 204 429 238 L493 281 Q503 292 487 306 L469 324 Q455 335 433 323 L397 304 Q357 281 332 300 L310 317 Q349 303 388 323 L420 353 L392 348 L429 393 L379 370 L412 448 L364 415 L372 471 L340 438 Q340 482 306 527 L282 565 Q304 511 289 484 L260 442 L247 477 L222 445 L199 461 L196 401 L153 426 L168 375 L121 401 L151 351 Z" fill="#081B30" fill-opacity=".70" stroke="url(#gold)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="none" stroke="url(#gold)" stroke-linecap="round" stroke-linejoin="round">
+<path d="M129 338 Q174 291 216 245 L233 213 M244 171 L260 119 L276 176 M328 169 L378 143 L352 182" stroke-width="7"/>
+<path d="M184 328 Q213 264 273 226 Q318 198 371 213 M158 372 L209 345 L191 396 M216 431 Q208 375 245 344" stroke-width="8"/>
+<path d="M253 308 Q278 278 320 266 L347 276 L326 284 L342 293 L306 287 Z" stroke-width="5"/>
+<path d="M331 303 Q368 285 397 305 L442 315 M410 266 L456 286 L487 288" stroke-width="5"/>
+<path d="M278 339 Q242 378 266 423 L283 394 M307 357 Q293 415 309 474 L325 510 M338 368 Q358 405 380 429" stroke-width="6"/>
+<path d="M354 313 Q373 344 410 364 M338 444 L336 494" stroke-width="4"/>
+</g>
+<path d="M133 329 L186 278 L161 332 L180 319 L157 360 M223 221 L244 149 L244 205 M275 316 L294 302 L291 322" fill="none" stroke="#FFF1BE" stroke-width="2.5" stroke-linecap="round"/>
+<g fill="#FFE5A6"><circle cx="400" cy="263" r="3.6"/><path d="M481 291 l12 -10 q10 11 -1 18 z"/></g>
+<use href="#sil" fill="none" stroke="#FFA83E" stroke-width="19" opacity=".32" filter="url(#glow)"/>
+</svg>

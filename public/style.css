@@ -255,3 +255,8 @@ html,body{min-height:0}
   #host>footer button,#host>nav button{background:linear-gradient(135deg,#302440d9,#26344acc)}
   #host>nav button.primary{background:linear-gradient(135deg,#806a44eb,#806a44d9)}
 }
+
+/* DESIGN v2.1: one approved, fixed background; retain page overlay strengths. */
+body::before,body[data-screen=home]::before,body[data-screen=host]::before{background-image:url('art/ui610/background-v3.png');background-size:cover;background-position:center}
+#host{position:relative}.host-crest{position:absolute;left:50%;top:58%;width:58px;height:58px;transform:translate(-50%,-50%);pointer-events:none;z-index:0;opacity:.75}.host-crest img{width:100%;height:100%;pointer-events:none}
+@media(max-width:360px){.host-crest{display:none}}
