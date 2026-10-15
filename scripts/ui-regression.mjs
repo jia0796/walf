@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
-import {BOARDS,ROLE_DATA,CATALOG_ART} from '../public/data.js';
+import {BOARDS,ROLE_DATA,CATALOG_ART,availableBoards} from '../public/data.js';
 const {chromium}=await import(process.env.COUNCIL_PLAYWRIGHT_MODULE||'playwright');
 const output=new URL(process.env.UI_OUTPUT||'../../qa-artifacts/',import.meta.url);await mkdir(output,{recursive:true});
 const port=Number(process.env.UI_PORT||5294),base='http://127.0.0.1:'+port+'/';
@@ -103,7 +103,7 @@ async function auditCandidates(){
 try{
  await auditLibrary();await auditCandidates();
  const ctx=await browser.newContext({viewport:{width:390,height:844}}),p=await ctx.newPage();await p.goto(base);await p.screenshot({path:new URL('council-home-phone.png',output).pathname.slice(1)});
- await p.getByRole('button',{name:'開始主持',exact:true}).click();await p.locator('[data-count="12"]').click();assert.equal(await p.locator('#boardChoices button').count(),Object.values(BOARDS).filter(b=>b.playerCount===12&&b.category==='normal').length);assert.equal(await p.locator('#boardChoices button').allTextContents().then(a=>a.every(t=>!t.includes('12人'))),true);
+ await p.getByRole('button',{name:'開始主持',exact:true}).click();await p.locator('[data-count="12"]').click();assert.equal(await p.locator('#boardChoices button').count(),Object.values(BOARDS).filter(b=>b.playerCount===12&&b.category==='normal').length);assert.deepEqual(await p.locator('#boardChoices button').allTextContents(),availableBoards(12,'normal').map(b=>b.name));
  for(let i=0;i<12;i++){await p.locator('.board-window').evaluate(e=>e.scrollTop=e.scrollHeight);await p.locator(i%2===0?'#boardsSpecial':'#boardsNormal').click();assert.equal(await p.locator('.board-window').evaluate(e=>e.scrollTop),0);assert.ok(await p.locator('#boardChoices button').count()>0);}assert.deepEqual(await p.locator('#boardChoices button').evaluateAll(es=>es.map(e=>e.dataset.board)),['classic12','classicMixed12','beauty12','12','kingGuard12','kingDream12','evilKnight12','blood12','nightmare12','mechanical12']);const before=await p.locator('#boards h1').boundingBox();await p.locator('#boardChoices button').evaluateAll(es=>es.forEach(e=>e.style.fontSize='25.5px'));await p.locator('.board-window').evaluate(e=>e.scrollTop=e.scrollHeight);const fixed=await p.evaluate(()=>({position:getComputedStyle(document.body,'::before').position,pointer:getComputedStyle(document.body,'::before').pointerEvents,overflow:getComputedStyle(document.body).overflow,outer:document.scrollingElement.scrollTop,background:getComputedStyle(document.body,'::before').backgroundSize}));assert.equal(fixed.position,'fixed');assert.equal(fixed.pointer,'none');assert.equal(fixed.overflow,'hidden');assert.equal(fixed.outer,0);assert.ok(fixed.background.split(',').every(x=>x.trim()==='cover'));assert.equal((await p.locator('#boards h1').boundingBox()).y,before.y);assert.ok((await p.locator('#boardBack').boundingBox()).y<844);results.push({classificationScrollReset:true,fastSwitches:12,exactOrder:true,fixedBackground:fixed,boardFontScale:1.5});
  await p.screenshot({path:new URL('council-board-list.png',output).pathname.slice(1)});await ctx.close();
  if(!process.env.UI_ONLY_SCENARIOS)for(const board of (process.env.UI_BOARDS?process.env.UI_BOARDS.split(','):Object.keys(BOARDS)))await runBoard(board,{flip:board==='classicMixed12'});

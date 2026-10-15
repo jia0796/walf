@@ -1,0 +1,1526 @@
+{
+  "baseline": "359a66b66f61ba5dfdb56b1c3a1992de6150073b",
+  "phases": {
+    "1": {
+      "npm": {
+        "passed": 791,
+        "failed": 0,
+        "stressGames": 52
+      },
+      "stress": [
+        {
+          "board": "10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 118,
+          "maxSaveBytes": 813210
+        },
+        {
+          "board": "12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 252,
+          "maxSaveBytes": 1735106
+        },
+        {
+          "board": "mechanical10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 257,
+          "maxSaveBytes": 1730882
+        },
+        {
+          "board": "mechanical12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 280,
+          "maxSaveBytes": 1996397
+        },
+        {
+          "board": "brothers12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 312,
+          "maxSaveBytes": 2224801
+        },
+        {
+          "board": "nightmare10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 138,
+          "maxSaveBytes": 869166
+        },
+        {
+          "board": "nightmare12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 238,
+          "maxSaveBytes": 1635956
+        },
+        {
+          "board": "classic12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 164,
+          "maxSaveBytes": 982032
+        },
+        {
+          "board": "classicMixed12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 196,
+          "maxSaveBytes": 1388942
+        },
+        {
+          "board": "blood10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 137,
+          "maxSaveBytes": 823126
+        },
+        {
+          "board": "kingGuard10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 157,
+          "maxSaveBytes": 1362784
+        },
+        {
+          "board": "kingDream10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 146,
+          "maxSaveBytes": 818585
+        },
+        {
+          "board": "blood12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 181,
+          "maxSaveBytes": 1436721
+        },
+        {
+          "board": "kingGuard12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 224,
+          "maxSaveBytes": 1431347
+        },
+        {
+          "board": "kingDream12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 245,
+          "maxSaveBytes": 1730708
+        },
+        {
+          "board": "gargoyle10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 194,
+          "maxSaveBytes": 1626442
+        },
+        {
+          "board": "gargoyle12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 251,
+          "maxSaveBytes": 1765951
+        },
+        {
+          "board": "evilKnight10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 144,
+          "maxSaveBytes": 1223244
+        },
+        {
+          "board": "evilKnight12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 234,
+          "maxSaveBytes": 1692339
+        },
+        {
+          "board": "seedHidden10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 183,
+          "maxSaveBytes": 1091461
+        },
+        {
+          "board": "seedHidden12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 239,
+          "maxSaveBytes": 1907460
+        },
+        {
+          "board": "beauty10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 189,
+          "maxSaveBytes": 1540172
+        },
+        {
+          "board": "beauty12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 213,
+          "maxSaveBytes": 1907654
+        },
+        {
+          "board": "masquerade12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 221,
+          "maxSaveBytes": 1998959
+        },
+        {
+          "board": "fragrance10",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 147,
+          "maxSaveBytes": 1192612
+        },
+        {
+          "board": "fragrance12",
+          "seeds": 2,
+          "finished": 2,
+          "actions": 263,
+          "maxSaveBytes": 2253733
+        }
+      ],
+      "targeted": {
+        "stage": 1,
+        "results": [
+          {
+            "entry": {
+              "width": 320,
+              "height": 568
+            },
+            "UI": "01-11",
+            "passed": true
+          },
+          {
+            "entry": {
+              "width": 375,
+              "height": 667
+            },
+            "UI": "01-11",
+            "passed": true
+          },
+          {
+            "entry": {
+              "width": 390,
+              "height": 844
+            },
+            "UI": "01-11",
+            "passed": true
+          },
+          {
+            "entry": {
+              "width": 844,
+              "height": 390
+            },
+            "UI": "01-11",
+            "passed": true
+          },
+          {
+            "entry": {
+              "width": 320,
+              "height": 420
+            },
+            "UI": "01-11",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "existing": {
+        "results": [
+          {
+            "library": 30,
+            "glass": true,
+            "descriptionGrid": true,
+            "touchOutline": true
+          },
+          {
+            "hostLibrary": true,
+            "preserved": true
+          },
+          {
+            "candidateBlue": true,
+            "cancel": true,
+            "refresh": true,
+            "rollback": true,
+            "electionClear": true
+          },
+          {
+            "classificationScrollReset": true,
+            "fastSwitches": 12,
+            "exactOrder": true,
+            "fixedBackground": {
+              "position": "fixed",
+              "pointer": "none",
+              "overflow": "hidden",
+              "outer": 0,
+              "background": "cover"
+            },
+            "boardFontScale": 1.5
+          },
+          {
+            "board": "10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 65,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 99,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "mechanical10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 80,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "mechanical12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 119,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "brothers12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 121,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "nightmare10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 74,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "nightmare12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 111,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "classic12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 89,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "classicMixed12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 115,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "blood10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 66,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "kingGuard10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 65,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "kingDream10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 65,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "blood12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 90,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "kingGuard12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 99,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "kingDream12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 99,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "gargoyle10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 84,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "gargoyle12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 124,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "evilKnight10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 65,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "evilKnight12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 99,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "seedHidden10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 48,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "seedHidden12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 82,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "beauty10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 67,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "beauty12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 101,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "masquerade12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 108,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "fragrance10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 77,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "fragrance12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 115,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "seedHidden10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 73,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "seedHidden10",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 48,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "seedHidden12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 110,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "seedHidden12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 82,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "mechanical12",
+            "reflect": null,
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 122,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "evilKnight12",
+            "reflect": "poison",
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 100,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "evilKnight12",
+            "reflect": "inspect",
+            "nightGun": false,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 100,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "evilKnight12",
+            "reflect": null,
+            "nightGun": true,
+            "immuneNightGun": false,
+            "passed": true,
+            "actions": 77,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "board": "evilKnight12",
+            "reflect": null,
+            "nightGun": true,
+            "immuneNightGun": true,
+            "passed": true,
+            "actions": 101,
+            "refresh": true,
+            "rollback": true,
+            "restart": true,
+            "measures": {
+              "width": 390,
+              "scrollWidth": 390,
+              "buttons": 767,
+              "recap": 759
+            }
+          },
+          {
+            "responsive": {
+              "width": 320,
+              "height": 568
+            },
+            "medicine": true,
+            "cancel": true,
+            "geometry": {
+              "viewport": [
+                320,
+                568
+              ],
+              "pageWidth": 320,
+              "footer": 455,
+              "seats": [
+                203,
+                250,
+                297,
+                344,
+                391,
+                438,
+                203,
+                250,
+                297,
+                344,
+                391,
+                438
+              ],
+              "portraits": 0
+            }
+          },
+          {
+            "responsive": {
+              "width": 768,
+              "height": 1024
+            },
+            "medicine": true,
+            "cancel": true,
+            "geometry": {
+              "viewport": [
+                768,
+                1024
+              ],
+              "pageWidth": 768,
+              "footer": 906,
+              "seats": [
+                346.5,
+                456,
+                565.5,
+                675,
+                784.5,
+                894,
+                346.5,
+                456,
+                565.5,
+                675,
+                784.5,
+                894
+              ],
+              "portraits": 0
+            }
+          },
+          {
+            "responsive": {
+              "width": 1024,
+              "height": 768
+            },
+            "medicine": true,
+            "cancel": true,
+            "geometry": {
+              "viewport": [
+                1024,
+                768
+              ],
+              "pageWidth": 1024,
+              "footer": 650,
+              "seats": [
+                303.828125,
+                370.65625,
+                437.484375,
+                504.328125,
+                571.15625,
+                637.984375,
+                303.828125,
+                370.65625,
+                437.484375,
+                504.328125,
+                571.15625,
+                637.984375
+              ],
+              "portraits": 0
+            }
+          },
+          {
+            "responsive": {
+              "width": 1180,
+              "height": 600
+            },
+            "medicine": true,
+            "cancel": true,
+            "geometry": {
+              "viewport": [
+                1180,
+                600
+              ],
+              "pageWidth": 1180,
+              "footer": 482,
+              "seats": [
+                226.65625,
+                275.328125,
+                324,
+                372.65625,
+                421.328125,
+                470,
+                226.65625,
+                275.328125,
+                324,
+                372.65625,
+                421.328125,
+                470
+              ],
+              "portraits": 0
+            }
+          },
+          {
+            "assets": 24,
+            "loaded": true
+          },
+          {
+            "offline": true,
+            "assets": 55
+          }
+        ],
+        "errors": []
+      }
+    }
+  },
+  "protected": {
+    "baseline": "359a66b66f61ba5dfdb56b1c3a1992de6150073b",
+    "protectedFiles": 129,
+    "unchanged": [
+      {
+        "path": "public/art/backgrounds/shared.png",
+        "sha256": "c38604bb53ee8b26dd604c9458884a0fe99daf5e83111b948a970569f146cc38"
+      },
+      {
+        "path": "public/art/black-market-merchant-approved.png",
+        "sha256": "981112b5fc6af776ca8966158307bf8af7c3abf111034548ecffdbd80b1451d0"
+      },
+      {
+        "path": "public/art/black-wolf-king-minimal-approved.png",
+        "sha256": "b0e24705ccf2ed1846f4f94a3a73947896af5344cd17626e06eb385ab8eee358"
+      },
+      {
+        "path": "public/art/blood-moon-messenger-approved.png",
+        "sha256": "4fd1920ade7640ec363326fac49e547a5f31c13ac69a0aca547a498dcda59613"
+      },
+      {
+        "path": "public/art/catalog/awakenedSeer.png",
+        "sha256": "81e9b72cbfa849a90b933d68a01577a9137221ff89a384cc6b2e2533096167a1"
+      },
+      {
+        "path": "public/art/catalog/beauty.png",
+        "sha256": "46d92b1b05a9a403b421af2c5308cc29ffae519d55467510462084d8c084689c"
+      },
+      {
+        "path": "public/art/catalog/dancer.png",
+        "sha256": "2d31372e01a6be4811d0d5e35f91252f60b287f14b56444c3ed91627c80d32fb"
+      },
+      {
+        "path": "public/art/catalog/dream.png",
+        "sha256": "22889833ef1474b279c10424b916560dfc78ce4c5e8958dd8ef08182f308be45"
+      },
+      {
+        "path": "public/art/catalog/duelist.png",
+        "sha256": "f41c24156559c4cd7141b890f9ec8738811bf1a0909f61996c06572f83d1fe41"
+      },
+      {
+        "path": "public/art/catalog/elder.png",
+        "sha256": "08bf943e5a641441efed93f3cee5493abe8e643b19050739fd477afa9a8bd8e9"
+      },
+      {
+        "path": "public/art/catalog/evilKnight.png",
+        "sha256": "fa377d661797cb24b21551e39d6a2fc875645c878aff38cc65f60c271f468987"
+      },
+      {
+        "path": "public/art/catalog/fragrance.png",
+        "sha256": "a0cd2ce7ed591e7c015ed57305875d4de3b21d18063973a03ea64f94fe91f9c2"
+      },
+      {
+        "path": "public/art/catalog/gargoyle-v04.png",
+        "sha256": "77c1f2be5ffff350a9c2fb3a195932e7db33a8c67e3947946eea1a0aa89232be"
+      },
+      {
+        "path": "public/art/catalog/gargoyle.png",
+        "sha256": "f01fb20ae9e4a55475586757a816f5d6ccfd7b051151231f5732c9f1db821c90"
+      },
+      {
+        "path": "public/art/catalog/gravekeeper.png",
+        "sha256": "aa53d52ea68a3456b1bdc51d5e1a73d421df1f35c9b7fce16f2181a60a5c6fe2"
+      },
+      {
+        "path": "public/art/catalog/guard.png",
+        "sha256": "beddccba82356521986d4fc9c64b4afec8b1cb2ec2a87d127b37cd784e5c9c3d"
+      },
+      {
+        "path": "public/art/catalog/hiddenWolf.png",
+        "sha256": "a7d9eba161798bb76887163b9ab5d0f099d627246cdaadb1e6375d29f93fbe9b"
+      },
+      {
+        "path": "public/art/catalog/hunter.png",
+        "sha256": "380c5d50da1caeaf2cd8e06c652703eeb0d9d80600d438a942d7251f263d4531"
+      },
+      {
+        "path": "public/art/catalog/idiot.png",
+        "sha256": "c5e057141ffaef5081519802bdc2aa4eb7678022a3b922b8e91f502e27095082"
+      },
+      {
+        "path": "public/art/catalog/king.png",
+        "sha256": "1a146cfc290437b6562384b7f6a302c5d92a3d8dc17402b6dfb4b3d1671d2d7d"
+      },
+      {
+        "path": "public/art/catalog/magician.png",
+        "sha256": "09476f9f4162332849aac1bc9964a7754eae9b2240e43d1c5be4079eac821b91"
+      },
+      {
+        "path": "public/art/catalog/mask.png",
+        "sha256": "ac57ebbf80d04fd9b2d9bfb6b5297a9d5abbcefb4aa46658e93b0f334c94cc93"
+      },
+      {
+        "path": "public/art/catalog/mechanical.png",
+        "sha256": "a4649059659bd1d0487a8c69ceae6707c03a61fdd3267de71e6c61560c86c904"
+      },
+      {
+        "path": "public/art/catalog/medium.png",
+        "sha256": "a948bd3dd482a60173716e84d2727c9a9dbd853c23148ecd5f7c5e63091d4420"
+      },
+      {
+        "path": "public/art/catalog/merchant.png",
+        "sha256": "a2e3c4a8fa62b0ccaab2a857169fe559a62d011504ec5cf93e4fdfc5f8015e63"
+      },
+      {
+        "path": "public/art/catalog/nightmare.png",
+        "sha256": "6b70c48600bf891db6922d4dd6ad7cc82921d1f693cc549eca5ddb3e5716bc12"
+      },
+      {
+        "path": "public/art/catalog/seedWolf.png",
+        "sha256": "9fbf4844d82d4aea0678a561194e5177bbee63f1e94c40574d3ff8dc433e6712"
+      },
+      {
+        "path": "public/art/catalog/seer.png",
+        "sha256": "75658b0d38140bdc21ea6a6dd80a68a6e701b4e37c16b82c591f6eea7b6f4e3b"
+      },
+      {
+        "path": "public/art/catalog/villager.png",
+        "sha256": "f549d8d8432e8c9a034ad3b65bfe5b93b9dbce476623654db0fa5e7d40750d01"
+      },
+      {
+        "path": "public/art/catalog/witch.png",
+        "sha256": "071a3354e04dc7eec4af81fa2d7878f971a78f773c60194b61db75609b90c326"
+      },
+      {
+        "path": "public/art/catalog/wolf.png",
+        "sha256": "1233c4f4d5f42afe72a5824a55b4538af976d4ba4aca51b21c25b9b410c36f7a"
+      },
+      {
+        "path": "public/art/catalog/younger.png",
+        "sha256": "7a087916cbfdc2341615813cb9553057a55bc7d9b558539873b03c6a7ed2923c"
+      },
+      {
+        "path": "public/art/council-background.svg",
+        "sha256": "16bde41df5d706a65ec57f2bbe5a75cedcb93d92fda97ec29f1740756b1df086"
+      },
+      {
+        "path": "public/art/demon-hunter-approved.png",
+        "sha256": "3a43ac0a933717f76600f10da290f2ee313f489856a4b2c538b941d13050462d"
+      },
+      {
+        "path": "public/art/dream-catcher-minimal-approved.png",
+        "sha256": "00d20cc9f0a93e0010fb5f072d2f05fa6d77d938a75f94ccfa3cda15d24fb61c"
+      },
+      {
+        "path": "public/art/guard-minimal-approved.png",
+        "sha256": "e874961c48043d292311e661bcf20ac40eafe3f52a468f4e24c9e99a9e81502a"
+      },
+      {
+        "path": "public/art/home-background.svg",
+        "sha256": "15a5acb4d6608ede2d7c5fe4f4eb956a39b3dd749b8135395d92c07453cdb443"
+      },
+      {
+        "path": "public/art/hunter-minimal-approved.png",
+        "sha256": "7b5878158b1068aac612554217d58d9256fc50ca7cc0656fd1b38132cfe91ad5"
+      },
+      {
+        "path": "public/art/idiot-minimal-approved.png",
+        "sha256": "add2c3eecd69b1dab7fb49b2ad91eadcdd806ffeed91200018704986d03baa9c"
+      },
+      {
+        "path": "public/art/magician-minimal-approved.png",
+        "sha256": "f7ce51ce7c6f932938dcd56ad7ab8281fbaa47698b572b2a6b6101b7359af19d"
+      },
+      {
+        "path": "public/art/mechanical-wolf-minimal-approved.png",
+        "sha256": "ab7e583b5d072dd3895c07d3c16d29b14343bd9c811ffa51d1eaf1311be6e4f0"
+      },
+      {
+        "path": "public/art/medium-minimal-approved.png",
+        "sha256": "57ab6c68e609ec8b401ed03f89c8d03014132aa355428e1b1405f4332a3bccfd"
+      },
+      {
+        "path": "public/art/mixed-blood-dual-approved.jpeg",
+        "sha256": "289f669684cc946b465902d637d71e04d5bd75ed3b4265607a6d5bdf129f95b9"
+      },
+      {
+        "path": "public/art/moon-eclipse-sheriff-badge.svg",
+        "sha256": "126ccf378a9a7c2381334078fffb2ab40d738262828f0524e342ce05145629af"
+      },
+      {
+        "path": "public/art/nightmare-minimal-approved.png",
+        "sha256": "adccb48d21eae55aa644ed707138cc82805154eaab571f35b429dd2d03c2e7a0"
+      },
+      {
+        "path": "public/art/recap-sheriff.png",
+        "sha256": "d7a71fa7bc635ab3f61b774b9973ef74c59dc1999009355df1e752ed677ddb48"
+      },
+      {
+        "path": "public/art/recap-vote.png",
+        "sha256": "87e2987704055423868814b70d7d52f0d789c23f631c0869b09398642e3cda2c"
+      },
+      {
+        "path": "public/art/seer-minimal-approved.png",
+        "sha256": "9dece1363d58e2a57d77de3f243588eefc9d051563c7e8bd2f57cd4d5da92807"
+      },
+      {
+        "path": "public/art/sources.json",
+        "sha256": "ce6ad9c376618651a1147806ea19cc5a59592bd04ebef3262599acd33e768f62"
+      },
+      {
+        "path": "public/art/thumbs/awakenedSeer.webp",
+        "sha256": "30665e8c5d1ee72083af5f572846413f3e388a286b289f227a32273c824614dd"
+      },
+      {
+        "path": "public/art/thumbs/beauty.webp",
+        "sha256": "eee8cf7e932e6d30e49efc798c3df5400ddf992956ca908112da27ca3c730695"
+      },
+      {
+        "path": "public/art/thumbs/blood.webp",
+        "sha256": "3fba9b8014101a88e42b0f3bc71c1239151b832323f3ab109667e03a2abca9d3"
+      },
+      {
+        "path": "public/art/thumbs/dancer.webp",
+        "sha256": "7f9069661c9477a8184115e11cd11063a28cab74f1795e507f6ec3b62b0f363a"
+      },
+      {
+        "path": "public/art/thumbs/demon.webp",
+        "sha256": "d888c321d6bfd574f86e04343a8426150c4b234c6bfe0080267a7d99435713a3"
+      },
+      {
+        "path": "public/art/thumbs/dream.webp",
+        "sha256": "050d14b33e89e2fbcd900b61e57d3a5d078a725253ae009ebf8ba57cfa5b0afa"
+      },
+      {
+        "path": "public/art/thumbs/duelist.webp",
+        "sha256": "9adbb1473390f50b0147384ef5cf06872f38b00499b09f203dc925b9763a6f00"
+      },
+      {
+        "path": "public/art/thumbs/elder.webp",
+        "sha256": "2d44b0e10655b81f4c35ecea81b73d3f94a466657f925583f2a07f9f308b53b7"
+      },
+      {
+        "path": "public/art/thumbs/evilKnight.webp",
+        "sha256": "53b0db8e3ed27f7adaf222c44b64d248419696ca5d3c30b477a06ad646d72c97"
+      },
+      {
+        "path": "public/art/thumbs/fragrance.webp",
+        "sha256": "7b71a0c6223fda54536dc912b69752ef6d88fbb4e8797da9c35504cd3a33f5d0"
+      },
+      {
+        "path": "public/art/thumbs/gargoyle.webp",
+        "sha256": "13460907c0b1da6a9286b61d2cd25becc3c42d16ca57b3097b9f049cbde5dc35"
+      },
+      {
+        "path": "public/art/thumbs/gravekeeper.webp",
+        "sha256": "692b05d8e98103569e4d7943edc0e249b4da5cdb07ce759a91da2b8989f42b7f"
+      },
+      {
+        "path": "public/art/thumbs/guard.webp",
+        "sha256": "df92a14757b89f646fa3b4229f2cdf1f3c5edfb61d8eef9fc038ea94be8d6fed"
+      },
+      {
+        "path": "public/art/thumbs/hiddenWolf.webp",
+        "sha256": "c18a453ae2f7379c56fb668a89191ca66d476f2fc9aeaa37dbf9b1b79026eb60"
+      },
+      {
+        "path": "public/art/thumbs/hunter.webp",
+        "sha256": "c86a8366f6ccd6721ef6c118e01effbd3af1e0b444643f29cab6846dcb08b5a7"
+      },
+      {
+        "path": "public/art/thumbs/idiot.webp",
+        "sha256": "d60e94bab554a61c79097bb8950e00f5911956d260523b4d35f27396d6b38802"
+      },
+      {
+        "path": "public/art/thumbs/king.webp",
+        "sha256": "7b12c3d64ed8144fdbb8ebfa4cd86e1ee7f50c4fc34e2f7ed923cb89867a5a71"
+      },
+      {
+        "path": "public/art/thumbs/magician.webp",
+        "sha256": "c0f2830a3e62cb64f1ede3c330dd9e3a767b0fcfab4269a6bbaa4d7f4556ea37"
+      },
+      {
+        "path": "public/art/thumbs/mask.webp",
+        "sha256": "79f4f730c7f72f46e03a4ca2b3c2e67c4f76b627d92d8622e3ccae94d2d8f074"
+      },
+      {
+        "path": "public/art/thumbs/mechanical.webp",
+        "sha256": "3fd858a890aa04021a1c87c99c331cac3b3f4d5d7a443e50334b87977bbc0e3d"
+      },
+      {
+        "path": "public/art/thumbs/medium.webp",
+        "sha256": "2dc52091b6666ce73a63428678a7b37cec4a6e68faa60e703570c003515c4afc"
+      },
+      {
+        "path": "public/art/thumbs/merchant.webp",
+        "sha256": "3e2b5ea075aafd5035be050569180d9f73436880a0bbd5608c38b1fee3309629"
+      },
+      {
+        "path": "public/art/thumbs/mixed.webp",
+        "sha256": "4f1c12193e784f6481673d2a597c3a17f0df788b350c16389e2007a67b661781"
+      },
+      {
+        "path": "public/art/thumbs/nightmare.webp",
+        "sha256": "e00277f296efe93f93c6708f5739f2f60bcb6b0624500fcbb357ec7a10bcfd6a"
+      },
+      {
+        "path": "public/art/thumbs/seedWolf.webp",
+        "sha256": "e1d1c0f6337c988879ea272bec1acf319ae5fe198069b771c642c531e746bda0"
+      },
+      {
+        "path": "public/art/thumbs/seer.webp",
+        "sha256": "79cf57247e55c27ca010a388097bd168ac07b8e444ad4ae76c2301f15e223e0c"
+      },
+      {
+        "path": "public/art/thumbs/villager.webp",
+        "sha256": "b5ce3fed82771c84424ade9dde8fbce1c355b8e7ce15e1b842a31da586a07db6"
+      },
+      {
+        "path": "public/art/thumbs/witch.webp",
+        "sha256": "af866a0e6a997e62175cf3706e593f9735df813e1ebd01255cff7d4ec8cdb701"
+      },
+      {
+        "path": "public/art/thumbs/wolf.webp",
+        "sha256": "bab1a8025fab56626a4291546724abbe9e5ed0a013fc5db45537a38084a793d5"
+      },
+      {
+        "path": "public/art/thumbs/younger.webp",
+        "sha256": "56429b5d15967729afb3b241b84ba52266562cc329e99b809105f1a70367f3a7"
+      },
+      {
+        "path": "public/art/villager-minimal-approved.png",
+        "sha256": "7ef5da03435fe501dd1a8edc4d4ce8cc34ac17b90a736d0c79e6e49437f8f2e3"
+      },
+      {
+        "path": "public/art/werewolf-minimal-approved.png",
+        "sha256": "b28aec8df9358851df3ce89c600a1abba4f336f2380139cdd752c02fe724cbf1"
+      },
+      {
+        "path": "public/art/witch-minimal-approved.png",
+        "sha256": "edf989440bd8417c8c35885304b7ef22df4fccb3ac36d12ff64d3cc18f77605e"
+      },
+      {
+        "path": "public/art/wolf-brother-scar-approved.png",
+        "sha256": "6561190b0599db7741351d9b49fad529b6758688eaf89596a807a00fffe88287"
+      },
+      {
+        "path": "public/art/wolf-younger-brother-approved.png",
+        "sha256": "75bd2e1ae2c29bffabc12485696c6fea5061f4ba34976da392e9e1a6116d5fbd"
+      },
+      {
+        "path": "public/beauty.js",
+        "sha256": "0a92d96bc8c190e53e337f871aff1132c60ca8f1cca01130799acbd619291a25"
+      },
+      {
+        "path": "public/board-rules.js",
+        "sha256": "02d8e5e070fe638c563dd8254deb43c6969431cbef8697266be10d566bd1987b"
+      },
+      {
+        "path": "public/cache-manifest.js",
+        "sha256": "7d57433360d919a0998d9bb3c83d263549524a6db67fadd2e5e1e9f5ad83d7f6"
+      },
+      {
+        "path": "public/data.js",
+        "sha256": "26622b7e21c38789c70b1e43ada9093274f5ac66f92324b1734e16f1ba506125"
+      },
+      {
+        "path": "public/engine.js",
+        "sha256": "7734f9d17f0126fd9ef1244ae3158546b20e024fb32089d689b1de0b34dae5e6"
+      },
+      {
+        "path": "public/fragrance.js",
+        "sha256": "3bd8b6a105d8850218d33610785bc5903a19b1040408f9d537dd52ee5a6e0565"
+      },
+      {
+        "path": "public/icon-192.png",
+        "sha256": "1b4958122d528ae7dd7d72f9ad252da8d2a33d006e040cf2f605782442fe7f04"
+      },
+      {
+        "path": "public/icon-512.png",
+        "sha256": "cb97e4839ba0326b6c8ce035d83f07bed30f28210bad47b3b53f99d034165aa2"
+      },
+      {
+        "path": "public/icon.svg",
+        "sha256": "ff1bbfab81198b70d3731fdb9ec98cdedf7b3649883aae0f1d1e16facca00026"
+      },
+      {
+        "path": "public/identity.js",
+        "sha256": "1096228701c663e3beec4faa364f5b25b1248cade6383723517d37bc78127831"
+      },
+      {
+        "path": "public/manifest.webmanifest",
+        "sha256": "dbabe30dbe0748dfbcfe0b44b5e30a8297d2ac7e4834163622cccc8dd0d6bdad"
+      },
+      {
+        "path": "public/masquerade.js",
+        "sha256": "8832b68e7bd94ffd49dd2a1ef2f67e5030b640002e9b0bdff74791bad8b746ec"
+      },
+      {
+        "path": "public/night.js",
+        "sha256": "cd24fcc8692cd7402b991d51c1ca3440fb4c90d44f6c2191a030ee7dadc78c4b"
+      },
+      {
+        "path": "public/records.js",
+        "sha256": "cf8b38dd110511f61b60e9143be85060632c85310e1a231b33ae763803611983"
+      },
+      {
+        "path": "public/skills/icon-antidote.svg",
+        "sha256": "56881638a36c1ec98ed480f2da0a617f83dbe03e5228c9db081ad4a4e4630a07"
+      },
+      {
+        "path": "public/skills/icon-bond.svg",
+        "sha256": "f48b96a26db32838df12bb77430e2b80ffb34b84e4fc086d8342cb31dde03b37"
+      },
+      {
+        "path": "public/skills/icon-charm.svg",
+        "sha256": "5aff4c715517e3ae64a315bfd1e9aa0e95708f7900da6568e0900b8336baba5e"
+      },
+      {
+        "path": "public/skills/icon-dance.svg",
+        "sha256": "cf771203ca8c984ff8daa29108f3c320099e08d3655c1e635a1f06585f70021a"
+      },
+      {
+        "path": "public/skills/icon-duel.svg",
+        "sha256": "eec5cc1cff7608e97c27848b2e9321308e5cfc208576a1cada7727c8d2a02b5c"
+      },
+      {
+        "path": "public/skills/icon-evil-knight-reflect.svg",
+        "sha256": "9782a05d4e2bebd77e9df869abd227a7b3a8d2b48ae2eef02c106bc8bfec418c"
+      },
+      {
+        "path": "public/skills/icon-fear.svg",
+        "sha256": "ebb15653f0eaa8c423ea8605021c9964abf6887c7b9ac2b167ee0a90cf477fbf"
+      },
+      {
+        "path": "public/skills/icon-gravekeeper.svg",
+        "sha256": "27cb6baa1c862ebc7b6e79445fc341c2a06c25221b744a73c295612aff64ae60"
+      },
+      {
+        "path": "public/skills/icon-gun.svg",
+        "sha256": "eff907366ca0bab126727eb35533d4451e354aa9a630d01f543afcf2aeab91e5"
+      },
+      {
+        "path": "public/skills/icon-heartbreak.svg",
+        "sha256": "97233180381368c9168cbbd1c2e5a4af66fa455bfe3acf62bd3485c125f0140d"
+      },
+      {
+        "path": "public/skills/icon-hunt.svg",
+        "sha256": "29f37aad71a83abaf77fe94181e6624b6331ec77434d6fb14cb11f5d2c3d46cf"
+      },
+      {
+        "path": "public/skills/icon-infect.svg",
+        "sha256": "60d7fc7418ecfe1dd698d2f6634ff8cbddd101bb36df7e5c2e3ad211f07ce2ee"
+      },
+      {
+        "path": "public/skills/icon-inspect.svg",
+        "sha256": "c19df40007f6656a4072df354e5536c3824308b5962f32cd7e34866910f8dfb8"
+      },
+      {
+        "path": "public/skills/icon-learn.svg",
+        "sha256": "3ef58790b371d24dc18234f29b5af75a515a8be31be34c3708f02bb6ec4eebf9"
+      },
+      {
+        "path": "public/skills/icon-mask.svg",
+        "sha256": "624a852658acdfbafd0df28ac577435126613191d6e1bd3724389ce178fc2e68"
+      },
+      {
+        "path": "public/skills/icon-poison.svg",
+        "sha256": "0671a137fdf9269b607331f6643a77f58051f57048d7bdc1e457e561642d79d2"
+      },
+      {
+        "path": "public/skills/icon-role-model.svg",
+        "sha256": "4a9a8851e05c4c9c7ddd5ddeb3d68d03a787599f14a2807fce2ef607adab1469"
+      },
+      {
+        "path": "public/skills/icon-sheriff-badge.svg",
+        "sha256": "f1629595c84c4e459ad5e96dc4c6b4070796a2798410148e381f3bce05d23068"
+      },
+      {
+        "path": "public/skills/icon-shield.svg",
+        "sha256": "fb78c16062432e25a3a013f3a51680f208bd007eacf77c96e9d69a4366f34902"
+      },
+      {
+        "path": "public/skills/icon-sleep.svg",
+        "sha256": "8f8e79c723396401cd35867fb2e22abfb8f40cec06e24a733d3132a4a2ac60dd"
+      },
+      {
+        "path": "public/skills/icon-swap.svg",
+        "sha256": "cc8c12d39adb71d4c03fe1204008f0ed55008e8d59320c704e19647ff2a9b710"
+      },
+      {
+        "path": "public/skills/icon-trade.svg",
+        "sha256": "f48b0d3d3c8907aa4009286d5c644da702cd902d38cb8b0a0017747fb12e4c1f"
+      },
+      {
+        "path": "public/skills/icon-transform.svg",
+        "sha256": "555098208df997fb16ff4885f3d834abc9391e225cbdc9412827ee83c8749887"
+      },
+      {
+        "path": "public/skills/icon-vote.svg",
+        "sha256": "13cb4fba33d60ad8c6c747b3bcc84b19177ad9398066f0f8755cd8b3b6995fc7"
+      },
+      {
+        "path": "public/skills/icon-wolf-attack.svg",
+        "sha256": "613d844185591de9499771448ecb999f164a35961a4df91e345a8749bb7ec4be"
+      },
+      {
+        "path": "public/skills/icon-wolf-inspect.svg",
+        "sha256": "ba4cf9f6be94e69fcfad26aeb8434daa7a086d342d03f7981a4fe3d5b1d1de96"
+      },
+      {
+        "path": "public/sw.js",
+        "sha256": "389026145a729f763305a467457fc7a9c081750cd7770c2c42afaa26a6954c30"
+      },
+      {
+        "path": "public/takeover.js",
+        "sha256": "753fef7411566186b1dec905ef8b6efafc1d43b36032dd01c3c2c903dadd05f5"
+      },
+      {
+        "path": "public/timer.js",
+        "sha256": "4e74514905cf4d2f75b9990086d443aa45aad0416fd0cfb097eafb8a1b376556"
+      },
+      {
+        "path": "public/vote-ui.js",
+        "sha256": "53b859282922f21eb8a4ae30817aef2f8db12224aac79999ca39a8a729b56a1b"
+      },
+      {
+        "path": "public/votes.js",
+        "sha256": "2b63174e2d2bd482ef981ca2793a6acd97e3b5a65074aeecc5a8176bbf1f69f6"
+      }
+    ]
+  }
+}
