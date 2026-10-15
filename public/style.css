@@ -407,10 +407,3 @@ body[data-screen=host] main{height:min(var(--app-height,100dvh),100dvh);padding:
 #host .seat-number{font-size:clamp(10px,calc(var(--seat-width) * .2625),21px);white-space:nowrap}
 .seat-region:has(.mark-more){--caption-history-space:44px}
 #host .host-caption{left:calc(10px + var(--mark-stack) - 8px - var(--face-inset) + var(--seat-width) + 4px + var(--caption-history-space,0px));right:calc(10px + var(--mark-stack) - 8px - var(--face-inset) + var(--seat-width) + 4px + var(--caption-history-space,0px))}
-
-/* Latest explicit allocation: the entire action panel is 15%, seats receive 85%. */
-.host-middle-inner,.host-middle-inner[data-complex=true]{grid-template-rows:minmax(0,85fr) minmax(0,15fr)}
-#host .host-center{display:block;height:100%;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-#host .host-center>footer{margin-bottom:4px}
-#host .judge-box{height:auto;min-height:104px;overflow:visible}
-#host .host-center>nav{margin-top:4px}

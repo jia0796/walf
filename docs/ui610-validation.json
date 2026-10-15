@@ -4601,5 +4601,27 @@
     "stressBoards": 26,
     "stressGames": 52,
     "seedsPerBoard": 2
+  },
+  "currentRollback": {
+    "requested": "回退最新85/15配置",
+    "revertedCommit": "d2ed2a61d8d967b0ff26276b7ccfb812a37d8eac",
+    "restoredPublicTree": "26b2fd5335db3e901f754b7d52d020174052b47b",
+    "allPublicFilesEqualToRestoredVersion": true,
+    "npm": {
+      "passed": 791,
+      "failed": 0,
+      "stressBoards": 26,
+      "stressGames": 52
+    },
+    "ui": {
+      "groups": 12,
+      "errors": []
+    },
+    "takeover": {
+      "groups": 15,
+      "errors": []
+    },
+    "protectedGameTimerSaveCacheAndAssetsUnchanged": true,
+    "deployment": "pending"
   }
 }
