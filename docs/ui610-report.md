@@ -91,4 +91,11 @@ npm test
 
 ## 發布
 
-本地驗收完成；已獲使用者「完成後部署」授權。發布與正式站複驗執行後另追加實際結果。
+已依使用者「完成後部署」授權完成發布。
+
+- 發布 Commit：`35588734620f53a92fb388ccf68c2f085cd519e4`；正式 App 程式最後修改為 `d2ed2a61d8d967b0ff26276b7ccfb812a37d8eac`。
+- [雲端規則測試成功](https://github.com/jia0796/wolf_Emcee/actions/runs/38777995161)；[Pages 建置／部署成功](https://github.com/jia0796/wolf_Emcee/actions/runs/38777995769)。兩流程均執行原有 npm test。
+- [正式站](https://jia0796.github.io/wolf_Emcee/)：新版 UI **12組**、接刀 **15組** 複驗通過，均為0個頁面錯誤。包含85／15比例、直式六排、圖示排序及上下不重疊、操作區內工具／導航、+N背景鎖定及原捲動位置恢復、回退／重整及受控載入後離線恢復。
+- 線上 HTML／CSS／app.js 與7份新增素材共 **10份檔案**，逐一與發布 Commit 原始 Git blob 比對 SHA-256，全部一致。初次檢查使用 Windows 工作檔受到 CRLF／LF 差異影響，已改用實際發布 Git blob，未修改正式素材。
+- main未合併；備份分支仍為原始 `70d8364bd6fc9a6c18f1f1359e034ca5382e5586`。此後的報告更新僅文件，不改正式站程式或快取策略。
+- 真機驗收仍待辦，詳見上方限制。
