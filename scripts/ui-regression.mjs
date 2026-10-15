@@ -73,7 +73,7 @@ async function runBoard(board,{flip=false,reflect=null,nightGun=false,immuneNigh
   }
   assert.equal(await page.locator('#finished').isVisible(),true,'UI did not finish '+board);assert.ok(refresh);
   assert.match(await page.locator('#winnerTitle').textContent(),/獲勝/);if(reflect)assert.equal(await page.locator('#nightRecap img[src="skills/icon-evil-knight-reflect.svg"]').count(),1);
-  assert.equal(await page.locator('.final-identity-card').count(),BOARDS[board].playerCount);assert.equal(await page.locator('#nightRecap details').count(),0);assert.equal(await page.locator('#identityOpen').isVisible(),false);await page.locator('.final-identity-card').last().scrollIntoViewIfNeeded();assert.ok((await page.locator('#nightRecap').innerText()).includes('最終身分回顧'));
+  assert.equal(await page.locator('.final-identities').getAttribute('open'),null);await page.locator('.final-identities > summary').click();assert.equal(await page.locator('.final-identity-card').count(),BOARDS[board].playerCount);assert.equal(await page.locator('#nightRecap .final-identities').count(),1);assert.equal(await page.locator('#identityOpen').isVisible(),false);await page.locator('.final-identity-card').last().scrollIntoViewIfNeeded();assert.ok((await page.locator('#nightRecap').innerText()).includes('最終身分回顧'));
   if(infect){assert.equal(await page.locator('#nightRecap img[src="skills/icon-infect.svg"]').count(),1);assert.ok((await page.locator('#nightRecap [data-event=infection] .recap-outcome').textContent()).includes('成功'));}
   if(mechanicalMedium){assert.ok((await page.locator('#nightRecap').textContent()).includes('機械狼'));}
   if(board.startsWith('blood'))assert.equal(await page.locator('#nightRecap [data-event=lastBlade]').count(),1);
