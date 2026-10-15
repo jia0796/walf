@@ -6,9 +6,11 @@
 
 ## 目前版本
 
-**UI-01～UI-33已實作，六階段及桌面整合驗收通過。** 本輪來源分支為 `feat/ui-01-33-redesign`，尚未合併 `feat/eclipse-host-app` 或 `main`；發布結果見報告。iPhone Safari、iOS PWA、Android與低階裝置仍待真機驗收。
+**UI-01～UI-33已實作，六階段及桌面整合驗收通過。** 本輪來源分支為 `feat/ui-01-33-redesign`，尚未合併 `feat/eclipse-host-app` 或 `main`；已部署至正式網站，發布程式為 `be2a422`（[部署紀錄](https://github.com/jia0796/wolf_Emcee/actions/runs/38692269844)）。iPhone Safari、iOS PWA、Android與低階裝置仍待真機驗收。
 
 存檔維持 **v22**，v1～v21相容及完整回退歷史不變。快取維持 `council-v22-2`，沿原有下載、續載及更新策略；未新增遷移、圖片或SVG。
+
+正式站已逐檔核對 HTML／JS／CSS，UI33 線上15組通過；接刀15組、可達性12組通過。最後補正慢渲染時的首頁雙擊連跳，220ms忙碌情境與五尺寸回歸通過；791項及26板468局再次通過。完整問題與測試紀錄見驗收報告。
 
 ## 本輪已新增及調整
 

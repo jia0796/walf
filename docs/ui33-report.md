@@ -151,7 +151,7 @@ d9ec641 ui(30-33): polish timer modes, touch wheels and stable transitions
 
 ```sh
 git switch -c revert/ui33 <當時最新的工作分支或Commit>
-git revert --no-commit 42e456f d9ec641 7bfd655 1e5b37e a68fb0b 4d7ef60 e39dfe8
+git revert --no-commit be2a422 42e456f d9ec641 7bfd655 1e5b37e a68fb0b 4d7ef60 e39dfe8
 ```
 
 逐項審閱衝突，保留之後的獨立修正；測試通過後commit並依正常發布流程交付。如需取消未完成的revert，使用git revert --abort。此輪沒有存檔遷移，反向UI改動不應清除v22存檔或歷史。部署配置若另有獨立提交，依實際發布方式審核，不能為回退擅改備份。
@@ -163,8 +163,25 @@ git revert --no-commit 42e456f d9ec641 7bfd655 1e5b37e a68fb0b 4d7ef60 e39dfe8
 - 本輪未重構localStorage、削減回退、增加多分頁同步或修改快取，以保留現有遊戲資料與相容性。
 - 320px維持定案三欄；極長名稱可換行，真機可讀性尚需確認，不自行改回雙欄。
 
-## 發布紀錄
+## 發布紀錄與線上補正
 
-[GitHub測試38690606506](https://github.com/jia0796/wolf_Emcee/actions/runs/38690606506)通過。[第一次Pages工作流38690638004](https://github.com/jia0796/wolf_Emcee/actions/runs/38690638004)的測試、建置與artifact上傳均成功，deploy在啟動前被環境保護拒絕：`Branch "feat/ui-01-33-redesign" is not allowed to deploy to github-pages due to environment protection rules.`
+正式站：[月下議會](https://jia0796.github.io/wolf_Emcee/)。實際發布程式Commit：`be2a42223df46fb1ce4af2e6d93130964c2baa60`，來源仍為獨立UI分支，未合併main或原開發分支。
 
-現有名單僅main與feat/eclipse-host-app。未停用或修改保護、未合併App、未修改備份；已向使用者請求僅新增本次分支的明確授權。在核准前正式站仍是上一版，不能把本輪程式已提交當作已部署。
+1. [第一次工作流38690638004](https://github.com/jia0796/wolf_Emcee/actions/runs/38690638004)的build、測試與artifact成功，但第一次deploy被Pages分支名單拒絕。使用者以「部署啊」確認後，只新增精確分支`feat/ui-01-33-redesign`（policy ID 63117250）；原main及feat/eclipse-host-app兩筆保留，branch_policy規則68072080不變，沒有停用保護或加入萬用字元。第二次嘗試部署成功。
+2. 初次正式站UI33檢查及一次重試抓到首頁雙擊可能從首頁直接跳到板子頁。實際線上事件時間已接近180ms防護界線；慢渲染使固定時間門檻不足。補正原生雙擊的跨頁同位置防護，只作用於首頁／人數／板子入口；主持下一步及其他遊戲命令完全不動。新增首擊忙碌220ms再雙擊的五尺寸測試，沒有修改原斷言或測試答案來掩蓋問題。
+3. 補正提交`be2a422`只修改`public/app.js`與`scripts/ui33-ui.mjs`；[最終部署38692269844](https://github.com/jia0796/wolf_Emcee/actions/runs/38692269844)成功，[同Commit測試38692242105](https://github.com/jia0796/wolf_Emcee/actions/runs/38692242105)成功。網站四份實際UI檔案均與已驗證工作樹一致（比較時只正規化CRLF）。
+
+| 最後追加驗證 | 實際結果 |
+| --- | --- |
+| 補正後npm test | 791通過、0失敗；26板×18種子=468局，最大存檔3,237,345bytes；完整歷史未刪 |
+| 補正後既有UI回歸 | 45組通過、35場完整GUI對局，0pageerror |
+| 補正後UI33本機 | 15組通過，包含五尺寸首擊220ms忙碌、26板設定及座位、回退、圖鑑、長局復盤、計時器 |
+| 補正後UI33正式站 | 15組通過，0pageerror，包含同一220ms忙碌雙擊情境 |
+| 正式站特殊接刀 | 15組通過，包含四種角色、7配置、雙刀、回退及離線模組 |
+| 正式站可達性 | 12組通過，包含文字放大、安全區模擬、橫向、鍵盤及減少動態 |
+| 正式站程式一致性 | index.html、app.js、style.css、recap.js全部一致 |
+| 備份／保護差異 | 備份仍359a66b；129檔與4個復盤資料函式保護檢查通過 |
+
+線上接刀及可達性是在第一次成功部署的相同UI33版本執行；後續be2a422只補入口連點，完整UI33另在該最終部署重跑。原始兩次線上失敗與最終通過結果均保存在[驗證資料](ui33-validation.json)，不把首次失敗隱藏。
+
+iPhone Safari、iOS安裝PWA、Android及低階裝置真機仍待驗收。桌面／模擬結果不能取代真機安全區、實際雙指縮放及低階裝置效能驗收。版本仍為存檔v22、快取council-v22-2；本次沒有更動遷移、回退歷史、Service Worker或素材下載策略。
