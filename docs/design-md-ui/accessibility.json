@@ -1,0 +1,123 @@
+{
+  "results": [
+    {
+      "name": "home",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "home",
+      "width": 320,
+      "page": 320,
+      "pane": 320,
+      "paneScroll": 320
+    },
+    {
+      "name": "counts",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "counts",
+      "width": 320,
+      "page": 320,
+      "pane": 304,
+      "paneScroll": 304
+    },
+    {
+      "name": "boards",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "boards",
+      "width": 320,
+      "page": 320,
+      "pane": 278,
+      "paneScroll": 278
+    },
+    {
+      "name": "setup",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "setup",
+      "width": 320,
+      "page": 320,
+      "pane": 280,
+      "paneScroll": 280
+    },
+    {
+      "name": "host",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "host",
+      "width": 320,
+      "page": 320,
+      "pane": 304,
+      "paneScroll": 304
+    },
+    {
+      "name": "library",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "encyclopedia",
+      "width": 320,
+      "page": 320,
+      "pane": 288,
+      "paneScroll": 288
+    },
+    {
+      "name": "preview",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "encyclopedia",
+      "width": 320,
+      "page": 320,
+      "pane": 260,
+      "paneScroll": 260
+    },
+    {
+      "name": "finished",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "finished",
+      "width": 320,
+      "page": 320,
+      "pane": 304,
+      "paneScroll": 304
+    },
+    {
+      "name": "timer-setup",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "host",
+      "width": 320,
+      "page": 320,
+      "pane": 299,
+      "paneScroll": 299
+    },
+    {
+      "name": "timer-countdown",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "host",
+      "width": 320,
+      "page": 320,
+      "pane": 299,
+      "paneScroll": 299
+    },
+    {
+      "name": "timer-landscape",
+      "textScale": 1.5,
+      "safeBottom": 34,
+      "screen": "host",
+      "width": 844,
+      "page": 844,
+      "pane": 428,
+      "paneScroll": 428
+    },
+    {
+      "simulatedPinchScale": 1.5,
+      "zoomAllowed": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "timerGameBytesUnchanged": true
+    }
+  ],
+  "errors": [],
+  "realDevicesNotTested": true
+}
