@@ -1240,5 +1240,388 @@
     "實體iOS PWA",
     "實體Android"
   ],
-  "firstRunIssue": "轉化者舊接刀字幕仍覆蓋固定狼人字幕，修正後精準、全套與介面重跑通過"
+  "firstRunIssue": "轉化者舊接刀字幕仍覆蓋固定狼人字幕，修正後精準、全套與介面重跑通過",
+  "deployment": {
+    "commit": "3718553ced5cb81892fc2eda56a76fbb70a49d1e",
+    "testRun": 38670926262,
+    "deployRun": 38670926269,
+    "testConclusion": "success",
+    "deployConclusion": "success",
+    "url": "https://jia0796.github.io/wolf_Emcee/",
+    "live": {
+      "results": [
+        {
+          "board": "mechanical10",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "mechanical12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "gargoyle10",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "gargoyle12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "masquerade12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "fragrance10",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "fragrance12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "mechanical10",
+          "extraOnlyInSkill": true,
+          "noBasicRequired": true,
+          "selfAndEmpty": true,
+          "closeConsumes": true,
+          "refreshBack": true
+        },
+        {
+          "board": "mechanical12",
+          "extraOnlyInSkill": true,
+          "noBasicRequired": true,
+          "selfAndEmpty": true,
+          "closeConsumes": true,
+          "refreshBack": true
+        },
+        {
+          "layout": {
+            "width": 320,
+            "height": 568
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 556,
+          "marks": [
+            [
+              22,
+              22
+            ],
+            [
+              22,
+              22
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "width": 390,
+            "height": 844
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 832,
+          "marks": [
+            [
+              24,
+              24
+            ],
+            [
+              24,
+              24
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "width": 768,
+            "height": 1024
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 1010,
+          "marks": [
+            [
+              24,
+              24
+            ],
+            [
+              24,
+              24
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "width": 1024,
+            "height": 768
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 754,
+          "marks": [
+            [
+              24,
+              24
+            ],
+            [
+              24,
+              24
+            ]
+          ]
+        },
+        {
+          "dualMarkers": true,
+          "cureOnlyOneHit": true,
+          "basicBeforeExtra": true,
+          "extraLabelOnly": true
+        },
+        {
+          "offlineTakeoverModule": true
+        }
+      ],
+      "errors": []
+    },
+    "initialLiveRun": {
+      "results": [
+        {
+          "board": "mechanical10",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "mechanical12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "gargoyle10",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "gargoyle12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "masquerade12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "fragrance10",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "fragrance12",
+          "firstAndSecondCaptions": true,
+          "togglePreservesCaption": true,
+          "closeCommit": true,
+          "selfKnife": true,
+          "refreshBack": true,
+          "emptyWolfPhase": true,
+          "deadFixedStage": true
+        },
+        {
+          "board": "mechanical10",
+          "extraOnlyInSkill": true,
+          "noBasicRequired": true,
+          "selfAndEmpty": true,
+          "closeConsumes": true,
+          "refreshBack": true
+        },
+        {
+          "board": "mechanical12",
+          "extraOnlyInSkill": true,
+          "noBasicRequired": true,
+          "selfAndEmpty": true,
+          "closeConsumes": true,
+          "refreshBack": true
+        },
+        {
+          "layout": {
+            "width": 320,
+            "height": 568
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 556,
+          "marks": [
+            [
+              22,
+              22
+            ],
+            [
+              22,
+              22
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "width": 390,
+            "height": 844
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 832,
+          "marks": [
+            [
+              24,
+              24
+            ],
+            [
+              24,
+              24
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "width": 768,
+            "height": 1024
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 1010,
+          "marks": [
+            [
+              24,
+              24
+            ],
+            [
+              24,
+              24
+            ]
+          ]
+        },
+        {
+          "layout": {
+            "width": 1024,
+            "height": 768
+          },
+          "overflow": false,
+          "columns": [
+            6,
+            6
+          ],
+          "next": 754,
+          "marks": [
+            [
+              24,
+              24
+            ],
+            [
+              24,
+              24
+            ]
+          ]
+        },
+        {
+          "dualMarkers": true,
+          "cureOnlyOneHit": true,
+          "basicBeforeExtra": true,
+          "extraLabelOnly": true
+        }
+      ],
+      "errors": [],
+      "error": "TimeoutError: page.waitForFunction: Timeout 30000ms exceeded."
+    },
+    "retryReason": "功能14組均通過；最後等候首次Service Worker安裝30秒超時。保留失敗紀錄，將測試等待提高90秒並加入失敗時的Service Worker診斷；所有功能與離線斷言不變。"
+  }
 }

@@ -175,3 +175,5 @@ git revert -m 1 --no-commit 889bf2489e5d7c65b0d6e4d195db89088f03d3dc
 真機iPhone Safari／iOS PWA／Android仍待驗收，不以桌面模擬取代。此補正若要回退，針對其實作Commit執行git revert產生新提交，再跑驗收並升快取；不要reset或覆蓋備份／後續提交。
 
 本次最終本機驗證：`npm test` **791／791通過**（接刀80項），全部26配置×18種子＝468局完成；全板介面45組（其中35局完整主持）、接刀介面15組、尋香魅影10／12人完整對局及版面／離線7組均通過，pageerror為空。實際結果見 [本次驗證資料](takeover-followup-validation.json)。無獨立build或型別檢查指令。
+
+發布Commit：`3718553ced5cb81892fc2eda56a76fbb70a49d1e`；[GitHub測試](https://github.com/jia0796/wolf_Emcee/actions/runs/38670926262)與[Pages部署](https://github.com/jia0796/wolf_Emcee/actions/runs/38670926269)均成功。正式站15組接刀驗證通過、pageerror為空。首次正式站14組功能通過，但最後等待Service Worker初次安裝30秒超時；保留失敗紀錄，測試等待改90秒並加入失敗時診斷，原功能與離線斷言不變，重跑15組全部通過。只調整測試等待，未因此擴大修改App。
