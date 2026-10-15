@@ -236,3 +236,22 @@ html,body{min-height:0}
 .vote-scroll>.vote-modes,.vote-scroll>.vote-target,.vote-scroll>#voteProgress{margin:10px 0}
 #voteSubmissionHint{margin:0 0 6px;overflow-wrap:anywhere}
 #voteOptions button+button{margin-top:8px}
+
+/* Host controls: floating glass buttons, without a surrounding bottom panel. */
+#host>footer,#host>nav{background:transparent;border:0;box-shadow:none}
+#host>footer button,#host>nav button{
+  background:linear-gradient(140deg,#ffffff20,transparent 52%),linear-gradient(135deg,#30244080,#26344a66);
+  border-color:#a5b3cc70;
+  box-shadow:inset 0 1px 0 #ffffff38,inset 0 -1px 0 #ffffff0a,0 3px 12px #03081438;
+  backdrop-filter:blur(14px) saturate(145%);-webkit-backdrop-filter:blur(14px) saturate(145%);
+  color:#f3f1ec;text-shadow:0 1px 3px #030814d9;font-weight:600;
+}
+#host>nav button.primary{
+  background:linear-gradient(140deg,#ffffff24,transparent 52%),linear-gradient(135deg,#b99a629e,#806a448c 58%,#806a446b);
+  border-color:var(--gold);color:#fffaf0;
+}
+#host>footer button:hover:not(:disabled),#host>nav button:hover:not(:disabled){border-color:var(--gold)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  #host>footer button,#host>nav button{background:linear-gradient(135deg,#302440d9,#26344acc)}
+  #host>nav button.primary{background:linear-gradient(135deg,#b99a62cc,#806a44d9)}
+}
