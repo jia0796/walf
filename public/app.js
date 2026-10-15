@@ -43,6 +43,21 @@ document.addEventListener('click',e=>{if(skillSheetState!=='closed'&&mainRegion.
 document.addEventListener('keydown',e=>{if(skillSheetState==='closed'||!skillSheet.open||e.key!=='Tab')return;e.preventDefault();const nodes=[$('skillHistoryClose'),$('skillHistoryList')],index=nodes.indexOf(document.activeElement);nodes[(index+(e.shiftKey?-1:1)+nodes.length)%nodes.length].focus({preventScroll:true});},true);
 document.addEventListener('focusin',e=>{if(skillSheetState!=='closed'&&skillSheet.open&&!skillSheet.contains(e.target))$('skillHistoryClose').focus({preventScroll:true});});
 
+let nextPointerTouch=false,lastNextActivation=-Infinity;
+$('next').addEventListener('pointerdown',e=>{nextPointerTouch=e.pointerType==='touch';},{passive:true});
+$('next').addEventListener('click',e=>{if(e.detail>0&&(e.detail>1||nextPointerTouch&&performance.now()-lastNextActivation<220)){e.preventDefault();e.stopImmediatePropagation();return;}if(e.detail>0)lastNextActivation=performance.now();},true);
+let layoutGame=null,layoutStep=null;
+function updateHostLayout(){
+ if(!game||screen!=='host')return;
+ const middle=$('hostMiddle'),inner=$('hostMiddleInner'),key=game.night+':'+game.step+':'+(game.operation||'')+':'+middle.clientWidth+':'+middle.clientHeight;
+ if(layoutGame!==game||layoutStep!==key){
+  layoutGame=game;layoutStep=key;inner.dataset.complex='false';
+  const content=document.querySelector('.judge-content'),boxes=[...content.children].map(el=>el.getBoundingClientRect()).filter(r=>r.height>0),natural=(boxes.length?Math.max(...boxes.map(r=>r.bottom))-Math.min(...boxes.map(r=>r.top)):0)+$('actions').scrollHeight+16;
+  if(natural>Math.max(104,(inner.clientHeight-8)*.25)+8)inner.dataset.complex='true';
+ }
+ middle.dataset.fallback=String(inner.offsetHeight>middle.clientHeight+1);
+}
+const hostResize=new ResizeObserver(()=>updateHostLayout());hostResize.observe($('hostMiddle'));hostResize.observe($('host'));
 let previousScreen=null;try{previousScreen=sessionStorage.getItem(KEY+'-screen');}catch{}
 try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved){game=upgradeGame(saved);if(restoresSession(performance.getEntriesByType('navigation')[0]?.type,previousScreen,saved.version))screen=saved.step==='finished'?'finished':'host';}}catch{storageOK=false;}
 function persist(){if(!game)return false;try{localStorage.setItem(KEY,JSON.stringify(game));storageOK=true;}catch{storageOK=false;}$('saveStatus').textContent=storageOK?'':'儲存失敗，重新整理可能遺失目前進度';return storageOK;}
@@ -234,13 +249,14 @@ function render(){
    for(const [cls,text] of [['seat-number',p.id+'號'],['role-name',p.active?roleName(game,p):'未使用']]){const el=document.createElement('span');el.className=cls;el.textContent=text;b.append(el);}
    const tags=document.createElement('span');tags.className='seat-tags';
    for(const text of [candidate?'警上':withdrawn?'退水':'',p.active&&!p.alive?'死亡':'',speaking?'發言':''])if(text){const tag=document.createElement('span');tag.textContent=text;tags.append(tag);}b.append(tags);if(game.sheriff===p.id){const badge=document.createElement('img');badge.src='art/moon-eclipse-sheriff-badge.svg';badge.alt='警徽';badge.className='sheriff-badge';b.append(badge);}
-   const allMarks=markersForSeat(game,p.id),visibleMarks=allMarks.slice(-6),marks=document.createElement('span');marks.className='skill-marks';for(const [index,m] of visibleMarks.entries()){const wrap=document.createElement('span');wrap.className='skill-mark';wrap.style.zIndex=String(m.sequence);wrap.dataset.sequence=m.sequence;wrap.dataset.source=m.key;wrap.style.gridRow=String(index%2?1:2);wrap.style.gridColumn=String(container==='left'?Math.floor(index/2)+1:3-Math.floor(index/2));const icon=document.createElement('img');icon.src='skills/icon-'+m.type+'.svg';icon.alt=SKILL_LABELS[m.type];wrap.append(icon);const badge=m.type==='sleep'&&game.nightAction.repeatPending===m.id?'x2':m.partner;if(badge){const partner=document.createElement('span');partner.className='swap-partner'+(m.type==='sleep'?' sleep-repeat':'');partner.textContent=badge;if(m.type==='sleep')partner.setAttribute('aria-label','連續攝夢兩晚');wrap.append(partner);}marks.append(wrap);}b.append(marks);
+   const allMarks=markersForSeat(game,p.id),visibleMarks=allMarks.slice(-6),marks=document.createElement('span');marks.className='skill-marks';for(const [index,m] of visibleMarks.entries()){const wrap=document.createElement('span');wrap.className='skill-mark';wrap.style.zIndex=String(m.sequence);wrap.dataset.sequence=m.sequence;wrap.dataset.source=m.key;wrap.style.gridRow=String([3,2,1,1,2,3][index]);wrap.style.gridColumn=String(container==='left'?(index<3?1:2):(index<3?2:1));const icon=document.createElement('img');icon.src='skills/icon-'+m.type+'.svg';icon.alt=SKILL_LABELS[m.type];wrap.append(icon);const badge=m.type==='sleep'&&game.nightAction.repeatPending===m.id?'x2':m.partner;if(badge){const partner=document.createElement('span');partner.className='swap-partner'+(m.type==='sleep'?' sleep-repeat':'');partner.textContent=badge;if(m.type==='sleep')partner.setAttribute('aria-label','連續攝夢兩晚');wrap.append(partner);}marks.append(wrap);}b.append(marks);
    for(const [name,cls]of [['hanger_top.svg','seat-hanger'],['hanger_bottom.svg','seat-hanger'],[selected?'frame_selected.svg':'frame_normal.svg','seat-frame']]){const image=document.createElement('img');image.src='art/ui610/'+name;image.alt='';image.className=cls;image.draggable=false;image.setAttribute('aria-hidden','true');b.prepend(image);}
    b.onclick=()=>{selectSeat(game,p.id);render();};const slot=document.createElement('div');slot.className='seat-slot';slot.dataset.seat=String(p.id);slot.append(b);if(allMarks.length>6){const more=document.createElement('button');more.type='button';more.id='marksMore-'+p.id;more.className='mark-more';more.textContent='+'+(allMarks.length-6);more.setAttribute('aria-label','查看'+p.id+'號全部'+allMarks.length+'筆技能紀錄');more.onclick=e=>{e.stopPropagation();openSkillHistory(p.id,more);};slot.append(more);}$(container).append(slot);
   }
  }
  $('next').disabled=!canNext(game);$('back').disabled=game.history.length===0;$('explodeOpen').disabled=!canSelfDestruct(game);
- seatViewport.scrollTop=railTop;if(focusSeat)document.querySelector('.seat[aria-label^=\"'+focusSeat+'號 \"]')?.focus({preventScroll:true});
+ const closingCommand=/Close$/.test(s)&&subtitle(game).includes('請閉眼');$('nextCommand').hidden=!closingCommand;$('nextCommand').textContent=closingCommand?subtitle(game):'';$('next').classList.toggle('with-command',closingCommand);
+ updateHostLayout();seatViewport.scrollTop=railTop;if(focusSeat)document.querySelector('.seat[aria-label^=\"'+focusSeat+'號 \"]')?.focus({preventScroll:true});
  $('saveStatus').textContent=storageOK?'':'無法保存本局，關閉頁面後資料可能遺失';
 }
 let drawTimeout=null,drawAnimating=false;
@@ -316,5 +332,5 @@ if(screen==='host'&&game&&['draw','dayDraw'].includes(game.step)&&game.draw&&!ga
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{});
 $('problemReport').href=REPORT_URL;
 const updateViewport=()=>{const viewport=window.visualViewport;document.documentElement.style.setProperty('--app-height',(viewport&&viewport.scale===1?viewport.height:window.innerHeight)+'px');};
-updateViewport();window.addEventListener('resize',updateViewport);window.visualViewport?.addEventListener('resize',updateViewport);
+updateViewport();window.addEventListener('pageshow',updateViewport);document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateViewport();});window.addEventListener('resize',updateViewport);window.visualViewport?.addEventListener('resize',updateViewport);
 if('serviceWorker' in navigator){const resumePrecache=()=>{cacheForeground();navigator.serviceWorker.controller?.postMessage({type:'RESUME_PRECACHE'});};navigator.serviceWorker.addEventListener('controllerchange',resumePrecache);navigator.serviceWorker.ready.then(resumePrecache);window.addEventListener('online',resumePrecache);document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePrecache();});}
