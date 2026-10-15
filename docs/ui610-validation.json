@@ -1,0 +1,2205 @@
+{
+  "baseline": "70d8364bd6fc9a6c18f1f1359e034ca5382e5586",
+  "backup": "backup/eclipse-before-ui-6-10",
+  "implementation": "671182cecfccbd1ef1554f4e5b1377fd4061d2d2",
+  "branch": "feat/eclipse-host-app",
+  "environment": "Windows, isolated headless Microsoft Edge via Playwright; real devices not tested",
+  "npm": {
+    "tests": 791,
+    "passed": 791,
+    "failed": 0,
+    "stressBoards": 26,
+    "stressGames": 468,
+    "stressActions": 51160,
+    "maxSaveBytes": 3237326
+  },
+  "stages": {
+    "stage1": {
+      "npmPassed": 791,
+      "stressGames": 52,
+      "assetsChecked": 7
+    },
+    "stage2": {
+      "npmPassed": 791,
+      "stressGames": 52,
+      "uiGroups": 7
+    },
+    "stage3": {
+      "npmPassed": 791,
+      "stressGames": 52,
+      "uiGroups": 9
+    },
+    "finalLayout": {
+      "uiGroups": 12,
+      "errors": []
+    }
+  },
+  "fullUi": {
+    "groups": 45,
+    "games": 35,
+    "errors": [],
+    "results": [
+      {
+        "library": 30,
+        "glass": true,
+        "descriptionGrid": true,
+        "touchOutline": true
+      },
+      {
+        "hostLibrary": true,
+        "preserved": true
+      },
+      {
+        "candidateBlue": true,
+        "cancel": true,
+        "refresh": true,
+        "rollback": true,
+        "electionClear": true
+      },
+      {
+        "classificationScrollReset": true,
+        "fastSwitches": 12,
+        "exactOrder": true,
+        "fixedBackground": {
+          "position": "fixed",
+          "pointer": "none",
+          "overflow": "hidden",
+          "outer": 0,
+          "background": "cover"
+        },
+        "boardFontScale": 1.5
+      },
+      {
+        "board": "10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "mechanical10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 80,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "mechanical12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 119,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "brothers12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 121,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "nightmare10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 74,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "nightmare12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 111,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "classic12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 89,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "classicMixed12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 115,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "blood10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 66,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "kingGuard10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "kingDream10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "blood12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 90,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "kingGuard12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "kingDream12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "gargoyle10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 84,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "gargoyle12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 124,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "evilKnight10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 65,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "evilKnight12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 99,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "seedHidden10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 48,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "seedHidden12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 82,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "beauty10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 67,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "beauty12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 101,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "masquerade12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 108,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "fragrance10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 77,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "fragrance12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 115,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "seedHidden10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 73,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "seedHidden10",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 48,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "seedHidden12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 110,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "seedHidden12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 82,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "mechanical12",
+        "reflect": null,
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 122,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "evilKnight12",
+        "reflect": "poison",
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 100,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "evilKnight12",
+        "reflect": "inspect",
+        "nightGun": false,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 100,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "evilKnight12",
+        "reflect": null,
+        "nightGun": true,
+        "immuneNightGun": false,
+        "passed": true,
+        "actions": 77,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "board": "evilKnight12",
+        "reflect": null,
+        "nightGun": true,
+        "immuneNightGun": true,
+        "passed": true,
+        "actions": 101,
+        "refresh": true,
+        "rollback": true,
+        "restart": true,
+        "measures": {
+          "width": 390,
+          "scrollWidth": 390,
+          "buttons": 767,
+          "recap": 759
+        }
+      },
+      {
+        "responsive": {
+          "width": 320,
+          "height": 568
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            320,
+            568
+          ],
+          "pageWidth": 320,
+          "footer": 414,
+          "seatWindow": 298,
+          "seats": [
+            94.796875,
+            181.59375,
+            268.390625,
+            355.1875,
+            441.984375,
+            528.78125,
+            94.796875,
+            181.59375,
+            268.390625,
+            355.1875,
+            441.984375,
+            528.78125
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 768,
+          "height": 1024
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            768,
+            1024
+          ],
+          "pageWidth": 768,
+          "footer": 864,
+          "seatWindow": 652,
+          "seats": [
+            169.28125,
+            258.5625,
+            347.84375,
+            437.125,
+            526.40625,
+            615.6875,
+            169.28125,
+            258.5625,
+            347.84375,
+            437.125,
+            526.40625,
+            615.6875
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1024,
+          "height": 768
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1024,
+            768
+          ],
+          "pageWidth": 1024,
+          "footer": 608,
+          "seatWindow": 460,
+          "seats": [
+            169.28125,
+            258.5625,
+            347.84375,
+            437.125,
+            526.40625,
+            615.6875,
+            169.28125,
+            258.5625,
+            347.84375,
+            437.125,
+            526.40625,
+            615.6875
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "responsive": {
+          "width": 1180,
+          "height": 600
+        },
+        "medicine": true,
+        "cancel": true,
+        "geometry": {
+          "viewport": [
+            1180,
+            600
+          ],
+          "pageWidth": 1180,
+          "footer": 446,
+          "seatWindow": 339,
+          "seats": [
+            138.28125,
+            227.5625,
+            316.84375,
+            406.125,
+            495.40625,
+            584.6875,
+            138.28125,
+            227.5625,
+            316.84375,
+            406.125,
+            495.40625,
+            584.6875
+          ],
+          "portraits": 0
+        }
+      },
+      {
+        "assets": 24,
+        "loaded": true
+      },
+      {
+        "offline": true,
+        "assets": 55
+      }
+    ]
+  },
+  "takeover": {
+    "results": [
+      {
+        "board": "mechanical10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "mechanical12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "gargoyle10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "gargoyle12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "masquerade12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "fragrance10",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "fragrance12",
+        "firstAndSecondCaptions": true,
+        "togglePreservesCaption": true,
+        "closeCommit": true,
+        "selfKnife": true,
+        "refreshBack": true,
+        "emptyWolfPhase": true,
+        "deadFixedStage": true
+      },
+      {
+        "board": "mechanical10",
+        "extraOnlyInSkill": true,
+        "noBasicRequired": true,
+        "selfAndEmpty": true,
+        "closeConsumes": true,
+        "refreshBack": true
+      },
+      {
+        "board": "mechanical12",
+        "extraOnlyInSkill": true,
+        "noBasicRequired": true,
+        "selfAndEmpty": true,
+        "closeConsumes": true,
+        "refreshBack": true
+      },
+      {
+        "layout": {
+          "width": 320,
+          "height": 568
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 512,
+        "marks": [
+          [
+            20,
+            20
+          ],
+          [
+            20,
+            20
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 390,
+          "height": 844
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 512,
+        "marks": [
+          [
+            22,
+            22
+          ],
+          [
+            22,
+            22
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 768,
+          "height": 1024
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 968,
+        "marks": [
+          [
+            22,
+            22
+          ],
+          [
+            22,
+            22
+          ]
+        ]
+      },
+      {
+        "layout": {
+          "width": 1024,
+          "height": 768
+        },
+        "overflow": false,
+        "columns": [
+          6,
+          6
+        ],
+        "next": 712,
+        "marks": [
+          [
+            22,
+            22
+          ],
+          [
+            22,
+            22
+          ]
+        ]
+      },
+      {
+        "dualMarkers": true,
+        "cureOnlyOneHit": true,
+        "basicBeforeExtra": true,
+        "extraLabelOnly": true
+      },
+      {
+        "offlineTakeoverModule": true
+      }
+    ],
+    "errors": []
+  },
+  "votes": {
+    "results": [
+      {
+        "case": "UI56-01/02/03",
+        "pass": true
+      },
+      {
+        "case": "UI56-04, keyboard focus",
+        "pass": true
+      },
+      {
+        "case": "UI56-05/07/08",
+        "pass": true
+      },
+      {
+        "case": "UI56-06/10 reedit/cancel/drop/reload",
+        "pass": true
+      },
+      {
+        "case": "Escape discards draft; clear draft plus X preserves submitted round",
+        "pass": true
+      },
+      {
+        "case": "UI56-07/09 PK, back, recap",
+        "pass": true
+      },
+      {
+        "case": "sheriff 1.5 wins over 1",
+        "pass": true
+      },
+      {
+        "case": "storage failure rolls back submission and allows retry",
+        "pass": true
+      },
+      {
+        "case": "layout",
+        "width": 320,
+        "height": 568,
+        "font": 100,
+        "safe": 34,
+        "scrollHeight": 337.609375,
+        "voterHeight": 64,
+        "footerBottom": 507,
+        "viewport": 568,
+        "horizontal": false,
+        "pass": true
+      },
+      {
+        "case": "layout",
+        "width": 390,
+        "height": 844,
+        "font": 100,
+        "safe": 34,
+        "scrollHeight": 473.609375,
+        "voterHeight": 64,
+        "footerBottom": 713,
+        "viewport": 844,
+        "horizontal": false,
+        "pass": true
+      },
+      {
+        "case": "layout",
+        "width": 568,
+        "height": 320,
+        "font": 200,
+        "safe": 0,
+        "scrollHeight": 121.609375,
+        "voterHeight": 64,
+        "footerBottom": 298,
+        "viewport": 320,
+        "horizontal": false,
+        "pass": true
+      },
+      {
+        "case": "layout",
+        "width": 768,
+        "height": 1024,
+        "font": 200,
+        "safe": 34,
+        "scrollHeight": 435.609375,
+        "voterHeight": 64,
+        "footerBottom": 803,
+        "viewport": 1024,
+        "horizontal": false,
+        "pass": true
+      },
+      {
+        "case": "layout",
+        "width": 390,
+        "height": 844,
+        "font": 100,
+        "safe": 150,
+        "scrollHeight": 357.609375,
+        "voterHeight": 64,
+        "footerBottom": 597,
+        "viewport": 844,
+        "horizontal": false,
+        "pass": true
+      }
+    ],
+    "errors": []
+  },
+  "timer": {
+    "results": [
+      {
+        "viewport": {
+          "width": 320,
+          "height": 568
+        },
+        "rect": {
+          "x": 12.796875,
+          "y": 112,
+          "width": 294.390625,
+          "height": 344
+        },
+        "main": {
+          "x": 164.984375,
+          "y": 329,
+          "width": 123.203125,
+          "height": 48
+        },
+        "small": {
+          "x": 123.984375,
+          "y": 387,
+          "width": 72,
+          "height": 44
+        }
+      },
+      {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "rect": {
+          "x": 207,
+          "y": 23,
+          "width": 430,
+          "height": 344
+        },
+        "main": {
+          "x": 427,
+          "y": 240,
+          "width": 191,
+          "height": 48
+        },
+        "small": {
+          "x": 386,
+          "y": 298,
+          "width": 72,
+          "height": 44
+        }
+      },
+      {
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "rect": {
+          "x": 169,
+          "y": 340,
+          "width": 430,
+          "height": 344
+        },
+        "main": {
+          "x": 389,
+          "y": 557,
+          "width": 191,
+          "height": 48
+        },
+        "small": {
+          "x": 348,
+          "y": 615,
+          "width": 72,
+          "height": 44
+        }
+      },
+      {
+        "timerCases": "T01-T08",
+        "clock": true,
+        "gameSaveUnchanged": true
+      },
+      {
+        "fearPoison": true,
+        "firstNight": true,
+        "refresh": true,
+        "rollback": true
+      },
+      {
+        "reducedMotion": true
+      }
+    ],
+    "errors": []
+  },
+  "ui610": {
+    "stage": 5,
+    "results": [
+      {
+        "viewport": {
+          "width": 320,
+          "height": 568
+        },
+        "geometry": {
+          "overflow": false,
+          "seats": [
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            },
+            {
+              "w": 78,
+              "h": 96.796875
+            }
+          ],
+          "left": [
+            68,
+            154.796875,
+            241.59375,
+            328.390625,
+            415.1875,
+            501.984375
+          ],
+          "right": [
+            68,
+            154.796875,
+            241.59375,
+            328.390625,
+            415.1875,
+            501.984375
+          ],
+          "scroll": 567,
+          "client": 312,
+          "crest": 0
+        },
+        "syncScroll": true,
+        "selectionBackRefresh": true
+      },
+      {
+        "viewport": {
+          "width": 375,
+          "height": 667
+        },
+        "geometry": {
+          "overflow": false,
+          "seats": [
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            }
+          ],
+          "left": [
+            68,
+            157.28125,
+            246.5625,
+            335.84375,
+            425.125,
+            514.40625
+          ],
+          "right": [
+            68,
+            157.28125,
+            246.5625,
+            335.84375,
+            425.125,
+            514.40625
+          ],
+          "scroll": 582,
+          "client": 334,
+          "crest": 0
+        },
+        "syncScroll": true,
+        "selectionBackRefresh": true
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "geometry": {
+          "overflow": false,
+          "seats": [
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            }
+          ],
+          "left": [
+            70,
+            159.28125,
+            248.5625,
+            337.84375,
+            427.125,
+            516.40625
+          ],
+          "right": [
+            70,
+            159.28125,
+            248.5625,
+            337.84375,
+            427.125,
+            516.40625
+          ],
+          "scroll": 582,
+          "client": 459,
+          "crest": 0
+        },
+        "syncScroll": true,
+        "selectionBackRefresh": true
+      },
+      {
+        "viewport": {
+          "width": 430,
+          "height": 932
+        },
+        "geometry": {
+          "overflow": false,
+          "seats": [
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            }
+          ],
+          "left": [
+            70,
+            159.28125,
+            248.5625,
+            337.84375,
+            427.125,
+            516.40625
+          ],
+          "right": [
+            70,
+            159.28125,
+            248.5625,
+            337.84375,
+            427.125,
+            516.40625
+          ],
+          "scroll": 582,
+          "client": 525,
+          "crest": 0
+        },
+        "syncScroll": true,
+        "selectionBackRefresh": true
+      },
+      {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "geometry": {
+          "overflow": false,
+          "seats": [
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            }
+          ],
+          "left": [
+            68,
+            157.28125,
+            246.5625,
+            335.84375,
+            425.125,
+            514.40625
+          ],
+          "right": [
+            68,
+            157.28125,
+            246.5625,
+            335.84375,
+            425.125,
+            514.40625
+          ],
+          "scroll": 582,
+          "client": 312,
+          "crest": 0
+        },
+        "syncScroll": true,
+        "selectionBackRefresh": true
+      },
+      {
+        "viewport": {
+          "width": 768,
+          "height": 1024
+        },
+        "geometry": {
+          "overflow": false,
+          "seats": [
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            },
+            {
+              "w": 80,
+              "h": 99.28125
+            }
+          ],
+          "left": [
+            70,
+            159.28125,
+            248.5625,
+            337.84375,
+            427.125,
+            516.40625
+          ],
+          "right": [
+            70,
+            159.28125,
+            248.5625,
+            337.84375,
+            427.125,
+            516.40625
+          ],
+          "scroll": 594,
+          "client": 594,
+          "crest": 0
+        },
+        "syncScroll": true,
+        "selectionBackRefresh": true
+      },
+      {
+        "dragDoesNotSelect": true
+      },
+      {
+        "latestSixAndMirrors": true,
+        "modalReadOnly": true,
+        "allControlsLocked": true,
+        "closingLocked": true,
+        "rapidOpen": true,
+        "focusScrollRestored": true,
+        "backdropAndEscape": true
+      },
+      {
+        "longHistory": 180,
+        "reducedMotion": true,
+        "storageBytesUnchanged": true
+      },
+      {
+        "stackedFullWidthNext": true,
+        "closedCaptionOnlyOnRealStep": true,
+        "disabledLock": true,
+        "nativeDoubleClickGuard": true,
+        "touchDoubleTapGuard": true
+      },
+      {
+        "compactCentreCaption": true,
+        "markerLayout": "34 / 25 / 16; right mirrored",
+        "layouts": [
+          {
+            "viewport": {
+              "width": 320,
+              "height": 568
+            },
+            "caption": {
+              "x": 122.171875,
+              "right": 197.828125,
+              "w": 75.65625
+            },
+            "leftRight": 118.171875,
+            "rightLeft": 201.828125,
+            "seat": 312,
+            "judge": 104,
+            "footer": 414,
+            "mid": 410,
+            "complex": "false",
+            "font": 14,
+            "marks": [
+              {
+                "x": 10,
+                "right": 30,
+                "w": 20
+              },
+              {
+                "x": 10,
+                "right": 30,
+                "w": 20
+              },
+              {
+                "x": 10,
+                "right": 30,
+                "w": 20
+              },
+              {
+                "x": 27,
+                "right": 47,
+                "w": 20
+              },
+              {
+                "x": 27,
+                "right": 47,
+                "w": 20
+              },
+              {
+                "x": 27,
+                "right": 47,
+                "w": 20
+              },
+              {
+                "x": 290,
+                "right": 310,
+                "w": 20
+              },
+              {
+                "x": 290,
+                "right": 310,
+                "w": 20
+              },
+              {
+                "x": 290,
+                "right": 310,
+                "w": 20
+              },
+              {
+                "x": 273,
+                "right": 293,
+                "w": 20
+              },
+              {
+                "x": 273,
+                "right": 293,
+                "w": 20
+              },
+              {
+                "x": 273,
+                "right": 293,
+                "w": 20
+              }
+            ],
+            "stableOnSelection": true,
+            "longCaptionScroll": true,
+            "font200AndSafeAreaNoPageOverflow": true
+          },
+          {
+            "viewport": {
+              "width": 375,
+              "height": 667
+            },
+            "caption": {
+              "x": 127.90625,
+              "right": 247.09375,
+              "w": 119.1875
+            },
+            "leftRight": 123.90625,
+            "rightLeft": 251.09375,
+            "seat": 333.75,
+            "judge": 111.25,
+            "footer": 513,
+            "mid": 509,
+            "complex": "false",
+            "font": 14.25,
+            "marks": [
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 343,
+                "right": 365,
+                "w": 22
+              },
+              {
+                "x": 343,
+                "right": 365,
+                "w": 22
+              },
+              {
+                "x": 343,
+                "right": 365,
+                "w": 22
+              },
+              {
+                "x": 324,
+                "right": 346,
+                "w": 22
+              },
+              {
+                "x": 324,
+                "right": 346,
+                "w": 22
+              },
+              {
+                "x": 324,
+                "right": 346,
+                "w": 22
+              }
+            ],
+            "stableOnSelection": true,
+            "longCaptionScroll": true,
+            "font200AndSafeAreaNoPageOverflow": true
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "caption": {
+              "x": 127.90625,
+              "right": 262.09375,
+              "w": 134.1875
+            },
+            "leftRight": 123.90625,
+            "rightLeft": 266.09375,
+            "seat": 459,
+            "judge": 153,
+            "footer": 684,
+            "mid": 678,
+            "complex": "false",
+            "font": 14.82,
+            "marks": [
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 358,
+                "right": 380,
+                "w": 22
+              },
+              {
+                "x": 358,
+                "right": 380,
+                "w": 22
+              },
+              {
+                "x": 358,
+                "right": 380,
+                "w": 22
+              },
+              {
+                "x": 339,
+                "right": 361,
+                "w": 22
+              },
+              {
+                "x": 339,
+                "right": 361,
+                "w": 22
+              },
+              {
+                "x": 339,
+                "right": 361,
+                "w": 22
+              }
+            ],
+            "stableOnSelection": true,
+            "longCaptionScroll": true,
+            "font200AndSafeAreaNoPageOverflow": true
+          },
+          {
+            "viewport": {
+              "width": 430,
+              "height": 932
+            },
+            "caption": {
+              "x": 127.90625,
+              "right": 302.09375,
+              "w": 174.1875
+            },
+            "leftRight": 123.90625,
+            "rightLeft": 306.09375,
+            "seat": 525,
+            "judge": 175,
+            "footer": 772,
+            "mid": 766,
+            "complex": "false",
+            "font": 16.34,
+            "marks": [
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 398,
+                "right": 420,
+                "w": 22
+              },
+              {
+                "x": 398,
+                "right": 420,
+                "w": 22
+              },
+              {
+                "x": 398,
+                "right": 420,
+                "w": 22
+              },
+              {
+                "x": 379,
+                "right": 401,
+                "w": 22
+              },
+              {
+                "x": 379,
+                "right": 401,
+                "w": 22
+              },
+              {
+                "x": 379,
+                "right": 401,
+                "w": 22
+              },
+              {
+                "x": 398,
+                "right": 420,
+                "w": 22
+              },
+              {
+                "x": 398,
+                "right": 420,
+                "w": 22
+              },
+              {
+                "x": 379,
+                "right": 401,
+                "w": 22
+              },
+              {
+                "x": 379,
+                "right": 401,
+                "w": 22
+              }
+            ],
+            "stableOnSelection": true,
+            "longCaptionScroll": true,
+            "font200AndSafeAreaNoPageOverflow": true
+          },
+          {
+            "viewport": {
+              "width": 844,
+              "height": 390
+            },
+            "caption": {
+              "x": 127.90625,
+              "right": 716.09375,
+              "w": 588.1875
+            },
+            "leftRight": 123.90625,
+            "rightLeft": 720.09375,
+            "seat": 312,
+            "judge": 104,
+            "footer": 236,
+            "mid": 232,
+            "complex": "false",
+            "font": 18,
+            "marks": [
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 10,
+                "right": 32,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 29,
+                "right": 51,
+                "w": 22
+              },
+              {
+                "x": 812,
+                "right": 834,
+                "w": 22
+              },
+              {
+                "x": 812,
+                "right": 834,
+                "w": 22
+              },
+              {
+                "x": 812,
+                "right": 834,
+                "w": 22
+              },
+              {
+                "x": 793,
+                "right": 815,
+                "w": 22
+              },
+              {
+                "x": 793,
+                "right": 815,
+                "w": 22
+              },
+              {
+                "x": 793,
+                "right": 815,
+                "w": 22
+              }
+            ],
+            "stableOnSelection": true,
+            "longCaptionScroll": true,
+            "font200AndSafeAreaNoPageOverflow": true
+          }
+        ],
+        "realDevices": "未實測"
+      },
+      {
+        "offlineAfterControlledOnlineLoad": [
+          {
+            "path": "art/ui610/background-v3.png",
+            "status": 200,
+            "bytes": 2112089
+          },
+          {
+            "path": "art/ui610/frame_normal.svg",
+            "status": 200,
+            "bytes": 3983
+          },
+          {
+            "path": "art/ui610/frame_selected.svg",
+            "status": 200,
+            "bytes": 4621
+          },
+          {
+            "path": "art/ui610/hanger_top.svg",
+            "status": 200,
+            "bytes": 935
+          },
+          {
+            "path": "art/ui610/hanger_bottom.svg",
+            "status": 200,
+            "bytes": 908
+          }
+        ],
+        "offlineRefreshPreservesSave": true,
+        "cacheStrategyChanged": false
+      }
+    ],
+    "errors": [],
+    "realDevices": "未實測"
+  },
+  "realDevices": {
+    "iPhoneSafari": "pending",
+    "iOSInstalledPWA": "pending",
+    "Android": "pending",
+    "lowEndDevice": "pending"
+  },
+  "deployment": {
+    "status": "pending",
+    "url": "https://jia0796.github.io/wolf_Emcee/"
+  }
+}
