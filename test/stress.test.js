@@ -29,7 +29,7 @@ for(const board of Object.keys(BOARDS))test('seeded complete-game stress '+board
    }else if(statusSteps.includes(step)){
     for(const kind of knifeKinds(s)){choose(s,'knifeKind:'+kind);const pool=legal();if(pool.length&&random()>.3)selectSeat(s,pick(pool));else choose(s,'skip');}
    }else if(['mechanicalLearn','mechanicalSkill'].includes(step)){
-    if(!canNext(s)){const pool=legal();if(pool.length&& (s.operation==='mechanicalInspect'||random()>.3))selectSeat(s,pick(pool));else choose(s,'skip');}
+    if(!canNext(s)||step==='mechanicalSkill'&&s.operation==='extraAttack'){const pool=legal();if(pool.length&& (s.operation==='mechanicalInspect'||random()>.3))selectSeat(s,pick(pool));else choose(s,'skip');}
    }else if(step==='mechanicalAction'){
     for(const mode of mechanicalModes(s)){choose(s,'mode:'+mode);const pool=legal();if(mode==='mechanicalInspect'||random()>.3){if(pool.length)selectSeat(s,pick(pool));}else choose(s,'skip');}
    }else if(step==='trade'){

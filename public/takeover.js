@@ -14,7 +14,8 @@ export function initializeTakeover(s){
 export const takeoverOwner=s=>specialFlow(s)&&s.night>1&&s.takeover.ready&&s.takeover.night===s.night?s.players.find(p=>p.id===s.takeover.actor):null;
 export const basicKnifeAvailable=s=>!!takeoverOwner(s)?.alive&&!s.winner;
 export const extraKnifeAvailable=s=>specialFlow(s)&&specialBoard(s)==='mechanical'&&s.night>1&&!s.winner&&s.players.some(p=>p.alive&&p.role==='mechanical')&&s.mechanical.role==='wolf'&&!s.mechanical.extraUsed&&(s.mechanical.extraUnlocked||(s.rules.mechanicalKnife==='allDead'?!originalKnifeActors(s).length:s.night>s.mechanical.night));
-export const knifeKinds=s=>[...(basicKnifeAvailable(s)?['basic']:[]),...(extraKnifeAvailable(s)?['extra']:[])];
+// Knife controls handle basic takeover only; learned extra attack is a mechanical skill.
+export const knifeKinds=s=>basicKnifeAvailable(s)?['basic']:[];
 export const statusSteps=['mechanicalKnifeState','convertedKnifeState','maskKnifeState','fragranceKnifeState'];
 export const switchSteps=['mechanicalLearn','mechanicalSkill','maskInspect','maskAssign','bond'];
 export const knifeEntry=s=>specialFlow(s)&&(statusSteps.includes(s.step)||switchSteps.includes(s.step)&&!(s.night===1&&s.step==='bond'));
@@ -40,13 +41,10 @@ export function switchKnife(s,value){
 }
 export const closeRole=s=>({mechanicalClose:'mechanical',convertedClose:'converted',maskClose:'mask',fragranceClose:'fragrance'})[s.step];
 export function knifeSummary(s){
- const labels={basic:'基本狼刀',extra:'額外狼刀'},kinds=knifeKinds(s);
+ const labels={basic:'基本狼刀',extra:'額外狼刀'},kinds=[...knifeKinds(s),...(extraKnifeAvailable(s)?['extra']:[])];
  return kinds.map(k=>labels[k]+'：'+(s.nightAction[k==='basic'?'attack':'extraAttack']?s.nightAction[k==='basic'?'attack':'extraAttack']+'號':'空刀')).join('；');
 }
 export function knifeStatus(s){
  const basic=basicKnifeAvailable(s)?'可以使用':takeoverOwner(s)&&!takeoverOwner(s).alive?'角色已出局':'本晚不可帶刀';
- if(specialBoard(s)!=='mechanical')return '基本狼刀：'+basic;
- const m=s.mechanical,n=s.nightAction;
- const extra=m.role!=='wolf'?'未取得':m.extraUsed?'已使用':!extraKnifeAvailable(s)?'尚未解鎖':n.extraAttack?'已選目標（未正式提交）':'可以使用';
- return '基本狼刀：'+basic+'\n額外狼刀：'+extra;
+ return '基本狼刀：'+basic;
 }
