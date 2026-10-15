@@ -165,7 +165,7 @@ git revert --no-commit be2a422 42e456f d9ec641 7bfd655 1e5b37e a68fb0b 4d7ef60 e
 
 ## 發布紀錄與線上補正
 
-正式站：[月下議會](https://jia0796.github.io/wolf_Emcee/)。實際發布程式Commit：`be2a42223df46fb1ce4af2e6d93130964c2baa60`，來源仍為獨立UI分支，未合併main或原開發分支。
+正式站：[月下議會](https://jia0796.github.io/wolf_Emcee/)。本輪UI改版發布程式Commit：`be2a42223df46fb1ce4af2e6d93130964c2baa60`，來源仍為獨立UI分支，未合併main或原開發分支。
 
 1. [第一次工作流38690638004](https://github.com/jia0796/wolf_Emcee/actions/runs/38690638004)的build、測試與artifact成功，但第一次deploy被Pages分支名單拒絕。使用者以「部署啊」確認後，只新增精確分支`feat/ui-01-33-redesign`（policy ID 63117250）；原main及feat/eclipse-host-app兩筆保留，branch_policy規則68072080不變，沒有停用保護或加入萬用字元。第二次嘗試部署成功。
 2. 初次正式站UI33檢查及一次重試抓到首頁雙擊可能從首頁直接跳到板子頁。實際線上事件時間已接近180ms防護界線；慢渲染使固定時間門檻不足。補正原生雙擊的跨頁同位置防護，只作用於首頁／人數／板子入口；主持下一步及其他遊戲命令完全不動。新增首擊忙碌220ms再雙擊的五尺寸測試，沒有修改原斷言或測試答案來掩蓋問題。
@@ -185,3 +185,9 @@ git revert --no-commit be2a422 42e456f d9ec641 7bfd655 1e5b37e a68fb0b 4d7ef60 e
 線上接刀及可達性是在第一次成功部署的相同UI33版本執行；後續be2a422只補入口連點，完整UI33另在該最終部署重跑。原始兩次線上失敗與最終通過結果均保存在[驗證資料](ui33-validation.json)，不把首次失敗隱藏。
 
 iPhone Safari、iOS安裝PWA、Android及低階裝置真機仍待驗收。桌面／模擬結果不能取代真機安全區、實際雙指縮放及低階裝置效能驗收。版本仍為存檔v22、快取council-v22-2；本次沒有更動遷移、回退歷史、Service Worker或素材下載策略。
+
+## 使用者要求回退（2026-10-15）
+
+已依使用者要求將正式網站回退至UI改版前版型，重新部署原開發分支`feat/eclipse-host-app`的`aee428d2a0bf174adb1eddf32bcd3d8edc666e55`。[回退部署38693357409](https://github.com/jia0796/wolf_Emcee/actions/runs/38693357409)成功，工作流內測試及建置成功。
+
+經Git tree核對，其public完整目錄與唯讀備份`359a66b66f61ba5dfdb56b1c3a1992de6150073b`完全相同，兩者差異只有規格文件。正式站14個HTML／CSS／JS檔案逐檔符合備份；12座位、開始主持、重新整理及上一步檢查通過，0pageerror。沒有修改存檔、清除歷史、重置分支、合併或強推；UI33程式提交與備份完整保留。上方UI33測試結果為此次回退前的歷史驗證，不代表目前正式網站仍使用UI33。

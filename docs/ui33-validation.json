@@ -6356,7 +6356,7 @@
         "sourceCommit": "be2a42223df46fb1ce4af2e6d93130964c2baa60"
       }
     ],
-    "status": "deployed and live UI33 regression passed",
+    "status": "UI33 was deployed successfully, then rolled back at user request",
     "existingAllowedBranches": [
       "main",
       "feat/eclipse-host-app"
@@ -8275,5 +8275,93 @@
       }
     ],
     "realDevices": "未實測"
+  },
+  "currentRelease": {
+    "deployedFrom": "aee428d2a0bf174adb1eddf32bcd3d8edc666e55",
+    "appBackup": "359a66b66f61ba5dfdb56b1c3a1992de6150073b",
+    "results": [
+      {
+        "path": "index.html",
+        "backupMatches": true,
+        "sha256": "633e3adfb8eb5cd2f22d1160908fa386ac1e4668ed2ecee7b8da648bdeeba96b"
+      },
+      {
+        "path": "app.js",
+        "backupMatches": true,
+        "sha256": "f8a6f04c16da8e247ba462541d8e492cdc0e9c3ca441b4d710e0a6a1696ae22e"
+      },
+      {
+        "path": "style.css",
+        "backupMatches": true,
+        "sha256": "a7eafa5428dae0f5a6f372a2cdeeb44867d499126a2cfb7bc08d59caad82ca70"
+      },
+      {
+        "path": "recap.js",
+        "backupMatches": true,
+        "sha256": "8407314e7e11322765d579b3c5f2ee0b6ab871b901c227c834433e6d28aade7c"
+      },
+      {
+        "path": "engine.js",
+        "backupMatches": true,
+        "sha256": "7734f9d17f0126fd9ef1244ae3158546b20e024fb32089d689b1de0b34dae5e6"
+      },
+      {
+        "path": "night.js",
+        "backupMatches": true,
+        "sha256": "cd24fcc8692cd7402b991d51c1ca3440fb4c90d44f6c2191a030ee7dadc78c4b"
+      },
+      {
+        "path": "takeover.js",
+        "backupMatches": true,
+        "sha256": "753fef7411566186b1dec905ef8b6efafc1d43b36032dd01c3c2c903dadd05f5"
+      },
+      {
+        "path": "fragrance.js",
+        "backupMatches": true,
+        "sha256": "3bd8b6a105d8850218d33610785bc5903a19b1040408f9d537dd52ee5a6e0565"
+      },
+      {
+        "path": "data.js",
+        "backupMatches": true,
+        "sha256": "26622b7e21c38789c70b1e43ada9093274f5ac66f92324b1734e16f1ba506125"
+      },
+      {
+        "path": "timer.js",
+        "backupMatches": true,
+        "sha256": "4e74514905cf4d2f75b9990086d443aa45aad0416fd0cfb097eafb8a1b376556"
+      },
+      {
+        "path": "votes.js",
+        "backupMatches": true,
+        "sha256": "2b63174e2d2bd482ef981ca2793a6acd97e3b5a65074aeecc5a8176bbf1f69f6"
+      },
+      {
+        "path": "vote-ui.js",
+        "backupMatches": true,
+        "sha256": "53b859282922f21eb8a4ae30817aef2f8db12224aac79999ca39a8a729b56a1b"
+      },
+      {
+        "path": "sw.js",
+        "backupMatches": true,
+        "sha256": "389026145a729f763305a467457fc7a9c081750cd7770c2c42afaa26a6954c30"
+      },
+      {
+        "path": "cache-manifest.js",
+        "backupMatches": true,
+        "sha256": "7d57433360d919a0998d9bb3c83d263549524a6db67fadd2e5e1e9f5ad83d7f6"
+      },
+      {
+        "oldUI": true,
+        "twelveSeats": true,
+        "refresh": true,
+        "previous": true
+      }
+    ],
+    "errors": [],
+    "realDevices": "未實測",
+    "status": "rollback deployed successfully",
+    "run": 38693357409,
+    "branch": "feat/eclipse-host-app",
+    "publicTree": "a26fd6f72208dca08f847cfeafad1d00810c3983"
   }
 }
