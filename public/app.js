@@ -12,6 +12,14 @@ import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession,createSpeechT
 document.addEventListener('pointerdown',()=>{document.body.dataset.input='pointer';},true);document.addEventListener('keydown',e=>{if(e.key==='Tab')document.body.dataset.input='keyboard';},true);
 const $=id=>document.getElementById(id),KEY='eclipse-host-v1',PURE='照字幕主持，完成後按下一步';
 let game=null,storageOK=true,screen='home',selectedBoard='12',selectedCount=12,libraryOrigin='home',libraryRoles=Object.keys(ROLE_DATA),libraryCamp='wolf',selectedCategory='normal';
+// UI-only gesture state. Never copied into game snapshots or storage.
+let seatGesture=null,ignoreSeatClickUntil=0;
+const seatViewport=$('seatViewport');
+seatViewport.addEventListener('pointerdown',e=>{ignoreSeatClickUntil=0;seatGesture={x:e.clientX,y:e.clientY,top:seatViewport.scrollTop,moved:!e.isPrimary};},{passive:true});
+seatViewport.addEventListener('pointermove',e=>{if(seatGesture&&(Math.hypot(e.clientX-seatGesture.x,e.clientY-seatGesture.y)>8||seatViewport.scrollTop!==seatGesture.top))seatGesture.moved=true;},{passive:true});
+const finishSeatGesture=e=>{if(seatGesture&&(seatGesture.moved||e.type==='pointercancel'))ignoreSeatClickUntil=performance.now()+400;seatGesture=null;};
+seatViewport.addEventListener('pointerup',finishSeatGesture,{passive:true});seatViewport.addEventListener('pointercancel',finishSeatGesture,{passive:true});
+seatViewport.addEventListener('click',e=>{if(e.detail>0&&performance.now()<ignoreSeatClickUntil){e.preventDefault();e.stopImmediatePropagation();}},true);
 let previousScreen=null;try{previousScreen=sessionStorage.getItem(KEY+'-screen');}catch{}
 try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved){game=upgradeGame(saved);if(restoresSession(performance.getEntriesByType('navigation')[0]?.type,previousScreen,saved.version))screen=saved.step==='finished'?'finished':'host';}}catch{storageOK=false;}
 function persist(){if(!game)return false;try{localStorage.setItem(KEY,JSON.stringify(game));storageOK=true;}catch{storageOK=false;}$('saveStatus').textContent=storageOK?'':'儲存失敗，重新整理可能遺失目前進度';return storageOK;}
@@ -164,7 +172,7 @@ function renderFinished(){
  const recap=$('nightRecap');renderRecap(recap,game,persist);if(!wasFinished)recap.scrollTop=0;
 }
 function render(){
- if(!game){show('home');return;}if(game.step==='finished'){timerStop();renderFinished();return;}persist();show('host');const s=game.step;
+ if(!game){show('home');return;}if(game.step==='finished'){timerStop();renderFinished();return;}const railTop=seatViewport.scrollTop,focusSeat=document.activeElement?.closest('.seat')?.getAttribute('aria-label')?.split('號')[0];persist();show('host');const s=game.step;
  $('phase').textContent='第'+game.night+'天・'+phaseOf(game);$('boardName').textContent=boardOf(game).name;
  $('stepLabel').hidden=true;$('subtitle').textContent=subtitle(game);$('hint').textContent=hintText();$('hint').style.whiteSpace=specialFlow(game)&&statusSteps.includes(s)?'pre-line':'';renderGesture();renderOperation();
  $('selection').textContent=game.action.length?'已選：'+game.action.map(id=>id+'號').join('、'):game.draw?.revealed&&['draw','dayDraw','speeches'].includes(s)?game.draw.seat+'號開始，'+(game.draw.clockwise?'順':'逆')+'時針發言':'';
@@ -204,10 +212,12 @@ function render(){
    const tags=document.createElement('span');tags.className='seat-tags';
    for(const text of [candidate?'警上':withdrawn?'退水':'',p.active&&!p.alive?'死亡':'',speaking?'發言':''])if(text){const tag=document.createElement('span');tag.textContent=text;tags.append(tag);}b.append(tags);if(game.sheriff===p.id){const badge=document.createElement('img');badge.src='art/moon-eclipse-sheriff-badge.svg';badge.alt='警徽';badge.className='sheriff-badge';b.append(badge);}
    const marks=document.createElement('span');marks.className='skill-marks';for(const m of markersForSeat(game,p.id)){const wrap=document.createElement('span');wrap.className='skill-mark';wrap.style.zIndex=String(m.sequence);wrap.dataset.sequence=m.sequence;wrap.dataset.source=m.key;const icon=document.createElement('img');icon.src='skills/icon-'+m.type+'.svg';icon.alt=SKILL_LABELS[m.type];wrap.append(icon);const badge=m.type==='sleep'&&game.nightAction.repeatPending===m.id?'x2':m.partner;if(badge){const partner=document.createElement('span');partner.className='swap-partner'+(m.type==='sleep'?' sleep-repeat':'');partner.textContent=badge;if(m.type==='sleep')partner.setAttribute('aria-label','連續攝夢兩晚');wrap.append(partner);}marks.append(wrap);}b.append(marks);
-   b.onclick=()=>{selectSeat(game,p.id);render();};$(container).append(b);
+   for(const [name,cls]of [['hanger_top.svg','seat-hanger'],['hanger_bottom.svg','seat-hanger'],[selected?'frame_selected.svg':'frame_normal.svg','seat-frame']]){const image=document.createElement('img');image.src='art/ui610/'+name;image.alt='';image.className=cls;image.draggable=false;image.setAttribute('aria-hidden','true');b.prepend(image);}
+   b.onclick=()=>{selectSeat(game,p.id);render();};const slot=document.createElement('div');slot.className='seat-slot';slot.dataset.seat=String(p.id);slot.append(b);$(container).append(slot);
   }
  }
  $('next').disabled=!canNext(game);$('back').disabled=game.history.length===0;$('explodeOpen').disabled=!canSelfDestruct(game);
+ seatViewport.scrollTop=railTop;if(focusSeat)document.querySelector('.seat[aria-label^=\"'+focusSeat+'號 \"]')?.focus({preventScroll:true});
  $('saveStatus').textContent=storageOK?'':'無法保存本局，關閉頁面後資料可能遺失';
 }
 let drawTimeout=null,drawAnimating=false;

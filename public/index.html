@@ -27,9 +27,9 @@
 <section id="encyclopedia" class="screen" hidden><h1>角色圖鑑</h1><button id="libraryReturn" class="quiet">返回首頁</button><div class="library-tabs"><button id="libraryWolves">狼人陣營</button><button id="libraryGood">好人陣營</button></div><div id="roleLibrary" class="library"></div></section>
 <section id="host" hidden>
 <header class="host-top"><span id="phase"></span><span id="boardName"></span><div><button id="rulesOpen" class="quiet">規則</button><button id="hostLibrary" class="quiet">圖鑑</button></div></header>
-<section class="host-center"><p id="stepLabel" class="small" hidden></p><div class="script-box"><p class="caption">主持字幕</p><h2 id="subtitle" aria-live="polite"></h2></div><div class="judge-box"><div class="judge-content"><p id="hint"></p><div id="operationCard"></div><div id="gestureResult"></div><p id="selection"></p></div><div id="actions" class="actions"></div></div></section>
-<div class="host-crest" aria-hidden="true"><img src="art/ui610/wolf-crest-v2.svg" alt="" draggable="false"></div>
-<div class="table"><aside id="left" class="seats" aria-label="1至6號座位"></aside><aside id="right" class="seats" aria-label="7至12號座位"></aside></div>
+<section class="host-caption" aria-label="主持字幕"><div class="script-box"><p class="caption">主持字幕</p><h2 id="subtitle" aria-live="polite"></h2></div></section>
+<div id="hostMiddle" class="host-middle"><div id="hostMiddleInner" class="host-middle-inner"><div class="seat-region"><div class="host-crest" aria-hidden="true"><img src="art/ui610/wolf-crest-v2.svg" alt="" draggable="false"></div><div id="seatViewport" class="table" tabindex="0" aria-label="左右同步座位視窗"><div class="seat-rails"><aside id="left" class="seats" aria-label="1至6號座位"></aside><aside id="right" class="seats" aria-label="12至7號座位"></aside></div></div></div>
+<section class="host-center" aria-label="法官操作"><p id="stepLabel" class="small" hidden></p><div class="judge-box"><div class="judge-content"><p id="hint"></p><div id="operationCard"></div><div id="gestureResult"></div><p id="selection"></p></div><div id="actions" class="actions"></div></div></section></div></div>
 <footer><button id="timerOpen" class="quiet">發言計時器</button><button id="duelOpen" class="quiet" hidden>騎士決鬥</button><button id="explodeOpen" class="quiet" disabled>狼人自爆</button><button id="reset" class="quiet">重新開局</button></footer>
 <p id="saveStatus" class="small" role="status"></p>
 <nav aria-label="主持流程"><button id="back">上一步</button><button id="next" class="primary">下一步</button></nav>
