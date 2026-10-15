@@ -49,12 +49,17 @@ $('next').addEventListener('click',e=>{if(e.detail>0&&(e.detail>1||nextPointerTo
 let layoutGame=null,layoutStep=null;
 function updateHostLayout(){
  if(!game||screen!=='host')return;
- const middle=$('hostMiddle'),inner=$('hostMiddleInner'),key=game.night+':'+game.step+':'+(game.operation||'')+':'+middle.clientWidth+':'+middle.clientHeight;
+ const middle=$('hostMiddle'),inner=$('hostMiddleInner'),region=document.querySelector('.seat-region'),key=game.night+':'+game.step+':'+(game.operation||'')+':'+middle.clientWidth+':'+middle.clientHeight;
  if(layoutGame!==game||layoutStep!==key){
-  layoutGame=game;layoutStep=key;inner.dataset.complex='false';
+  layoutGame=game;layoutStep=key;
   const content=document.querySelector('.judge-content'),boxes=[...content.children].map(el=>el.getBoundingClientRect()).filter(r=>r.height>0),natural=(boxes.length?Math.max(...boxes.map(r=>r.bottom))-Math.min(...boxes.map(r=>r.top)):0)+$('actions').scrollHeight+16;
-  if(natural>Math.max(104,(inner.clientHeight-8)*.25)+8)inner.dataset.complex='true';
+  const tools=document.querySelector('#host footer').offsetHeight,nav=document.querySelector('#host nav').offsetHeight,overhead=tools+nav+20,available=Math.max(0,middle.clientHeight-overhead-4),normal=Math.max(104,available*.25),complex=natural>normal+8,judge=Math.max(104,available*(complex?.35:.25));
+  inner.dataset.complex=String(complex);inner.style.setProperty('--judge-height',judge+'px');
+  const minimumSeats=24+34*(6*422/340-5*.125),minimum=minimumSeats+overhead+judge+4;
+  inner.style.minHeight=Math.ceil(minimum)+'px';
  }
+ const maxWidth=inner.clientWidth<=360?78:80,fit=(region.clientHeight-24)/(6*422/340-5*.125),width=Math.max(34,Math.min(maxWidth,fit));
+ region.style.setProperty('--seat-width',width+'px');region.style.setProperty('--skill-size',Math.max(12,Math.min(inner.clientWidth<=360?20:22,width*.275))+'px');
  middle.dataset.fallback=String(inner.offsetHeight>middle.clientHeight+1);
 }
 const hostResize=new ResizeObserver(()=>updateHostLayout());hostResize.observe($('hostMiddle'));hostResize.observe($('host'));
