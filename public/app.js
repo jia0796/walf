@@ -23,12 +23,18 @@ const voteDialog=createVoteDialog({getGame:()=>game,save:persist,render});
 const OP_LABEL={learnTarget:'學習身分',extraAttack:'額外狼刀',mechanicalInspect:'查驗',mechanicalPoison:'一次性毒藥',shield:'無敵盾'};
 function setupBoard(id){
  selectedBoard=id;const b=BOARDS[id];$('beautyRules').hidden=!b.roles.beauty;$('rulePoisonRomance').value=String(b.defaults.poisonRomance??true);$('ruleLastWolfRomance').value=String(b.defaults.lastWolfRomance??true);$('ruleShieldMode').value=b.defaults.shieldMode||'once';$('setupTitle').textContent=b.name;$('setupWolves').replaceChildren();$('setupGood').replaceChildren();document.querySelectorAll('#setup details').forEach(d=>d.open=false);
- for(const [role,count] of Object.entries(b.roles)){const li=document.createElement('li');li.textContent=ROLES[role]+' ×'+count;li.className=ROLE_DATA[role].kind;$(ROLE_DATA[role].kind==='wolf'?'setupWolves':'setupGood').append(li);}
+ for(const [role,count] of Object.entries(b.roles).sort(([a],[b])=>(ROLE_DATA[a].kind==='villager')-(ROLE_DATA[b].kind==='villager'))){const li=document.createElement('li');li.textContent=ROLES[role]+' ×'+count;li.className=ROLE_DATA[role].kind;$(ROLE_DATA[role].kind==='wolf'?'setupWolves':'setupGood').append(li);}
  $('knightRules').hidden=b.id!=='evilKnight12';$('ruleImmuneNightGun').value=String(b.defaults.immuneNightGun||false);
- $('setupOrder').textContent=(b.firstNightOrder?'第一晚：'+b.firstNightOrder.map(r=>r==='mediumIdentify'?'通靈師舉手':r==='wolves'?'狼人':r==='brothers'?'狼兄狼弟':r==='lucky'?'幸運兒':(r==='converted'?'轉化者':ROLES[r])).join(' → ')+'\n第二晚起：':'')+b.nightOrder.map(r=>r==='infectionNotice'?'感染者身分確認':r==='wolves'?'狼人':r==='lucky'?'幸運兒':r==='converted'?'轉化者':ROLES[r]).join(' → ');
+ renderSetupOrder(true);$('boardSettings').hidden=!(b.roles.idiot||b.id==='evilKnight12'||b.roles.mechanical||b.roles.beauty);
  $('swallowLabel').textContent=(b.swallowThreshold===2?'雙爆':'單爆')+'吞警徽';
  $('ruleSheriff').value=String(b.defaults.sheriff);$('ruleSelfRescue').value=String(b.defaults.selfRescue);$('ruleSwallow').value=String(b.defaults.swallow);$('idiotRules').hidden=!b.roles.idiot;$('ruleIdiotChase').value=String(b.defaults.idiotChase||false);$('mechanicalRules').hidden=!b.roles.mechanical;$('ruleMechanicalKnife').value=b.defaults.mechanicalKnife||'next';$('ruleReflectPoison').value=String(b.defaults.reflectPoison||false);show('setup');
 }
+function renderSetupOrder(first){
+ const b=BOARDS[selectedBoard],initial=b.firstNightOrder||b.nightOrder,different=JSON.stringify(initial)!==JSON.stringify(b.nightOrder);
+ $('orderTabs').hidden=!different;$('orderFirst').setAttribute('aria-selected',String(first));$('orderLater').setAttribute('aria-selected',String(!first));
+ $('setupOrder').textContent=(first?initial:b.nightOrder).map(r=>({mediumIdentify:'通靈師舉手',wolves:'狼人',brothers:'狼兄狼弟',lucky:'幸運兒',converted:'轉化者',infectionNotice:'感染者身分確認'})[r]||ROLES[r]).join(' → ');
+}
+$('orderFirst').onclick=()=>renderSetupOrder(true);$('orderLater').onclick=()=>renderSetupOrder(false);
 function drawBoards(){const available=Object.values(BOARDS).filter(b=>b.enabled&&b.playerCount===selectedCount);$('boardTabs').hidden=!available.some(b=>b.category==='special');for(const [id,category]of [['boardsNormal','normal'],['boardsSpecial','special']])$(id).setAttribute('aria-pressed',String(category===selectedCategory));$('boardChoices').replaceChildren();for(const b of availableBoards(selectedCount,selectedCategory)){const button=document.createElement('button');button.textContent=b.name;button.dataset.board=b.id;button.onclick=()=>setupBoard(b.id);$('boardChoices').append(button);}document.querySelector('.board-window').scrollTop=0;}
 function chooseCount(count){selectedCount=count;selectedCategory='normal';$('boardCount').textContent=count+' 人局';drawBoards();show('boards');}
 function library(origin='home'){
