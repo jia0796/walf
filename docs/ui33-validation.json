@@ -6328,5 +6328,25 @@
     },
     "realDevices": "未實測",
     "maxStressSaveBytes": 3237140
+  },
+  "deployment": {
+    "sourceCommit": "b52ab7222dd29b8514a9de5d667fe4b16615c126",
+    "testRun": 38690606506,
+    "testConclusion": "success",
+    "attempts": [
+      {
+        "run": 38690638004,
+        "attempt": 1,
+        "build": "success",
+        "deploy": "failure",
+        "reason": "Branch feat/ui-01-33-redesign is not allowed to deploy to github-pages due to environment protection rules."
+      }
+    ],
+    "status": "awaiting explicit authorization to add this exact branch to github-pages deployment allowlist",
+    "existingAllowedBranches": [
+      "main",
+      "feat/eclipse-host-app"
+    ],
+    "noProtectionChanged": true
   }
 }

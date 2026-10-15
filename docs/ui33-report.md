@@ -162,3 +162,9 @@ git revert --no-commit 42e456f d9ec641 7bfd655 1e5b37e a68fb0b 4d7ef60 e39dfe8
 - 多人物及長時間軸的玻璃濾鏡、圖片解碼及捲動成本須在低階機量測；桌面171ms等數據不能外推手機。
 - 本輪未重構localStorage、削減回退、增加多分頁同步或修改快取，以保留現有遊戲資料與相容性。
 - 320px維持定案三欄；極長名稱可換行，真機可讀性尚需確認，不自行改回雙欄。
+
+## 發布紀錄
+
+[GitHub測試38690606506](https://github.com/jia0796/wolf_Emcee/actions/runs/38690606506)通過。[第一次Pages工作流38690638004](https://github.com/jia0796/wolf_Emcee/actions/runs/38690638004)的測試、建置與artifact上傳均成功，deploy在啟動前被環境保護拒絕：`Branch "feat/ui-01-33-redesign" is not allowed to deploy to github-pages due to environment protection rules.`
+
+現有名單僅main與feat/eclipse-host-app。未停用或修改保護、未合併App、未修改備份；已向使用者請求僅新增本次分支的明確授權。在核准前正式站仍是上一版，不能把本輪程式已提交當作已部署。
