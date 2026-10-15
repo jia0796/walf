@@ -19,7 +19,7 @@ async function begin(board,viewport={width:390,height:844},sheriff=false,immuneN
  if(board==='12'&&process.env.UI_PROMO){await promoShot(page,'01-home');await page.locator('#encyclopediaOpen').click();await page.locator('.role-card img').first().waitFor();await page.waitForTimeout(500);await promoShot(page,'02-catalog');await page.locator('#libraryReturn').click();}
  await page.getByRole('button',{name:'開始主持',exact:true}).click();await page.locator('[data-count="'+BOARDS[board].playerCount+'"]').click();if(BOARDS[board].category==='special')await page.locator('#boardsSpecial').click();if(board==='12')await promoShot(page,'03-boards');await page.locator('[data-board="'+board+'"]').click();if(board==='12')await promoShot(page,'04-king-magician');
  await page.locator('#setupBack').click();assert.equal(await page.locator(BOARDS[board].category==='special'?'#boardsSpecial':'#boardsNormal').getAttribute('aria-pressed'),'true');await page.locator('[data-board="'+board+'"]').click();
- await page.locator('#setup .rules-form summary').click();await page.locator('#ruleSheriff').selectOption(String(sheriff));if(board==='evilKnight12')await page.locator('#ruleImmuneNightGun').selectOption(String(immuneNightGun));await page.locator('#setupStart').click();
+ await page.locator('#setup .rules-form details').evaluateAll(es=>es.forEach(e=>e.open=true));await page.locator('#ruleSheriff').selectOption(String(sheriff));if(board==='evilKnight12')await page.locator('#ruleImmuneNightGun').selectOption(String(immuneNightGun));await page.locator('#setupStart').click();
  const assigned={};let id=1;for(const [r,n]of Object.entries(BOARDS[board].roles)){assigned[r]=Array.from({length:n},()=>id++);}
  return {context,page,assigned};
 }
