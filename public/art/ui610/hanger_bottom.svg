@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 422" role="img" aria-label="狼人殺玩家座位卡裝飾（無文字）">
-<defs><linearGradient id="linkGold" x1="4%" y1="0%" x2="97%" y2="100%"><stop stop-color="#5C4028"/><stop offset=".23" stop-color="#B8884E"/><stop offset=".52" stop-color="#F9DDA4"/><stop offset=".76" stop-color="#967044"/><stop offset="1" stop-color="#6D492A"/></linearGradient></defs>
-<!-- Short bottom connector; can attach to another card. -->
-<rect x="165.8" y="368.5" width="8.4" height="22" rx="4.2" stroke="#60401E" stroke-width="7" fill="none"/>
-<rect x="165.8" y="368.5" width="8.4" height="22" rx="4.2" stroke="url(#linkGold)" stroke-width="4.1" fill="none"/>
-<ellipse cx="170" cy="404" rx="12.4" ry="12.7" stroke="#5A3D20" stroke-width="8" fill="none"/>
-<ellipse cx="170" cy="404" rx="12.4" ry="12.7" stroke="url(#linkGold)" stroke-width="5.5" fill="none"/>
-</svg>

@@ -12,57 +12,6 @@ import {clampSeconds,remainingSeconds,wheelSeconds,restoresSession,createSpeechT
 document.addEventListener('pointerdown',()=>{document.body.dataset.input='pointer';},true);document.addEventListener('keydown',e=>{if(e.key==='Tab')document.body.dataset.input='keyboard';},true);
 const $=id=>document.getElementById(id),KEY='eclipse-host-v1',PURE='照字幕主持，完成後按下一步';
 let game=null,storageOK=true,screen='home',selectedBoard='12',selectedCount=12,libraryOrigin='home',libraryRoles=Object.keys(ROLE_DATA),libraryCamp='wolf',selectedCategory='normal';
-// UI-only gesture state. Never copied into game snapshots or storage.
-let seatGesture=null,ignoreSeatClickUntil=0;
-const seatViewport=$('seatViewport');
-seatViewport.addEventListener('pointerdown',e=>{ignoreSeatClickUntil=0;seatGesture={x:e.clientX,y:e.clientY,top:seatViewport.scrollTop,moved:!e.isPrimary};},{passive:true});
-seatViewport.addEventListener('pointermove',e=>{if(seatGesture&&(Math.hypot(e.clientX-seatGesture.x,e.clientY-seatGesture.y)>8||seatViewport.scrollTop!==seatGesture.top))seatGesture.moved=true;},{passive:true});
-const finishSeatGesture=e=>{if(seatGesture&&(seatGesture.moved||e.type==='pointercancel'))ignoreSeatClickUntil=performance.now()+400;seatGesture=null;};
-seatViewport.addEventListener('pointerup',finishSeatGesture,{passive:true});seatViewport.addEventListener('pointercancel',finishSeatGesture,{passive:true});
-seatViewport.addEventListener('click',e=>{if(e.detail>0&&performance.now()<ignoreSeatClickUntil){e.preventDefault();e.stopImmediatePropagation();}},true);
-let skillSheetState='closed',skillSheetReturn=null,skillSheetPointer=null;
-const skillSheet=$('skillHistoryDialog'),mainRegion=document.querySelector('main');
-const markSource=m=>({basic:'基本狼刀',extra:'機械狼額外狼刀',revenge:'狼弟復仇刀',guard:'守衛守護',shield:'機械狼守護',inspect:'預言家查驗',mediumInspect:'通靈師查驗',mechanicalInspect:'機械狼查驗',luckyInspect:'幸運兒查驗',poison:'女巫毒藥',mechanicalPoison:'機械狼毒藥',luckyPoison:'幸運兒毒藥'}[m.key]||(/^awakened/.test(m.key)?'覺醒預言家查驗':SKILL_LABELS[m.type]));
-function openSkillHistory(id,trigger){
- if(skillSheetState!=='closed')return;
- const records=markersForSeat(game,id);if(!records.length)return;
- skillSheetState='opening';skillSheetReturn={trigger,priorInert:mainRegion.inert,positions:[$('hostMiddle'),seatViewport,document.querySelector('.judge-box'),$('subtitle')].map(el=>({el,top:el.scrollTop,left:el.scrollLeft}))};
- $('skillHistoryTitle').textContent=id+'號・技能紀錄';$('skillHistoryList').replaceChildren();
- for(const m of records){const li=document.createElement('li'),icon=skillIcon(m.type),text=document.createElement('span');text.textContent=markSource(m)+(m.partner?'・關聯 '+m.partner+'號':'')+(m.type==='sleep'&&game.nightAction.repeatPending===m.id?'・x2':'');li.dataset.sequence=String(m.sequence);li.dataset.source=m.key;li.append(icon,text);$('skillHistoryList').append(li);}
- mainRegion.inert=true;skillSheet.classList.remove('closing');skillSheet.showModal();$('skillHistoryClose').focus({preventScroll:true});setTimeout(()=>{if(skillSheetState==='opening')skillSheetState='open';},240);
-}
-function closeSkillHistory(){
- if(skillSheetState==='closed'||skillSheetState==='closing')return;skillSheetState='closing';skillSheet.classList.add('closing');
- setTimeout(()=>{const saved=skillSheetReturn;mainRegion.inert=saved?.priorInert||false;skillSheet.close();skillSheet.classList.remove('closing');skillSheetState='closed';skillSheetReturn=null;const focus=saved?.trigger?.isConnected?saved.trigger:$('rulesOpen');focus.focus({preventScroll:true});for(const p of saved?.positions||[]){p.el.scrollTop=p.top;p.el.scrollLeft=p.left;}},180);
-}
-$('skillHistoryClose').onclick=closeSkillHistory;
-skillSheet.addEventListener('cancel',e=>{e.preventDefault();closeSkillHistory();});
-skillSheet.addEventListener('pointerdown',e=>{skillSheetPointer={x:e.clientX,y:e.clientY};},{passive:true});
-skillSheet.addEventListener('click',e=>{const r=skillSheet.getBoundingClientRect(),outside=e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom;if(skillSheetState==='open'&&e.target===skillSheet&&outside&&skillSheetPointer&&Math.hypot(e.clientX-skillSheetPointer.x,e.clientY-skillSheetPointer.y)<8)closeSkillHistory();});
-document.addEventListener('click',e=>{if(skillSheetState!=='closed'&&mainRegion.contains(e.target)){e.preventDefault();e.stopImmediatePropagation();}},true);
-document.addEventListener('keydown',e=>{if(skillSheetState==='closed'||!skillSheet.open||e.key!=='Tab')return;e.preventDefault();const nodes=[$('skillHistoryClose'),$('skillHistoryList')],index=nodes.indexOf(document.activeElement);nodes[(index+(e.shiftKey?-1:1)+nodes.length)%nodes.length].focus({preventScroll:true});},true);
-document.addEventListener('focusin',e=>{if(skillSheetState!=='closed'&&skillSheet.open&&!skillSheet.contains(e.target))$('skillHistoryClose').focus({preventScroll:true});});
-
-let nextPointerTouch=false,lastNextActivation=-Infinity;
-$('next').addEventListener('pointerdown',e=>{nextPointerTouch=e.pointerType==='touch';},{passive:true});
-$('next').addEventListener('click',e=>{if(e.detail>0&&(e.detail>1||nextPointerTouch&&performance.now()-lastNextActivation<220)){e.preventDefault();e.stopImmediatePropagation();return;}if(e.detail>0)lastNextActivation=performance.now();},true);
-let layoutGame=null,layoutStep=null;
-function updateHostLayout(){
- if(!game||screen!=='host')return;
- const middle=$('hostMiddle'),inner=$('hostMiddleInner'),region=document.querySelector('.seat-region'),key=game.night+':'+game.step+':'+(game.operation||'')+':'+middle.clientWidth+':'+middle.clientHeight;
- if(layoutGame!==game||layoutStep!==key){
-  layoutGame=game;layoutStep=key;
-  const content=document.querySelector('.judge-content'),boxes=[...content.children].map(el=>el.getBoundingClientRect()).filter(r=>r.height>0),natural=(boxes.length?Math.max(...boxes.map(r=>r.bottom))-Math.min(...boxes.map(r=>r.top)):0)+$('actions').scrollHeight+16;
-  const tools=document.querySelector('#host footer').offsetHeight,nav=document.querySelector('#host nav').offsetHeight,overhead=tools+nav+20,available=Math.max(0,middle.clientHeight-overhead-4),normal=Math.max(104,available*.25),complex=natural>normal+8,judge=Math.max(104,available*(complex?.35:.25));
-  inner.dataset.complex=String(complex);inner.style.setProperty('--judge-height',judge+'px');
-  const minimumSeats=24+34*(6*422/340-5*.125),minimum=minimumSeats+overhead+judge+4;
-  inner.style.minHeight=Math.ceil(minimum)+'px';
- }
- const maxWidth=inner.clientWidth<=360?78:80,fit=(region.clientHeight-24)/(6*422/340-5*.125),width=Math.max(34,Math.min(maxWidth,fit));
- region.style.setProperty('--seat-width',width+'px');region.style.setProperty('--skill-size',Math.max(12,Math.min(inner.clientWidth<=360?20:22,width*.275))+'px');
- middle.dataset.fallback=String(inner.offsetHeight>middle.clientHeight+1);
-}
-const hostResize=new ResizeObserver(()=>updateHostLayout());hostResize.observe($('hostMiddle'));hostResize.observe($('host'));
 let previousScreen=null;try{previousScreen=sessionStorage.getItem(KEY+'-screen');}catch{}
 try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved){game=upgradeGame(saved);if(restoresSession(performance.getEntriesByType('navigation')[0]?.type,previousScreen,saved.version))screen=saved.step==='finished'?'finished':'host';}}catch{storageOK=false;}
 function persist(){if(!game)return false;try{localStorage.setItem(KEY,JSON.stringify(game));storageOK=true;}catch{storageOK=false;}$('saveStatus').textContent=storageOK?'':'儲存失敗，重新整理可能遺失目前進度';return storageOK;}
@@ -215,7 +164,7 @@ function renderFinished(){
  const recap=$('nightRecap');renderRecap(recap,game,persist);if(!wasFinished)recap.scrollTop=0;
 }
 function render(){
- if(!game){show('home');return;}if(game.step==='finished'){timerStop();renderFinished();return;}const railTop=seatViewport.scrollTop,focusSeat=document.activeElement?.closest('.seat')?.getAttribute('aria-label')?.split('號')[0];persist();show('host');const s=game.step;
+ if(!game){show('home');return;}if(game.step==='finished'){timerStop();renderFinished();return;}persist();show('host');const s=game.step;
  $('phase').textContent='第'+game.night+'天・'+phaseOf(game);$('boardName').textContent=boardOf(game).name;
  $('stepLabel').hidden=true;$('subtitle').textContent=subtitle(game);$('hint').textContent=hintText();$('hint').style.whiteSpace=specialFlow(game)&&statusSteps.includes(s)?'pre-line':'';renderGesture();renderOperation();
  $('selection').textContent=game.action.length?'已選：'+game.action.map(id=>id+'號').join('、'):game.draw?.revealed&&['draw','dayDraw','speeches'].includes(s)?game.draw.seat+'號開始，'+(game.draw.clockwise?'順':'逆')+'時針發言':'';
@@ -254,14 +203,11 @@ function render(){
    for(const [cls,text] of [['seat-number',p.id+'號'],['role-name',p.active?roleName(game,p):'未使用']]){const el=document.createElement('span');el.className=cls;el.textContent=text;b.append(el);}
    const tags=document.createElement('span');tags.className='seat-tags';
    for(const text of [candidate?'警上':withdrawn?'退水':'',p.active&&!p.alive?'死亡':'',speaking?'發言':''])if(text){const tag=document.createElement('span');tag.textContent=text;tags.append(tag);}b.append(tags);if(game.sheriff===p.id){const badge=document.createElement('img');badge.src='art/moon-eclipse-sheriff-badge.svg';badge.alt='警徽';badge.className='sheriff-badge';b.append(badge);}
-   const allMarks=markersForSeat(game,p.id),visibleMarks=allMarks.slice(-6),marks=document.createElement('span');marks.className='skill-marks';for(const [index,m] of visibleMarks.entries()){const wrap=document.createElement('span');wrap.className='skill-mark';wrap.style.zIndex=String(m.sequence);wrap.dataset.sequence=m.sequence;wrap.dataset.source=m.key;wrap.style.gridRow=String([3,2,1,1,2,3][index]);wrap.style.gridColumn=String(container==='left'?(index<3?1:2):(index<3?2:1));const icon=document.createElement('img');icon.src='skills/icon-'+m.type+'.svg';icon.alt=SKILL_LABELS[m.type];wrap.append(icon);const badge=m.type==='sleep'&&game.nightAction.repeatPending===m.id?'x2':m.partner;if(badge){const partner=document.createElement('span');partner.className='swap-partner'+(m.type==='sleep'?' sleep-repeat':'');partner.textContent=badge;if(m.type==='sleep')partner.setAttribute('aria-label','連續攝夢兩晚');wrap.append(partner);}marks.append(wrap);}b.append(marks);
-   for(const [name,cls]of [['hanger_top.svg','seat-hanger'],['hanger_bottom.svg','seat-hanger'],[selected?'frame_selected.svg':'frame_normal.svg','seat-frame']]){const image=document.createElement('img');image.src='art/ui610/'+name;image.alt='';image.className=cls;image.draggable=false;image.setAttribute('aria-hidden','true');b.prepend(image);}
-   b.onclick=()=>{selectSeat(game,p.id);render();};const slot=document.createElement('div');slot.className='seat-slot';slot.dataset.seat=String(p.id);slot.append(b);if(allMarks.length>6){const more=document.createElement('button');more.type='button';more.id='marksMore-'+p.id;more.className='mark-more';more.textContent='+'+(allMarks.length-6);more.setAttribute('aria-label','查看'+p.id+'號全部'+allMarks.length+'筆技能紀錄');more.onclick=e=>{e.stopPropagation();openSkillHistory(p.id,more);};slot.append(more);}$(container).append(slot);
+   const marks=document.createElement('span');marks.className='skill-marks';for(const m of markersForSeat(game,p.id)){const wrap=document.createElement('span');wrap.className='skill-mark';wrap.style.zIndex=String(m.sequence);wrap.dataset.sequence=m.sequence;wrap.dataset.source=m.key;const icon=document.createElement('img');icon.src='skills/icon-'+m.type+'.svg';icon.alt=SKILL_LABELS[m.type];wrap.append(icon);const badge=m.type==='sleep'&&game.nightAction.repeatPending===m.id?'x2':m.partner;if(badge){const partner=document.createElement('span');partner.className='swap-partner'+(m.type==='sleep'?' sleep-repeat':'');partner.textContent=badge;if(m.type==='sleep')partner.setAttribute('aria-label','連續攝夢兩晚');wrap.append(partner);}marks.append(wrap);}b.append(marks);
+   b.onclick=()=>{selectSeat(game,p.id);render();};$(container).append(b);
   }
  }
  $('next').disabled=!canNext(game);$('back').disabled=game.history.length===0;$('explodeOpen').disabled=!canSelfDestruct(game);
- const closingCommand=/Close$/.test(s)&&subtitle(game).includes('請閉眼');$('nextCommand').hidden=!closingCommand;$('nextCommand').textContent=closingCommand?subtitle(game):'';$('next').classList.toggle('with-command',closingCommand);
- updateHostLayout();seatViewport.scrollTop=railTop;if(focusSeat)document.querySelector('.seat[aria-label^=\"'+focusSeat+'號 \"]')?.focus({preventScroll:true});
  $('saveStatus').textContent=storageOK?'':'無法保存本局，關閉頁面後資料可能遺失';
 }
 let drawTimeout=null,drawAnimating=false;
@@ -337,5 +283,5 @@ if(screen==='host'&&game&&['draw','dayDraw'].includes(game.step)&&game.draw&&!ga
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).catch(()=>{});
 $('problemReport').href=REPORT_URL;
 const updateViewport=()=>{const viewport=window.visualViewport;document.documentElement.style.setProperty('--app-height',(viewport&&viewport.scale===1?viewport.height:window.innerHeight)+'px');};
-updateViewport();window.addEventListener('pageshow',updateViewport);document.addEventListener('visibilitychange',()=>{if(!document.hidden)updateViewport();});window.addEventListener('resize',updateViewport);window.visualViewport?.addEventListener('resize',updateViewport);
+updateViewport();window.addEventListener('resize',updateViewport);window.visualViewport?.addEventListener('resize',updateViewport);
 if('serviceWorker' in navigator){const resumePrecache=()=>{cacheForeground();navigator.serviceWorker.controller?.postMessage({type:'RESUME_PRECACHE'});};navigator.serviceWorker.addEventListener('controllerchange',resumePrecache);navigator.serviceWorker.ready.then(resumePrecache);window.addEventListener('online',resumePrecache);document.addEventListener('visibilitychange',()=>{if(!document.hidden)resumePrecache();});}
